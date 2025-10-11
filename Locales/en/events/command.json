@@ -1,47 +1,47 @@
 {
   "cooldown": "This command or one of it's subcommands is on cooldown! Try it again in {time}s.",
-  "slashOnly": "This command is only available as a slash command: {command}",
-  "guildOnly": "This command or one of it's subcommands is only available in guilds!",
-  "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
   "disabled": "This command has been disabled by the bot dev. Reason:\n{reason}",
-  "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",
-  "paramRequired": "You need to input a value for the option \"{option}\".\n> {description}",
-  "strictAutocompleteNoMatch": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
-  "strictAutocompleteNoMatchWValues": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.\n\nAvailable options are:\n{availableOptions}",
-  "invalidChannelType": "The channel you inputted for the option \"{option}\" must be one of the channel type choices. Please select one of the available options when entering the slash command.",
-  "permissionDenied": {
-    "embedTitle": "Insufficient Permissions",
-    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n{permissions}",
-    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n{permissions}"
-  },
-  "notAllowed": {
-    "anyone": "No one is allowed to run this command (set by a server administrator)!",
-    "user": "You are not allowed to run this command (set by a server administrator)!",
-    "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
-    "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
-  },
+  "guildOnly": "This command or one of it's subcommands is only available in guilds!",
   "infoCMDs": {
     "emojis": {
-      "embedTitle": "Delete Emoji",
-      "notFound": "The emoji could not be found.",
-      "noPerm": "I do not have permission to delete emojis!",
-      "success": "The emoji has been successfully deleted.",
       "add": {
         "selectMenuPlaceholder": "Select the guild(s) you want to add the emoji to.",
         "success": "The emoji has been successfully added to the selected guild(s)."
-      }
-    },
-    "roles": {
-      "embedTitle": "Delete Role",
-      "notFound": "The role could not be found.",
-      "noPerm": "I do not have permission to delete that role!",
-      "success": "The role has been successfully deleted."
+      },
+      "embedTitle": "Delete Emoji",
+      "noPerm": "I do not have permission to delete emojis!",
+      "notFound": "The emoji could not be found.",
+      "success": "The emoji has been successfully deleted."
     },
     "members": {
       "embedTitle": "Kick/Ban Member",
-      "notFound": "The member could not be found.",
+      "modalTextLabel": "Please specify the reason for kicking/banning the member.",
       "modalTitle": "Reason",
-      "modalTextLabel": "Please specify the reason for kicking/banning the member."
+      "notFound": "The member could not be found."
+    },
+    "roles": {
+      "embedTitle": "Delete Role",
+      "noPerm": "I do not have permission to delete that role!",
+      "notFound": "The role could not be found.",
+      "success": "The role has been successfully deleted."
     }
-  }
+  },
+  "invalidChannelType": "The channel you inputted for the option \"{option}\" must be one of the channel type choices. Please select one of the available options when entering the slash command.",
+  "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
+  "notAllowed": {
+    "anyone": "No one is allowed to run this command (set by a server administrator)!",
+    "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
+    "role": "One of your roles is not allowed to run this command (set by a server administrator)!",
+    "user": "You are not allowed to run this command (set by a server administrator)!"
+  },
+  "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",
+  "paramRequired": "You need to input a value for the option \"{option}\".\n> {description}",
+  "permissionDenied": {
+    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n{permissions}",
+    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n{permissions}",
+    "embedTitle": "Insufficient Permissions"
+  },
+  "slashOnly": "This command is only available as a slash command: {command}",
+  "strictAutocompleteNoMatch": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
+  "strictAutocompleteNoMatchWValues": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.\n\nAvailable options are:\n{availableOptions}"
 }

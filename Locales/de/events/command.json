@@ -1,47 +1,47 @@
 {
   "cooldown": "Dieser Befehl oder einer seiner Unterbefehle ist im Cooldown! Versuche es erneut in {time}s.",
-  "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: {command}",
-  "guildOnly": "Dieser Befehl oder einer seiner Unterbefehle ist nur auf Servern verfügbar!",
-  "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
   "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",
-  "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
-  "paramRequired": "Du musst einen Wert für die Option \"{option}\" angeben.\n> {description}",
-  "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
-  "strictAutocompleteNoMatchWValues": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.\n\nVerfügbare Optionen sind:\n{availableOptions}",
-  "invalidChannelType": "Der Kanal, den du für die Option \"{option}\" eingegeben hast, muss einer der zur Auswahl stehenden Kanaltypen sein. Bitte wähle eine der verfügbaren Optionen, bei der Eingabe des Slash-Befehls.",
-  "permissionDenied": {
-    "embedTitle": "Unzureichende Berechtigungen",
-    "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n{permissions}",
-    "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n{permissions}"
-  },
-  "notAllowed": {
-    "anyone": "Niemandem ist es erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
-    "user": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
-    "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
-    "role": "Mit einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
-  },
+  "guildOnly": "Dieser Befehl oder einer seiner Unterbefehle ist nur auf Servern verfügbar!",
   "infoCMDs": {
     "emojis": {
-      "embedTitle": "Emoji Löschen",
-      "notFound": "Das Emoji konnte nicht gefunden werden.",
-      "noPerm": "Ich habe keine Berechtigung, Emojis zu löschen!",
-      "success": "Das Emoji wurde erfolgreich gelöscht.",
       "add": {
         "selectMenuPlaceholder": "Wähle den/die Server aus, zu denen du das Emoji hinzufügen möchtest.",
         "success": "Das Emoji wurde erfolgreich zu den ausgewählten Servern hinzugefügt."
-      }
-    },
-    "roles": {
-      "embedTitle": "Rolle Löschen",
-      "notFound": "Die Rolle konnte nicht gefunden werden.",
-      "noPerm": "Ich habe keine Berechtigung, diese Rolle zu löschen!",
-      "success": "Die Rolle wurde erfolgreich gelöscht."
+      },
+      "embedTitle": "Emoji Löschen",
+      "noPerm": "Ich habe keine Berechtigung, Emojis zu löschen!",
+      "notFound": "Das Emoji konnte nicht gefunden werden.",
+      "success": "Das Emoji wurde erfolgreich gelöscht."
     },
     "members": {
       "embedTitle": "Mitglied kicken/bannen",
-      "notFound": "Das Mitglied konnte nicht gefunden werden.",
+      "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an.",
       "modalTitle": "Begründung",
-      "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an."
+      "notFound": "Das Mitglied konnte nicht gefunden werden."
+    },
+    "roles": {
+      "embedTitle": "Rolle Löschen",
+      "noPerm": "Ich habe keine Berechtigung, diese Rolle zu löschen!",
+      "notFound": "Die Rolle konnte nicht gefunden werden.",
+      "success": "Die Rolle wurde erfolgreich gelöscht."
     }
-  }
+  },
+  "invalidChannelType": "Der Kanal, den du für die Option \"{option}\" eingegeben hast, muss einer der zur Auswahl stehenden Kanaltypen sein. Bitte wähle eine der verfügbaren Optionen, bei der Eingabe des Slash-Befehls.",
+  "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
+  "notAllowed": {
+    "anyone": "Niemandem ist es erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
+    "role": "Mit einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "user": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
+  },
+  "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
+  "paramRequired": "Du musst einen Wert für die Option \"{option}\" angeben.\n> {description}",
+  "permissionDenied": {
+    "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n{permissions}",
+    "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n{permissions}",
+    "embedTitle": "Unzureichende Berechtigungen"
+  },
+  "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: {command}",
+  "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
+  "strictAutocompleteNoMatchWValues": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.\n\nVerfügbare Optionen sind:\n{availableOptions}"
 }

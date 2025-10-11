@@ -4,50 +4,50 @@
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {
-      "reason": {
-        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+      "delete_days_of_messages": {
+        "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
       },
       "duration": {
         "description": "Wie lange möchtest du das Mitglied/die Mitglieder bannen?"
       },
+      "reason": {
+        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+      },
       "target": {
         "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
-      },
-      "delete_days_of_messages": {
-        "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
       }
     },
-    "dmEmbedTitle": "Gebannt",
-    "dmEmbedDescription": "Du wurdest von {guild} gebannt.\nModerator: {mod}\nBegründung: {reason}",
-    "infoEmbedTitle": "Bann",
-    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Bannen aus. Du hast 60 Sekunden Zeit.",
     "cantPunishSelf": "Du kannst dich selbst nicht bannen!",
-    "noneFound": "Kein Ziel wurde gefunden.",
+    "dmEmbedDescription": "Du wurdest von {guild} gebannt.\nModerator: {mod}\nBegründung: {reason}",
+    "dmEmbedTitle": "Gebannt",
     "error": "Ich konnte {user} nicht bannen.\n{err}",
-    "success": "{user} wurde erfolgreich gebannt.",
-    "noDM": "Ich konnte dem Ziel keine DM senden."
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Bann",
+    "noDM": "Ich konnte dem Ziel keine DM senden.",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Bannen aus. Du hast 60 Sekunden Zeit.",
+    "success": "{user} wurde erfolgreich gebannt."
   },
   "kick": {
     "description": "Kickt ein oder mehrere Mitglieder vom Server.",
     "options": {
-      "target": {
-        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
-      },
       "reason": {
         "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+      },
+      "target": {
+        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       }
     },
-    "dmEmbedTitle": "Gekickt",
-    "dmEmbedDescription": "Du wurdest von {guild} gekickt.\nModerator: {mod}\nBegründung: {reason}",
-    "infoEmbedTitle": "Kick",
-    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekunden Zeit.",
-    "noneFound": "Kein Ziel wurde gefunden.",
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
+    "dmEmbedDescription": "Du wurdest von {guild} gekickt.\nModerator: {mod}\nBegründung: {reason}",
+    "dmEmbedTitle": "Gekickt",
     "error": "Ich konnte {user} nicht kicken.\n{err}",
-    "success": "{user} wurde erfolgreich gekickt.",
-    "noDM": "Ich konnte dem Ziel keine DM senden."
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Kick",
+    "noDM": "Ich konnte dem Ziel keine DM senden.",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekunden Zeit.",
+    "success": "{user} wurde erfolgreich gekickt."
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
@@ -63,36 +63,36 @@
         "description": "Den Grund dafür, den Kanal zu sperren"
       }
     },
-    "noReason": "Keine Begründung angegeben",
-    "embedTitle": "Kanal gesperrt!",
     "embedDescription": "Dieser Kanal wurde gesperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "embedTitle": "Kanal gesperrt!",
+    "noReason": "Keine Begründung angegeben",
     "success": "Der Kanal wurde gesperrt."
   },
   "mute": {
     "description": "Timeouted ein Mitglied für eine bestimmte Zeit (min. 1min).",
     "options": {
-      "target": {
-        "description": "Wen du timeouten möchtest"
+      "duration": {
+        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
       },
       "reason": {
         "description": "Das Mitglied wird dies in einer DM sehen."
       },
-      "duration": {
-        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
+      "target": {
+        "description": "Wen du timeouten möchtest"
       }
     },
-    "dmEmbedTitle": "Getimeouted",
-    "dmEmbedDescription": "Du wurdest in {guild} getimeouted.\nModerator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
-    "infoEmbedTitle": "Timeout",
-    "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
-    "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
     "cantPunishAdmin": "Administratoren können nicht getimeouted werden!",
-    "noneFound": "Kein Ziel wurde gefunden.",
+    "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
+    "dmEmbedDescription": "Du wurdest in {guild} getimeouted.\nModerator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
+    "dmEmbedTitle": "Getimeouted",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
-    "success": "{user} wurde erfolgreich getimeouted.",
+    "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
+    "infoEmbedTitle": "Timeout",
+    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
     "noDM": "\nIch konnte dem Ziel keine DM senden.",
-    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!"
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
+    "success": "{user} wurde erfolgreich getimeouted."
   },
   "nukechannel": {
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
@@ -101,13 +101,13 @@
         "description": "Den zu nukenden Kanal"
       }
     },
-    "confirmEmbedTitle": "Nuke Channel",
-    "confirmEmbedDescription": "Bist du sicher, dass du {channel} nuken möchtest?\n**Diese Aktion kann nicht rückgängig gemacht werden!**",
-    "confirmButtonLabel": "Bestätigen",
     "cancelButtonLabel": "Abbrechen",
     "canceledEmbedDescription": "Die Aktion wurde abgebrochen.",
-    "successEmbedDescription": ":radioactive: Kanal genuked!",
-    "embedFooterText": "Genuked von {user}"
+    "confirmButtonLabel": "Bestätigen",
+    "confirmEmbedDescription": "Bist du sicher, dass du {channel} nuken möchtest?\n**Diese Aktion kann nicht rückgängig gemacht werden!**",
+    "confirmEmbedTitle": "Nuke Channel",
+    "embedFooterText": "Genuked von {user}",
+    "successEmbedDescription": ":radioactive: Kanal genuked!"
   },
   "purge": {
     "description": "Entfernt eine bestimmte Menge an Nachrichten.",
@@ -116,30 +116,20 @@
       "examples": "7 #chat"
     },
     "options": {
+      "after_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
+      },
       "amount": {
         "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
       },
-      "only_containing": {
-        "description": "Lösche nur Nachrichten, die dies enthalten.",
-        "choices": {
-          "mentions": "Mitglieds-Erwähnungen",
-          "server_ads": "Discord Server Werbelinks",
-          "images": "Bilder",
-          "embeds": "Einbettungen",
-          "text": "Text"
-        }
-      },
-      "member": {
-        "description": "Lösche nur Nachrichten dieses Mitgliedes."
-      },
-      "channel": {
-        "description": "In welchem Kanal möchtest du Nachrichten löschen?"
-      },
-      "remove_pinned": {
-        "description": "Lösche auch angepinnte Nachrichten."
+      "before_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
       },
       "caps_percentage": {
         "description": "Wie viel CAPS müssen Nachrichten mindestens enthalten, um gelöscht zu werden?"
+      },
+      "channel": {
+        "description": "In welchem Kanal möchtest du Nachrichten löschen?"
       },
       "contains": {
         "description": "Nur Nachrichten, welche diese Phrase enthalten, werden gelöscht."
@@ -147,17 +137,33 @@
       "does_not_contain": {
         "description": "Nur Nachrichten, welche diese Phrase nicht enthalten, werden gelöscht."
       },
-      "starts_with": {
-        "description": "Nur Nachrichten, welche mit dieser Phrase beginnen, werden gelöscht."
+      "ends_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase enden, werden gelöscht."
+      },
+      "member": {
+        "description": "Lösche nur Nachrichten dieses Mitgliedes."
+      },
+      "not_ends_with": {
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase enden, werden gelöscht."
       },
       "not_starts_with": {
         "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
       },
-      "ends_with": {
-        "description": "Nur Nachrichten, welche mit dieser Phrase enden, werden gelöscht."
+      "only_containing": {
+        "description": "Lösche nur Nachrichten, die dies enthalten.",
+        "choices": {
+          "embeds": "Einbettungen",
+          "images": "Bilder",
+          "mentions": "Mitglieds-Erwähnungen",
+          "server_ads": "Discord Server Werbelinks",
+          "text": "Text"
+        }
       },
-      "not_ends_with": {
-        "description": "Nur Nachrichten, welche nicht mit dieser Phrase enden, werden gelöscht."
+      "remove_pinned": {
+        "description": "Lösche auch angepinnte Nachrichten."
+      },
+      "starts_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase beginnen, werden gelöscht."
       },
       "user_type": {
         "description": "Nur Nachrichten von diesem User-Typ werden gelöscht.",
@@ -165,19 +171,13 @@
           "bot": "Bot",
           "human": "Mensch"
         }
-      },
-      "before_message": {
-        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
-      },
-      "after_message": {
-        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
       }
     },
+    "beforeAndAfter": "Die `before`-Option kann nicht zusammen mit der `after`-Option genutzt werden!",
     "invalidNumber": "Das ist keine gültige Zahl!",
     "noNumber": "Bitte spezifiziere das nächste Mal die Anzahl der zu löschenden Nachrichten.",
-    "beforeAndAfter": "Die `before`-Option kann nicht zusammen mit der `after`-Option genutzt werden!",
-    "paramsExcludeOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (z. B. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
     "noneFound": "Es wurden keine löschbaren Nachrichten gefunden, die deinen Parametern entsprechen.",
+    "paramsExcludeOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (z. B. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
     "success": "Ich habe erfolgreich {count}/{all} Nachrichten gelöscht."
   },
   "unlock": {
@@ -194,26 +194,26 @@
         "description": "Den Grund dafür, den Kanal zu entsperren"
       }
     },
+    "embedDescription": "Dieser Kanal wurde entsperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "embedTitle": "Kanal entsperrt!",
     "noReason": "Keine Begründung angegeben",
     "notLocked": "Dieser Kanal ist nicht gesperrt!",
-    "embedTitle": "Kanal entsperrt!",
-    "embedDescription": "Dieser Kanal wurde entsperrt.\nModerator: {mod}\nBegründung: {reason}",
     "success": "Der Kanal wurde entsperrt."
   },
   "unmute": {
     "description": "Entferne den Timeout von einem Mitglied.",
     "options": {
-      "target": {
-        "description": "Wessen Timeout möchtest du entfernen?"
-      },
       "reason": {
         "description": "Warum möchtest du den Timeout entfernen?"
+      },
+      "target": {
+        "description": "Wessen Timeout möchtest du entfernen?"
       }
     },
+    "moderator": "Moderator",
     "noReason": "Keine Begründung angegeben",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "notMuted": "Dieses Mitglied ist nicht getimeouted!",
-    "moderator": "Moderator",
     "success": "Der Timeout für {user} wurde entfernt."
   }
 }

@@ -4,15 +4,15 @@
   "avatar": {
     "description": "Zeigt den Avatar eines Mitglieds.",
     "options": {
-      "target": {
-        "description": "Wessen Avatar möchtest du sehen?"
-      },
       "size": {
         "description": "Wie groß soll das Bild sein?"
+      },
+      "target": {
+        "description": "Wessen Avatar möchtest du sehen?"
       }
     },
-    "embedDescription": "{user}'s Avatar",
-    "averageColor": "Durchschnittsfarbe"
+    "averageColor": "Durchschnittsfarbe",
+    "embedDescription": "{user}'s Avatar"
   },
   "changelog": {
     "description": "Erhalte die neusten Änderungen.",
@@ -24,6 +24,9 @@
       "usage": "['guild' | 'user' | 'bot'] [Befehl]"
     },
     "options": {
+      "command": {
+        "description": "Der Befehl, für den du Statistiken erhalten möchtest."
+      },
       "scope": {
         "description": "Erhalte Befehlsstatistiken entweder für den aktuellen Server, für dich oder für den Bot insgesamt.",
         "choices": {
@@ -31,21 +34,18 @@
           "guild": "Server",
           "user": "Nutzer"
         }
-      },
-      "command": {
-        "description": "Der Befehl, für den du Statistiken erhalten möchtest."
       }
     },
-    "embedTitle": "Befehlsstatistiken für {mode}",
-    "notFound": "Es gibt keinen solchen Befehl!",
-    "embedDescriptionOne": "Der {command}-Befehl wurde {total} Mal (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:",
-    "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})"
+    "embedDescriptionOne": "Der {command}-Befehl wurde {total} Mal (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
+    "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})",
+    "embedTitle": "Befehlsstatistiken für {mode}",
+    "notFound": "Es gibt keinen solchen Befehl!"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
-    "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Klicke {link}, um das Dashboard zu öffnen."
+    "embedDescriptionDashboard": "Klicke {link}, um das Dashboard zu öffnen.",
+    "embedTitle": "Dashboard"
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -57,18 +57,18 @@
         "description": "Das Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
       }
     },
-    "notFound": "Es wurden keine Informationen über dieses Emoji gefunden.",
-    "embedTitle": "Informationen über \"{emoji}\"",
-    "name": "Name",
-    "id": "ID",
-    "guild": "Server",
+    "addToGuild": "Zum Server hinzufügen",
+    "allowedRoles": "Erlaubte Rollen",
     "animated": "Animiert",
-    "creator": "Ersteller",
     "available": "Verfügbar",
     "createdAt": "Erstellt",
-    "allowedRoles": "Erlaubte Rollen",
-    "addToGuild": "Zum Server hinzufügen",
-    "delete": "Emoji Löschen"
+    "creator": "Ersteller",
+    "delete": "Emoji Löschen",
+    "embedTitle": "Informationen über \"{emoji}\"",
+    "guild": "Server",
+    "id": "ID",
+    "name": "Name",
+    "notFound": "Es wurden keine Informationen über dieses Emoji gefunden."
   },
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
@@ -83,52 +83,52 @@
         "description": "Über welchen Befehl möchtest du mehr erfahren?"
       }
     },
+    "all": {
+      "embedDescription": "Dies sind die verschiedenen Befehlskategorien. Bitte wähle im Auswahlmenü eine aus.",
+      "embedFooterText": "Nutze die 'command' Option, um mehr Informationen über einen spezifischen Befehl zu erhalten.",
+      "embedTitle": "🔰Alle meine Befehle",
+      "notFound": "keine Befehle gefunden..."
+    },
     "categoryListPlaceholder": "Welche Befehlskategorie möchtest du sehen?",
     "commandListPlaceholder": "Welchen Befehl möchtest du sehen?",
     "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
-      "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: {command}.",
-      "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
-      "prefixAlias": "Präfix-Befehl Aliase",
-      "slashAlias": "Slash-Befehl Aliase",
+      "usage": "Nutzung",
       "aliasOf": "Alias von",
       "botPerms": "Erforderliche Bot-Berechtigungen",
-      "userPerms": "Erforderliche User-Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
-      "usage": "Nutzung",
-      "examples": "Beispiele"
-    },
-    "all": {
-      "embedTitle": "🔰Alle meine Befehle",
-      "embedDescription": "Dies sind die verschiedenen Befehlskategorien. Bitte wähle im Auswahlmenü eine aus.",
-      "notFound": "keine Befehle gefunden...",
-      "embedFooterText": "Nutze die 'command' Option, um mehr Informationen über einen spezifischen Befehl zu erhalten."
+      "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
+      "embedTitle": "{category} » {command}",
+      "examples": "Beispiele",
+      "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: {command}.",
+      "prefixAlias": "Präfix-Befehl Aliase",
+      "slashAlias": "Slash-Befehl Aliase",
+      "userPerms": "Erforderliche User-Berechtigungen"
     }
   },
   "info": {
     "description": "Zeigt Statistiken und Informationen über den Bot.",
+    "commands": "Befehle: {total}\n> Slash & Präfix: {combined}\n> Slash: {slash}\n> Präfix: {prefix}",
     "dev": "Entwickler",
-    "shard": "Shard",
+    "embedTitle": "Informationen",
     "guild": "Interne Server-ID",
     "guilds": "Server",
-    "commands": "Befehle: {total}\n> Slash & Präfix: {combined}\n> Slash: {slash}\n> Präfix: {prefix}",
-    "starts": "Starts",
     "lastStart": "Letzter Start",
-    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.",
-    "embedTitle": "Informationen",
     "links": {
-      "repo": "GitHub",
+      "dashboard": "Dashboard",
       "discord": "Discord",
       "invite": "Einladen",
-      "dashboard": "Dashboard",
-      "privacyPolicy": "Datenschutz"
-    }
+      "privacyPolicy": "Datenschutz",
+      "repo": "GitHub"
+    },
+    "shard": "Shard",
+    "starts": "Starts",
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt."
   },
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
-    "embedTitle": "Einladen",
-    "embedDescription": "Vielen Dank für dein Interesse! Klicke {link}, um mich auf deinen Server hinzuzufügen."
+    "embedDescription": "Vielen Dank für dein Interesse! Klicke {link}, um mich auf deinen Server hinzuzufügen.",
+    "embedTitle": "Einladen"
   },
   "ping": {
     "description": "Erhalte den Ping des Bots",
@@ -137,19 +137,19 @@
         "description": "Erhalte den Durchschnittsping aus 60 Pings über eine Minute."
       }
     },
-    "average": {
-      "loading": "Pingen... {current}/{target}\nNächster Ping {timestamp}",
-      "embedDescription": "Pings: {pings} | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
-    },
     "api": "API",
+    "average": {
+      "embedDescription": "Pings: {pings} | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`",
+      "loading": "Pingen... {current}/{target}\nNächster Ping {timestamp}"
+    },
     "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Nachrichten senden"
   },
   "prefix": {
     "description": "Zeigt die Bot-Präfixe des Servers",
-    "currentPrefixes": "Meine aktuellen Präfixe lauten:\n{prefixes}",
-    "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
+    "caseInsensitive": " (beachtet Groß/Kleinschreibung)",
+    "currentPrefixes": "Meine aktuellen Präfixe lauten:\n{prefixes}"
   },
   "roleinfo": {
     "description": "Erhalte Informationen über eine Rolle",
@@ -162,17 +162,17 @@
         "description": "Die Rolle, über welche du mehr wissen möchtest"
       }
     },
-    "mention": "Erwähnung",
-    "members": "Mitglieder",
+    "admin": "Administrator",
     "color": "Farbe",
-    "mentionable": "Erwähnbar",
+    "createdAt": "Erstellt",
+    "delete": "Rolle Löschen",
     "hoist": "Separat angezeigt",
     "managed": "Verwaltet",
-    "position": "Position",
-    "createdAt": "Erstellt",
+    "members": "Mitglieder",
+    "mention": "Erwähnung",
+    "mentionable": "Erwähnbar",
     "permissions": "Berechtigungen",
-    "admin": "Administrator",
-    "delete": "Rolle Löschen"
+    "position": "Position"
   },
   "serverinfo": {
     "description": "Erhalte Informationen über einen Server",
@@ -181,46 +181,46 @@
         "description": "Die Server-ID, über die du Infos einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
+    "boosts": {
+      "1": ", Stufe 1",
+      "2": ", Stufe 2",
+      "3": ", Stufe 3",
+      "name": "Boosts"
+    },
+    "channels": "Kanäle",
+    "createdAt": "Erstellt",
+    "defaultNotifications": {
+      "0": "Alle Nachrichten",
+      "1": "Nur Erwähnungen",
+      "name": "Standard-Benachrichtigungseinstellung"
+    },
+    "downloadBanner": "Banner Herunterladen",
+    "downloadIcon": "Icon Herunterladen",
+    "emojis": "Emojis",
+    "id": "ID",
+    "joinGuild": "Server Beitreten",
+    "locale": "Sprache",
     "memberStats": "{all} (Menschen: {humans}, Bots: {bots})",
     "members": "Mitglieder",
+    "owner": "Eigentümer",
+    "partnered": "Discord-Partnerserver",
+    "roles": "Rollen",
+    "uses": " Nutzungen",
+    "vanityUrl": "Benutzerdefinierte URL",
     "verificationLevel": {
-      "name": "Verifizierungsstufe",
       "0": "Keine",
       "1": "Niedrig",
       "2": "Mittel",
       "3": "Hoch",
-      "4": "Höchste"
-    },
-    "id": "ID",
-    "createdAt": "Erstellt",
-    "defaultNotifications": {
-      "name": "Standard-Benachrichtigungseinstellung",
-      "0": "Alle Nachrichten",
-      "1": "Nur Erwähnungen"
-    },
-    "owner": "Eigentümer",
-    "locale": "Sprache",
-    "partnered": "Discord-Partnerserver",
-    "emojis": "Emojis",
-    "boosts": {
-      "name": "Boosts",
-      "1": ", Stufe 1",
-      "2": ", Stufe 2",
-      "3": ", Stufe 3"
-    },
-    "roles": "Rollen",
-    "channels": "Kanäle",
-    "vanityUrl": "Benutzerdefinierte URL",
-    "uses": " Nutzungen",
-    "downloadIcon": "Icon Herunterladen",
-    "downloadBanner": "Banner Herunterladen",
-    "joinGuild": "Server Beitreten"
+      "4": "Höchste",
+      "name": "Verifizierungsstufe"
+    }
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
-    "online": "online",
+    "embedDescription": "Der Bot ist {link} seit {time}.",
     "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
-    "embedDescription": "Der Bot ist {link} seit {time}."
+    "online": "online"
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
@@ -233,11 +233,6 @@
         "description": "Das Mitglied über das du Informationen möchtest"
       }
     },
-    "guildOwner": "Servereigentümer",
-    "guildAdmin": "Serveradministrator",
-    "admin": "Administrator",
-    "guildMod": "Servermoderator",
-    "guildMember": "Servermitglied",
     "activity": {
       "0": "Spielt {activity}",
       "1": "Streamt {activity}",
@@ -246,19 +241,15 @@
       "4": "Status: \"{message}\"",
       "5": "Tritt an in {activity}"
     },
-    "mention": "Erwähnung",
-    "displayName": "Anzeigename",
-    "type": "Typ",
-    "roles": "Rollen",
-    "position": "Position",
+    "admin": "Administrator",
+    "banMember": "Mitglied Bannen",
+    "birthday": "Geburtstag (Alter)",
     "color": "Farbe",
     "createdAt": "Erstellt",
-    "joinedAt": "Beigetreten",
-    "birthday": "Geburtstag (Alter)",
-    "timedOutUntil": "Getimeouted bis",
-    "rolesWithPerms": "Rollen mit Berechtigungen",
+    "displayName": "Anzeigename",
+    "downloadAvatar": "Avatar Herunterladen",
+    "downloadBanner": "Banner Herunterladen",
     "flags": {
-      "name": "Flaggen",
       "ActiveDeveloper": "Aktiver Bot-Entwickler",
       "BotHTTPInteractions": "HTTP-Bot",
       "BugHunterLevel1": "Bugjäger Level 1",
@@ -275,35 +266,31 @@
       "Staff": "Discord Mitarbeiter",
       "TeamPseudoUser": "Team-Pseudo-Nutzer",
       "VerifiedBot": "Verifizierter Bot",
-      "VerifiedDeveloper": "Verifizierter Bot-Entwickler der ersten Stunde"
+      "VerifiedDeveloper": "Verifizierter Bot-Entwickler der ersten Stunde",
+      "name": "Flaggen"
     },
-    "perms": "Berechtigungen",
-    "downloadAvatar": "Avatar Herunterladen",
-    "downloadBanner": "Banner Herunterladen",
+    "guildAdmin": "Serveradministrator",
+    "guildMember": "Servermitglied",
+    "guildMod": "Servermoderator",
+    "guildOwner": "Servereigentümer",
+    "joinedAt": "Beigetreten",
     "kickMember": "Mitglied Kicken",
-    "banMember": "Mitglied Bannen"
+    "mention": "Erwähnung",
+    "perms": "Berechtigungen",
+    "position": "Position",
+    "roles": "Rollen",
+    "rolesWithPerms": "Rollen mit Berechtigungen",
+    "timedOutUntil": "Getimeouted bis",
+    "type": "Typ"
   },
   "vote": {
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
-    "embedTitle": "Voting",
-    "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen.",
+    "embedTitle": "Voting"
   },
   "wordcounter": {
     "description": "Zeigt an, wie viele Wörter in einem Server, einem Kanal oder von einem Mitglied gesendet wurden.",
     "options": {
-      "guild": {
-        "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
-        "options": {
-          "get": {
-            "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
-            "options": {
-              "guild_id": {
-                "description": "Die ID des Zielservers. Standard: aktueller Server."
-              }
-            }
-          }
-        }
-      },
       "channel": {
         "description": "Die Top-Mitglieder eines Kanals anzeigen.",
         "options": {
@@ -312,6 +299,19 @@
             "options": {
               "channel": {
                 "description": "Der Zielkanal. Standard: aktueller Kanal."
+              }
+            }
+          }
+        }
+      },
+      "guild": {
+        "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
+        "options": {
+          "get": {
+            "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
+            "options": {
+              "guild_id": {
+                "description": "Die ID des Zielservers. Standard: aktueller Server."
               }
             }
           }
@@ -334,30 +334,30 @@
         }
       }
     },
-    "notEnabled": "Der Wordcounter für diesen Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
-    "memberEmbedTitle": "Mitglieder-Stats",
-    "memberEmbedDescription": "Dies sind die Top {amount} Mitglieder:",
-    "guild": {
-      "invalidGuild": "Die angegebene Server-ID ist ungültig.",
-      "embedTitle": "{guild} Stats",
-      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}",
-      "channelEmbedTitle": "Kanal-Stats",
-      "channelEmbedDescription": "Dies sind die Top {amount} Kanäle:"
-    },
     "channel": {
-      "embedTitle": "#{channel} Stats",
-      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}"
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}",
+      "embedTitle": "#{channel} Stats"
     },
+    "guild": {
+      "channelEmbedDescription": "Dies sind die Top {amount} Kanäle:",
+      "channelEmbedTitle": "Kanal-Stats",
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}",
+      "embedTitle": "{guild} Stats",
+      "invalidGuild": "Die angegebene Server-ID ist ungültig."
+    },
+    "memberEmbedDescription": "Dies sind die Top {amount} Mitglieder:",
+    "memberEmbedTitle": "Mitglieder-Stats",
+    "notEnabled": "Der Wordcounter für diesen Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
     "user": {
       "enable": {
         "success": "{toggle} Wordcounter für dich."
       },
       "get": {
-        "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst.",
-        "embedTitle": "{user} Stats",
         "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amount}",
+        "embedTitle": "{user} Stats",
+        "guildEmbedDescription": "Dies sind deine Top {amount} Server:",
         "guildEmbedTitle": "Server-Stats",
-        "guildEmbedDescription": "Dies sind deine Top {amount} Server:"
+        "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst."
       }
     }
   }

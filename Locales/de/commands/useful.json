@@ -7,22 +7,22 @@
       "emoji_or_url": {
         "description": "Gib ein Emoji oder eine URL zu einem Bild an."
       },
-      "name": {
-        "description": "Der Name, den das Emoji haben soll."
-      },
       "limit_to_roles": {
         "description": "Limitiere das Emoji zu bestimmten Rollen. Separiere sie mit Leertasten."
+      },
+      "name": {
+        "description": "Der Name, den das Emoji haben soll."
       }
     },
     "embedTitle": "AddEmoji",
-    "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
+    "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n{err}",
     "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: {validFormats}.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
+    "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n{roles}.",
     "notFound": "Die angegebene URL wurde nicht gefunden.",
     "success": "{name} wurde erfolgreich hinzugefügt {emoji}!",
-    "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n{roles}.",
-    "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n{err}",
-    "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes.",
-    "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
+    "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß.",
+    "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes."
   },
   "afk": {
     "description": "Setze einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
@@ -31,17 +31,6 @@
       "examples": "Bin gleich wieder da"
     },
     "options": {
-      "set": {
-        "description": "Setze einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
-        "options": {
-          "message": {
-            "description": "Die zu setzende Nachricht"
-          },
-          "global": {
-            "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
-          }
-        }
-      },
       "get": {
         "description": "Erhalte den AFK-Status eines Mitglieds (oder des ganzen Servers), ohne jemanden erwähnen zu müssen.",
         "options": {
@@ -49,26 +38,44 @@
             "description": "Das Mitglied, dessen AFK-Status du sehen möchtest"
           }
         }
+      },
+      "set": {
+        "description": "Setze einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
+        "options": {
+          "global": {
+            "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
+          },
+          "message": {
+            "description": "Die zu setzende Nachricht"
+          }
+        }
       }
     },
+    "getNoneFound": "Es wurden keine AFK-Nachrichten gefunden.",
     "globalSuccess": "Dein AFK wurde auf allen Servern zu \"{message}\" gesetzt.",
-    "success": "Dein AFK wurde zu \"{message}\" gesetzt.",
-    "getNoneFound": "Es wurden keine AFK-Nachrichten gefunden."
+    "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
   "button": {
     "description": "Erstelle einen Button.",
     "options": {
-      "json": {
-        "description": "Erstelle einen Button aus den Rohdaten von JSON.",
-        "options": {
-          "json": {
-            "description": "JSON-Daten, aus denen der Button erstellt wird."
-          }
-        }
-      },
       "custom": {
         "description": "Erstelle deinen eigenen Button mit vielen verschiedenen Optionen",
         "options": {
+          "content": {
+            "description": "Füge der Button-Message Text hinzu."
+          },
+          "emoji": {
+            "description": "Das Emoji, das auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
+          },
+          "label": {
+            "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
+          },
+          "message_id": {
+            "description": "Die Nachricht, an die du den Button anfügst. Muss in diesem Kanal sein."
+          },
+          "new_row": {
+            "description": "Nutze eine neue Reihe für den Button."
+          },
           "style": {
             "description": "Welchen Style soll dein Button haben?",
             "choices": {
@@ -79,34 +86,27 @@
               "5": "Link (Benötigt die \"url\" Option)"
             }
           },
-          "emoji": {
-            "description": "Das Emoji, das auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
-          },
-          "label": {
-            "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
-          },
           "url": {
             "description": "Die URL, auf die der Button verweist. Funktioniert nur mit \"Link\" als Style."
-          },
-          "new_row": {
-            "description": "Nutze eine neue Reihe für den Button."
-          },
-          "content": {
-            "description": "Füge der Button-Message Text hinzu."
-          },
-          "message_id": {
-            "description": "Die Nachricht, an die du den Button anfügst. Muss in diesem Kanal sein."
+          }
+        }
+      },
+      "json": {
+        "description": "Erstelle einen Button aus den Rohdaten von JSON.",
+        "options": {
+          "json": {
+            "description": "JSON-Daten, aus denen der Button erstellt wird."
           }
         }
       }
     },
-    "invalidURL": "Die angegebene URL ist ungültig!",
-    "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
     "botIsNotAuthor": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
     "buttonLimitReached": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
     "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n{err}",
-    "successJSON": "Dein Button wurde gesendet!",
-    "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Unterbefehl.\n{json}"
+    "invalidURL": "Die angegebene URL ist ungültig!",
+    "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
+    "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Unterbefehl.\n{json}",
+    "successJSON": "Dein Button wurde gesendet!"
   },
   "choose": {
     "description": "Lass mich aus einer beliebigen Anzahl von Optionen auswählen.",
@@ -118,9 +118,9 @@
         "description": "Die Optionen, durch Semikolons getrennt."
       }
     },
-    "noChoices": "Du musst mir Optionen zum Auswählen geben!",
     "choice": "Ich wähle \"{choice}\"!",
-    "choiceLong": "Ich wähle:\n{choice}"
+    "choiceLong": "Ich wähle:\n{choice}",
+    "noChoices": "Du musst mir Optionen zum Auswählen geben!"
   },
   "embed": {
     "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
@@ -131,64 +131,8 @@
           "description": {
             "description": "Setze den Embed-Text, nutze \"/n\" für Zeilenumbrüche."
           },
-          "content": {
-            "description": "Setze eine Nachricht über dem Embed"
-          },
-          "title": {
-            "description": "Setze den Embed-Titel"
-          },
-          "predefined_color": {
-            "description": "Setze die Embed-Farbe zu einer der von Discord vordefinierten Farben",
-            "choices": {
-              "Default": "Standard",
-              "White": "Weiß",
-              "Aqua": "Türkis",
-              "Green": "Grün",
-              "Blue": "Blau",
-              "Yellow": "Gelb",
-              "Purple": "Lila",
-              "LuminousVividPink": "Leuchtendes lebendiges Rosa",
-              "Fuchsia": "Fuchsia",
-              "Gold": "Gold",
-              "Orange": "Orange",
-              "Red": "Rot",
-              "Grey": "Grau",
-              "Navy": "Marinenblau",
-              "DarkAqua": "Dunkeltürkis",
-              "DarkGreen": "Dunkelgrün",
-              "DarkBlue": "Dunkelblau",
-              "DarkPurple": "Dunkelviolett",
-              "DarkVividPink": "Dunkles lebendiges Rosa",
-              "DarkGold": "Dunkles Gold",
-              "DarkOrange": "Dunkelorange",
-              "DarkRed": "Dunkelrot",
-              "DarkGrey": "Dunkelgrau",
-              "DarkerGrey": "Dunkleres Grau",
-              "LightGrey": "Hellgrau",
-              "DarkNavy": "Dunkles Marineblau",
-              "Blurple": "Burple",
-              "Greyple": "Lila-Grau",
-              "DarkButNotBlack": "Dunkel, aber nicht schwarz",
-              "NotQuiteBlack": "Nicht ganz schwarz"
-            }
-          },
-          "custom_color": {
-            "description": "Setze einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
-          },
-          "footer_text": {
-            "description": "Setze den Footer-Text"
-          },
-          "footer_icon": {
-            "description": "Setze die Footer Icon-URL"
-          },
-          "image": {
-            "description": "Setze die Embed Bild URL"
-          },
-          "thumbnail": {
-            "description": "Setze die Thumbnail-URL"
-          },
-          "timestamp": {
-            "description": "Setze den Timestamp"
+          "author_icon": {
+            "description": "Setze die Autor-Icon-URL"
           },
           "author_name": {
             "description": "Setze den Autorennamen"
@@ -196,8 +140,64 @@
           "author_url": {
             "description": "Setze die Autor-URL"
           },
-          "author_icon": {
-            "description": "Setze die Autor-Icon-URL"
+          "content": {
+            "description": "Setze eine Nachricht über dem Embed"
+          },
+          "custom_color": {
+            "description": "Setze einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
+          },
+          "footer_icon": {
+            "description": "Setze die Footer Icon-URL"
+          },
+          "footer_text": {
+            "description": "Setze den Footer-Text"
+          },
+          "image": {
+            "description": "Setze die Embed Bild URL"
+          },
+          "predefined_color": {
+            "description": "Setze die Embed-Farbe zu einer der von Discord vordefinierten Farben",
+            "choices": {
+              "Aqua": "Türkis",
+              "Blue": "Blau",
+              "Blurple": "Burple",
+              "DarkAqua": "Dunkeltürkis",
+              "DarkBlue": "Dunkelblau",
+              "DarkButNotBlack": "Dunkel, aber nicht schwarz",
+              "DarkGold": "Dunkles Gold",
+              "DarkGreen": "Dunkelgrün",
+              "DarkGrey": "Dunkelgrau",
+              "DarkNavy": "Dunkles Marineblau",
+              "DarkOrange": "Dunkelorange",
+              "DarkPurple": "Dunkelviolett",
+              "DarkRed": "Dunkelrot",
+              "DarkVividPink": "Dunkles lebendiges Rosa",
+              "DarkerGrey": "Dunkleres Grau",
+              "Default": "Standard",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Gold",
+              "Green": "Grün",
+              "Grey": "Grau",
+              "Greyple": "Lila-Grau",
+              "LightGrey": "Hellgrau",
+              "LuminousVividPink": "Leuchtendes lebendiges Rosa",
+              "Navy": "Marinenblau",
+              "NotQuiteBlack": "Nicht ganz schwarz",
+              "Orange": "Orange",
+              "Purple": "Lila",
+              "Red": "Rot",
+              "White": "Weiß",
+              "Yellow": "Gelb"
+            }
+          },
+          "thumbnail": {
+            "description": "Setze die Thumbnail-URL"
+          },
+          "timestamp": {
+            "description": "Setze den Timestamp"
+          },
+          "title": {
+            "description": "Setze den Embed-Titel"
           }
         }
       },
@@ -211,8 +211,8 @@
       }
     },
     "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n{err}",
-    "successJSON": "Dein Embed wurde gesendet!",
-    "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Unterbefehl.\n{json}"
+    "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Unterbefehl.\n{json}",
+    "successJSON": "Dein Embed wurde gesendet!"
   },
   "hash": {
     "description": "Ver-/Entschlüssle einen Text mit verschiedenen Methoden.",
@@ -224,8 +224,8 @@
         "description": "Mit welcher Methode soll dein Text verschlüsselt werden?"
       }
     },
-    "embedTitle": "Hash Funktion",
     "embedDescription": "Dein Input: {input}\nHash Methode: {method}",
+    "embedTitle": "Hash Funktion",
     "text": "Dein gehashter Text:\n{hash}"
   },
   "lastping": {
@@ -242,11 +242,11 @@
         "description": "Nur Erwähnungen von einem bestimmtem Mitglied suchen? (nur in Kombination mit der \"channel\" Option)"
       }
     },
-    "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
-    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
-    "noneFound": "Ich habe keine Erwähnungen gefunden.",
+    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war {link} von {author}.\n{content}",
     "embedTitle": "Letzter Ping",
-    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war {link} von {author}.\n{content}"
+    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
+    "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
+    "noneFound": "Ich habe keine Erwähnungen gefunden."
   },
   "math": {
     "description": "Ein wenig Mathematik",
@@ -265,9 +265,6 @@
   "passwordgenerator": {
     "description": "Generiert ein kryptografisch starkes Passwort.",
     "options": {
-      "length": {
-        "description": "Die Länge deines Passwortes"
-      },
       "count": {
         "description": "Wie viele Passwörter möchtest du generieren?"
       },
@@ -276,6 +273,9 @@
       },
       "include_chars": {
         "description": "Zeichen, die du in deinem Passwort haben möchtest, zusätzlich zum Standard Zeichensatz."
+      },
+      "length": {
+        "description": "Die Länge deines Passwortes"
       }
     },
     "charsetEmpty": "Du hast alle Zeichen aus dem Zeichensatz entfernt...",
@@ -287,15 +287,15 @@
       "usage": "[Minimum] [Maximum]"
     },
     "options": {
-      "minimum": {
-        "description": "Die kleinste mögliche Zahl. Standard: 0"
-      },
       "maximum": {
         "description": "Die größte mögliche Zahl. Standard: 100"
+      },
+      "minimum": {
+        "description": "Die kleinste mögliche Zahl. Standard: 0"
       }
     },
-    "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}",
-    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: {min}, größte mögliche Zahl: {max}"
+    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: {min}, größte mögliche Zahl: {max}",
+    "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}"
   },
   "timestamp": {
     "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
@@ -318,20 +318,20 @@
       "day": {
         "description": "Der Tag des Zieldatums."
       },
-      "month": {
-        "description": "Der Monat des Zieldatums"
-      },
-      "year": {
-        "description": "Das Jahr des Zieldatums"
-      },
       "hour": {
         "description": "Die Stunde des Zieldatums"
       },
       "minute": {
         "description": "Die Minute des Zieldatums"
       },
+      "month": {
+        "description": "Der Monat des Zieldatums"
+      },
       "second": {
         "description": "Die Sekunde des Zieldatums"
+      },
+      "year": {
+        "description": "Das Jahr des Zieldatums"
       }
     },
     "until": "Das ist in {time}.",
@@ -354,15 +354,15 @@
     "description": "Zähle die Wörter in einer Nachricht",
     "usage": "[Nachrichten-ID]",
     "options": {
-      "message_id": {
-        "description": "Die Nachrichten-ID. Muss eine Nachricht aus diesem Kanal sein."
-      },
       "message": {
         "description": "Der Text, der gezählt werden soll. Alternative zur \"message\"-Option."
+      },
+      "message_id": {
+        "description": "Die Nachrichten-ID. Muss eine Nachricht aus diesem Kanal sein."
       }
     },
-    "notFound": "Die angegebene Nachricht wurde nicht gefunden.",
     "noContent": "Die angegebene Nachricht enthält keinen Text.",
+    "notFound": "Die angegebene Nachricht wurde nicht gefunden.",
     "words": "Die angegebene Nachricht enthält {wordCount} Wörter."
   }
 }

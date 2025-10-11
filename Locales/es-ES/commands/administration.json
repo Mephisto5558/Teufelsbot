@@ -198,7 +198,7 @@
             "choices": {
               "creator": "Creador",
               "owner": "Dueño del servidor",
-              "creator+owner": "Creador y dueño del servidor",
+              "creatorAndOwner": "Creador y dueño del servidor",
               "admins": "El Admin de servidores actuales"
             }
           }
