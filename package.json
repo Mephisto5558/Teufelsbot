@@ -2,17 +2,22 @@
   "name": "teufelsbot",
   "version": "1.0.0",
   "description": "A discord.js v14 bot with Dashboard, multiple language support, a DB and many commands, in active development.",
-  "main": "index.js",
-  "types": "./types/globals.d.ts",
-  "keywords": [],
-  "author": "Mephisto5558",
+  "keywords": [
+    "discord",
+    "discordjs",
+    "discord-bot"
+  ],
+  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme",
+  "bugs": {
+    "url": "https://github.com/Mephisto5558/Teufelsbot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mephisto5558/Teufelsbot.git"
+  },
   "license": "MIT",
-  "scripts": {
-    "eslint:check-time": "export TIMING=1 || set TIMING=50 && eslint --no-cache >eslint-timings.md"
-  },
-  "engines": {
-    "node": ">=22.12.0"
-  },
+  "author": "Mephisto5558",
+  "type": "commonjs",
   "imports": {
     "#Utils": "./Utils/index.js",
     "#Utils/combinedCommands": "./Utils/combinedCommands/index.js",
@@ -20,11 +25,17 @@
     "#Utils/prototypeRegisterer": "./Utils/prototypeRegisterer/index.js",
     "#Utils/*": "./Utils/*"
   },
+  "main": "index.js",
+  "types": "./types/globals.d.ts",
+  "scripts": {
+    "eslint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md"
+  },
   "dependencies": {
     "@discordjs/voice": "^0.19.0",
     "@mephisto5558/bot-website": "github:Mephisto5558/Bot-Website",
-    "@mephisto5558/i18n": "latest",
+    "@mephisto5558/i18n": "github:Mephisto5558/I18n",
     "@mephisto5558/mongoose-db": "github:Mephisto5558/Mongoose-DB",
+    "@snazzah/davey": "^0.1.7",
     "better-ms": "^1.1.7",
     "cron": "^4.3.3",
     "discord-giveaways": "^6.0.1",
@@ -52,8 +63,7 @@
     "sodium-native": "^5.0.9",
     "zlib-sync": "^0.1.10"
   },
-  "bugs": {
-    "url": "https://github.com/Mephisto5558/Teufelsbot/issues"
-  },
-  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme"
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }
