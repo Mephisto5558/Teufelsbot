@@ -11,10 +11,10 @@
         "description": "Die Benutzer-ID, die du (ent)blocken möchtest."
       }
     },
+    "cantBlacklistDev": "Ich kann einen Developer des Bots nicht blacklisten!",
     "notFound": "Dieser User ist nicht blacklisted.",
-    "saved": "{user} wurde vom Nutzen des Bots geblacklistet.",
     "removed": "{user} ist nun nicht mehr geblacklisted.",
-    "cantBlacklistDev": "Ich kann einen Developer des Bots nicht blacklisten!"
+    "saved": "{user} wurde vom Nutzen des Bots geblacklistet."
   },
   "dbget": {
     "description": "Erhalte Daten aus der Datenbank",
@@ -43,26 +43,26 @@
         "description": "Der auszuführende JavaScript-Code"
       }
     },
-    "finished": "Code:\n{code}",
-    "success": "{msg} wurde fehlerlos ausgeführt.",
     "emptyRejection": "Leere Promise-Ablehnung",
-    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```",
+    "finished": "Code:\n{code}",
+    "success": "{msg} wurde fehlerlos ausgeführt."
   },
   "exec": {
     "description": "Führe Bash-Code direkt in die Shell des Bots aus",
+    "usage": {
+      "usage": "<SH-Code>",
+      "examples": "echo 'Hallo Welt!'"
+    },
     "options": {
       "command": {
         "description": "Der auszuführende Bash-Befehl"
       }
     },
-    "usage": {
-      "usage": "<SH-Code>",
-      "examples": "echo 'Hallo Welt!'"
-    },
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```",
     "finished": "Bash Code:\n{code}",
-    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
-    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}"
   },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
@@ -75,9 +75,9 @@
         "description": "Der Name des neu zu ladenden Befehls."
       }
     },
+    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n{error}\nÜberprüfe die Konsole für mehr Informationen.",
     "invalidCommand": "Dies ist kein gültiger Befehl.",
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
-    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n{error}\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
     "reloaded": "Die folgenden {count} Befehle wurden neu geladen:\n{commands}"
   },
@@ -115,8 +115,8 @@
         "description": "Der Typ der Aktivität"
       }
     },
-    "set": "Meine Aktivität wurde zu {name} vom Typ {type} gesetzt.",
-    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
+    "reset": "Meine Aktivität wurde zu `nichts` gesetzt.",
+    "set": "Meine Aktivität wurde zu {name} vom Typ {type} gesetzt."
   },
   "setchangelog": {
     "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
@@ -128,8 +128,8 @@
       "usage": "[Zahl (Standard 0)] [Kanal]",
       "examples": "7 #zähl-kanal"
     },
-    "invalidNumber": "Die angegebene Zahl ist ungültig!",
     "invalidChannel": "Der angegebene Kanal ist kein Counting-Kanal!",
+    "invalidNumber": "Die angegebene Zahl ist ungültig!",
     "success": "Counting für {channel} wurde zu {number} gesetzt."
   },
   "test": {
@@ -137,8 +137,8 @@
   },
   "todo": {
     "description": "Erhalte Link(s) zu den To-do-Listen des Developers.",
+    "discordNotes": "Dev Notes im Support-Server",
     "list": "ToDo Excel",
-    "website": "Voting Website",
-    "discordNotes": "Dev Notes im Support-Server"
+    "website": "Voting Website"
   }
 }

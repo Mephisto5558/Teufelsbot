@@ -1,4 +1,7 @@
 {
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
@@ -6,16 +9,6 @@
     "lib": [
       "ESNext"
     ],
-    "libReplacement": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true,
-    "noUncheckedSideEffectImports": true,
-    "strict": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "allowJs": true,
-    "skipLibCheck": true,
     "paths": {
       "#Utils/*": [
         "./Utils/*"
@@ -38,9 +31,16 @@
       "#types/db/*": [
         "./types/database/*.d.ts"
       ]
-    }
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    },
+    "allowJs": true,
+    "exactOptionalPropertyTypes": true,
+    "libReplacement": true,
+    "noEmit": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
+  }
 }

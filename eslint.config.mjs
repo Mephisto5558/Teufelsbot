@@ -4,13 +4,17 @@ import config from '@mephisto5558/eslint-config';
 config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
   ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
 
+const
+  sortKeysRule = config.find(e => e.rules && 'jsonc/sort-keys' in e.rules).rules['jsonc/sort-keys'],
+  keyNameCasingRule = config.find(e => e.rules && 'jsonc/key-name-casing' in e.rules).rules['jsonc/key-name-casing'];
+
 /**
  * @type {typeof config}
  * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
   {
-    ignores: ['./Locales/!(en|de)/**']
+    ignores: ['./Locales/!(en|de)/**', './Utils/DiscordAPIErrorCodes.json']
   },
   {
     name: 'templates',
@@ -21,8 +25,8 @@ export default [
     }
   },
   {
-    name: 'overwrite',
-    files: ['**/*.js', '**/*.ts'],
+    name: 'overwrite:scripts',
+    files: ['**/*.{js,ts}'],
     languageOptions: {
       globals: {
         // promisified setTimeout
@@ -50,6 +54,86 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
+    }
+  },
+  {
+    name: 'overwrite:locales/commands',
+    files: ['./Locales/*/commands/*.json'],
+    rules: {
+      ...Array.isArray(keyNameCasingRule)
+        ? {
+            'jsonc/key-name-casing': [
+              keyNameCasingRule[0],
+              {
+                ...keyNameCasingRule[1],
+                snake_case: true /* eslint-disable-line camelcase */
+              }
+            ]
+          }
+        : {},
+      ...Array.isArray(sortKeysRule)
+        ? {
+            'jsonc/sort-keys': [
+              sortKeysRule[0],
+              {
+                pathPattern: '^$',
+                order: [
+                  'categoryName',
+                  'categoryDescription',
+                  { order: { type: 'asc' } }
+                ]
+              },
+              {
+                pathPattern: '^(?!categoryName|categoryDescription).+$',
+                order: [
+                  'description',
+                  'usage',
+                  'options',
+                  { order: { type: 'asc' } }
+                ]
+              },
+              {
+                pathPattern: String.raw`^(?!categoryName|categoryDescription).+\.options.*$`,
+                order: [
+                  'description',
+                  'options',
+                  'choices',
+                  { order: { type: 'asc' } }
+                ]
+              },
+              {
+                pathPattern: String.raw`.*\.usage$`,
+                order: [
+                  'usage',
+                  'examples'
+                ]
+              }
+            ]
+          }
+        : {}
+    }
+  },
+  {
+    name: 'overwrite:dashboard-settings',
+    files: ['./Website/DashboardSettings/*/_index.json'],
+    rules: {
+      ...Array.isArray(sortKeysRule)
+        ? {
+            'jsonc/sort-keys': [
+              sortKeysRule[0],
+              {
+                pathPattern: '^$',
+                order: [
+                  'id',
+                  'name',
+                  'description',
+                  'position',
+                  { order: { type: 'asc' } }
+                ]
+              }
+            ]
+          }
+        : {}
     }
   }
 ];

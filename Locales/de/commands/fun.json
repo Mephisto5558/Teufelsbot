@@ -9,40 +9,40 @@
       }
     },
     "responseList": [
-      "Meiner Ansicht nach, ja.",
-      "Sicher doch.",
+      "Auf jeden Fall.",
+      "Broooo, du Dummy, deine Frage macht keinen Sinn?!",
+      "Darauf kannst du dich verlassen.",
+      "Das bezweifle ich.",
+      "Das ist ein Geheimnis.",
+      "Das sag ich dir jetzt besser nicht.",
+      "Deine Frage erfreut mich, meine Antwort ist ja.",
+      "Die Zeichen deuten auf ja.",
+      "Dies kann ich dir grade nicht beantworten.",
+      "Du stellst zu viele Fragen.",
       "Exakt.",
-      "Joaaa, na ja.",
+      "Frag mich später.",
+      "Ich glaube, nicht.",
       "Ja.",
       "Jaaaaaaa",
-      "Yessss Sir.",
-      "Auf jeden Fall.",
-      "Deine Frage erfreut mich, meine Antwort ist ja.",
-      "Darauf kannst du dich verlassen.",
-      "Sieht gut aus.",
-      "Die Zeichen deuten auf ja.",
-      "Ohne Zweifel.",
-      "Frag mich später.",
-      "Wie bitte? Ich habe grade nicht zugehört.",
-      "Das sag ich dir jetzt besser nicht.",
-      "Dies kann ich dir grade nicht beantworten.",
+      "Joaaa, na ja.",
       "Konzentriere dich und frage noch einmal.",
-      "Meine Sicht ist vernebelt, frage noch einmal.",
-      "Du stellst zu viele Fragen.",
-      "Das ist ein Geheimnis.",
-      "Zähl da nicht drauf.",
-      "Nö",
-      "Nee",
-      "Nein",
-      "Nein.",
-      "Nein!",
-      "Naiiiiiiin!",
       "Meine Antwort lautet nein.",
       "Meine Quellen sagen nein.",
+      "Meine Sicht ist vernebelt, frage noch einmal.",
+      "Meiner Ansicht nach, ja.",
+      "Naiiiiiiin!",
+      "Nee",
+      "Nein",
+      "Nein!",
+      "Nein.",
+      "Nö",
+      "Ohne Zweifel.",
+      "Sicher doch.",
+      "Sieht gut aus.",
       "Sieht nicht so gut aus.",
-      "Das bezweifle ich.",
-      "Ich glaube, nicht.",
-      "Broooo, du Dummy, deine Frage macht keinen Sinn?!"
+      "Wie bitte? Ich habe grade nicht zugehört.",
+      "Yessss Sir.",
+      "Zähl da nicht drauf."
     ]
   },
   "advice": {
@@ -56,14 +56,14 @@
       "examples": "@User1 @User2 global"
     },
     "options": {
+      "avatar_type": {
+        "description": "Welchen Avatar-Typ möchtest du nutzen?"
+      },
       "base": {
         "description": "Wessen Profilbild soll für die Basis genutzt werden?"
       },
       "overlay": {
         "description": "Wessen Profilbild soll als Overlay genutzt werden?"
-      },
-      "avatar_type": {
-        "description": "Welchen Avatar-Typ möchtest du nutzen?"
       }
     },
     "embedTitle": "Avatar-Fusion: {user1} und {user2}",
@@ -72,6 +72,20 @@
   "birthday": {
     "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",
     "options": {
+      "get": {
+        "description": "Erhalte eine Liste der nächsten Geburtstage.",
+        "options": {
+          "do_not_hide": {
+            "description": "Verstecke meine Antwort nicht vor anderen Usern."
+          },
+          "target": {
+            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
+          }
+        }
+      },
+      "remove": {
+        "description": "Löscht deinen Geburtstag aus der Datenbank."
+      },
       "set": {
         "description": "speichere deinen Geburtstag ein",
         "options": {
@@ -85,24 +99,25 @@
             "description": "In welchem Jahr wurdest du geboren?"
           }
         }
-      },
-      "get": {
-        "description": "Erhalte eine Liste der nächsten Geburtstage.",
-        "options": {
-          "target": {
-            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
-          },
-          "do_not_hide": {
-            "description": "Verstecke meine Antwort nicht vor anderen Usern."
-          }
-        }
-      },
-      "remove": {
-        "description": "Löscht deinen Geburtstag aus der Datenbank."
       }
+    },
+    "getAll": {
+      "date": "{day}. {month}",
+      "embedTitle": "Die nächsten Geburtstage",
+      "notFound": "Niemand hat seinen Geburtstag angegeben...",
+      "today": "Heute"
+    },
+    "getUser": {
+      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
+      "embedTitle": "{user}'s Geburtstag",
+      "newAge": "Er/Sie wird {age} Jahre alt.",
+      "notFound": "{user} hat kein Geburtstag :("
     },
     "months": {
       "1": "Januar",
+      "10": "Oktober",
+      "11": "November",
+      "12": "Dezember",
       "2": "Februar",
       "3": "März",
       "4": "April",
@@ -110,25 +125,10 @@
       "6": "Juni",
       "7": "Juli",
       "8": "August",
-      "9": "September",
-      "10": "Oktober",
-      "11": "November",
-      "12": "Dezember"
+      "9": "September"
     },
-    "saved": "Dein Geburtstag wurde gespeichert. Du hast das nächste Mal **in {days} Tagen** Geburtstag.",
     "removed": "Dein Geburtstag wurde entfernt.",
-    "getUser": {
-      "notFound": "{user} hat kein Geburtstag :(",
-      "embedTitle": "{user}'s Geburtstag",
-      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
-      "newAge": "Er/Sie wird {age} Jahre alt."
-    },
-    "getAll": {
-      "embedTitle": "Die nächsten Geburtstage",
-      "today": "Heute",
-      "date": "{day}. {month}",
-      "notFound": "Niemand hat seinen Geburtstag angegeben..."
-    }
+    "saved": "Dein Geburtstag wurde gespeichert. Du hast das nächste Mal **in {days} Tagen** Geburtstag."
   },
   "fact": {
     "description": "Interessante Fakten",
@@ -140,11 +140,11 @@
       "create": {
         "description": "Setze ein neues Giveaway auf.",
         "options": {
-          "prize": {
-            "description": "Was kann man gewinnen?"
-          },
           "description": {
             "description": "Die Giveaway-Beschreibung"
+          },
+          "bonus_entries": {
+            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge: z.B. @Premium:5 @Normal:2"
           },
           "channel": {
             "description": "In welchem Kanal soll das Giveaway stattfinden?"
@@ -152,32 +152,64 @@
           "duration": {
             "description": "Wie lange soll das Giveaway dauern: z. B. 1w3d2h5min"
           },
-          "winner_count": {
-            "description": "Wie viele Gewinner gibt es?"
-          },
-          "reaction": {
-            "description": "Mit welchem Emoji sollen Mitglieder reagieren?"
-          },
-          "thumbnail": {
-            "description": "Das zu nutzende Thumbnail (URL)"
-          },
-          "image": {
-            "description": "Das zu nutzende Bild (URL)"
-          },
-          "exempt_members": {
-            "description": "Eine Liste von allen Mitgliedern, die nicht teilnehmen dürfen."
-          },
-          "required_roles": {
-            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
-          },
-          "bonus_entries": {
-            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge: z.B. @Premium:5 @Normal:2"
-          },
           "embed_color": {
             "description": "Der Hex-Farbcode des Embeds während des Giveaways"
           },
           "embed_color_end": {
             "description": "Der Hex-Farbcode des Embeds nach Ende des Giveaways"
+          },
+          "exempt_members": {
+            "description": "Eine Liste von allen Mitgliedern, die nicht teilnehmen dürfen."
+          },
+          "image": {
+            "description": "Das zu nutzende Bild (URL)"
+          },
+          "prize": {
+            "description": "Was kann man gewinnen?"
+          },
+          "reaction": {
+            "description": "Mit welchem Emoji sollen Mitglieder reagieren?"
+          },
+          "required_roles": {
+            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
+          },
+          "thumbnail": {
+            "description": "Das zu nutzende Thumbnail (URL)"
+          },
+          "winner_count": {
+            "description": "Wie viele Gewinner gibt es?"
+          }
+        }
+      },
+      "edit": {
+        "description": "Bearbeite ein laufendes Giveaway.",
+        "options": {
+          "add_time": {
+            "description": "Zeitverlängerungen bzw. -Abzüge z. B. 2h12min oder -1h10min."
+          },
+          "bonus_entries": {
+            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge, z.B. @Premium:5 @Normal:2"
+          },
+          "exempt_members": {
+            "description": "Mitglieder, welche nicht teilnehmen dürfen"
+          },
+          "id": {
+            "description": "Die ID der Giveaway-Nachricht"
+          },
+          "image": {
+            "description": "Das neue zu benutzende Bild (URL)"
+          },
+          "prize": {
+            "description": "Der neue Preis, welcher vergeben wird"
+          },
+          "required_roles": {
+            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
+          },
+          "thumbnail": {
+            "description": "Das neue zu benutzende Thumbnail (URL)"
+          },
+          "winner_count": {
+            "description": "Die neue Anzahl Gewinner*innen"
           }
         }
       },
@@ -186,38 +218,6 @@
         "options": {
           "id": {
             "description": "Die ID der Giveaway-Nachricht"
-          }
-        }
-      },
-      "edit": {
-        "description": "Bearbeite ein laufendes Giveaway.",
-        "options": {
-          "id": {
-            "description": "Die ID der Giveaway-Nachricht"
-          },
-          "add_time": {
-            "description": "Zeitverlängerungen bzw. -Abzüge z. B. 2h12min oder -1h10min."
-          },
-          "winner_count": {
-            "description": "Die neue Anzahl Gewinner*innen"
-          },
-          "prize": {
-            "description": "Der neue Preis, welcher vergeben wird"
-          },
-          "thumbnail": {
-            "description": "Das neue zu benutzende Thumbnail (URL)"
-          },
-          "image": {
-            "description": "Das neue zu benutzende Bild (URL)"
-          },
-          "exempt_members": {
-            "description": "Mitglieder, welche nicht teilnehmen dürfen"
-          },
-          "required_roles": {
-            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
-          },
-          "bonus_entries": {
-            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge, z.B. @Premium:5 @Normal:2"
           }
         }
       },
@@ -230,36 +230,36 @@
         }
       }
     },
-    "managerNotFound": "Dieses Feature ist deaktiviert oder nicht registriert.",
-    "notFound": "Die angegebene Nachrichten-ID ist kein gültiges Giveaway oder das Giveaway ist bereits beendet!",
-    "notHost": "Du bist nicht der Veranstalter dieses Giveaways!",
     "buttonLabel": "Giveaway ansehen",
-    "invalidTime": "Die angegebene Dauer bzw. der `add_time` Wert ist ungültig!",
     "create": {
-      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-      "giveawayEnded": "🎉🎉 GIVEAWAY BEENDET 🎉🎉",
-      "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
       "disallowedMembers": "Die folgenden Mitglieder dürfen nicht teilnehmen: {members}",
-      "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
-      "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
       "drawing": "Gewinner-Auslosung: {timestamp}",
       "dropMessage": "Sei die/der Erste, die/der mit {emoji} reagiert!!",
       "embedFooterText": "{this.winnerCount} Gewinner*innen",
-      "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
-      "winners": "Gewinner*innen:",
       "endedAt": "Endete am",
+      "giveawayEnded": "🎉🎉 GIVEAWAY BEENDET 🎉🎉",
       "hostedBy": "Veranstaltet von: {this.hostedBy}",
-      "started": "Das Giveaway wurde gestartet!"
-    },
-    "end": {
-      "ended": "Das Giveaway wurde beendet!"
+      "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
+      "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
+      "started": "Das Giveaway wurde gestartet!",
+      "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
+      "winners": "Gewinner*innen:"
     },
     "edit": {
       "edited": "Das Giveaway wurde bearbeitet!"
     },
+    "end": {
+      "ended": "Das Giveaway wurde beendet!"
+    },
+    "invalidTime": "Die angegebene Dauer bzw. der `add_time` Wert ist ungültig!",
+    "managerNotFound": "Dieses Feature ist deaktiviert oder nicht registriert.",
+    "notFound": "Die angegebene Nachrichten-ID ist kein gültiges Giveaway oder das Giveaway ist bereits beendet!",
+    "notHost": "Du bist nicht der Veranstalter dieses Giveaways!",
     "reroll": {
-      "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
       "rerollNoWinner": "Keine gültigen Teilnehmer; keine neuen Gewinner*innen wurden gefunden!",
+      "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
       "rerolled": "Die Gewinner-Auslosung wurde wiederholt!"
     }
   },
@@ -275,26 +275,26 @@
       "api": {
         "description": "Welche API soll genutzt werden?"
       },
-      "type": {
-        "description": "Die Art/Der Tag des Witzes (nicht von jeder API unterstützt)"
-      },
       "blacklist": {
         "description": "Arten/Tags von Witzen, die nicht gezeigt werden sollen",
         "choices": {
+          "explicit": "explizit",
           "nsfw": "NSFW",
-          "religious": "religiös",
           "political": "politisch",
           "racist": "rassistisch",
-          "sexist": "sexistisch",
-          "explicit": "explizit"
+          "religious": "religiös",
+          "sexist": "sexistisch"
         }
       },
       "max_length": {
         "description": "Die maximale Länge des Witzes (nicht von jeder API unterstützt)"
+      },
+      "type": {
+        "description": "Die Art/Der Tag des Witzes (nicht von jeder API unterstützt)"
       }
     },
-    "noAPIAvailable": "Leider ist zurzeit keine API verfügbar. Bitte versuche es später nochmal.",
-    "embedTitle": "Ist das witzig?"
+    "embedTitle": "Ist das witzig?",
+    "noAPIAvailable": "Leider ist zurzeit keine API verfügbar. Bitte versuche es später nochmal."
   },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
@@ -306,17 +306,17 @@
         "description": "Nenne ein Pokémon"
       }
     },
-    "invalidJson": "Die API hat mit ungültigen Daten geantwortet.",
-    "notFound": "Ich konnte kein Pokémon mit diesem Namen finden!",
-    "error": "Ein Fehler ist aufgetreten.",
-    "types": "Type(en)",
     "abilities": "Fähigkeiten",
-    "genderRatio": "Geschlechtsverhältnis",
-    "noGender": "Geschlechtslos",
-    "heightWeight": "Höhe und Gewicht",
-    "evolutionLine": "Entwicklungslinie",
     "currentStage": "\nAktuelles Entwicklungsstadium: {stage}",
-    "gen": "Generation"
+    "error": "Ein Fehler ist aufgetreten.",
+    "evolutionLine": "Entwicklungslinie",
+    "gen": "Generation",
+    "genderRatio": "Geschlechtsverhältnis",
+    "heightWeight": "Höhe und Gewicht",
+    "invalidJson": "Die API hat mit ungültigen Daten geantwortet.",
+    "noGender": "Geschlechtslos",
+    "notFound": "Ich konnte kein Pokémon mit diesem Namen finden!",
+    "types": "Type(en)"
   },
   "reddit": {
     "description": "Verschiedene Reddit-Befehle",
@@ -335,22 +335,22 @@
       "subreddit": {
         "description": "Erhalte einen der Top-Posts eines Subreddits.",
         "options": {
+          "filter_nsfw": {
+            "description": "Entfernt alle NSFW-Posts. Standard: True, erzwungen bei Nicht-NSFW-Kanälen"
+          },
           "subreddit": {
             "description": "Gib den Subreddit an, von dem du Posts erhalten möchtest. Standard: zufälliger Meme-Subreddit."
           },
           "type": {
             "description": "Der Typ nach dem sortiert wird. Standard: Heiß"
-          },
-          "filter_nsfw": {
-            "description": "Entfernt alle NSFW-Posts. Standard: True, erzwungen bei Nicht-NSFW-Kanälen"
           }
         }
       }
     },
-    "notFound": "Kein Post passte zu deiner Suche.",
-    "private": "Dieser Subreddit ist privat.",
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}) | Downvotes: {downvotes} | Kommentare: {comments}",
     "error": "Ein Fehler ist aufgetreten:\n{err}",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}) | Downvotes: {downvotes} | Kommentare: {comments}"
+    "notFound": "Kein Post passte zu deiner Suche.",
+    "private": "Dieser Subreddit ist privat."
   },
   "sad": {
     "description": "Lasse den Bot ein trauriges Emoji senden."
@@ -362,11 +362,11 @@
       "examples": "Hallo Freunde! #chat"
     },
     "options": {
-      "msg": {
-        "description": "Was soll ich sagen? Nutze /n für einen Absatz."
-      },
       "channel": {
         "description": "In welchen Kanal soll ich die Nachricht senden?"
+      },
+      "msg": {
+        "description": "Was soll ich sagen? Nutze /n für einen Absatz."
       },
       "reply_to": {
         "description": "Die Nachrichten-ID, auf die du antworten möchtest. Muss im selben Kanal sein."
@@ -388,261 +388,261 @@
   },
   "sleep": {
     "description": "Sage deinen Freunden, dass du schlafen gehst.",
+    "afkMessage": "schläft",
     "responseList": [
-      "{user} ist müde und geht jetzt schlafen",
       "{user} geht jetzt ins Bettchen {emoji}",
+      "{user} ist müde und geht jetzt schlafen",
       "{user} schläft jetzt, hoffentlich schnarcht er/sie nicht {emoji}"
-    ],
-    "afkMessage": "schläft"
+    ]
   },
   "topic": {
     "description": "Ich stelle eine Frage, über die ihr reden könnt.",
-    "embedTitle": "Thema",
     "embedDescription": [
-      "Was war das letzte lustige Video, das du gesehen hast?",
-      "Was tust du, um Stress abzubauen?",
-      "Wovon bist du besessen?",
-      "Welche drei Wörter beschreiben dich am besten?",
-      "Was wäre dein perfektes Wochenende?",
-      "Was ist deine Lieblingszahl? Warum?",
-      "Was wirst du an diesem Wochenende tun?",
-      "Was ist das Nützlichste, was du besitzt?",
-      "Was ist deine Lieblingsmethode, um Zeit zu verschwenden?",
-      "Was denkst du über Tattoos? Hast du welche?",
-      "Hast du Haustiere? Wie heißen sie?",
-      "Wo warst du letztes Wochenende? / Was hast du letztes Wochenende gemacht?",
-      "Was ist jetzt etwas Populäres, das dich nervt?",
-      "Was hast du in deinem letzten Urlaub gemacht?",
-      "Wann hast du das letzte Mal unglaublich hart gearbeitet?",
-      "Bist du sehr aktiv oder entspannst du dich lieber in deiner Freizeit?",
-      "Was machst du, wenn du mit deinen Freunden rumhängst?",
-      "Wer ist dein ältester Freund? Wo hast du ihn / sie getroffen?",
-      "Was ist das Beste / Schlechteste an deiner Arbeit / Schule?",
-      "Worauf hast du dich als Kind wirklich eingelassen?",
-      "Wenn du ein Tier als Haustier haben könntest, welches Tier würdest du wählen?",
-      "Hast du jemals einem Tier das Leben gerettet? Wie wäre es mit dem Leben eines Menschen?",
-      "Wenn du ein Geschäft eröffnen würdest, was für ein Geschäft wäre das?",
-      "Wer ist dein Lieblingsentertainer (Comedian, Musiker, Schauspieler usw.)?",
-      "Bist du eine sehr gut organisierte Person?",
-      "Hast du jemals eine Präsentation vor einer großen Gruppe von Menschen gehalten? Wie ist es gelaufen?",
-      "Was ist der seltsamste Traum, den du jemals hattest?",
-      "Was ist deine kontroverse Meinung?",
-      "Wer in deinem Leben bringt dir die meiste Freude?",
-      "Wer hatte den größten Einfluss auf die Person, zu der du geworden bist?",
-      "Was ist die nervigste Angewohnheit, die jemand haben kann?",
-      "Wo war der schönste Ort, an dem du gewesen bist?",
-      "Wo verbringst du den größten Teil deiner Freizeit / deines Tages?",
-      "Wer war dein bester Freund in der Grundschule?",
-      "Wie oft bleibst du nach 3 Uhr morgens auf?",
-      "Welche Jahreszeit magst du am liebsten? Warum?",
-      "Was ist wichtiger, ein tolles Auto oder ein tolles Haus zu haben? Warum?",
-      "Wo ist der schönste Ort in deiner Nähe?",
-      "Was bringst du überall mit?",
-      "Wie viel Zeit verbringst du im Internet? Was machst du normalerweise?",
-      "Was ist die widerlichste Angewohnheit, die manche Menschen haben?",
-      "Welche aktuelle Nachrichtenmeldung ist die interessanteste?",
-      "Wo ist der schlimmste Ort, an dem du längere Zeit festgesteckt hattest?",
-      "Wenn du deinen Namen ändern müsstest, wie würde dein neuer Name lauten?",
-      "Was nervt dich wirklich, stört aber die meisten Menschen nicht?",
-      "Welches Wort oder Sprichwort aus der Vergangenheit sollte deiner Meinung nach zurückkommen?",
-      "Wie soll der Erfolg gemessen werden? Und wer ist nach dieser Messung die erfolgreichste Person, die du kennst?",
-      "Was ist dein \"Guilty Pleasure\"?",
-      "Gab es jemals ein Ereignis in deinem Leben, das sich jeder Erklärung widerSetze?",
-      "Wenn du die Antwort auf eine Frage zu deiner Zukunft erfahren könnten, welche wäre die Frage?",
-      "Hat jemand jemals dein Leben gerettet?",
-      "Welchen Nutzen bringst du der Gruppe, wenn du mit Freunden abhängst?",
-      "Welche Trends hast du verfolgt, als du jünger warst?",
-      "Was fürchtest du, versteckt sich im Dunkeln?",
-      "Was war die bisher beste Zeit deines Lebens? Was denkst, du wird die beste Zeit deines ganzen Lebens sein?",
-      "Was tust du, um deine Stimmung zu verbessern, wenn du schlechte Laune hast?",
-      "Was ist die dümmste Angst, die du hast?",
-      "Was möchtest du erreichen, bevor du stirbst?",
-      "Was ist das beste Zimmer in deinem Haus? Warum?",
-      "Wer ist jetzt beliebt, den du wirklich magst? Warum magst du ihn / sie so sehr?",
-      "Wo kann man sich am besten verabreden?",
-      "Welcher Geruch weckt großartige Erinnerungen?",
-      "Wie oft hilfst du anderen? Wem hilfst du? Wie hilfst du?",
-      "Was kannst du am besten?",
-      "Was macht dich nervös?",
-      "Wer ist die lustigste Person, die du getroffen hast?",
-      "Welches seltsame oder nutzlose Talent hast du?",
-      "Was sind einige seltsame Überzeugungen, die manche Menschen haben?",
-      "Mit wem würde man eher ungern im Aufzug festsitzen? Mit wem würdest du am liebsten festsitzen?",
-      "Was war der beste Geburtstagswunsch oder das beste Geschenk, das du jemals erhalten hast?",
-      "Was ist die derzeit beste TV- / Netflix-Serie?",
-      "Wie oft guckst du Serien?",
-      "Welche Cartoons / Anime hast du als Kind gesehen?",
-      "Wenn du eine abgesagte TV-Show zurückbringen könntest, welche würdest du zurückbringen?",
-      "Was denkst du über Gameshows? Hast du einen Favoriten?",
-      "Was ist die am meisten unterschätzte oder überbewertete TV-Show?",
-      "Was ist der am meisten überbewertete Film?",
-      "Was ist dein liebstes Filmgenre?",
-      "Was bevorzugst du? Bücher oder Filme?",
-      "Welche Filmszene hat dich am meisten schockiert?",
-      "Magst du Dokumentationen? Warum / Warum nicht?",
-      "Was ist der schlechteste Film, den du in letzter Zeit gesehen hast?",
-      "Was ist der seltsamste Film, den du jemals gesehen hast?",
-      "Magst du Horrorfilme? Warum oder warum nicht?",
-      "Was war der letzte Film, den du gesehen hast? Wie war er?",
-      "Haben Filme die gleiche Kraft wie Bücher, die Welt zu verändern?",
-      "Siehst du lieber Filme im Kino oder bequem von zu Hause aus?",
-      "Welches Buch hast du zuletzt gelesen?",
-      "Was war dein Lieblingsbuch als Kind?",
-      "Welche Buchgenres liest du gerne?",
-      "Wie schnell liest du?",
-      "Welches Buch hat dich am meisten beeinflusst?",
-      "Bevorzugst du fiktionale oder sachliche Bücher?",
-      "Welches Buch hat eine deiner langjährigen Meinungen verändert?",
-      "Was war das schlechteste Buch, das du für die Schule lesen musstest? Wie wäre es mit dem besten Buch, das du für die Schule lesen musstest?",
-      "Denkst du, dass die Leute heute mehr oder weniger Bücher lesen als vor 50 Jahren?",
-      "Was war das letzte Lied, das du gehört hast?",
-      "Was ist deine Lieblingsfilmmusik?",
-      "Magst du klassische Musik?",
-      "Welches Lied macht immer gute Laune?",
-      "Was ist der beste Weg, um neue Musik zu entdecken?",
-      "Wie hat die Technologie die Musikindustrie verändert?",
-      "Gibt es Songs, die dich immer zum Weinen bringen?",
-      "Welche Bands oder Arten von Musik hörst du, wenn du trainierst?",
-      "Was bevorzugst du, populäre Musik oder relativ unbekannte Musik?",
-      "Gehst du gerne zu Konzerten? Warum oder warum nicht? Was war das letzte Konzert, zu dem du gegangen bist?",
-      "Wer war die erste Band oder der erste Musiker, der dich wirklich bewegt hat? Magst du sie immer noch?",
-      "Records, Tapes, CDs, MP3s, Streaming. Womit bist du aufgewachsen? Was ist gut und was schlecht an jedem?",
-      "Was sind die drei besten Apps auf deinem Handy?",
-      "Was machen App-Hersteller, das dich wirklich nervt?",
-      "Welche App schien magisch, als du sie zum ersten Mal benutzt hast?",
-      "Was ist die seltsamste App, von der du gehört oder die du ausprobiert hast?",
-      "Welche App hat der Gesellschaft am meisten geholfen? Welches hat die Gesellschaft am meisten geschadet?",
-      "Wie oft überprüfst du dein Handy?",
-      "Schreibst du mehr oder rufst du mehr an? Warum?",
-      "Wie werden Telefone in 10 Jahren sein?",
-      "Was wünschst du, könnte dein Handy tun?",
-      "Musst du immer das neueste Handy haben?",
-      "Was ist das Nervigste an deinem Handy?",
-      "Wie fühlst du dich, wenn du dein Handy versehentlich zu Hause lässt?",
-      "Was war dein erstes Smartphone? Wie hast du dich gefühlt, als du es bekommen hast?",
-      "Hast du Phantomschwingungen? (Fühlst du, wie dein Handy vibriert, obwohl dies nicht der Fall ist.)",
-      "Welche Sportarten spielst du gerne?",
-      "Verdienen Sportler die hohen Gehälter, die sie erhalten? Warum oder warum nicht?",
-      "Was macht einen Sport aus? Ist Angeln ein Sport? Wie wäre es mit Videospiel-Turnieren?",
-      "Spielst du Sportvideospiele? Welche? Macht es mehr Spaß, das Videospiel oder den Sport zu spielen? Warum?",
-      "Welcher Sport ist am aufregendsten zu sehen? Welches ist am langweiligsten zu sehen?",
-      "In welchem Restaurant isst du am meisten?",
-      "Was ist das schlechteste Fast-Food-Restaurant?",
-      "Was ist das beste Restaurant in deiner Nähe?",
-      "Was ist das schickeste Restaurant, in dem du je gegessen hast?",
-      "Welche Art von Dekoration magst du in einem Restaurant?",
-      "Was ist das schlechteste Restaurant, in dem du jemals gegessen hast?",
-      "Wenn du ein Restaurant eröffnen würdest, welche Art von Essen würdest du servieren?",
-      "Was ist das seltsamste Themenrestaurant, von dem du je gehört hast?",
-      "Würdest du in einem Restaurant essen, das wirklich schmutzig ist, wenn das Essen dafür fantastisch ist?",
-      "Was ist das Ekelhafteste, was je in einem Restaurant passiert ist?",
-      "Was war dein Lieblingsrestaurant als du ein Kind warst?",
-      "Wohin möchtest du als Nächstes reisen?",
-      "Was ist die längste Flugreise, die du unternommen hast?",
-      "Was ist die beste Art zu reisen? (Flugzeug, Auto, Zug usw.)",
-      "Was ist der entspannendste Ort?",
-      "Reist du lieber alleine oder mit einer Gruppe?",
-      "Was war der am meisten überbewertete Ort, an den du gereist bist?",
-      "Bist du in verschiedene Länder gereist? Welche?",
       "An welchem Ort ist es am beeindruckendsten?",
-      "Was ist das Beste am Reisen? Wie wäre es mit dem Schlimmsten?",
-      "Was ist das schlechteste Hotel, in dem du je übernachtet hattest? Was wäre das beste Hotel?",
-      "Wie verändert das Reisen in viele verschiedene Länder eine Person?",
-      "Was ist deine Lieblingstechnologie, die du besitzt?",
-      "Welche Technologie ist wirklich frustrierend?",
-      "Was war die beste Erfindung der letzten 50 Jahre?",
-      "Vereinfacht Technologie das Leben oder macht es es komplizierter?",
-      "Wird Technologie die Menschheit retten oder zerstören?",
+      "An welchen Eigenschaften beurteilst du eine Person?",
       "Auf welche neue Technologie freust du dich am meisten?",
-      "Was denkst du, wird der nächste große technologische Fortschritt sein?",
-      "Welche Technologie aus einem Science-Fiction-Film hättest du am liebsten?",
-      "Welche Probleme wird die Technologie in den nächsten 5 Jahren lösen? Welche Probleme wird es verursachen?",
-      "Welche Technologie würde für die Menschen im mittelalterlichen Europa wie Magie oder ein Wunder aussehen?",
-      "Kannst du dir eine Technologie vorstellen, die die Welt nur noch schlimmer gemacht hat? Wie wäre es mit einer Technologie, die die Welt nur besser gemacht hat?",
-      "Hilft Mode in irgendeiner Weise der Gesellschaft?",
-      "Was ist ein Modetrend, über den du dich wirklich freust?",
-      "Welche persönlichen Ziele hast du?",
-      "Was sind deine Ziele für die nächsten zwei Jahre?",
-      "Wie haben sich deine Ziele in deinem Leben verändert?",
-      "Wie viel planst du für die Zukunft?",
-      "Wie willst du die Welt zu einem besseren Ort machen?",
-      "Welche Ziele hast du bereits erreicht?",
-      "Was hoffst du in deinem Berufsleben zu erreichen?",
-      "Haben deine Eltern deine Ziele beeinflusst?",
-      "Was ist der beste Weg, um motiviert zu bleiben und Ziele zu erreichen?",
-      "Was ist das Verrückteste, was du erreichen willst?",
-      "Wann möchtest du in den Ruhestand gehen? Was möchtest du tun, wenn du in Rente gehst?",
-      "Bevorzugst du Sommer- oder Winteraktivitäten?",
-      "Was machst du gerne im Frühling?",
-      "Was bevorzugst du, Herbst oder Frühling?",
-      "In welcher Jahreszeit bist du am aktivsten?",
-      "Was ist das Erfrischendste an einem heißen Sommertag?",
-      "Was ist das Beste an einem kalten Wintertag?",
-      "Was isst oder trinkst du am liebsten im Winter?",
-      "Ist es besser zu leben, wo es vier Jahreszeiten gibt oder wo eine Jahreszeit den größten Teil des Jahres einnimmt?",
-      "Was sind deine Lieblingsfeiertage?",
-      "Wünschst du dir mehr oder weniger Feiertage? Warum?",
-      "Was weißt du über die Geschichte einiger Feiertage?",
-      "Welche Art von Essen isst du normalerweise in deinem Lieblingsfeiertag?",
-      "Wenn du einen Feiertag loswerden müsstest, welchen würdest du wählen? Warum?",
-      "Wenn du einen Feiertag erschaffen könntest, welcher wäre es dann? Welche Traditionen hätte es? Was würden die Leute bei deinem Feiertag essen?",
-      "Ist das Unterrichten eine Fähigkeit, die gelehrt werden kann?",
-      "Wie sieht die Zukunft der Bildung aus?",
-      "Was denkst du über Homeschooling?",
-      "Wie können Regierungen die Bildung effizienter gestalten?",
-      "Wie hat die Bildung, die du erhalten hast, dein Leben verändert?",
-      "Wie kann Technologie die Bildung verbessern? Kann es der Bildung schaden?",
-      "Was oder wer hat dir das meiste Wissen beigebracht, das du regelmäßig anwendest?",
-      "Was sind einige gute und schlechte Dinge am Bildungssystem in deinem Land?",
-      "Was ist deine Lieblingsküche oder Art von Essen?",
-      "Welche Lebensmittel hasst du absolut?",
-      "Was hältst du von Buffets?",
-      "Welches Essen sieht ekelhaft aus, schmeckt aber lecker?",
-      "Was holst du dir jedes Mal, wenn du einkaufen gehst?",
-      "Was würdest du dir für deine letzte Mahlzeit wünschen, wenn du in der Todeszelle wärst?",
-      "Welches Essen dürftest du nicht essen, bringt dich aber trotzdem immer wieder in Versuchung?",
-      "Magst du scharfes Essen? Warum oder warum nicht? Was ist das schärfste, was du jemals gegessen hast?",
-      "Die Zeit friert für alle außer dir für einen Tag ein. Was machst du?",
-      "Du musst ein Tag deines Lebens immer wieder erleben. Welchen Tag wählst du?",
-      "Du findest eine Fernbedienung, die die Zeit zurückspulen, vorspulen, stoppen und starten kann. Was machst du damit?",
-      "Wenn du jemanden auf der Welt anrufen und ein einstündiges Gespräch führen könntest, wen würdest du anrufen?",
       "Auf welches Videospiel stehst du absolut?",
       "Bevorzugst du Handy- oder PC- / Konsolenspiele?",
-      "Was ist deiner Meinung nach das Nützlichste, was man mit Virtual Reality tun kann?",
-      "Was wäre das unterhaltsamste oder interessanteste, was man mit VR (Virtual Reality) machen könnten?",
-      "Glaubst du, dass VR (Virtual Reality) in naher Zukunft zum Mainstream werden wird?",
-      "Wie besorgst bist du über Datenschutz und deine Privatsphäre?",
+      "Bevorzugst du Sommer- oder Winteraktivitäten?",
+      "Bevorzugst du fiktionale oder sachliche Bücher?",
+      "Bist du eine sehr gut organisierte Person?",
+      "Bist du in verschiedene Länder gereist? Welche?",
+      "Bist du sehr aktiv oder entspannst du dich lieber in deiner Freizeit?",
       "Denkst du, dass der ganze Hype um Datenschutz gerechtfertigt ist?",
-      "Würdest du ein selbstfahrendes Auto kaufen, wenn es erschwinglich wäre?",
-      "Wer ist die interessanteste Person, der du folgst?",
+      "Denkst du, dass die Leute heute mehr oder weniger Bücher lesen als vor 50 Jahren?",
+      "Denkst du, dass die Menschen jetzt im Durchschnitt glücklicher sind als früher?",
+      "Die Zeit friert für alle außer dir für einen Tag ein. Was machst du?",
+      "Du findest eine Fernbedienung, die die Zeit zurückspulen, vorspulen, stoppen und starten kann. Was machst du damit?",
+      "Du musst ein Tag deines Lebens immer wieder erleben. Welchen Tag wählst du?",
+      "Gab es jemals ein Ereignis in deinem Leben, das sich jeder Erklärung widerSetze?",
+      "Gehst du gerne zu Konzerten? Warum oder warum nicht? Was war das letzte Konzert, zu dem du gegangen bist?",
+      "Gibt es Songs, die dich immer zum Weinen bringen?",
       "Gibt es etwas, in dem du von Natur aus gut bist?",
+      "Gibt es soziale Medien, die du nicht magst, die du aber aufgrund von Freunden oder Familie nutzen musst?",
+      "Glaubst du, dass VR (Virtual Reality) in naher Zukunft zum Mainstream werden wird?",
+      "Haben Filme die gleiche Kraft wie Bücher, die Welt zu verändern?",
+      "Haben deine Eltern deine Ziele beeinflusst?",
+      "Hast du Haustiere? Wie heißen sie?",
+      "Hast du Phantomschwingungen? (Fühlst du, wie dein Handy vibriert, obwohl dies nicht der Fall ist.)",
+      "Hast du jemals eine Präsentation vor einer großen Gruppe von Menschen gehalten? Wie ist es gelaufen?",
+      "Hast du jemals einem Tier das Leben gerettet? Wie wäre es mit dem Leben eines Menschen?",
+      "Hast du neben Hunden oder Hauskatzen auch andere Lieblingstiere?",
+      "Hat jemand jemals dein Leben gerettet?",
+      "Hilft Mode in irgendeiner Weise der Gesellschaft?",
+      "In welchem Restaurant isst du am meisten?",
+      "In welcher Jahreszeit bist du am aktivsten?",
+      "Ist das Unterrichten eine Fähigkeit, die gelehrt werden kann?",
+      "Ist es besser zu leben, wo es vier Jahreszeiten gibt oder wo eine Jahreszeit den größten Teil des Jahres einnimmt?",
+      "Kann eine Person lernen, glücklicher zu sein?",
+      "Kannst du dir eine Technologie vorstellen, die die Welt nur noch schlimmer gemacht hat? Wie wäre es mit einer Technologie, die die Welt nur besser gemacht hat?",
+      "Magst du Dokumentationen? Warum / Warum nicht?",
+      "Magst du Horrorfilme? Warum oder warum nicht?",
+      "Magst du klassische Musik?",
+      "Magst du scharfes Essen? Warum oder warum nicht? Was ist das schärfste, was du jemals gegessen hast?",
+      "Mit wem würde man eher ungern im Aufzug festsitzen? Mit wem würdest du am liebsten festsitzen?",
+      "Musst du immer das neueste Handy haben?",
+      "Records, Tapes, CDs, MP3s, Streaming. Womit bist du aufgewachsen? Was ist gut und was schlecht an jedem?",
+      "Reist du lieber alleine oder mit einer Gruppe?",
+      "Schreibst du mehr oder rufst du mehr an? Warum?",
+      "Siehst du lieber Filme im Kino oder bequem von zu Hause aus?",
+      "Spielst du Sportvideospiele? Welche? Macht es mehr Spaß, das Videospiel oder den Sport zu spielen? Warum?",
+      "Verdienen Sportler die hohen Gehälter, die sie erhalten? Warum oder warum nicht?",
+      "Vereinfacht Technologie das Leben oder macht es es komplizierter?",
+      "Wann bist du am glücklichsten?",
+      "Wann hast du das letzte Mal jemandem gesagt: \"Ich habe es dir doch gesagt\"?",
+      "Wann hast du das letzte Mal unglaublich hart gearbeitet?",
+      "Wann möchtest du in den Ruhestand gehen? Was möchtest du tun, wenn du in Rente gehst?",
+      "Was bevorzugst du, Herbst oder Frühling?",
+      "Was bevorzugst du, populäre Musik oder relativ unbekannte Musik?",
+      "Was bevorzugst du? Bücher oder Filme?",
+      "Was bringst du überall mit?",
+      "Was denkst du über Gameshows? Hast du einen Favoriten?",
+      "Was denkst du über Homeschooling?",
+      "Was denkst du über Tattoos? Hast du welche?",
+      "Was denkst du, wird der nächste große technologische Fortschritt sein?",
+      "Was führt deiner Meinung nach zu langfristigem Glück?",
+      "Was fürchtest du, versteckt sich im Dunkeln?",
+      "Was hast du in deinem letzten Urlaub gemacht?",
+      "Was hoffst du in deinem Berufsleben zu erreichen?",
+      "Was holst du dir jedes Mal, wenn du einkaufen gehst?",
+      "Was hältst du von Buffets?",
+      "Was isst oder trinkst du am liebsten im Winter?",
+      "Was ist das Beste / Schlechteste an deiner Arbeit / Schule?",
+      "Was ist das Beste am Reisen? Wie wäre es mit dem Schlimmsten?",
+      "Was ist das Beste an einem kalten Wintertag?",
+      "Was ist das Coolste, was du je bei einem Tier gesehen hast?",
+      "Was ist das Ekelhafteste, was je in einem Restaurant passiert ist?",
+      "Was ist das Erfrischendste an einem heißen Sommertag?",
+      "Was ist das Nervigste an deinem Handy?",
+      "Was ist das Nützlichste, was du besitzt?",
+      "Was ist das Verrückteste, was du erreichen willst?",
+      "Was ist das beste Restaurant in deiner Nähe?",
+      "Was ist das beste Zimmer in deinem Haus? Warum?",
+      "Was ist das schickeste Restaurant, in dem du je gegessen hast?",
+      "Was ist das schlechteste Fast-Food-Restaurant?",
+      "Was ist das schlechteste Hotel, in dem du je übernachtet hattest? Was wäre das beste Hotel?",
+      "Was ist das schlechteste Restaurant, in dem du jemals gegessen hast?",
+      "Was ist das seltsamste Themenrestaurant, von dem du je gehört hast?",
+      "Was ist das teuerste, was du kaputt gemacht hast?",
+      "Was ist dein \"Guilty Pleasure\"?",
+      "Was ist dein liebstes Filmgenre?",
+      "Was ist deine Lieblingsfilmmusik?",
+      "Was ist deine Lieblingsküche oder Art von Essen?",
+      "Was ist deine Lieblingsmethode, um Zeit zu verschwenden?",
+      "Was ist deine Lieblingstechnologie, die du besitzt?",
+      "Was ist deine Lieblingszahl? Warum?",
+      "Was ist deine kontroverse Meinung?",
+      "Was ist deiner Meinung nach das Nützlichste, was man mit Virtual Reality tun kann?",
+      "Was ist der am meisten überbewertete Film?",
+      "Was ist der beste Weg, um motiviert zu bleiben und Ziele zu erreichen?",
+      "Was ist der beste Weg, um neue Musik zu entdecken?",
+      "Was ist der entspannendste Ort?",
+      "Was ist der schlechteste Film, den du in letzter Zeit gesehen hast?",
+      "Was ist der seltsamste Film, den du jemals gesehen hast?",
+      "Was ist der seltsamste Traum, den du jemals hattest?",
+      "Was ist die am meisten unterschätzte oder überbewertete TV-Show?",
+      "Was ist die beste Art zu reisen? (Flugzeug, Auto, Zug usw.)",
+      "Was ist die derzeit beste TV- / Netflix-Serie?",
+      "Was ist die dümmste Angst, die du hast?",
+      "Was ist die interessanteste Tatsache, die du kennst?",
+      "Was ist die längste Flugreise, die du unternommen hast?",
+      "Was ist die nervigste Angewohnheit, die jemand haben kann?",
+      "Was ist die nützlichste Sprache?",
+      "Was ist die seltsamste App, von der du gehört oder die du ausprobiert hast?",
+      "Was ist die widerlichste Angewohnheit, die manche Menschen haben?",
+      "Was ist ein Modetrend, über den du dich wirklich freust?",
+      "Was ist jetzt etwas Populäres, das dich nervt?",
+      "Was ist wichtiger, ein tolles Auto oder ein tolles Haus zu haben? Warum?",
+      "Was kannst du am besten?",
+      "Was machen App-Hersteller, das dich wirklich nervt?",
+      "Was machst du gerne im Frühling?",
+      "Was machst du, das dich kurzfristig glücklich macht, aber langfristig unglücklich macht?",
+      "Was machst du, wenn du mit deinen Freunden rumhängst?",
+      "Was macht dich nervös?",
+      "Was macht einen Sport aus? Ist Angeln ein Sport? Wie wäre es mit Videospiel-Turnieren?",
+      "Was möchtest du erreichen, bevor du stirbst?",
+      "Was nervt dich wirklich, stört aber die meisten Menschen nicht?",
+      "Was oder wer hat dir das meiste Wissen beigebracht, das du regelmäßig anwendest?",
+      "Was sind deine Lieblingsfeiertage?",
+      "Was sind deine Ziele für die nächsten zwei Jahre?",
+      "Was sind die drei besten Apps auf deinem Handy?",
+      "Was sind einige Dinge, die als Fakten behandelt werden, aber nicht wahr sind?",
+      "Was sind einige gute und schlechte Dinge am Bildungssystem in deinem Land?",
+      "Was sind einige seltsame Überzeugungen, die manche Menschen haben?",
+      "Was tust du, um Stress abzubauen?",
+      "Was tust du, um deine Stimmung zu verbessern, wenn du schlechte Laune hast?",
+      "Was war das letzte Lied, das du gehört hast?",
+      "Was war das letzte lustige Video, das du gesehen hast?",
+      "Was war das schlechteste Buch, das du für die Schule lesen musstest? Wie wäre es mit dem besten Buch, das du für die Schule lesen musstest?",
+      "Was war dein Lieblingsbuch als Kind?",
+      "Was war dein Lieblingsrestaurant als du ein Kind warst?",
+      "Was war dein erstes Smartphone? Wie hast du dich gefühlt, als du es bekommen hast?",
+      "Was war der am meisten überbewertete Ort, an den du gereist bist?",
+      "Was war der beste Geburtstagswunsch oder das beste Geschenk, das du jemals erhalten hast?",
+      "Was war der letzte Film, den du gesehen hast? Wie war er?",
+      "Was war die beste Erfindung der letzten 50 Jahre?",
+      "Was war die bisher beste Zeit deines Lebens? Was denkst, du wird die beste Zeit deines ganzen Lebens sein?",
+      "Was weißt du über die Geschichte einiger Feiertage?",
+      "Was wird immer in Mode sein, egal wie viel Zeit vergeht?",
+      "Was wirst du an diesem Wochenende tun?",
+      "Was wäre das unterhaltsamste oder interessanteste, was man mit VR (Virtual Reality) machen könnten?",
+      "Was wäre dein perfektes Wochenende?",
+      "Was wünschst du, könnte dein Handy tun?",
+      "Was würdest du dir für deine letzte Mahlzeit wünschen, wenn du in der Todeszelle wärst?",
+      "Welche App hat der Gesellschaft am meisten geholfen? Welches hat die Gesellschaft am meisten geschadet?",
+      "Welche App schien magisch, als du sie zum ersten Mal benutzt hast?",
+      "Welche Art von Dekoration magst du in einem Restaurant?",
+      "Welche Art von Essen isst du normalerweise in deinem Lieblingsfeiertag?",
+      "Welche Bands oder Arten von Musik hörst du, wenn du trainierst?",
+      "Welche Buchgenres liest du gerne?",
+      "Welche Cartoons / Anime hast du als Kind gesehen?",
+      "Welche Filmszene hat dich am meisten schockiert?",
+      "Welche Jahreszeit magst du am liebsten? Warum?",
+      "Welche Lebensmittel hasst du absolut?",
+      "Welche Probleme wird die Technologie in den nächsten 5 Jahren lösen? Welche Probleme wird es verursachen?",
       "Welche Social Media Plattform nutzt du am häufigsten?",
       "Welche Social Media Plattformen kannst du einfach nicht nachvollziehen?",
-      "Wie viel Zeit verbringst du in sozialen Medien?",
-      "Gibt es soziale Medien, die du nicht magst, die du aber aufgrund von Freunden oder Familie nutzen musst?",
-      "Wie viele Fremdsprachen kannst du?",
-      "Welche Wörter kennst du in anderen Sprachen?",
-      "Was ist die nützlichste Sprache?",
+      "Welche Sportarten spielst du gerne?",
       "Welche Sprache ist deiner Meinung nach am schwierigsten zu lernen?",
-      "Wann bist du am glücklichsten?",
-      "Was führt deiner Meinung nach zu langfristigem Glück?",
-      "Kann eine Person lernen, glücklicher zu sein?",
-      "Was machst du, das dich kurzfristig glücklich macht, aber langfristig unglücklich macht?",
-      "Denkst du, dass die Menschen jetzt im Durchschnitt glücklicher sind als früher?",
       "Welche Stereotypen treffen auf dich zu? Denkst du, dass sie akkurat sind?",
-      "Was ist das Coolste, was du je bei einem Tier gesehen hast?",
-      "Hast du neben Hunden oder Hauskatzen auch andere Lieblingstiere?",
-      "Was ist die interessanteste Tatsache, die du kennst?",
-      "Was sind einige Dinge, die als Fakten behandelt werden, aber nicht wahr sind?",
+      "Welche Technologie aus einem Science-Fiction-Film hättest du am liebsten?",
+      "Welche Technologie ist wirklich frustrierend?",
+      "Welche Technologie würde für die Menschen im mittelalterlichen Europa wie Magie oder ein Wunder aussehen?",
+      "Welche Trends hast du verfolgt, als du jünger warst?",
+      "Welche Wörter kennst du in anderen Sprachen?",
+      "Welche Ziele hast du bereits erreicht?",
+      "Welche aktuelle Nachrichtenmeldung ist die interessanteste?",
+      "Welche drei Wörter beschreiben dich am besten?",
+      "Welche persönlichen Ziele hast du?",
+      "Welchen Nutzen bringst du der Gruppe, wenn du mit Freunden abhängst?",
+      "Welcher Geruch weckt großartige Erinnerungen?",
+      "Welcher Sport ist am aufregendsten zu sehen? Welches ist am langweiligsten zu sehen?",
+      "Welches Buch hast du zuletzt gelesen?",
+      "Welches Buch hat dich am meisten beeinflusst?",
+      "Welches Buch hat eine deiner langjährigen Meinungen verändert?",
+      "Welches Essen dürftest du nicht essen, bringt dich aber trotzdem immer wieder in Versuchung?",
+      "Welches Essen sieht ekelhaft aus, schmeckt aber lecker?",
+      "Welches Lied macht immer gute Laune?",
+      "Welches Wort oder Sprichwort aus der Vergangenheit sollte deiner Meinung nach zurückkommen?",
+      "Welches seltsame oder nutzlose Talent hast du?",
+      "Wenn du deinen Namen ändern müsstest, wie würde dein neuer Name lauten?",
+      "Wenn du die Antwort auf eine Frage zu deiner Zukunft erfahren könnten, welche wäre die Frage?",
+      "Wenn du ein Geschäft eröffnen würdest, was für ein Geschäft wäre das?",
+      "Wenn du ein Restaurant eröffnen würdest, welche Art von Essen würdest du servieren?",
+      "Wenn du ein Tier als Haustier haben könntest, welches Tier würdest du wählen?",
+      "Wenn du eine abgesagte TV-Show zurückbringen könntest, welche würdest du zurückbringen?",
+      "Wenn du einen Feiertag erschaffen könntest, welcher wäre es dann? Welche Traditionen hätte es? Was würden die Leute bei deinem Feiertag essen?",
+      "Wenn du einen Feiertag loswerden müsstest, welchen würdest du wählen? Warum?",
+      "Wenn du jemanden auf der Welt anrufen und ein einstündiges Gespräch führen könntest, wen würdest du anrufen?",
+      "Wer hatte den größten Einfluss auf die Person, zu der du geworden bist?",
+      "Wer in deinem Leben bringt dir die meiste Freude?",
+      "Wer ist dein Lieblingsentertainer (Comedian, Musiker, Schauspieler usw.)?",
+      "Wer ist dein ältester Freund? Wo hast du ihn / sie getroffen?",
+      "Wer ist die interessanteste Person, der du folgst?",
+      "Wer ist die lustigste Person, die du getroffen hast?",
+      "Wer ist jetzt beliebt, den du wirklich magst? Warum magst du ihn / sie so sehr?",
+      "Wer war dein bester Freund in der Grundschule?",
+      "Wer war die erste Band oder der erste Musiker, der dich wirklich bewegt hat? Magst du sie immer noch?",
+      "Wie besorgst bist du über Datenschutz und deine Privatsphäre?",
+      "Wie fühlst du dich, wenn du dein Handy versehentlich zu Hause lässt?",
+      "Wie haben sich deine Ziele in deinem Leben verändert?",
+      "Wie hat die Bildung, die du erhalten hast, dein Leben verändert?",
+      "Wie hat die Technologie die Musikindustrie verändert?",
+      "Wie kann Technologie die Bildung verbessern? Kann es der Bildung schaden?",
+      "Wie können Regierungen die Bildung effizienter gestalten?",
+      "Wie oft bleibst du nach 3 Uhr morgens auf?",
+      "Wie oft guckst du Serien?",
+      "Wie oft hilfst du anderen? Wem hilfst du? Wie hilfst du?",
+      "Wie oft überprüfst du dein Handy?",
+      "Wie schnell liest du?",
+      "Wie sieht die Zukunft der Bildung aus?",
+      "Wie soll der Erfolg gemessen werden? Und wer ist nach dieser Messung die erfolgreichste Person, die du kennst?",
+      "Wie verändert das Reisen in viele verschiedene Länder eine Person?",
+      "Wie viel Zeit verbringst du im Internet? Was machst du normalerweise?",
+      "Wie viel Zeit verbringst du in sozialen Medien?",
+      "Wie viel planst du für die Zukunft?",
+      "Wie viele Fremdsprachen kannst du?",
+      "Wie werden Telefone in 10 Jahren sein?",
+      "Wie willst du die Welt zu einem besseren Ort machen?",
       "Wie wäre eine Welt, die nur von deinen Klonen bevölkert wird?",
+      "Wird Technologie die Menschheit retten oder zerstören?",
+      "Wo ist der schlimmste Ort, an dem du längere Zeit festgesteckt hattest?",
+      "Wo ist der schönste Ort in deiner Nähe?",
+      "Wo kann man sich am besten verabreden?",
+      "Wo verbringst du den größten Teil deiner Freizeit / deines Tages?",
+      "Wo war der schönste Ort, an dem du gewesen bist?",
+      "Wo warst du letztes Wochenende? / Was hast du letztes Wochenende gemacht?",
       "Woher bekommst du deine Nachrichten?",
+      "Wohin möchtest du als Nächstes reisen?",
+      "Worauf hast du dich als Kind wirklich eingelassen?",
       "Worauf sollte man täglichen Leben achten?",
-      "Was wird immer in Mode sein, egal wie viel Zeit vergeht?",
-      "Was ist das teuerste, was du kaputt gemacht hast?",
+      "Wovon bist du besessen?",
       "Wozu verdrehst du immer die Augen, wenn du es hörst?",
-      "Wann hast du das letzte Mal jemandem gesagt: \"Ich habe es dir doch gesagt\"?",
-      "An welchen Eigenschaften beurteilst du eine Person?"
-    ]
+      "Wünschst du dir mehr oder weniger Feiertage? Warum?",
+      "Würdest du ein selbstfahrendes Auto kaufen, wenn es erschwinglich wäre?",
+      "Würdest du in einem Restaurant essen, das wirklich schmutzig ist, wenn das Essen dafür fantastisch ist?"
+    ],
+    "embedTitle": "Thema"
   },
   "trigger": {
     "description": "Benutzerdefinierte Antworten auf Nachrichtenauslöser verwalten",
@@ -650,31 +650,22 @@
       "add": {
         "description": "Füge einen neuen Trigger hinzu",
         "options": {
-          "trigger": {
-            "description": "Worauf soll der Bot reagieren?"
-          },
           "response": {
             "description": "Was soll der Bot auf den Trigger antworten?"
+          },
+          "trigger": {
+            "description": "Worauf soll der Bot reagieren?"
           },
           "wildcard": {
             "description": "Sucht den Trigger in der gesamten Nachricht (Standard: True)"
           }
         }
       },
-      "edit": {
-        "description": "Bearbeite einen Trigger.",
+      "clear": {
+        "description": "Lösche alle Trigger. Dies ist unumkehrbar!",
         "options": {
-          "query_or_id": {
-            "description": "Welchen Trigger möchtest du bearbeiten?"
-          },
-          "trigger": {
-            "description": "Worauf soll der Bot reagieren? Leerlassen, um den aktuellen zu behalten."
-          },
-          "response": {
-            "description": "Was soll der Bot auf den Trigger antworten? Leerlassen, um den aktuellen zu behalten."
-          },
-          "wildcard": {
-            "description": "Sucht den Trigger in der gesamten Nachricht (Standard: der aktuelle Wert oder True)"
+          "confirmation": {
+            "description": "Schreibe \"LÖSCHE ALLES\", um die Löschung ALLER TRIGGER zu bestätigen."
           }
         }
       },
@@ -686,11 +677,20 @@
           }
         }
       },
-      "clear": {
-        "description": "Lösche alle Trigger. Dies ist unumkehrbar!",
+      "edit": {
+        "description": "Bearbeite einen Trigger.",
         "options": {
-          "confirmation": {
-            "description": "Schreibe \"LÖSCHE ALLES\", um die Löschung ALLER TRIGGER zu bestätigen."
+          "query_or_id": {
+            "description": "Welchen Trigger möchtest du bearbeiten?"
+          },
+          "response": {
+            "description": "Was soll der Bot auf den Trigger antworten? Leerlassen, um den aktuellen zu behalten."
+          },
+          "trigger": {
+            "description": "Worauf soll der Bot reagieren? Leerlassen, um den aktuellen zu behalten."
+          },
+          "wildcard": {
+            "description": "Sucht den Trigger in der gesamten Nachricht (Standard: der aktuelle Wert oder True)"
           }
         }
       },
@@ -709,30 +709,30 @@
     "add": {
       "saved": "Ein neuer Auslöser für {trigger} wurde hinzugefügt."
     },
-    "edit": {
-      "noneFound": "Es gibt keine Auslöser!",
-      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
-      "edited": "Der Auslöser für {trigger} wurde bearbeitet."
-    },
-    "delete": {
-      "noneFound": "Es gibt keine Auslöser!",
-      "deletedOne": "Der Auslöser mit der ID {id} wurde gelöscht."
-    },
     "clear": {
       "confirmation": "lösche alles",
-      "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
-      "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht."
+      "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht.",
+      "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!"
+    },
+    "delete": {
+      "deletedOne": "Der Auslöser mit der ID {id} wurde gelöscht.",
+      "noneFound": "Es gibt keine Auslöser!"
+    },
+    "edit": {
+      "edited": "Der Auslöser für {trigger} wurde bearbeitet.",
+      "noneFound": "Es gibt keine Auslöser!",
+      "notFound": "Kein Auslöser passt zu deiner Suchanfrage."
     },
     "get": {
-      "noneFound": "Es gibt keine Auslöser!",
-      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
+      "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
       "embedTitle": "Trigger",
       "embedTitleOne": "Auslöser {id}:",
-      "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
+      "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option.",
       "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Antwort: {response}\n> Wildcard: {wildcard}",
+      "noneFound": "Es gibt keine Auslöser!",
+      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
       "shortFieldName": "ID {id}",
-      "shortFieldValue": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
-      "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
+      "shortFieldValue": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}"
     }
   },
   "vote": {
@@ -742,31 +742,31 @@
       "examples": "#voten Geht es dir gut? | Ja | Nein"
     },
     "options": {
-      "question": {
-        "description": "Worüber soll abgestimmt werden?"
+      "channel": {
+        "description": "In welchen Kanal soll ich die Abstimmung senden?"
       },
       "option_n": {
         "description": "Die {num}. Antwort zu dieser Umfrage"
       },
+      "question": {
+        "description": "Worüber soll abgestimmt werden?"
+      },
       "type": {
         "description": "Welche Abstimmungsart möchtest du nutzen?",
         "choices": {
-          "normal": "Normal",
-          "anonymous": "Anonym"
+          "anonymous": "Anonym",
+          "normal": "Normal"
         }
-      },
-      "channel": {
-        "description": "In welchen Kanal soll ich die Abstimmung senden?"
       }
     },
+    "buttonEmbedFooterText": "Der Ersteller dieser Abstimmung kann den ❌ Button drücken, um sie zu beenden.",
+    "embedFooterText": "Der Ersteller dieser Abstimmung kann mit ❌ reagieren, um sie zu beenden.",
+    "embedTitle": "Abstimmung",
+    "ended": "Die Abstimmung ist beendet!",
+    "fieldsOptions": "Antworten",
+    "fieldsQuestion": "Thema",
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
     "noQuestion": "Du musst schon eine Frage stellen...",
-    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)...",
-    "embedTitle": "Abstimmung",
-    "embedFooterText": "Der Ersteller dieser Abstimmung kann mit ❌ reagieren, um sie zu beenden.",
-    "buttonEmbedFooterText": "Der Ersteller dieser Abstimmung kann den ❌ Button drücken, um sie zu beenden.",
-    "fieldsQuestion": "Thema",
-    "fieldsOptions": "Antworten",
-    "ended": "Die Abstimmung ist beendet!"
+    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)..."
   }
 }

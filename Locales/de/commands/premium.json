@@ -15,9 +15,9 @@
         "description": "Welches Modell möchtest du nutzen?"
       }
     },
-    "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
-    "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
     "error": "Die API hat mit einem Fehler geantwortet.",
+    "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
+    "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
     "regenerate": "Regeneriere Antwort"
   },
   "editmessage": {
@@ -33,52 +33,52 @@
         "description": "Lösche alles aus dieser Nachricht. z. B. Embeds und Anhänge"
       }
     },
-    "modalTitle": "EditMessage Befehl",
-    "textInputLabel": "Schreibe den neuen Inhalt dieser Nachricht.",
-    "textInputPlaceholder": "Du kannst auch JSON verwenden!",
-    "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
-    "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
     "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
     "emptyJson": "Das von dir angegebene JSON ist leer!",
-    "link": "Link",
     "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n{err}",
-    "success": "Die Nachricht wurde bearbeitet. {link}"
+    "link": "Link",
+    "modalTitle": "EditMessage Befehl",
+    "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
+    "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
+    "success": "Die Nachricht wurde bearbeitet. {link}",
+    "textInputLabel": "Schreibe den neuen Inhalt dieser Nachricht.",
+    "textInputPlaceholder": "Du kannst auch JSON verwenden!"
   },
   "record": {
     "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
     "options": {
-      "target": {
-        "description": "Nimm nur ein bestimmtes Mitglied auf."
-      },
       "channel": {
         "description": "Welchen Sprachkanal möchtest du aufnehmen?"
       },
       "public": {
         "description": "Mache die Aufnahme für alle Servermitglieder abrufbar."
+      },
+      "target": {
+        "description": "Nimm nur ein bestimmtes Mitglied auf."
       }
     },
-    "noTarget": "Es gibt niemanden zum Aufnehmen! Entweder sind alle Ziele Bots oder sie sind nicht in Sprachkanal! Wenn du einen Sprachkanal angeben hast, stelle sicher, dass es der richtige ist!",
-    "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
-    "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
-    "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
-    "embedTitle": "Sprachrekorder",
-    "embedDescription": "{user} möchte dich/euch in {channel} aufnehmen.\n{publicOrPrivate}\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
-    "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
-    "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
-    "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
-    "denied": "Niemand möchte aufgenommen werden.",
-    "canceled": "Die Aufnahmeanfrage wurde abgebrochen.",
     "allow": "Erlaube Aufnahme",
+    "canceled": "Die Aufnahmeanfrage wurde abgebrochen.",
+    "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
+    "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
+    "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
+    "denied": "Niemand möchte aufgenommen werden.",
     "deny": "Verbiete Aufnahme",
+    "embedDescription": "{user} möchte dich/euch in {channel} aufnehmen.\n{publicOrPrivate}\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
+    "embedTitle": "Sprachrekorder",
+    "get": "Erhalte die Aufnahme",
+    "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
+    "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
+    "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
+    "noTarget": "Es gibt niemanden zum Aufnehmen! Entweder sind alle Ziele Bots oder sie sind nicht in Sprachkanal! Wenn du einen Sprachkanal angeben hast, stelle sicher, dass es der richtige ist!",
+    "notFound": "Deine Aufnahme wurde nicht gefunden!",
     "pause": "Pausiere Aufnahme",
+    "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
+    "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
+    "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
     "resume": "Setze Aufnahme fort",
     "stop": "Stoppe Aufnahme",
-    "get": "Erhalte die Aufnahme",
-    "updated": "Deine Antwort wurde zu {permission} gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
-    "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
-    "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
-    "notFound": "Deine Aufnahme wurde nicht gefunden!",
-    "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
-    "success": "🔉 Hier ist deine Aufnahme!"
+    "success": "🔉 Hier ist deine Aufnahme!",
+    "updated": "Deine Antwort wurde zu {permission} gesetzt. Ich warte auf die Antworten der anderen Mitglieder."
   }
 }

@@ -3,9 +3,9 @@
   "categoryDescription": "Minigames to play with alone or with other members",
   "clickcounter": {
     "description": "How often can your guild click this button?",
+    "buttonLabel": "Click me!",
     "embedDescription": "Current clicks: 0",
-    "embedFooterText": "Last click by {user}",
-    "buttonLabel": "Click me!"
+    "embedFooterText": "Last click by {user}"
   },
   "coinflip": {
     "description": "Flip a coin!",
@@ -27,19 +27,19 @@
       }
     },
     "added": {
-      "embedTitle": "This channel is now a counting channel!",
-      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row.\nHave fun!",
       "by": "Enabled by {user}",
+      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row.\nHave fun!",
+      "embedTitle": "This channel is now a counting channel!",
       "success": "I successfully added {channel} as a counting channel."
     },
     "removed": {
-      "embedDescription": "This channel is no longer a counting channel!",
       "by": "Disabled by {user}",
+      "embedDescription": "This channel is no longer a counting channel!",
       "success": "I successfully removed {channel} as a counting channel."
     },
     "userDeletedMsg": {
-      "embedTitle": "Counting",
-      "embedDescription": "Deleted Number: {deletedNum}\nNext Number: {nextNum}"
+      "embedDescription": "Deleted Number: {deletedNum}\nNext Number: {nextNum}",
+      "embedTitle": "Counting"
     }
   },
   "mgstats": {
@@ -49,6 +49,38 @@
       "examples": "tictactoe @User1"
     },
     "options": {
+      "leaderboard": {
+        "description": "get the top 10 players of a game",
+        "options": {
+          "game": {
+            "description": "Wich game do you want to get stats about?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "settings": {
+            "description": "Apply/Disapply filters to the leaderboard",
+            "choices": {
+              "all_users": "All Users globally"
+            }
+          },
+          "sort": {
+            "description": "Sort the leaderboard",
+            "choices": {
+              "f_alphabet_nick": "Nicknames (Ascending)",
+              "f_alphabet_user": "Usernames (Ascending)",
+              "f_draws": "Fewest Draws",
+              "f_losses": "Fewest Losses",
+              "f_wins": "Fewest Wins",
+              "m_alphabet_nick": "Nicknames (Descending)",
+              "m_alphabet_user": "Usernames (Descending)",
+              "m_draws": "Most Draws",
+              "m_losses": "Most Losses",
+              "m_wins": "Most Wins"
+            }
+          }
+        }
+      },
       "user": {
         "description": "get stats about yourself or a specific user",
         "options": {
@@ -62,56 +94,24 @@
             "description": "Wich user do you want to get stats about?"
           }
         }
-      },
-      "leaderboard": {
-        "description": "get the top 10 players of a game",
-        "options": {
-          "game": {
-            "description": "Wich game do you want to get stats about?",
-            "choices": {
-              "tictactoe": "TicTacToe"
-            }
-          },
-          "sort": {
-            "description": "Sort the leaderboard",
-            "choices": {
-              "m_wins": "Most Wins",
-              "f_wins": "Fewest Wins",
-              "m_draws": "Most Draws",
-              "f_draws": "Fewest Draws",
-              "m_losses": "Most Losses",
-              "f_losses": "Fewest Losses",
-              "m_alphabet_user": "Usernames (Descending)",
-              "f_alphabet_user": "Usernames (Ascending)",
-              "m_alphabet_nick": "Nicknames (Descending)",
-              "f_alphabet_nick": "Nicknames (Ascending)"
-            }
-          },
-          "settings": {
-            "description": "Apply/Disapply filters to the leaderboard",
-            "choices": {
-              "all_users": "All Users globally"
-            }
-          }
-        }
       }
     },
-    "games": "Games: {games}",
-    "statsInfo": "Stats für this guild:",
-    "wins": "Wins: {wins}",
     "draws": "Draws: {draws}",
-    "losses": "Losses: {losses}",
-    "noOne": "no one",
-    "missingGameArg": "You need to give me a `game` as the first argument!",
-    "notFound": "This is not a valid game entry. Valid games are:\n{list}",
-    "wonAgainst": "Won against:",
-    "lostAgainst": "Lost against:",
     "drewAgainst": "Drew against:",
     "embedTitle": "{user}'s {game} stats",
     "embedTitleTop10": "Top 10 {game} players",
+    "games": "Games: {games}",
+    "losses": "Losses: {losses}",
+    "lostAgainst": "Lost against:",
+    "missingGameArg": "You need to give me a `game` as the first argument!",
+    "noOne": "no one",
     "noPlayers": "It looks like no one has played yet...",
-    "youNoGamesPlayed": "You have not played any {game} games yet.",
-    "userNoGamesPlayed": "{user} has not played any {game} games yet."
+    "notFound": "This is not a valid game entry. Valid games are:\n{list}",
+    "statsInfo": "Stats für this guild:",
+    "userNoGamesPlayed": "{user} has not played any {game} games yet.",
+    "wins": "Wins: {wins}",
+    "wonAgainst": "Won against:",
+    "youNoGamesPlayed": "You have not played any {game} games yet."
   },
   "rps": {
     "description": "Play rock paper scissors against your friends or the bot",
@@ -120,33 +120,33 @@
         "description": "Who do you want to play against?"
       }
     },
-    "rock": "Rock",
-    "paper": "Paper",
-    "scissors": "Scissors",
+    "accept": {
+      "embedDescription": "Select your move!",
+      "embedTitle": ":game_die: {player1} **VS** {player2}"
+    },
+    "canceled": ":x: {initiator} has withdrawn their challenge.",
     "challenge": {
+      "accept": "Accept",
+      "botEmbedDescription": "You have challenged me to a duel!",
+      "decline": "Decline",
+      "embedDescription": "{user} challenged you to a duel!",
+      "embedTitle": "Rock Paper Scissors",
+      "newChallenge": "{user} :crossed_swords: New duel challenge",
       "opponentIsBot": "You cannot challenge bots!",
       "opponentIsSelf": "You cannot challenge yourself!",
-      "embedTitle": "Rock Paper Scissors",
-      "embedDescription": "{user} challenged you to a duel!",
-      "botEmbedDescription": "You have challenged me to a duel!",
-      "start": "Start",
-      "accept": "Accept",
-      "decline": "Decline",
-      "newChallenge": "{user} :crossed_swords: New duel challenge"
+      "start": "Start"
     },
-    "memberNotFound": "At least one of the players has not been found!",
-    "canceled": ":x: {initiator} has withdrawn their challenge.",
     "declined": ":x: {opponent} did not rise up to the challenge.",
-    "accept": {
-      "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Select your move!"
-    },
     "end": {
       "alreadyChosen": "You have already selected {move}! Please wait for your opponent to choose.",
       "chosen": "{user} has selected their move!",
       "tie": "No one won the game, it's a tie! {emoji} = {emoji}",
       "win": ":tada: {winner} won the game! {winEmoji} > {loseEmoji}"
-    }
+    },
+    "memberNotFound": "At least one of the players has not been found!",
+    "paper": "Paper",
+    "rock": "Rock",
+    "scissors": "Scissors"
   },
   "tictactoe": {
     "description": "play TicTacToe against a friend or the bot",
@@ -169,19 +169,19 @@
       }
     },
     "added": {
-      "embedTitle": "This channel is now a wordchain channel!",
-      "embedDescription": "The rules are simple:\n> Start with any word.\n> The next word must start with the last letter of the last word.\n> You can't say two words in a row.\nHave fun!",
       "by": "Enabled by {user}",
+      "embedDescription": "The rules are simple:\n> Start with any word.\n> The next word must start with the last letter of the last word.\n> You can't say two words in a row.\nHave fun!",
+      "embedTitle": "This channel is now a wordchain channel!",
       "success": "I successfully added {channel} as a wordchain channel."
     },
     "removed": {
-      "embedDescription": "This channel is no longer a wordchain channel.",
       "by": "Disabled by {user}",
+      "embedDescription": "This channel is no longer a wordchain channel.",
       "success": "I successfully removed {channel} as a wordchain channel."
     },
     "userDeletedMsg": {
-      "embedTitle": "Wordchain",
-      "embedDescription": "Deleted Word: {deletedWord}"
+      "embedDescription": "Deleted Word: {deletedWord}",
+      "embedTitle": "Wordchain"
     }
   }
 }

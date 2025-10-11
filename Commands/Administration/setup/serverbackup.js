@@ -1,6 +1,6 @@
 /** @import subcommand from '.' */
 
-const backup = new Map(['creator', 'owner', 'creator+owner', 'admins'].map((e, i) => [e, i]));
+const backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
 /** @type {subcommand} */
 module.exports = {

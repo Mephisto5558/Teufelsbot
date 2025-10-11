@@ -6,105 +6,52 @@
   {
     "key": "botSettings",
     "value": {
-      "startCount": {},
-      "stats": {},
       "blacklist": [],
-      "patreonBonuses": {},
-      "timeEvents": {},
       "defaultGuild": {
-        "config": {
-          "prefix": ".",
-          "betaBotPrefix": "..",
-          "lang": "en"
-        },
         "birthday": {
           "ch": {
             "msg": {
               "embed": {
-                "title": "Happy birthday <user.nickname>",
+                "color": 39129,
                 "description": "We hope you have a wonderful birthday.",
-                "color": 39129
+                "title": "Happy birthday <user.nickname>"
               }
             }
           },
           "dm": {
             "msg": {
               "embed": {
-                "title": "Happy birthday!",
+                "color": 39129,
                 "description": "Happy birthday to you! 🎉",
-                "color": 39129
+                "title": "Happy birthday!"
               }
             }
           }
+        },
+        "config": {
+          "betaBotPrefixes": [
+            {
+              "prefix": ".."
+            }
+          ],
+          "lang": "en",
+          "prefixes": [
+            {
+              "prefix": "."
+            }
+          ]
         },
         "giveaway": {
-          "reaction": "🎉",
           "embedColor": 3800852,
           "embedColorEnd": 16711680,
-          "giveaways": {}
-        },
-        "economy": {
-          "currencyCapacity": 100,
-          "config": {
-            "gaining": {
-              "chat": {
-                "minMessageLength": 5,
-                "maxMessageLength": 10000
-              }
-            }
-          },
-          "maxSlaves": 2,
-          "maxConcurrentResearches": 3,
-          "gaining": {
-            "chat": 0.5,
-            "voice": 0,
-            "work": 0,
-            "daily": 0
-          },
-          "skills": {
-            "currency_bonus_percentage": {
-              "percentage": 18,
-              "lvlUpCooldown": 4.5,
-              "firstPrice": 100
-            },
-            "currency_bonus_absolute": {
-              "percentage": 18,
-              "lvlUpCooldown": 210,
-              "firstPrice": 1000
-            },
-            "research_speed_percentage": {
-              "percentage": 18,
-              "lvlUpCooldown": 840,
-              "firstPrice": 100000
-            },
-            "research_bonus_percentage": {
-              "percentage": 18,
-              "lvlUpCooldown": 24,
-              "firstPrice": 10000
-            },
-            "power": {
-              "percentage": 18,
-              "lvlUpCooldown": 24,
-              "firstPrice": 250
-            },
-            "defense": {
-              "percentage": 18,
-              "lvlUpCooldown": 12,
-              "firstPrice": 100
-            },
-            "currency_capacity": {
-              "percentage": 18,
-              "lvlUpCooldown": 48,
-              "firstPrice": 100
-            },
-            "slave_capacity": {
-              "percentage": 18,
-              "lvlUpCooldown": 168,
-              "firstPrice": 1000000
-            }
-          }
+          "giveaways": {},
+          "reaction": "🎉"
         }
-      }
+      },
+      "patreonBonuses": {},
+      "startCount": {},
+      "stats": {},
+      "timeEvents": {}
     }
   },
   {

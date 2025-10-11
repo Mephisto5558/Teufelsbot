@@ -15,9 +15,9 @@
         "description": "Which model do you want to use?"
       }
     },
-    "rateLimit": "The ratelimit has been reached. Please try again in a few seconds.",
-    "notAvailable": "The API is currently not available. Please check back later.",
     "error": "The API responded with an error.",
+    "notAvailable": "The API is currently not available. Please check back later.",
+    "rateLimit": "The ratelimit has been reached. Please try again in a few seconds.",
     "regenerate": "Regenerate response"
   },
   "editmessage": {
@@ -33,52 +33,52 @@
         "description": "Clear out everything on that message. eg. embeds, files"
       }
     },
-    "modalTitle": "EditMessage Command",
-    "textInputLabel": "Write the new content for that message.",
-    "textInputPlaceholder": "You can also use JSON!",
-    "notFound": "There is no message with that id in the specified channel!",
-    "notBotMessage": "I can only edit my own messages!",
     "cannotEdit": "I cannot edit that message!",
     "emptyJson": "The JSON you provided is empty!",
-    "link": "Link",
     "error": "An error occurred while trying to send your custom JSON:\n{err}",
-    "success": "The message has been edited. {link}"
+    "link": "Link",
+    "modalTitle": "EditMessage Command",
+    "notBotMessage": "I can only edit my own messages!",
+    "notFound": "There is no message with that id in the specified channel!",
+    "success": "The message has been edited. {link}",
+    "textInputLabel": "Write the new content for that message.",
+    "textInputPlaceholder": "You can also use JSON!"
   },
   "record": {
     "description": "Record a voice channel. Needs approval from users.",
     "options": {
-      "target": {
-        "description": "Record only one specific user."
-      },
       "channel": {
         "description": "Wich voice channel do you want to record?"
       },
       "public": {
         "description": "Make the recording public, so any guild member can hear it."
+      },
+      "target": {
+        "description": "Record only one specific user."
       }
     },
-    "noTarget": "There is no one to record! Either all targets are bots or they are not in a voice channel! If you supplied a channel, make sure it is the one the target is in!",
-    "needVoiceChannel": "You need to supply a voice channel or be in one!",
-    "cannotJoin": "I can not join that voice channel! Make sure the channel is not full and I have the needed permissions.",
-    "deaf": "I am currently deafened and i cannot undeaf myself!",
-    "embedTitle": "VoiceRecorder",
-    "embedDescription": "{user} wants to record you in voice channel {channel}.\n{publicOrPrivate}\nPlease press a button to allow or deny the recording of your voice.",
-    "isPublic": "This recording will be available to every member of the guild.",
-    "isPrivate": "This recording will be only available for the current members of the voice channel that allowed the recording.",
-    "cantConnect": "I could not connect to the voice channel! Please try again.",
-    "denied": "No one wants to get recorded.",
-    "canceled": "The recording request has been canceled.",
     "allow": "Allow Recording",
+    "canceled": "The recording request has been canceled.",
+    "cannotJoin": "I can not join that voice channel! Make sure the channel is not full and I have the needed permissions.",
+    "cantConnect": "I could not connect to the voice channel! Please try again.",
+    "deaf": "I am currently deafened and i cannot undeaf myself!",
+    "denied": "No one wants to get recorded.",
     "deny": "Deny Recording",
+    "embedDescription": "{user} wants to record you in voice channel {channel}.\n{publicOrPrivate}\nPlease press a button to allow or deny the recording of your voice.",
+    "embedTitle": "VoiceRecorder",
+    "get": "Get the Recording",
+    "isPrivate": "This recording will be only available for the current members of the voice channel that allowed the recording.",
+    "isPublic": "This recording will be available to every member of the guild.",
+    "needVoiceChannel": "You need to supply a voice channel or be in one!",
+    "noTarget": "There is no one to record! Either all targets are bots or they are not in a voice channel! If you supplied a channel, make sure it is the one the target is in!",
+    "notFound": "Your recording has not been found!",
     "pause": "Pause Recording",
+    "paused": "🔇 I paused recording {channel}.",
+    "privateReady": "Press the button to get the recording.",
+    "recording": "🎙️ I am now recording {channel} ({users})!",
     "resume": "Resume Recording",
     "stop": "Stop Recording",
-    "get": "Get the Recording",
-    "updated": "Your response has been set to {permission}. I am waiting for the other members to reply.",
-    "paused": "🔇 I paused recording {channel}.",
-    "recording": "🎙️ I am now recording {channel} ({users})!",
-    "notFound": "Your recording has not been found!",
-    "privateReady": "Press the button to get the recording.",
-    "success": "🔉 Here is your recording!"
+    "success": "🔉 Here is your recording!",
+    "updated": "Your response has been set to {permission}. I am waiting for the other members to reply."
   }
 }
