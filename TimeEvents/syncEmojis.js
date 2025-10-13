@@ -27,10 +27,10 @@ async function getClient(env, token) {
 /** @param {Client<true>[]} clients */
 async function syncClientsEmojis(clients) {
   const
-    allEmojis = new Map(clients.flatMap(e => [...e.application.emojis.cache.entries()])),
+    allEmojis = new Map(clients.flatMap(client => client.application.emojis.cache.map(e => [e.name, e]))),
     allEmojiNames = new Set(allEmojis.keys()),
     creationActions = clients.flatMap(client => [
-      ...allEmojiNames.difference(new Set(client.application.emojis.cache.keys()))
+      ...allEmojiNames.difference(new Set(client.application.emojis.cache.map(e => e.name)))
     ].map(name => ({ client, emoji: allEmojis.get(name) })));
 
   for (const { client, emoji } of creationActions) {
