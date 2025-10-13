@@ -14,7 +14,11 @@ function replyToTriggers() {
   if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: secToMs(10) })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
-    .filter(e => !!this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response);
+    .filter(e => (e.wildcard
+      ? !!this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())
+      : this.originalContent.toLowerCase() == e.trigger.toLowerCase()))
+    .map(e => e.response);
+
   for (const response of responseList.unique()) void this.customReply(response);
 }
 
