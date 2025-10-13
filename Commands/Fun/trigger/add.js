@@ -24,7 +24,7 @@ module.exports = {
       data = {
         trigger: this.options.getString('trigger', true),
         response: this.options.getString('response', true).replaceAll('/n', '\n'),
-        wildcard: !!this.options.getBoolean('wildcard')
+        wildcard: this.options.getBoolean('wildcard') ?? true
       };
 
     await this.guild.updateDB(`triggers.${id}`, data);

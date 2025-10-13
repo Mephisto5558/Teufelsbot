@@ -10,7 +10,7 @@ module.exports = {
     required: true
   }],
 
-  async run(lang, oldData) {
+  async run(lang, { oldData }) {
     if (this.options.getString('confirmation', true).toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
     if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
