@@ -2,7 +2,7 @@ import type { OverwriteType, messageLink } from 'discord.js';
 import type { GiveawayData } from 'discord-giveaways';
 
 import type { botSettings } from './botSettings';
-import type { Embed, channelId, cmdStats, guildId, messageId, roleId, userId } from './common';
+import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, roleId, userId } from './common';
 
 export type guildSettings = Record<guildId, {
   position: number;
@@ -11,8 +11,7 @@ export type guildSettings = Record<guildId, {
   leftAt?: Date;
   config: {
     lang?: botSettings['defaultGuild']['config']['lang'];
-    prefixes?: botSettings['defaultGuild']['config']['prefixes'];
-    betaBotPrefixes?: botSettings['defaultGuild']['config']['betaBotPrefixes'];
+    prefixes?: Record<string, prefixes>;
     logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
       channel: channelId;
       enabled: boolean;

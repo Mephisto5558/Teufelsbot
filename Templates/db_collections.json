@@ -29,17 +29,15 @@
           }
         },
         "config": {
-          "betaBotPrefixes": [
-            {
-              "prefix": ".."
-            }
-          ],
           "lang": "en",
-          "prefixes": [
-            {
-              "prefix": "."
-            }
-          ]
+          "prefixes": {
+            "main": [
+              {
+                "caseinsensitive": false,
+                "prefix": "."
+              }
+            ]
+          }
         },
         "giveaway": {
           "embedColor": 3800852,

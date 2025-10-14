@@ -17,18 +17,14 @@ module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
     this.originalContent = data.content;
 
-    const prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes';
-
-    let prefixes = this.guild?.db.config[prefixType];
-    if (!prefixes?.[0].prefix) prefixes = this.client.defaultSettings.config[prefixType];
-
     const
       clientUserMention = userMention(this.client.user.id),
       prefixLength = (
         data.content.startsWith(clientUserMention)
           ? clientUserMention
-          : prefixes.find(({ prefix, caseinsensitive }) => (caseinsensitive ? data.content.toLowerCase() : data.content)
-            .startsWith(caseinsensitive ? prefix.toLowerCase() : prefix))?.prefix
+          : (this.guild?.prefixes ?? this.client.prefixes)
+              .find(({ prefix, caseinsensitive }) => (caseinsensitive ? data.content.toLowerCase() : data.content)
+                .startsWith(caseinsensitive ? prefix.toLowerCase() : prefix))?.prefix
       )?.length ?? 0;
 
     this.args = data.content.slice(prefixLength).trim().split(/\s+/);

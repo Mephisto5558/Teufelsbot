@@ -8,20 +8,17 @@ module.exports = {
     {
       name: 'prefix',
       type: 'String',
-      autocompleteOptions() { return this.guild.db.config[this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes']?.map(e => e.prefix) ?? []; },
+      autocompleteOptions() { return this.guild.db.config.prefixes[this.client.botType]?.map(e => e.prefix) ?? []; },
       strictAutocomplete: true,
       required: true
     }
   ],
 
   async run(lang) {
-    const
-      prefix = this.options.getString('prefix', true),
-      prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
-      db = this.guild.db.config[prefixType];
+    const prefix = this.options.getString('prefix', true);
 
-    if (db.length < 2) await this.guild.deleteDB(`config.${prefixType}`);
-    else await this.guild.updateDB(`config.${prefixType}`, db.filter(e => e.prefix != prefix));
+    if (this.guild.prefixes.length < 2) await this.guild.deleteDB(`config.prefixes.${this.client.botType}`);
+    else await this.guild.updateDB(`config.prefixes.${this.client.botType}`, this.guild.prefixes.filter(e => e.prefix != prefix));
 
     return this.customReply(lang('removed', inlineCode(prefix)));
   }

@@ -13,3 +13,5 @@ export type Embed = {
   description: string;
   color: number;
 };
+
+export type prefixes = { prefix: string; caseinsensitive: boolean }[];

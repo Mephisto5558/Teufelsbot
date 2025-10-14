@@ -36,9 +36,11 @@ declare module 'discord.js' {
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB<Database>;
     i18n: I18nProvider;
-    settings: Database['botSettings'];
-    defaultSettings: Database['botSettings']['defaultGuild'];
     botType: NodeJS.ProcessEnv['environment'];
+
+    get settings(): Database['botSettings'];
+    get defaultSettings(): Database['botSettings']['defaultGuild'];
+    get prefixes(): Database['botSettings']['defaultGuild']['config']['prefixes'][string];
 
     /** The config from {@link ./config.json}. */
     config: locals.Config;
@@ -177,6 +179,7 @@ declare module 'discord.js' {
 
     deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;
 
-    localeCode: LangLocaleCode;
+    get localeCode(): LangLocaleCode;
+    get prefixes(): NonNullable<Database['guildSettings'][Snowflake]['config']['prefixes']>[string];
   }
 }
