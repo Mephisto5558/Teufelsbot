@@ -17,31 +17,16 @@ module.exports = {
 
   async run(lang) {
     const
-      prefix = this.options.getString('new_prefix', true),
-      db = this.guild.db.config[`${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`] ?? [];
+      newPrefixes = [{ prefix: this.options.getString('new_prefix', true), caseinsensitive: this.options.getBoolean('case_insensitive') }],
+      prefixInDB = this.guild.prefixes.find(e => newPrefixes[0].prefix == e.prefix);
 
-    let prefixInDB = db.find(e => prefix == e.prefix);
+    newPrefixes[0].caseinsensitive ??= prefixInDB?.caseinsensitive ?? false;
+    if (!prefixInDB && this.guild.db.config.prefixes[this.client.botType]?.length >= MAX_PREFIXES_PER_GUILD)
+      return this.customReply(lang('limitReached'));
 
-    const caseinsensitive = this.options.getBoolean('case_insensitive') ?? prefixInDB?.caseinsensitive ?? false;
+    if (!this.guild.db.config.prefixes[this.client.botType]?.length) newPrefixes.unshift(...this.client.prefixes);
 
-    if (!prefixInDB && db.length >= MAX_PREFIXES_PER_GUILD) return this.customReply(lang('limitReached'));
-
-    if (!db.length) await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, [{ prefix, caseinsensitive }]);
-    else if (prefixInDB) {
-      prefixInDB ??= {};
-      prefixInDB.prefix = prefix;
-      prefixInDB.caseinsensitive = caseinsensitive;
-
-      if (!db.length) db.push(prefixInDB);
-      await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db);
-    }
-    else {
-      await this.client.db.pushToSet(
-        'guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`,
-        { prefix, caseinsensitive }
-      );
-    }
-
-    return this.customReply(lang('saved', inlineCode(prefix)));
+    await this.client.db.pushToSet('guildSettings', `${this.guild.id}.config.prefixes.${this.client.botType}`, ...newPrefixes);
+    return this.customReply(lang('saved', inlineCode(newPrefixes[0].prefix)));
   }
 };

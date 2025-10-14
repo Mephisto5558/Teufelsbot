@@ -1,6 +1,6 @@
 /** @import subcommand from '.' */
 
-const addPrefix = require('./add_prefix');
+const { inlineCode } = require('discord.js');
 
 /** @type {subcommand} */
 module.exports = {
@@ -14,7 +14,13 @@ module.exports = {
   ],
 
   async run(lang) {
-    await this.guild.deleteDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`);
-    return addPrefix.run.call(this, lang);
+    const prefix = this.options.getString('new_prefix', true);
+
+    await this.guild.updateDB(
+      `config.prefixes.${this.client.botType}`,
+      [{ prefix, caseinsensitive: this.options.getBoolean('case_insensitive') ?? false }]
+    );
+
+    return this.customReply(lang('saved', inlineCode(prefix)));
   }
 };

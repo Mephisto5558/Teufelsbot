@@ -10,12 +10,9 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const
-      prefixesKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
-      currentPrefixes = (
-        this.guild.db.config[prefixesKey] ?? this.client.defaultSettings.config[prefixesKey]
-      ).map(e => `${inlineCode(e.prefix)} ${e.caseinsensitive ? lang('caseInsensitive') : ''}`);
-
-    return this.customReply(lang('currentPrefixes', currentPrefixes.join('\n')));
+    return this.customReply(lang(
+      'currentPrefixes',
+      this.guild.prefixes.map(e => `${inlineCode(e.prefix)} ${e.caseinsensitive ? lang('caseInsensitive') : ''}`).join('\n')
+    ));
   }
 };

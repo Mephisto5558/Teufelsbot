@@ -1,7 +1,7 @@
 import type { ActivityType } from 'discord.js';
 import type { Locale } from '@mephisto5558/i18n';
 
-import type { Embed, cmdStats, userId } from './common';
+import type { Embed, cmdStats, prefixes, userId } from './common';
 
 export type botSettings = {
   startCount: Record<string, number>;
@@ -21,8 +21,7 @@ export type botSettings = {
   defaultGuild: {
     config: {
       lang: Locale;
-      prefixes: { prefix: string; caseinsensitive: boolean }[];
-      betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
+      prefixes: Record<string, prefixes> & { main: prefixes };
     };
     birthday: {
       ch: {

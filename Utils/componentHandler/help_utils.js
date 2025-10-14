@@ -100,10 +100,7 @@ function createCommandsComponent(lang, category) {
  * @param {lang} lang
  * @param {command<'prefix' | 'slash' | 'both', boolean, true> | undefined} cmd */
 function createInfoFields(lang, cmd = {}) {
-  const
-    arr = [],
-    prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
-    prefix = this.guild?.db.config[prefixKey]?.[0].prefix ?? this.client.defaultSettings.config[prefixKey][0].prefix;
+  const arr = [];
 
   if ('aliases' in cmd) {
     if ('prefix' in cmd.aliases && cmd.aliases.prefix.length)
@@ -143,8 +140,9 @@ function createInfoFields(lang, cmd = {}) {
   }
 
   const
-    usage = (cmd.usageLocalizations[lang.config.locale ?? '']?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
-    examples = (cmd.usageLocalizations[lang.config.locale ?? '']?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
+    usage = (cmd.usageLocalizations[lang.config.locale ?? '']?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', this.guild.prefixes[0].prefix),
+    examples = (cmd.usageLocalizations[lang.config.locale ?? '']?.examples ?? cmd.usage.examples)
+      ?.replaceAll('{prefix}', this.guild.prefixes[0].prefix);
 
   if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
   if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });

@@ -53,13 +53,13 @@ const
     ],
     discordJs: [
       'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
-      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config', 'Client#prefix',
       'Client#loadEnvAndDB()', 'Client#awaitReady()',
       'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
       'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
       'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
       'GuildMember#db', 'GuildMember#localeCode',
-      'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
+      'Guild#localeCode', 'Guild#prefix', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
     ]
   }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
@@ -205,6 +205,16 @@ Object.defineProperties(Client.prototype, {
     get() { return this.db.get('botSettings', 'defaultGuild'); },
     set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
   },
+
+  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
+  prefixes: {
+    get() {
+      return this.db.get('botSettings', `defaultGuild.config.prefixes.${this.botType}`)
+        ?? this.db.get('botSettings', 'defaultGuild.config.prefixes.main');
+    },
+    set() { throw new Error('You cannot set a value to Client#prefixes!'); }
+  },
+
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
