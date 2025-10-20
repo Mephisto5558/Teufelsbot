@@ -42,7 +42,7 @@ module.exports = {
       newImage: this.options.getString('image')
     };
 
-    if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
+    if (requiredRoles?.length || disallowedMembers?.length) {
     /** @param {GuildMember} member */
       editOptions.newExemptMembers = member => !(
         member.roles.cache.some(e => requiredRoles?.includes(e.id))

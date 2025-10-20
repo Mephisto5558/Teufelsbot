@@ -70,7 +70,7 @@ module.exports = {
       });
 
       embed.data.description = lang('success', { name: bold(emoji.name), emoji });
-      if (limitToRoles?.length > 0) embed.data.description += `\n${lang('limitedToRoles', limitToRoles.map(roleMention).join(', '))}`;
+      if (limitToRoles?.length) embed.data.description += `\n${lang('limitedToRoles', limitToRoles.map(roleMention).join(', '))}`;
     }
     catch (rawErr) {
       const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
