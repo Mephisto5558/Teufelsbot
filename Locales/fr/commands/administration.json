@@ -87,18 +87,6 @@
   "setup": {
     "description": "Définit le bot vers le haut",
     "options": {
-      "toggle_module": {
-        "description": "toggles a module",
-        "options": {
-          "module": {
-            "description": "Le module que vous voulez activer/désactiver",
-            "choices": {
-              "gatekeeper": "Gatekeeper",
-              "birthday": "Jours d'anniversaire"
-            }
-          }
-        }
-      },
       "toggle_command": {
         "description": "Autoriser/Interdire les rôles/canaux/membres de lancer une commande spécifique.",
         "options": {
@@ -259,9 +247,6 @@
     },
     "link": "Lier",
     "useDashboard": "Utilisez le tableau de bord ({link}) pour modifier ce paramètre.",
-    "toggleModule": {
-      "success": "Le module {name} a été {state}."
-    },
     "toggleCommand": {
       "notFound": "Ce n'est pas une commande valide !",
       "list": {

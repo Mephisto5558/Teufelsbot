@@ -87,18 +87,6 @@
   "setup": {
     "description": "Устанавливает бота",
     "options": {
-      "toggle_module": {
-        "description": "toggles a module",
-        "options": {
-          "module": {
-            "description": "Модуль который вы хотите переключить",
-            "choices": {
-              "gatekeeper": "Gatekeeper",
-              "birthday": "Дни рождения"
-            }
-          }
-        }
-      },
       "toggle_command": {
         "description": "Разрешить/Запретить роли/каналы/участники из выполнения определенной команды.",
         "options": {
@@ -259,9 +247,6 @@
     },
     "link": "Ссылка",
     "useDashboard": "Используйте приборную панель ({link}) для изменения этой настройки.",
-    "toggleModule": {
-      "success": "Модуль {name} был {state}."
-    },
     "toggleCommand": {
       "notFound": "Это не допустимая команда!",
       "list": {
