@@ -62,14 +62,14 @@
   },
   "errorHandler": {
     "alreadyReported": "Dieser Fehler wurde bereits gemeldet. {link}.\nEr wird bald behoben.",
-    "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
+    "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten. Bitte versuche es erneut und informiere einen Developer, wenn dies weiterhin auftritt.",
     "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: {command}",
-    "embedFooterText": "Das Melden dieses Fehlers wird die Befehlsoptionen privat an den Entwickler senden.",
+    "embedFooterText": "Das Melden dieses Fehlers wird die Befehlsoptionen privat an die Developer senden.",
     "embedTitle": "Hupsala",
     "link": "Link",
     "reportButton": "Melde diesen Fehler",
     "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
-    "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n{err}\nBitte informiere den Dev direkt.",
+    "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n{err}\nBitte informiere einen Developer direkt.",
     "reportSuccess": "Der Fehler wurde gemeldet. {link}"
   },
   "getCommands": {

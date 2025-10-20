@@ -62,14 +62,14 @@
   },
   "errorHandler": {
     "alreadyReported": "This error has already been reported. {link}.\nIt will be fixed soon.",
-    "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
+    "discordAPIErr": "A Discord API Error occurred, please try again and message a developer if this keeps happening.",
     "embedDescription": "An unexpected error occurred!\n\nCommand: {command}",
-    "embedFooterText": "Reporting this error will send the command options privately to the dev.",
+    "embedFooterText": "Reporting this error will send the command options privately to the developers.",
     "embedTitle": "Whoooops",
     "link": "Link",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
-    "reportFail": "An error occurred while trying to send your error report.\n{err}\nPlease message the dev directly.",
+    "reportFail": "An error occurred while trying to send your error report.\n{err}\nPlease message a developer directly.",
     "reportSuccess": "The error has been reported. {link}"
   },
   "getCommands": {
