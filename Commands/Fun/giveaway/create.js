@@ -69,8 +69,8 @@ module.exports = {
           giveawayEnded: bold(lang('giveawayEnded')),
           inviteToParticipate:
             `${this.options.getString('description', true)}\n\n`
-            + (requiredRoles?.length > 0 ? lang('requiredRoles', `${requiredRoles.map(roleMention).join(', ')}\n`) : '')
-            + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `${disallowedMembers.map(userMention).join(', ')}\n`) : '')
+            + (requiredRoles?.length ? lang('requiredRoles', `${requiredRoles.map(roleMention).join(', ')}\n`) : '')
+            + (disallowedMembers?.length ? lang('disallowedMembers', `${disallowedMembers.map(userMention).join(', ')}\n`) : '')
             + lang('inviteToParticipate', reaction),
           winMessage: { content: lang('winMessage'), components },
           drawing: lang('drawing'),
@@ -87,7 +87,7 @@ module.exports = {
         isDrop: this.options.getBoolean('is_drop')
       };
 
-    if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
+    if (requiredRoles?.length || disallowedMembers?.length)
 
       /** @param {GuildMember} member */
       startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));

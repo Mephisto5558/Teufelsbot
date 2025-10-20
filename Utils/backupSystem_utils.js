@@ -158,7 +158,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
   if (Constants.TextBasedChannelTypes.includes(channel.type)) {
     /** @type {Webhook<WebhookType.Incoming> | undefined} */
     let webhook;
-    if (channel.messages.length > 0) {
+    if (channel.messages.length) {
       try { webhook = await loadChannelMessages(newChannel, channel.messages, undefined, maxMessagesPerChannel, allowedMentions); }
       catch (err) {
         if (!(err instanceof DiscordAPIError)) throw err;
@@ -195,7 +195,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
   if (!webhook) return;
 
   for (const msg of messages
-    .filter(e => e.content.length > 0 || e.embeds.length > 0 || e.attachments.length > 0)
+    .filter(e => e.content.length || e.embeds.length || e.attachments.length)
     .toReversed().slice(-maxMessagesPerChannel)
   ) {
     try {
