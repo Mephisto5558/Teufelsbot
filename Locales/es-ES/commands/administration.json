@@ -87,18 +87,6 @@
   "setup": {
     "description": "Establece el bot",
     "options": {
-      "toggle_module": {
-        "description": "toggles a module",
-        "options": {
-          "module": {
-            "description": "El módulo que desea alternar",
-            "choices": {
-              "gatekeeper": "Gatekeeper",
-              "birthday": "Cumpleaños"
-            }
-          }
-        }
-      },
       "toggle_command": {
         "description": "Permitir/Rechazar roles/canales/miembros para ejecutar un comando específico.",
         "options": {
@@ -259,9 +247,6 @@
     },
     "link": "Enlace",
     "useDashboard": "Utiliza el panel ({link}) para modificar esta configuración.",
-    "toggleModule": {
-      "success": "El módulo {name} ha sido {state}."
-    },
     "toggleCommand": {
       "notFound": "¡Este comando no es válido!",
       "list": {

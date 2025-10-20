@@ -7,14 +7,11 @@
       "create": {
         "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
       },
-      "load": {
-        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+      "delete": {
+        "description": "Delete a backup.",
         "options": {
           "id": {
-            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
-          },
-          "no_clear": {
-            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+            "description": "The backup to delete."
           }
         }
       },
@@ -26,106 +23,157 @@
           }
         }
       },
-      "delete": {
-        "description": "Delete a backup.",
+      "load": {
+        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
         "options": {
           "id": {
-            "description": "The backup to delete."
+            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+          },
+          "no_clear": {
+            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
           }
         }
       }
     },
-    "embedTitle": "Server Backup",
-    "create": {
-      "settings": "{emoji} Saving settings...",
-      "members": "{emoji} Saving members...",
-      "bans": "{emoji} Saving bans...",
-      "roles": "{emoji} Saving roles...",
-      "emojis": "{emoji} Saving emojis...",
-      "stickers": "{emoji} Saving stickers...",
-      "channels": "{emoji} Saving channels, threads, and messages...",
-      "images": "{emoji} Saving icon, slash, and banner...",
-      "success": "The backup with the ID {id} has been created successfully!\nUse {cmd} for more information about the backup."
-    },
     "clear": {
-      "items": "{emoji} Deleting emojis, stickers, and roles...",
       "bans": "{emoji} Deleting bans...",
-      "settings": "{emoji} Deleting settings...",
-      "ownWebhooks": "{emoji} Deleting temporary webhooks..."
+      "items": "{emoji} Deleting emojis, stickers, and roles...",
+      "ownWebhooks": "{emoji} Deleting temporary webhooks...",
+      "settings": "{emoji} Deleting settings..."
     },
-    "load": {
-      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, click \"Yes\". Click \"No\" to cancel.\nYou might also want to create a backup before loading, just to be safe.",
-      "noneFound": "No backup has been found for this guild!",
-      "cancelled": "Loading the backup has been cancelled.",
-      "enableDMs": "Please enable the bot to send you DMs so that you can see the loading status.",
-      "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
-      "noPerm": "Only the guild owner can load backups!",
-      "settings": "{emoji} Loading settings...",
-      "features": "{emoji} Loading server features...",
-      "roles": "{emoji} Loading roles...",
-      "members": "{emoji} Loading member roles and nicknames...",
-      "channels": "{emoji} Loading channels, threads, and messages...",
-      "emojis": "{emoji} Loading emojis...",
-      "stickers": "{emoji} Loading stickers...",
-      "bans": "{emoji} Loading bans...",
-      "success": "Successfully loaded the backup with id {id}.",
-      "error": "An error occurred while trying to load the backup."
+    "create": {
+      "bans": "{emoji} Saving bans...",
+      "channels": "{emoji} Saving channels, threads, and messages...",
+      "emojis": "{emoji} Saving emojis...",
+      "images": "{emoji} Saving icon, slash, and banner...",
+      "members": "{emoji} Saving members...",
+      "roles": "{emoji} Saving roles...",
+      "settings": "{emoji} Saving settings...",
+      "stickers": "{emoji} Saving stickers...",
+      "success": "The backup with the ID {id} has been created successfully!\nUse {cmd} for more information about the backup."
     },
     "delete": {
       "noPerm": "Only the guild owner can delete backups!",
       "success": "Successfully deleted the backup!"
     },
+    "embedTitle": "Server Backup",
     "get": {
-      "oneEmbedDescription": "**Information about backup {id}**\n>>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "oneNotFound": "No backup was found with that ID!",
-      "infos": ">>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "found": "Found {amount} backups.",
       "embedDescription": "The following backups were found, sorted by date:",
-      "noneFound": "No backups were found for this server."
+      "found": "Found {amount} backups.",
+      "infos": ">>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "noneFound": "No backups were found for this server.",
+      "oneEmbedDescription": "**Information about backup {id}**\n>>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneNotFound": "No backup was found with that ID!"
+    },
+    "load": {
+      "bans": "{emoji} Loading bans...",
+      "cancelled": "Loading the backup has been cancelled.",
+      "channels": "{emoji} Loading channels, threads, and messages...",
+      "emojis": "{emoji} Loading emojis...",
+      "enableDMs": "Please enable the bot to send you DMs so that you can see the loading status.",
+      "error": "An error occurred while trying to load the backup.",
+      "features": "{emoji} Loading server features...",
+      "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
+      "members": "{emoji} Loading member roles and nicknames...",
+      "noPerm": "Only the guild owner can load backups!",
+      "noneFound": "No backup has been found for this guild!",
+      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, click \"Yes\". Click \"No\" to cancel.\nYou might also want to create a backup before loading, just to be safe.",
+      "roles": "{emoji} Loading roles...",
+      "settings": "{emoji} Loading settings...",
+      "stickers": "{emoji} Loading stickers...",
+      "success": "Successfully loaded the backup with id {id}."
     }
   },
   "setup": {
     "description": "Sets the bot up",
     "options": {
-      "toggle_module": {
-        "description": "toggles a module",
+      "add_prefix": {
+        "description": "Add another prefix for the bot.",
         "options": {
-          "module": {
-            "description": "The module you want to toggle",
+          "case_insensitive": {
+            "description": "Should the case of the prefix be ignored?"
+          },
+          "new_prefix": {
+            "description": "the new bot prefix for this guild"
+          }
+        }
+      },
+      "autopublish": {
+        "description": "automatically publish everything anyone in any announcement channel says.",
+        "options": {
+          "enabled": {
+            "description": "automatically publish everything anyone in any announcement channel says."
+          }
+        }
+      },
+      "birthday": {
+        "description": "Configure the birthday channel and message."
+      },
+      "language": {
+        "description": "Change the bot's language.",
+        "options": {
+          "language": {
+            "description": "In which language should the boy reply?"
+          }
+        }
+      },
+      "logger": {
+        "description": "Log actions that the audit log cannot log",
+        "options": {
+          "action": {
+            "description": "The action you want to log",
             "choices": {
-              "gatekeeper": "Gatekeeper",
-              "birthday": "Birthdays"
+              "all": "all actions",
+              "messageDelete": "message delete",
+              "messageUpdate": "message edit",
+              "sayCommandUsed": "/say (or similar) command uses",
+              "voiceChannelActivity": "join/leave/switch voice channel"
             }
+          },
+          "channel": {
+            "description": "The channel you want to send the log message to"
+          },
+          "enabled": {
+            "description": "Enable (true) or disable (false) logging the action"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Remove a prefix for the bot.",
+        "options": {
+          "prefix": {
+            "description": "the prefix to remove for this guild"
+          }
+        }
+      },
+      "serverbackup": {
+        "description": "Manage options for your server backups.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "admins": "Current server administrators",
+              "creator": "Creator",
+              "creatorAndOwner": "Creator and Server owner",
+              "owner": "Server owner"
+            }
+          }
+        }
+      },
+      "set_prefix": {
+        "description": "Change the bot's prefix.",
+        "options": {
+          "case_insensitive": {
+            "description": "Should the case of the prefix be ignored?"
+          },
+          "new_prefix": {
+            "description": "the new bot prefix for this guild"
           }
         }
       },
       "toggle_command": {
         "description": "Allow/Disallow roles/channels/members from running a specific command.",
         "options": {
-          "command": {
-            "description": "The command you want to toggle."
-          },
-          "get": {
-            "description": "Get a list of disallowed roles/channels/members for that command instead."
-          },
-          "role_1": {
-            "description": "The role for which you want to toggle the command"
-          },
-          "role_2": {
-            "description": "The role for which you want to toggle the command"
-          },
-          "role_3": {
-            "description": "The role for which you want to toggle the command"
-          },
-          "role_4": {
-            "description": "The role for which you want to toggle the command"
-          },
-          "role_5": {
-            "description": "The role for which you want to toggle the command"
-          },
-          "role_6": {
-            "description": "The role for which you want to toggle the command"
-          },
           "channel_1": {
             "description": "The channel for which you want to toggle the command"
           },
@@ -144,6 +192,12 @@
           "channel_6": {
             "description": "The channel for which you want to toggle the command"
           },
+          "command": {
+            "description": "The command you want to toggle."
+          },
+          "get": {
+            "description": "Get a list of disallowed roles/channels/members for that command instead."
+          },
           "member_1": {
             "description": "The member for which you want to toggle the command"
           },
@@ -161,92 +215,26 @@
           },
           "member_6": {
             "description": "The member for which you want to toggle the command"
-          }
-        }
-      },
-      "language": {
-        "description": "Change the bot's language.",
-        "options": {
-          "language": {
-            "description": "In which language should the boy reply?"
-          }
-        }
-      },
-      "set_prefix": {
-        "description": "Change the bot's prefix.",
-        "options": {
-          "new_prefix": {
-            "description": "the new bot prefix for this guild"
           },
-          "case_insensitive": {
-            "description": "Should the case of the prefix be ignored?"
-          }
-        }
-      },
-      "add_prefix": {
-        "description": "Add another prefix for the bot.",
-        "options": {
-          "new_prefix": {
-            "description": "the new bot prefix for this guild"
+          "role_1": {
+            "description": "The role for which you want to toggle the command"
           },
-          "case_insensitive": {
-            "description": "Should the case of the prefix be ignored?"
-          }
-        }
-      },
-      "remove_prefix": {
-        "description": "Remove a prefix for the bot.",
-        "options": {
-          "prefix": {
-            "description": "the prefix to remove for this guild"
-          }
-        }
-      },
-      "serverbackup": {
-        "description": "Manage options for your server backups.",
-        "options": {
-          "allowed_to_load": {
-            "description": "Change who is allowed to load server backups.",
-            "choices": {
-              "creator": "Creator",
-              "owner": "Server owner",
-              "creator+owner": "Creator and Server owner",
-              "admins": "Current server administrators"
-            }
-          }
-        }
-      },
-      "autopublish": {
-        "description": "automatically publish everything anyone in any announcement channel says.",
-        "options": {
-          "enabled": {
-            "description": "automatically publish everything anyone in any announcement channel says."
-          }
-        }
-      },
-      "logger": {
-        "description": "Log actions that the audit log cannot log",
-        "options": {
-          "action": {
-            "description": "The action you want to log",
-            "choices": {
-              "all": "all actions",
-              "messageDelete": "message delete",
-              "messageUpdate": "message edit",
-              "voiceChannelActivity": "join/leave/switch voice channel",
-              "sayCommandUsed": "/say (or similar) command uses"
-            }
+          "role_2": {
+            "description": "The role for which you want to toggle the command"
           },
-          "channel": {
-            "description": "The channel you want to send the log message to"
+          "role_3": {
+            "description": "The role for which you want to toggle the command"
           },
-          "enabled": {
-            "description": "Enable (true) or disable (false) logging the action"
+          "role_4": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_5": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_6": {
+            "description": "The role for which you want to toggle the command"
           }
         }
-      },
-      "birthday": {
-        "description": "Configure the birthday channel and message."
       },
       "wordcounter": {
         "description": "Enable (true) or disable (false) counting words in all user messages for stats.",
@@ -257,41 +245,30 @@
         }
       }
     },
-    "link": "Link",
-    "useDashboard": "Use the dashboard ({link}) to modify this setting.",
-    "toggleModule": {
-      "success": "The {name} module has been {state}."
-    },
-    "toggleCommand": {
-      "notFound": "This is not a valid command!",
-      "list": {
-        "all": "All members",
-        "embedTitle": "Disallowed roles/channels/members for command {command}",
-        "embedDescription": "No roles, channels or members are currently disallowed."
-      },
-      "enabled": "The {command} command is now enabled.",
-      "disabled": "The {command} command is now disabled.",
-      "isDisabled": "The {command} command is disabled for all members. You can re-enable it by running {commandMention} without specifying any role, channel or member.",
-      "roles": "Roles",
-      "channels": "Channels",
-      "users": "Members",
-      "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||",
-      "embed": {
-        "enabled": "Removed (Allowed)",
-        "disabled": "Added (Disallowed)"
-      }
-    },
-    "language": {
-      "embedTitle": "Bot language changed!",
-      "embedDescription": "The language has been set to {lang}."
-    },
-    "setPrefix": {
-      "saved": "My prefix has been changed to {prefix}."
-    },
     "addPrefix": {
       "limitReached": "You cannot add more prefixes! Try removing unused ones first.",
       "saved": "{prefix} has been added as additional prefix."
+    },
+    "autopublish": {
+      "success": "{toggle} autopublishing."
+    },
+    "language": {
+      "embedDescription": "The language has been set to {lang}.",
+      "embedTitle": "Bot language changed!"
+    },
+    "link": "Link",
+    "logger": {
+      "actions": {
+        "all": "all actions",
+        "messageDelete": "deleted messages",
+        "messageUpdate": "edited messages",
+        "sayCommandUsed": "/say (or similar) command uses",
+        "voiceChannelActivity": "voice channel joins/leaves/switches"
+      },
+      "disabled": "Logs for {action} will no longer be sent.",
+      "enabled": "Logs for {action} will be sent to {channel}.",
+      "noChannel": "You did not specify a text channel to send the log to!",
+      "noEnabled": "You need to use the `enabled` option to set all actions at once!"
     },
     "removePrefix": {
       "removed": "The prefix {prefix} has been removed."
@@ -299,22 +276,31 @@
     "serverbackup": {
       "success": "Successfully updated the settings!"
     },
-    "autopublish": {
-      "success": "{toggle} autopublishing."
+    "setPrefix": {
+      "saved": "My prefix has been changed to {prefix}."
     },
-    "logger": {
-      "noChannel": "You did not specify a text channel to send the log to!",
-      "noEnabled": "You need to use the `enabled` option to set all actions at once!",
-      "enabled": "Logs for {action} will be sent to {channel}.",
-      "disabled": "Logs for {action} will no longer be sent.",
-      "actions": {
-        "all": "all actions",
-        "messageDelete": "deleted messages",
-        "messageUpdate": "edited messages",
-        "voiceChannelActivity": "voice channel joins/leaves/switches",
-        "sayCommandUsed": "/say (or similar) command uses"
-      }
+    "toggleCommand": {
+      "channels": "Channels",
+      "disabled": "The {command} command is now disabled.",
+      "embed": {
+        "disabled": "Added (Disallowed)",
+        "enabled": "Removed (Allowed)"
+      },
+      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||",
+      "embedFooterText": "This setting does not affect the guild's owner.",
+      "embedTitle": "Updated Command Settings for \"{commandName}\"",
+      "enabled": "The {command} command is now enabled.",
+      "isDisabled": "The {command} command is disabled for all members. You can re-enable it by running {commandMention} without specifying any role, channel or member.",
+      "list": {
+        "all": "All members",
+        "embedDescription": "No roles, channels or members are currently disallowed.",
+        "embedTitle": "Disallowed roles/channels/members for command {command}"
+      },
+      "notFound": "This is not a valid command!",
+      "roles": "Roles",
+      "users": "Members"
     },
+    "useDashboard": "Use the dashboard ({link}) to modify this setting.",
     "wordcounter": {
       "success": "{toggle} word counting."
     }

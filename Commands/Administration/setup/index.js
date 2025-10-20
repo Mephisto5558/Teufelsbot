@@ -8,7 +8,6 @@ module.exports = {
   slashCommand: true,
   prefixCommand: false,
   options: [
-    { name: 'toggle_module', type: 'Subcommand' },
     { name: 'toggle_command', type: 'Subcommand' },
     {
       name: 'language',
