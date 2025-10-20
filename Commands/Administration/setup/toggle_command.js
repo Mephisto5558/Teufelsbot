@@ -102,7 +102,8 @@ module.exports = {
             .join('\n'),
           inline: true
         })),
-      color: Colors.White
+      color: Colors.White,
+      footer: { text: lang('embedFooterText') }
     });
 
     await this.guild.updateDB(`config.commands.${command}.disabled`, commandData);
