@@ -1,7 +1,7 @@
 const timeEvents = {
   birthday: require('./birthday'),
   dbCleanup: require('./dbCleanup'),
-  fileClean: require('./fileClean'),
+  fileCleanup: require('./fileCleanup'),
   syncEmojis: require('./syncEmojis'),
   votingReminder: require('./votingReminder')
 };
