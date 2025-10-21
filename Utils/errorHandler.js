@@ -19,7 +19,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
   const
 
     /** @type {Record<string, unknown>} */
-    contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
+    contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((/** @type {Record<string, unknown>} */ acc, e) => {
       acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
     }, {}),
@@ -97,7 +97,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
         const
           headers = {
             Authorization: `Bearer ${process.env.githubKey}`,
-            'User-Agent': `Bot ${github.repo}`,
+            'User-Agent': `Discord Bot ${this.application.name ?? ''} (${github.repo ?? ''})`,
             Accept: 'application/json'
           },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}`

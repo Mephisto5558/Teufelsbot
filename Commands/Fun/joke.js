@@ -45,7 +45,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
 
     const res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
       headers: {
-        'User-Agent': `Discord bot (${this.config.github.repo})`,
+        'User-Agent': `Discord Bot ${this.application.name ?? ''} (${this.config.github.repo ?? ''})`,
         Accept: 'application/json'
       },
       signal: timeoutSignal.signal

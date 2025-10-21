@@ -25,8 +25,12 @@ module.exports = {
 
   async run(lang) {
     /** @type {{ success: boolean, message: string, color: number }} */
-    const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`)
-      .then(async e => e.json());
+    const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`, {
+      headers: {
+        'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
+        Accept: 'application/json'
+      }
+    }).then(async e => e.json());
 
     if (!data.success) {
       void this.customReply(lang('error'));

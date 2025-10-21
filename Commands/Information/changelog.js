@@ -18,10 +18,12 @@ let commitsCache;
 async function getCommits() {
   const
     { github } = this.config,
+
+    // https://docs.github.com/de/rest/commits/commits#list-commits
     res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
-        'User-Agent': `Bot ${github.repo}`,
+        'User-Agent': `Discord Bot ${this.application.name ?? ''} (${github.repo ?? ''})`,
         Authorization: `Bearer ${process.env.githubKey}`,
         Accept: 'application/json'
       }

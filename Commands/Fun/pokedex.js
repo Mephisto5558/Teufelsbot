@@ -9,7 +9,7 @@ const
   /** @type {(client: Client, pokemon: string) => Promise<Pokemon[] | undefined>} */
   fetchAPI = async (client, pokemon) => fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`, {
     headers: {
-      'User-Agent': `Discord bot (${client.config.github.repo})`,
+      'User-Agent': `Discord Bot ${client.application.name ?? ''} (${client.config.github.repo ?? ''})`,
       Accept: 'application/json'
     }
   }).then(async e => e.json()),
