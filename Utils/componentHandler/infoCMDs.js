@@ -21,12 +21,15 @@ const
 
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
+  /** @type {(embed: EmbedBuilder, lang: lang) => EmbedBuilder} */
+  getNoPermEmbed = (embed, lang) => embed.setDescription(lang('global.noPermUser')),
+
   /** @type {Record<string, ManagerFn>} */
   manageFunctions = {
     /** @type {ManagerFn<GuildMember>} */
     async members(embed, mode, member, lang) {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
-        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], flags: MessageFlags.Ephemeral });
+        return this.reply({ embeds: [getNoPermEmbed(embed, lang)], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, member);
       if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], flags: MessageFlags.Ephemeral });
 
@@ -105,7 +108,7 @@ const
             }
 
             if (!guildMember.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
-              return this.customReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+              return this.customReply({ embeds: [getNoPermEmbed(embed, lang)] });
             if (!guild.members.me.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
               return this.customReply({ embeds: [embed.setDescription(lang('noPerm'))] });
             if (guild.emojis.cache.has(emoji.id))
@@ -121,7 +124,7 @@ const
 
         case 'delete':
           if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
-            return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+            return this.editReply({ embeds: [getNoPermEmbed(embed, lang)] });
           if (!emoji.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
           await emoji.delete(`emoji delete button in /emojiinfo, member ${this.user.tag}`);
@@ -136,7 +139,7 @@ const
       if (
         role.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId
         || !this.member.permissions.has(PermissionFlagsBits.ManageRoles)
-      ) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+      ) return this.editReply({ embeds: [getNoPermEmbed(embed, lang)] });
 
       if (!role.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
@@ -168,6 +171,6 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
   return this.message.edit({ components: this.message.components }).catch(err => {
-    if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
+    if (!(err instanceof DiscordAPIError) || err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
   });
 };

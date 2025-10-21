@@ -114,7 +114,7 @@ Object.defineProperties(Number.prototype, {
 });
 Object.defineProperties(Object.prototype, {
   __count__: {
-    /** @type {global['Object']['prototype']['__count__']} */
+    /** @type {(this: object) => number} */
     get: function get() {
       let count = 0;
       /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
