@@ -20,7 +20,9 @@ async function fetchAPI(lang, deep) {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${process.env.chatGPTApiKey}`,
-      'Content-Type': 'application/json'
+      'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
     },
     body: JSON.stringify({
       model: 'pai-001',
