@@ -11,14 +11,14 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard or domain url path in config.json',
 
   async run(lang) {
-    const
-      { domain = 'missingdomain', port = 0, dashboard } = this.client.config.website, // TODO
+    const { domain, port = 0, dashboard } = this.client.config.website;
+    if (!domain) return this.customReply(lang('events.command.missingDomainConfig'));
 
-      embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        description: lang('embedDescriptionDashboard', hyperlink(lang('global.here'), domain + (port ? `:${port}` : '') + `/${dashboard}`)),
-        color: Colors.Blurple
-      });
+    const embed = new EmbedBuilder({
+      title: lang('embedTitle'),
+      description: lang('embedDescriptionDashboard', hyperlink(lang('global.here'), domain + (port ? `:${port}` : '') + `/${dashboard}`)),
+      color: Colors.Blurple
+    });
 
     return this.customReply({ embeds: [embed] });
   }

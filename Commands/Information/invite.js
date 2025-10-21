@@ -1,7 +1,5 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-
-  /** @type {Client['config']} */
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 /** @type {command<'both', false>} */
@@ -13,14 +11,15 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
 
   async run(lang) {
-    const
-      { domain = 'missingdomain', port = 0, invite } = this.client.config.website, // TODO
+    const { domain = 'missingdomain', port = 0, invite } = this.client.config.website;
+    if (!domain) return this.customReply(lang('events.command.missingDomainConfig'));
 
-      embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        description: lang('embedDescription', hyperlink(lang('global.here'), domain + (port ? `:${port}` : '') + `/${invite}`)),
-        color: Colors.Blue
-      });
+
+    const embed = new EmbedBuilder({
+      title: lang('embedTitle'),
+      description: lang('embedDescription', hyperlink(lang('global.here'), domain + (port ? `:${port}` : '') + `/${invite}`)),
+      color: Colors.Blue
+    });
 
     return this.customReply({ embeds: [embed] });
   }

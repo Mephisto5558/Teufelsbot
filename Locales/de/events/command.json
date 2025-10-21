@@ -27,6 +27,7 @@
     }
   },
   "invalidChannelType": "Der Kanal, den du für die Option \"{option}\" eingegeben hast, muss einer der zur Auswahl stehenden Kanaltypen sein. Bitte wähle eine der verfügbaren Optionen, bei der Eingabe des Slash-Befehls.",
+  "missingDomainConfig": "Es wurde keine Website-Domain konfiguriert.",
   "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
   "notAllowed": {
     "anyone": "Niemandem ist es erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
