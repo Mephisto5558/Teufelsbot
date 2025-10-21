@@ -27,6 +27,7 @@
     }
   },
   "invalidChannelType": "The channel you inputted for the option \"{option}\" must be one of the channel type choices. Please select one of the available options when entering the slash command.",
+  "missingDomainConfig": "No website domain has been configured.",
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
   "notAllowed": {
     "anyone": "No one is allowed to run this command (set by a server administrator)!",

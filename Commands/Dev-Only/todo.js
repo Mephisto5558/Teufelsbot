@@ -7,13 +7,14 @@ module.exports = {
   prefixCommand: true,
 
   async run(lang) {
-    const
-      { domain = 'missingdomain', port = 0, todo, vote } = this.client.config.website, // TODO
-      domainUrl = domain + (port ? `:${port}` : '');
+    const { domain, port = 0, todo, vote } = this.client.config.website;
+
+    let domainUrl;
+    if (domain) domainUrl = domain + (port ? `:${port}` : '');
 
     return this.reply(
-      (domain ? hyperlink(lang('list'), `<${domainUrl}/${todo}>`) : '')
-      + (domain ? '\n' + hyperlink(lang('website'), `<${domainUrl}/${vote}>`) : '')
+      (domainUrl ? hyperlink(lang('list'), `<${domainUrl}/${todo}>`) : '')
+      + (domainUrl ? '\n' + hyperlink(lang('website'), `<${domainUrl}/${vote}>`) : '')
       + '\n' + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }
