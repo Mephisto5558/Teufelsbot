@@ -30,8 +30,8 @@ module.exports = async function lock_unlock(lang) {
   if (this.commandName == 'lock') {
     overwrites = channel.permissionOverwrites.cache.reduce((acc, e) => {
       if (
-        e.allow.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator)
-        && (e.type == OverwriteType.Role && roles.get(e.id)?.editable || members.get(e.id).manageable)
+        (e.type == OverwriteType.Role && roles.get(e.id)?.editable || members.get(e.id).manageable)
+        && !e.deny.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator)
       ) acc[e.id] = e.type;
 
       return acc;
