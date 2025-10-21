@@ -111,17 +111,6 @@ Object.defineProperties(Number.prototype, {
   }
 });
 Object.defineProperties(Object.prototype, {
-  filterEmpty: {
-    /** @type {global['Object']['prototype']['filterEmpty']} */
-    value: function filterEmpty() {
-      return Object.entries(this).reduce((acc, [k, v]) => {
-        if (v !== null && !(typeof v == 'object' && v.__count__))
-          acc[k] = v instanceof Object ? v.filterEmpty() : v;
-        return acc;
-      }, {});
-    },
-    enumerable: false
-  },
   __count__: {
     /** @type {global['Object']['prototype']['__count__']} */
     get: function get() {

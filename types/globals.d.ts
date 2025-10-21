@@ -76,9 +76,6 @@ declare global {
   }
 
   interface Object {
-    /** Removes `null`, `undefined`, empty arrays and empty objects recursively. */
-    filterEmpty(this: object): object;
-
     /** The amount of items in the object. */
     get __count__(this: object): number;
   }

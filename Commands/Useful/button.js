@@ -1,7 +1,7 @@
 const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
   {
-    DiscordAPIErrorCodes, timeFormatter: { msInSecond },
+    DiscordAPIErrorCodes, timeFormatter: { msInSecond }, filterEmptyEntries,
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
   } = require('#Utils');
 
@@ -134,7 +134,7 @@ module.exports = {
     return void this.editReply(
       this.options.getString('json')
         ? lang('successJSON')
-        : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty())))
+        : lang('success', codeBlock('json', JSON.stringify(filterEmptyEntries(button.data))))
     );
   }
 };
