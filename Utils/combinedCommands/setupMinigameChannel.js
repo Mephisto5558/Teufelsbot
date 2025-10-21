@@ -42,7 +42,7 @@ module.exports = async function setupMinigameChannel(lang) {
 
   if (game == 'counting') await this.guild.updateDB(`channelMinigames.${game}.${channel.id}`, { lastNumber: 0 });
   else if (game == 'wordchain') await this.guild.updateDB(`channelMinigames.${game}.${channel.id}`, { chainedWords: 0 });
-  else await this.guild.updateDB(`channelMinigames.${game}.${channel.id}`, { });
+  else await this.guild.updateDB(`channelMinigames.${game}.${channel.id}`, {});
 
   if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
   await channel.send({ embeds: [embed] });
