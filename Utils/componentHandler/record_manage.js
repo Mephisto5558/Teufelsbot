@@ -34,7 +34,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
     await this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.guild.members.cache.get(requesterId).user.tag}`);
   }
 
-  embed.data.description = lang('global.loading', getEmoji('loading'));
+  embed.data.description = lang('global.loading', this.client.application.getEmoji('loading'));
   embed.data.color = Colors.Green;
 
   void this.message.edit({ content: '', embeds: [embed], components: [] });
@@ -145,7 +145,7 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
       return this.update({ embeds: [embed], components: [] });
     }
 
-    embed.data.description = lang('global.loading', getEmoji('loading'));
+    embed.data.description = lang('global.loading', this.client.application.getEmoji('loading'));
     void this.update({ embeds: [embed], components: [] });
 
     await shellExec(`"${ffmpegPath}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);

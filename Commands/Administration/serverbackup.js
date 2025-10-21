@@ -34,7 +34,7 @@ const backupMainFunctions = {
     embed.data.color = Colors.White;
 
     const
-      statusObj = createProxy(this, embed, lang, getEmoji('loading')),
+      statusObj = createProxy(this, embed, lang, this.client.application.getEmoji('loading')),
       backup = await this.client.backupSystem.create(this.guild, {
         save: true, saveImages: true, backupMembers: true,
         metadata: [

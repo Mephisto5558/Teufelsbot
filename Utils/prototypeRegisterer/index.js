@@ -4,11 +4,13 @@
 /**
  * @import { DB as DBT } from '@mephisto5558/mongoose-db'
  * @import i18n from '@mephisto5558/i18n'
- * @import { Guild, User, AutocompleteInteraction as AutocompleteInteractionT } from 'discord.js'
+ * @import { Guild, User, AutocompleteInteraction as AutocompleteInteractionT, ClientApplication as ClientApplicationT } from 'discord.js'
  * @import { LogInterface } from '.' */
 
 const
-  { AutocompleteInteraction, BaseInteraction, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
+  {
+    AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
+  } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   { readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
@@ -54,7 +56,7 @@ const
     discordJs: [
       'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
       'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config', 'Client#prefix',
-      'Client#loadEnvAndDB()', 'Client#awaitReady()',
+      'Client#loadEnvAndDB()', 'Client#awaitReady()', 'ClientApplication#getEmoji()',
       'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
       'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
       'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
@@ -246,6 +248,12 @@ Object.defineProperties(Client.prototype, {
     value: async function awaitReady() {
       return new Promise(res => void this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
+  }
+});
+Object.defineProperty(ClientApplication.prototype, 'getEmoji', {
+  /** @type {ClientApplicationT['getEmoji']} */
+  value: function getEmoji(emoji) {
+    return this.emojis.cache.find(e => e.name == emoji)?.toString();
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {

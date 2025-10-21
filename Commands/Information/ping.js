@@ -20,8 +20,10 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(
-          average ? 'average.loading' : 'global.loading',
-          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime) }
+          average ? 'average.loading' : 'global.loading', { 
+            emoji: this.client.application.getEmoji('loading'), current: 1, target: maxPings, 
+            timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime)
+          }
         ),
         color: Colors.Green
       }),
