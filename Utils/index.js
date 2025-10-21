@@ -14,6 +14,7 @@ const utils = {
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler'),
   filename: require('./filename'),
+  filterEmptyEntries: require('./filterEmptyEntries'),
   findAllEntries: require('./findAllEntries'),
   formatCommand: require('./formatCommand'),
   getAge: require('./getAge'),

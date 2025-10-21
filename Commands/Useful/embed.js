@@ -1,6 +1,6 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
-  { constants, logSayCommandUse } = require('#Utils'),
+  { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
 
   /** @type {(interaction: Interaction, name: string) => string | undefined} */
   getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
@@ -88,7 +88,7 @@ module.exports = {
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
       const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
-      await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
+      await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(filterEmptyEntries(embed.data)))));
 
       return void logSayCommandUse.call(sentMessage, this.member, lang);
     }
