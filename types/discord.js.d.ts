@@ -53,6 +53,11 @@ declare module 'discord.js' {
     awaitReady(this: Client<Ready>): Promise<ClientApplication>;
   }
 
+  interface ClientApplication {
+    /** Get an application Emoji's mention by it's name. Requires the ApplicationEmojiManager's cache to be populated. */
+    getEmoji(this: ClientApplication, emoji: string): `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
+  }
+
   interface Message {
 
     /**

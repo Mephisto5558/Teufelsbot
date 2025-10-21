@@ -70,9 +70,9 @@ module.exports = {
       { website, github, discordInvite, disableWebserver } = this.client.config;
 
     if (github.repo)
-      component.components.push(createButton(lang('links.repo'), github.repo, getEmoji('icon_github')));
+      component.components.push(createButton(lang('links.repo'), github.repo, this.client.application.getEmoji('icon_github')));
     if (discordInvite)
-      component.components.push(createButton(lang('links.discord'), discordInvite, getEmoji('icon_discord')));
+      component.components.push(createButton(lang('links.discord'), discordInvite, this.client.application.getEmoji('icon_discord')));
 
     if (!disableWebserver && website.domain) {
       const domain = website.domain + (website.port ? `:${website.port}` : '');

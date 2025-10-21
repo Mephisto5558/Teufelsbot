@@ -120,9 +120,6 @@ void (async function main() {
 
     client = await loginClient.call(newClient, process.env.token);
 
-  /** @param {string} emoji */
-  globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
-
   if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
 
   await Promise.all(handlerPromises);

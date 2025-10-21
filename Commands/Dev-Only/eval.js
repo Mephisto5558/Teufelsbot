@@ -32,7 +32,7 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const msg = await this.reply(lang('global.loading', getEmoji('loading')));
+    const msg = await this.reply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     try {
       await Promise.race([

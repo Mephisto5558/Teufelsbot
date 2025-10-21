@@ -39,7 +39,7 @@ module.exports = {
   async run(lang) {
     const
       pokemon = this.options?.getString('pokémon', true) ?? this.args[0],
-      msg = await this.customReply(lang('global.loading', getEmoji('loading')));
+      msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {

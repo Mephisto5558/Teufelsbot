@@ -19,7 +19,7 @@ module.exports = {
   async run(lang) {
     const
       query = this.options?.getString('query') ?? this.content,
-      message = await this.customReply(lang('global.loading', getEmoji('loading'))),
+      message = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
       headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
       defaultLangWiki = wikiInit({ headers, apiUrl: `https://${lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),
       wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),

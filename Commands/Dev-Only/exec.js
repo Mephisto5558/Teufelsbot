@@ -15,7 +15,7 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const msg = await this.reply(lang('global.loading', getEmoji('loading')));
+    const msg = await this.reply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     try {
       const { stdout = lang('global.none'), stderr } = await shellExec(this.content);

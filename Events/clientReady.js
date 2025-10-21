@@ -6,7 +6,7 @@ const
 
 /** @this {ClientEvents['clientReady'][0]} */
 module.exports = async function clientReady() {
-  await this.application.emojis.fetch(); // required for global.getEmoji() to work
+  await this.application.emojis.fetch(); // required for ClientApplication#getEmoji() to work
 
   this.user.setActivity(this.settings.activity ?? { name: '/help', type: ActivityType.Playing });
   log('Ready to receive prefix commands');

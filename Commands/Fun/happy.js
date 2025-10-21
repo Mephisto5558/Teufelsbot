@@ -14,7 +14,7 @@ module.exports = {
 
   async run() {
     if (!addedEmoji) {
-      responseList.push(getEmoji('derp_ball'));
+      responseList.push(this.client.application.getEmoji('derp_ball'));
       addedEmoji = true;
     }
 
