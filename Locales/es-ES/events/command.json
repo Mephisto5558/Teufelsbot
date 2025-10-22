@@ -1,47 +1,48 @@
 {
   "cooldown": "¡Este comando o uno de sus subcomandos está en tiempo de espera! Inténtalo de nuevo en {time}s.",
-  "slashOnly": "Este comando solo está disponible como un comando slash: {command}",
-  "guildOnly": "¡Este comando o uno de sus subcomandos sólo está disponible en guilds!",
-  "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
   "disabled": "Este comando ha sido deshabilitado por el desarrollador del bot. Razón:\n{reason}",
-  "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
-  "paramRequired": "Necesitas introducir un valor para la opción \"{option}\".\n> {description}",
-  "strictAutocompleteNoMatch": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
-  "strictAutocompleteNoMatchWValues": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.\n\nLas opciones disponibles son:\n{availableOptions}",
-  "invalidChannelType": "El canal que introdujo para la opción \"{option}\" debe ser una de las opciones de tipo de canal. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
-  "permissionDenied": {
-    "embedTitle": "Permisos insuficientes",
-    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n{permissions}",
-    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n{permissions}"
-  },
-  "notAllowed": {
-    "anyone": "Nadie puede ejecutar este comando (establecido por un administrador del servidor)!",
-    "user": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
-    "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
-    "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!"
-  },
+  "guildOnly": "¡Este comando o uno de sus subcomandos sólo está disponible en guilds!",
   "infoCMDs": {
     "emojis": {
-      "embedTitle": "Eliminar Emoji",
-      "notFound": "El emoji no pudo ser encontrado.",
-      "noPerm": "¡No tengo permiso para eliminar emojis!",
-      "success": "El emoji se ha eliminado correctamente.",
       "add": {
         "selectMenuPlaceholder": "Selecciona el/los gremio(s) a los que quieres añadir los emojis.",
         "success": "El emoji se ha añadido con éxito al gremio(s) seleccionado(s)."
-      }
-    },
-    "roles": {
-      "embedTitle": "Eliminar rol",
-      "notFound": "No se pudo encontrar el rol.",
-      "noPerm": "¡No tengo permiso para eliminar ese rol!",
-      "success": "El rol se ha eliminado correctamente."
+      },
+      "embedTitle": "Eliminar Emoji",
+      "noPerm": "¡No tengo permiso para eliminar emojis!",
+      "notFound": "El emoji no pudo ser encontrado.",
+      "success": "El emoji se ha eliminado correctamente."
     },
     "members": {
       "embedTitle": "Expulsar/Banear Miembro",
-      "notFound": "El miembro no ha sido encontrado.",
+      "modalTextLabel": "Por favor especifique la razón para patear o prohibir al miembro.",
       "modalTitle": "Razón",
-      "modalTextLabel": "Por favor especifique la razón para patear o prohibir al miembro."
+      "notFound": "El miembro no ha sido encontrado."
+    },
+    "roles": {
+      "embedTitle": "Eliminar rol",
+      "noPerm": "¡No tengo permiso para eliminar ese rol!",
+      "notFound": "No se pudo encontrar el rol.",
+      "success": "El rol se ha eliminado correctamente."
     }
-  }
+  },
+  "invalidChannelType": "El canal que introdujo para la opción \"{option}\" debe ser una de las opciones de tipo de canal. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
+  "missingDomainConfig": "No se ha configurado ningún dominio del sitio web.",
+  "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
+  "notAllowed": {
+    "anyone": "Nadie puede ejecutar este comando (establecido por un administrador del servidor)!",
+    "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
+    "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!",
+    "user": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!"
+  },
+  "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
+  "paramRequired": "Necesitas introducir un valor para la opción \"{option}\".\n> {description}",
+  "permissionDenied": {
+    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n{permissions}",
+    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n{permissions}",
+    "embedTitle": "Permisos insuficientes"
+  },
+  "slashOnly": "Este comando solo está disponible como un comando slash: {command}",
+  "strictAutocompleteNoMatch": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
+  "strictAutocompleteNoMatchWValues": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.\n\nLas opciones disponibles son:\n{availableOptions}"
 }
