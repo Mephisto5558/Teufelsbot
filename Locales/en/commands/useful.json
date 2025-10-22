@@ -7,22 +7,22 @@
       "emoji_or_url": {
         "description": "provide an emoji or a url to a picture."
       },
-      "name": {
-        "description": "the name of the new emoji"
-      },
       "limit_to_roles": {
         "description": "the role(s) that is/are allowed to use the emoji. Separate them with spaces."
+      },
+      "name": {
+        "description": "the name of the new emoji"
       }
     },
     "embedTitle": "AddEmoji",
-    "isGuildEmoji": "That emoji is already on this guild!",
+    "error": "Unable to create the emoji for reason:\n{err}",
     "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with {validFormats}.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "isGuildEmoji": "That emoji is already on this guild!",
+    "limitedToRoles": "The emoji has been limited to the following roles:\n{roles}.",
     "notFound": "The provided url was not found.",
     "success": "Successfully added {name} {emoji}!",
-    "limitedToRoles": "The emoji has been limited to the following roles:\n{roles}.",
-    "error": "Unable to create the emoji for reason:\n{err}",
-    "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes.",
-    "timedOut": "The request timed out. Maybe the image is to large."
+    "timedOut": "The request timed out. Maybe the image is to large.",
+    "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes."
   },
   "afk": {
     "description": "Set an AFK status shown when you are mentioned.",
@@ -31,17 +31,6 @@
       "examples": "brb"
     },
     "options": {
-      "set": {
-        "description": "Set an AFK status shown when you are mentioned.",
-        "options": {
-          "message": {
-            "description": "The message to set"
-          },
-          "global": {
-            "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
-          }
-        }
-      },
       "get": {
         "description": "Get a member's (or the whole guild's) AFK status without having to mention them.",
         "options": {
@@ -49,26 +38,44 @@
             "description": "The member who's AFK status you want to see"
           }
         }
+      },
+      "set": {
+        "description": "Set an AFK status shown when you are mentioned.",
+        "options": {
+          "global": {
+            "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+          },
+          "message": {
+            "description": "The message to set"
+          }
+        }
       }
     },
+    "getNoneFound": "No AFK messages have been found.",
     "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
-    "success": "Your AFK has been set to \"{message}\".",
-    "getNoneFound": "No AFK messages have been found."
+    "success": "Your AFK has been set to \"{message}\"."
   },
   "button": {
     "description": "Create a button.",
     "options": {
-      "json": {
-        "description": "create a button from raw JSON data",
-        "options": {
-          "json": {
-            "description": "JSON data to create a button from"
-          }
-        }
-      },
       "custom": {
         "description": "create your own button with a bunch of options",
         "options": {
+          "content": {
+            "description": "Set a message to the button message."
+          },
+          "emoji": {
+            "description": "The emoji you want to show on the button. Gets overwritten by the \"label\" option."
+          },
+          "label": {
+            "description": "The text you want to show on the button. Overwrites the \"emoji\" option."
+          },
+          "message_id": {
+            "description": "The message you want to add a button to. Needs to be in the same channel as the command."
+          },
+          "new_row": {
+            "description": "Use a new row for the button."
+          },
           "style": {
             "description": "What style should your button have?",
             "choices": {
@@ -79,34 +86,27 @@
               "5": "Link (Requires the \"url\" option)"
             }
           },
-          "emoji": {
-            "description": "The emoji you want to show on the button. Gets overwritten by the \"label\" option."
-          },
-          "label": {
-            "description": "The text you want to show on the button. Overwrites the \"emoji\" option."
-          },
           "url": {
             "description": "The url the button points to. Works only with \"Link\" style option."
-          },
-          "new_row": {
-            "description": "Use a new row for the button."
-          },
-          "content": {
-            "description": "Set a message to the button message."
-          },
-          "message_id": {
-            "description": "The message you want to add a button to. Needs to be in the same channel as the command."
+          }
+        }
+      },
+      "json": {
+        "description": "create a button from raw JSON data",
+        "options": {
+          "json": {
+            "description": "JSON data to create a button from"
           }
         }
       }
     },
-    "invalidURL": "The provided URL is invalid!",
-    "msgNotFound": "The message id you provided was not found in this channel!",
     "botIsNotAuthor": "I can only edit my own messages!",
     "buttonLimitReached": "A message cannot have more then 5 rows or 25 buttons!",
     "invalidOption": "**One of your options is invalid!**\n\n{err}",
-    "successJSON": "Your button has been sent!",
-    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
+    "invalidURL": "The provided URL is invalid!",
+    "msgNotFound": "The message id you provided was not found in this channel!",
+    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n{json}",
+    "successJSON": "Your button has been sent!"
   },
   "choose": {
     "description": "Let me choose between any amount of options.",
@@ -119,7 +119,8 @@
       }
     },
     "choice": "I choose \"{choice}\"!",
-    "choiceLong": "I chose:\n{choice}"
+    "choiceLong": "I chose:\n{choice}",
+    "noChoices": "You need to give me options to pick from!"
   },
   "embed": {
     "description": "sends a custom embed; you can do newlines with \"/n\".",
@@ -130,64 +131,8 @@
           "description": {
             "description": "set the embed text, use \"/n\" for newlines"
           },
-          "content": {
-            "description": "set a message outside of the embed"
-          },
-          "title": {
-            "description": "set the embed title"
-          },
-          "predefined_color": {
-            "description": "Set the embed color from predefined discord codes",
-            "choices": {
-              "Default": "Default",
-              "White": "White",
-              "Aqua": "Aqua",
-              "Green": "Green",
-              "Blue": "Blue",
-              "Yellow": "Yellow",
-              "Purple": "Purple",
-              "LuminousVividPink": "Luminous Vivid Pink",
-              "Fuchsia": "Fuchsia",
-              "Gold": "Gold",
-              "Orange": "Orange",
-              "Red": "Red",
-              "Grey": "Grey",
-              "Navy": "Navy",
-              "DarkAqua": "Dark Aqua",
-              "DarkGreen": "Dark Green",
-              "DarkBlue": "Dark Blue",
-              "DarkPurple": "Dark Purple",
-              "DarkVividPink": "Dark Vivid Pink",
-              "DarkGold": "Dark Gold",
-              "DarkOrange": "Dark Orange",
-              "DarkRed": "Dark Red",
-              "DarkGrey": "Dark Grey",
-              "DarkerGrey": "Darker Grey",
-              "LightGrey": "Light Grey",
-              "DarkNavy": "Dark Navy",
-              "Blurple": "Blurple",
-              "Greyple": "Greyple",
-              "DarkButNotBlack": "Dark But Not Black",
-              "NotQuiteBlack": "Not Quite Black"
-            }
-          },
-          "custom_color": {
-            "description": "set a custom 6-char HEX Code as embed color (e.g. #ffffff)"
-          },
-          "footer_text": {
-            "description": "set the footer text"
-          },
-          "footer_icon": {
-            "description": "set the footer icon URL"
-          },
-          "image": {
-            "description": "set the embed image URL"
-          },
-          "thumbnail": {
-            "description": "ste the thumbnail URL"
-          },
-          "timestamp": {
-            "description": "set the timestamp"
+          "author_icon": {
+            "description": "set the author icon URL"
           },
           "author_name": {
             "description": "set the author name"
@@ -195,8 +140,64 @@
           "author_url": {
             "description": "set the author URL"
           },
-          "author_icon": {
-            "description": "set the author icon URL"
+          "content": {
+            "description": "set a message outside of the embed"
+          },
+          "custom_color": {
+            "description": "set a custom 6-char HEX Code as embed color (e.g. #ffffff)"
+          },
+          "footer_icon": {
+            "description": "set the footer icon URL"
+          },
+          "footer_text": {
+            "description": "set the footer text"
+          },
+          "image": {
+            "description": "set the embed image URL"
+          },
+          "predefined_color": {
+            "description": "Set the embed color from predefined discord codes",
+            "choices": {
+              "Aqua": "Aqua",
+              "Blue": "Blue",
+              "Blurple": "Blurple",
+              "DarkAqua": "Dark Aqua",
+              "DarkBlue": "Dark Blue",
+              "DarkButNotBlack": "Dark But Not Black",
+              "DarkGold": "Dark Gold",
+              "DarkGreen": "Dark Green",
+              "DarkGrey": "Dark Grey",
+              "DarkNavy": "Dark Navy",
+              "DarkOrange": "Dark Orange",
+              "DarkPurple": "Dark Purple",
+              "DarkRed": "Dark Red",
+              "DarkVividPink": "Dark Vivid Pink",
+              "DarkerGrey": "Darker Grey",
+              "Default": "Default",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Gold",
+              "Green": "Green",
+              "Grey": "Grey",
+              "Greyple": "Greyple",
+              "LightGrey": "Light Grey",
+              "LuminousVividPink": "Luminous Vivid Pink",
+              "Navy": "Navy",
+              "NotQuiteBlack": "Not Quite Black",
+              "Orange": "Orange",
+              "Purple": "Purple",
+              "Red": "Red",
+              "White": "White",
+              "Yellow": "Yellow"
+            }
+          },
+          "thumbnail": {
+            "description": "ste the thumbnail URL"
+          },
+          "timestamp": {
+            "description": "set the timestamp"
+          },
+          "title": {
+            "description": "set the embed title"
           }
         }
       },
@@ -210,8 +211,8 @@
       }
     },
     "invalidOption": "**One of your options invalid!**\n\n{err}",
-    "successJSON": "Your embed has been sent!",
-    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
+    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n{json}",
+    "successJSON": "Your embed has been sent!"
   },
   "hash": {
     "description": "encrypts or decrypts your text with various methods",
@@ -223,8 +224,8 @@
         "description": "with which method your text should get encrypted"
       }
     },
-    "embedTitle": "Hash Function",
     "embedDescription": "Your input: {input}\nHash method: {method}",
+    "embedTitle": "Hash Function",
     "text": "Your hashed string:\n{hash}"
   },
   "lastping": {
@@ -241,11 +242,11 @@
         "description": "Search only for mentions by a specific member? (Only in combination with the \"channel\" option)"
       }
     },
-    "memberRequiresChannel": "The \"member\" option only works in combination with the \"channel\" option!",
-    "invalid": "The selected channel is not a text channel!",
-    "noneFound": "I haven't found any mentions.",
+    "embedDescription": "The last time you were mentioned was {link} by {author}.\n{content}",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was {link} from {author}.\n{content}"
+    "invalid": "The selected channel is not a text channel!",
+    "memberRequiresChannel": "The \"member\" option only works in combination with the \"channel\" option!",
+    "noneFound": "I haven't found any mentions."
   },
   "math": {
     "description": "Runs some math",
@@ -264,9 +265,6 @@
   "passwordgenerator": {
     "description": "generates a cryptographically strong password",
     "options": {
-      "length": {
-        "description": "the length of your password"
-      },
       "count": {
         "description": "How many passwords do you want to generate?"
       },
@@ -275,6 +273,9 @@
       },
       "include_chars": {
         "description": "characters you want to have in your password, additional to the default charset."
+      },
+      "length": {
+        "description": "the length of your password"
       }
     },
     "charsetEmpty": "you excluded all chars of the charset...",
@@ -286,15 +287,15 @@
       "usage": "[min] [max]"
     },
     "options": {
-      "minimum": {
-        "description": "The smallest possible number. Defaults to 0."
-      },
       "maximum": {
         "description": "The largest possible number. Defaults to 100."
+      },
+      "minimum": {
+        "description": "The smallest possible number. Defaults to 0."
       }
     },
-    "randomNumber": "A random number {min} and {max}:\n{randomNumber}",
-    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: {min}, largest possible number: {max}"
+    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: {min}, largest possible number: {max}",
+    "randomNumber": "A random number {min} and {max}:\n{randomNumber}"
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
@@ -317,20 +318,20 @@
       "day": {
         "description": "The day part of the target date"
       },
-      "month": {
-        "description": "The month part of the target date"
-      },
-      "year": {
-        "description": "The year part of the target date"
-      },
       "hour": {
         "description": "The hour part of the target date"
       },
       "minute": {
         "description": "The minute part of the target date"
       },
+      "month": {
+        "description": "The month part of the target date"
+      },
       "second": {
         "description": "The second part of the target date"
+      },
+      "year": {
+        "description": "The year part of the target date"
       }
     },
     "until": "That's in {time}.",
@@ -353,15 +354,15 @@
     "description": "Count the words a message has",
     "usage": "[message id]",
     "options": {
-      "message_id": {
-        "description": "The message ID. Must be in this channel."
-      },
       "message": {
         "description": "The text that should be counted. Alternative to the \"message\" option."
+      },
+      "message_id": {
+        "description": "The message ID. Must be in this channel."
       }
     },
-    "notFound": "The requested message was not found.",
     "noContent": "The provided message does not contain content.",
+    "notFound": "The requested message was not found.",
     "words": "The provided message contains {wordCount} words."
   }
 }
