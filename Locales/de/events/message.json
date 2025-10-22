@@ -1,15 +1,15 @@
 {
-  "afkMsg": "{member} ist AFK: {message} - {timestamp}",
   "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit {timestamp} (für {formattedTime}).\nDeine AFK-Nachricht war: \"{message}\"",
+  "afkMsg": "{member} ist AFK: {message} - {timestamp}",
   "counting": {
     "error": "DU HAST ES BEI {lastNumber} RUINIERT!! Der Kanal-Highscore ist {channelHighscore}, der Server-Highscore ist {guildHighscore}.\nDie nächste Zahl ist **1**.",
-    "wrongNumber": "Kannst du nicht zählen?! Falsche Zahl.",
-    "sameUserTwice": "Du kannst nicht zwei Zahlen hintereinander aufzählen!"
+    "sameUserTwice": "Du kannst nicht zwei Zahlen hintereinander aufzählen!",
+    "wrongNumber": "Kannst du nicht zählen?! Falsche Zahl."
   },
   "wordchain": {
     "error": "DU HAST EINE KETTE VON {count} WÖRTERN BEI \"{lastChar}\" RUINIERT!! Starte neu, indem du irgendein Wort schreibst.",
-    "sameUserTwice": "Du kannst nicht zwei Wörter hintereinander nennen!",
     "inALoop": "Warum drehst du dich im Kreis?! Dieses Wort wurde erst vor kurzem verwendet!",
+    "sameUserTwice": "Du kannst nicht zwei Wörter hintereinander nennen!",
     "wrongChar": "Kannst du nicht lesen?! Dieses Wort startet nicht mit dem letzten Buchstaben des vorherigen Wortes."
   }
 }
