@@ -15,9 +15,9 @@
         "description": "Quel modèle voulez-vous utiliser ?"
       }
     },
-    "rateLimit": "La limite de taux a été atteinte. Veuillez réessayer dans quelques secondes.",
-    "notAvailable": "L'API n'est actuellement pas disponible. Veuillez revenir plus tard.",
     "error": "L'API a répondu par une erreur.",
+    "notAvailable": "L'API n'est actuellement pas disponible. Veuillez revenir plus tard.",
+    "rateLimit": "La limite de taux a été atteinte. Veuillez réessayer dans quelques secondes.",
     "regenerate": "Régénérer la réponse"
   },
   "editmessage": {
@@ -33,52 +33,52 @@
         "description": "Effacer tout ce qui se trouve sur ce message. par exemple les incorporations, les fichiers"
       }
     },
-    "modalTitle": "Commande d'édition de message",
-    "textInputLabel": "Écrivez le nouveau contenu de ce message.",
-    "textInputPlaceholder": "Vous pouvez également utiliser JSON !",
-    "notFound": "Il n'y a pas de message avec cet id dans le salon spécifié!",
-    "notBotMessage": "Je ne peux modifier que mes propres messages!",
     "cannotEdit": "Je ne peux pas modifier ce message !",
     "emptyJson": "Le JSON que vous avez fourni est vide!",
-    "link": "Lier",
     "error": "Une erreur est survenue lors de l'envoi de votre JSON personnalisé :\n{err}",
-    "success": "Le message a été modifié. {link}"
+    "link": "Lier",
+    "modalTitle": "Commande d'édition de message",
+    "notBotMessage": "Je ne peux modifier que mes propres messages!",
+    "notFound": "Il n'y a pas de message avec cet id dans le salon spécifié!",
+    "success": "Le message a été modifié. {link}",
+    "textInputLabel": "Écrivez le nouveau contenu de ce message.",
+    "textInputPlaceholder": "Vous pouvez également utiliser JSON !"
   },
   "record": {
     "description": "Enregistrez un salon vocal. Nécessite l'approbation des utilisateurs.",
     "options": {
-      "target": {
-        "description": "Enregistrez seulement un utilisateur spécifique."
-      },
       "channel": {
         "description": "Quel salon vocal voulez-vous enregistrer ?"
       },
       "public": {
         "description": "Rendre l’enregistrement public, afin que tout membre de la guilde puisse l’entendre."
+      },
+      "target": {
+        "description": "Enregistrez seulement un utilisateur spécifique."
       }
     },
-    "noTarget": "Il n'y a personne à enregistrer ! Soit toutes les cibles sont des bots, soit elles ne sont pas dans un salon vocal ! Si vous avez fourni un canal, assurez-vous qu'il est celui dans lequel la cible est dans !",
-    "needVoiceChannel": "Vous devez fournir un salon vocal ou être en un !",
-    "cannotJoin": "Je ne peux pas rejoindre ce canal vocal ! Assurez-vous que le canal n'est pas complet et que j'ai les autorisations nécessaires.",
-    "deaf": "Je suis actuellement sourd et je ne peux pas être sourd moi-même!",
-    "embedTitle": "Enregistreur vocal",
-    "embedDescription": "{user} veut vous enregistrer dans le salon vocal {channel}.\n{publicOrPrivate}\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
-    "isPublic": "Cet enregistrement sera disponible pour chaque membre de la guilde.",
-    "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
-    "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",
-    "denied": "Personne ne veut être enregistré.",
-    "canceled": "La demande d'enregistrement a été annulée.",
     "allow": "Autoriser l'enregistrement",
+    "canceled": "La demande d'enregistrement a été annulée.",
+    "cannotJoin": "Je ne peux pas rejoindre ce canal vocal ! Assurez-vous que le canal n'est pas complet et que j'ai les autorisations nécessaires.",
+    "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",
+    "deaf": "Je suis actuellement sourd et je ne peux pas être sourd moi-même!",
+    "denied": "Personne ne veut être enregistré.",
     "deny": "Refuser l'enregistrement",
+    "embedDescription": "{user} veut vous enregistrer dans le salon vocal {channel}.\n{publicOrPrivate}\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
+    "embedTitle": "Enregistreur vocal",
+    "get": "Obtenir l'enregistrement",
+    "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
+    "isPublic": "Cet enregistrement sera disponible pour chaque membre de la guilde.",
+    "needVoiceChannel": "Vous devez fournir un salon vocal ou être en un !",
+    "noTarget": "Il n'y a personne à enregistrer ! Soit toutes les cibles sont des bots, soit elles ne sont pas dans un salon vocal ! Si vous avez fourni un canal, assurez-vous qu'il est celui dans lequel la cible est dans !",
+    "notFound": "Votre enregistrement n'a pas été trouvé !",
     "pause": "Mettre l'enregistrement en pause",
+    "paused": "🔇 J'ai mis en pause l'enregistrement {channel}.",
+    "privateReady": "Appuyez sur le bouton pour obtenir l'enregistrement.",
+    "recording": "🎙️ Je suis en train d'enregistrer {channel} ({users} ) !",
     "resume": "Reprendre l'enregistrement",
     "stop": "Arrêter l'enregistrement",
-    "get": "Obtenir l'enregistrement",
-    "updated": "Votre réponse a été réglée sur {permission}. J'attends la réponse des autres membres.",
-    "paused": "🔇 J'ai mis en pause l'enregistrement {channel}.",
-    "recording": "🎙️ Je suis en train d'enregistrer {channel} ({users} ) !",
-    "notFound": "Votre enregistrement n'a pas été trouvé !",
-    "privateReady": "Appuyez sur le bouton pour obtenir l'enregistrement.",
-    "success": "🔉 Voici votre enregistrement!"
+    "success": "🔉 Voici votre enregistrement!",
+    "updated": "Votre réponse a été réglée sur {permission}. J'attends la réponse des autres membres."
   }
 }
