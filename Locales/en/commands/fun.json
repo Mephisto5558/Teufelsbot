@@ -391,7 +391,7 @@
     "afkMessage": "sleeping",
     "responseList": [
       "{user} goes now to bed {emoji}",
-      "{user} is tired and goes now to sleep :3",
+      "{user} is tired and goes to sleep now",
       "{user} sleeps now, hopefully he/she doesn't snores {emoji}"
     ]
   },
