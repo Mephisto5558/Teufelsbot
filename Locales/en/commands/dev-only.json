@@ -11,10 +11,10 @@
         "description": "The User ID you want to (un)block."
       }
     },
+    "cantBlacklistDev": "I can't blacklist a developer of the bot!",
     "notFound": "Found no entry for this id.",
-    "saved": "{user} has been blacklisted from using the bot.",
     "removed": "The blacklist entry for {user} has been removed.",
-    "cantBlacklistDev": "I can't blacklist a developer of the bot!"
+    "saved": "{user} has been blacklisted from using the bot."
   },
   "dbget": {
     "description": "query data from the database",
@@ -43,26 +43,26 @@
         "description": "The JavaScript code to evaluate"
       }
     },
-    "finished": "evaluated command:\n{code}",
-    "success": "{msg} without errors.",
     "emptyRejection": "Empty Promise Rejection",
-    "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
+    "error": "{msg} with the following error:\n```\n{name}: {err}\n```",
+    "finished": "evaluated command:\n{code}",
+    "success": "{msg} without errors."
   },
   "exec": {
     "description": "inject Bash code directly into the bot's shell",
+    "usage": {
+      "usage": "<sh code>",
+      "examples": "echo 'Hello World!'"
+    },
     "options": {
       "command": {
         "description": "The bash command that should be executed"
       }
     },
-    "usage": {
-      "usage": "<sh code>",
-      "examples": "echo 'Hello World!'"
-    },
+    "error": "{msg} with the following error:\n```\n{name}: {err}\n```",
     "finished": "Evaluated bash command:\n{code}",
-    "stdout": "{msg} with following output:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
-    "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
+    "stdout": "{msg} with following output:\nstdout:\n{stdout}"
   },
   "reload": {
     "description": "reloads a file or category",
@@ -75,9 +75,9 @@
         "description": "The name of the command to reload."
       }
     },
+    "error": "An error occurred while reloading:\n{error}\nCheck the console for more information.",
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
-    "error": "An error occurred while reloading:\n{error}\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
     "reloaded": "The following {count} command(s) has/have been reloaded:\n{commands}"
   },
@@ -97,8 +97,6 @@
   "restart": {
     "description": "Restarts the bot",
     "alreadyRestarting": "The bot is already performing a restart, please wait for it to finish. Message: {url}",
-    "updatingNPM": "{emoji} Restarting bot...\nInstalling packages...",
-    "updateNPMError": "❌ Restart failed due to an NPM error. Check the console for more information.",
     "restarting": "{emoji} Restarting bot...\nStarting node process...",
     "restartingError": "❌ Restart failed due to a Node error. Check the console for more information.",
     "success": "✅ Successfully restarted."
@@ -117,8 +115,8 @@
         "description": "The activity's type"
       }
     },
-    "set": "My activity has been set to {name} of type {type}.",
-    "reset": "My activity has been set to `none`."
+    "reset": "My activity has been set to `none`.",
+    "set": "My activity has been set to {name} of type {type}."
   },
   "setchangelog": {
     "description": "Updates the changelogs so users are up-to-date.",
@@ -130,8 +128,8 @@
       "usage": "[number (default 0)] [channel]",
       "examples": "7 #counting-channel"
     },
+    "invalidChannel": "The provided channel is not a counting-channel!",
     "invalidNumber": "The provided number is invalid!",
-    "unknownChannel": "The provided channel id has not been found in this guild!",
     "success": "Counting for {channel} has been set to {number}."
   },
   "test": {
@@ -139,8 +137,8 @@
   },
   "todo": {
     "description": "Get links to the developer's todo list(s).",
+    "discordNotes": "Dev notes in the support server",
     "list": "ToDo Excel",
-    "website": "Voting Website",
-    "discordNotes": "Dev notes in the support server"
+    "website": "Voting Website"
   }
 }
