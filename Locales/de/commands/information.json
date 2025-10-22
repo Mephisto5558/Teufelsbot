@@ -347,14 +347,14 @@
     },
     "memberEmbedDescription": "Dies sind die Top {amount} Mitglieder:",
     "memberEmbedTitle": "Mitglieder-Stats",
-    "notEnabled": "Der Wordcounter für diesen Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
+    "notEnabled": "Der Wordcounter für den Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
     "user": {
       "enable": {
         "success": "{toggle} Wordcounter für dich."
       },
       "get": {
         "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amount}",
-        "embedTitle": "{user} Stats",
+        "embedTitle": "{user} Stadt",
         "guildEmbedDescription": "Dies sind deine Top {amount} Server:",
         "guildEmbedTitle": "Server-Stats",
         "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst."
