@@ -1,15 +1,15 @@
 {
-  "afkMsg": "{member} is AFK: {message} - {timestamp}",
   "afkEnd": "Welcome back, I removed your AFK. You have been AFK since {timestamp} (for {formattedTime}).\nYour AFK message was: \"{message}\"",
+  "afkMsg": "{member} is AFK: {message} - {timestamp}",
   "counting": {
     "error": "YOU RUINED IT AT {lastNumber}!! This channel's highscore is {channelHighscore}, this guild's highscore is {guildHighscore}.\nThe next number is **1**.",
-    "wrongNumber": "Can't you count?! Wrong number.",
-    "sameUserTwice": "You can't count two numbers in a row!"
+    "sameUserTwice": "You can't count two numbers in a row!",
+    "wrongNumber": "Can't you count?! Wrong number."
   },
   "wordchain": {
     "error": "YOU RUINED A CHAIN OF {count} WORDS AT \"{lastChar}\"!! Restart by writing any word.",
-    "sameUserTwice": "You can't say two words in a row!",
     "inALoop": "Why are you going in a circle?! That word was only used recently!",
+    "sameUserTwice": "You can't say two words in a row!",
     "wrongChar": "Can't you read?! That word doesn't start with the last word's character."
   }
 }
