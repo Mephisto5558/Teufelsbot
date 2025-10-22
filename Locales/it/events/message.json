@@ -1,15 +1,15 @@
 {
-  "afkMsg": "{member} è AFK: {message} - {timestamp}",
   "afkEnd": "Bentornato, ho rimosso il tuo AFK. Sei stato AFK da {timestamp} ({formattedTime}).\nIl tuo messaggio AFK era: \"{message}\"",
+  "afkMsg": "{member} è AFK: {message} - {timestamp}",
   "counting": {
     "error": "VOI RUINATO A {lastNumber}!! Il punteggio superiore di questo canale è {channelHighscore}, il punteggio superiore di questa gilda è {guildHighscore}.\nIl numero successivo è **1**.",
-    "wrongNumber": "Non puoi contare?! Numero errato.",
-    "sameUserTwice": "Non puoi contare due numeri di fila!"
+    "sameUserTwice": "Non puoi contare due numeri di fila!",
+    "wrongNumber": "Non puoi contare?! Numero errato."
   },
   "wordchain": {
     "error": "VOI RUINATO UNA SEGNA DI {count} SCRIVI AL \"{lastChar}\"!! Riavvia scrivendo qualsiasi parola.",
-    "sameUserTwice": "Non puoi dire due parole di fila!",
     "inALoop": "Perché stai andando in un cerchio?! Quella parola è stata usata solo recentemente!",
+    "sameUserTwice": "Non puoi dire due parole di fila!",
     "wrongChar": "Non puoi leggere?! Quella parola non inizia con il carattere dell'ultima parola."
   }
 }
