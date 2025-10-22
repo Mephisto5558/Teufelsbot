@@ -1,47 +1,48 @@
 {
   "cooldown": "Cette commande ou l'une de ses sous-commandes est en cours de rechargement! Réessayez dans {time}s.",
-  "slashOnly": "Cette commande n'est disponible que sous la forme d'une commande slash : {command}",
-  "guildOnly": "Cette commande ou l'une de ses sous-commandes n'est disponible que dans les guildes !",
-  "nonBeta": "Cette commande n'est pas une commande bêta! Ce bot n'exécute que des commandes bêta.",
   "disabled": "Cette commande a été désactivée par le développeur bot. Raison :\n{reason}",
-  "nsfw": "Vous ne pouvez pas exécuter des commandes NSFW dans un salon non NSFW !",
-  "paramRequired": "Vous devez entrer une valeur pour l'option \"{option}\".\n> {description}",
-  "strictAutocompleteNoMatch": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
-  "strictAutocompleteNoMatchWValues": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner l'une des options disponibles lors de la saisie de la commande slash.\n\nLes options disponibles sont:\n{availableOptions}",
-  "invalidChannelType": "Le canal que vous avez saisi pour l'option \"{option}\" doit être l'un des choix de type de canal. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
-  "permissionDenied": {
-    "embedTitle": "Autorisations insuffisantes",
-    "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}",
-    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}"
-  },
-  "notAllowed": {
-    "anyone": "Personne n'est autorisé à exécuter cette commande (définie par un administrateur du serveur)!",
-    "user": "Vous n'êtes pas autorisé à exécuter cette commande (définie par un administrateur du serveur)!",
-    "channel": "Il n'est pas autorisé d'exécuter cette commande dans ce salon (défini par un administrateur du serveur)!",
-    "role": "Un de vos rôles n'est pas autorisé à exécuter cette commande (définie par un administrateur du serveur) !"
-  },
+  "guildOnly": "Cette commande ou l'une de ses sous-commandes n'est disponible que dans les guildes !",
   "infoCMDs": {
     "emojis": {
-      "embedTitle": "Supprimer les emojis",
-      "notFound": "L'emoji n'a pas pu être trouvé.",
-      "noPerm": "Je n'ai pas la permission de supprimer des émoticônes !",
-      "success": "L'emoji a été supprimé avec succès.",
       "add": {
         "selectMenuPlaceholder": "Sélectionnez la/les guilde(s) à laquelle vous voulez ajouter l'émoji.",
         "success": "L'emoji a été ajouté avec succès à la ou aux guildes sélectionnées."
-      }
-    },
-    "roles": {
-      "embedTitle": "Supprimer le rôle",
-      "notFound": "Le rôle n'a pas pu être trouvé.",
-      "noPerm": "Je n'ai pas la permission de supprimer ce rôle!",
-      "success": "Le rôle a été supprimé avec succès."
+      },
+      "embedTitle": "Supprimer les emojis",
+      "noPerm": "Je n'ai pas la permission de supprimer des émoticônes !",
+      "notFound": "L'emoji n'a pas pu être trouvé.",
+      "success": "L'emoji a été supprimé avec succès."
     },
     "members": {
       "embedTitle": "Kick/Ban membre",
-      "notFound": "Le membre n'a pas pu être trouvé.",
+      "modalTextLabel": "Veuillez préciser la raison pour l'expulsion/bannissement du membre.",
       "modalTitle": "Raison",
-      "modalTextLabel": "Veuillez préciser la raison pour l'expulsion/bannissement du membre."
+      "notFound": "Le membre n'a pas pu être trouvé."
+    },
+    "roles": {
+      "embedTitle": "Supprimer le rôle",
+      "noPerm": "Je n'ai pas la permission de supprimer ce rôle!",
+      "notFound": "Le rôle n'a pas pu être trouvé.",
+      "success": "Le rôle a été supprimé avec succès."
     }
-  }
+  },
+  "invalidChannelType": "Le canal que vous avez saisi pour l'option \"{option}\" doit être l'un des choix de type de canal. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
+  "missingDomainConfig": "Aucun domaine de site web n'a été configuré.",
+  "nonBeta": "Cette commande n'est pas une commande bêta! Ce bot n'exécute que des commandes bêta.",
+  "notAllowed": {
+    "anyone": "Personne n'est autorisé à exécuter cette commande (définie par un administrateur du serveur)!",
+    "channel": "Il n'est pas autorisé d'exécuter cette commande dans ce salon (défini par un administrateur du serveur)!",
+    "role": "Un de vos rôles n'est pas autorisé à exécuter cette commande (définie par un administrateur du serveur) !",
+    "user": "Vous n'êtes pas autorisé à exécuter cette commande (définie par un administrateur du serveur)!"
+  },
+  "nsfw": "Vous ne pouvez pas exécuter des commandes NSFW dans un salon non NSFW !",
+  "paramRequired": "Vous devez entrer une valeur pour l'option \"{option}\".\n> {description}",
+  "permissionDenied": {
+    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}",
+    "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}",
+    "embedTitle": "Autorisations insuffisantes"
+  },
+  "slashOnly": "Cette commande n'est disponible que sous la forme d'une commande slash : {command}",
+  "strictAutocompleteNoMatch": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
+  "strictAutocompleteNoMatchWValues": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner l'une des options disponibles lors de la saisie de la commande slash.\n\nLes options disponibles sont:\n{availableOptions}"
 }
