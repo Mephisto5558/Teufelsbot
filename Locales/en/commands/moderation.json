@@ -4,50 +4,52 @@
   "ban": {
     "description": "bans one or multiple member(s) from the guild",
     "options": {
-      "reason": {
-        "description": "The target(s) is/are going to see the reason in DMs"
+      "delete_days_of_messages": {
+        "description": "Delete all messages of the target(s) of the last n days."
       },
       "duration": {
         "description": "How long do you want to get the target(s) banned?"
       },
+      "reason": {
+        "description": "The target(s) is/are going to see the reason in DMs"
+      },
       "target": {
         "description": "Select the member to ban. Leave this empty to select multiple members in the nex step."
-      },
-      "delete_days_of_messages": {
-        "description": "Delete all messages of the target(s) of the last n days."
       }
     },
-    "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from {guild}.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Ban",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}",
-    "selectTargetEmbedDescription": "Select up to 10 members to ban. You have 60 seconds.",
+    "cantPunishAdmin": "Administrators cannot be banned!",
     "cantPunishSelf": "You can't ban yourself!",
-    "noneFound": "No targets have been found.",
+    "dmEmbedDescription": "You have been banned from {guild}.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedTitle": "Banned",
     "error": "{user} couldn't be banned.\n{err}",
-    "success": "{user} has been successfully banned.",
-    "noDM": "I couldn't DM the target."
+    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}",
+    "infoEmbedTitle": "Ban",
+    "noDM": "I couldn't DM the target.",
+    "noneFound": "No targets have been found.",
+    "selectTargetEmbedDescription": "Select up to 10 members to ban. You have 60 seconds.",
+    "success": "{user} has been successfully banned."
   },
   "kick": {
     "description": "kicks a member from the guild",
     "options": {
-      "target": {
-        "description": "Select the member to kick. Leave this empty to select multiple members in the nex step."
-      },
       "reason": {
         "description": "The target(s) is/are going to see the reason in DMs"
+      },
+      "target": {
+        "description": "Select the member to kick. Leave this empty to select multiple members in the nex step."
       }
     },
-    "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from {guild}.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Kick",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}",
-    "selectTargetEmbedDescription": "Select up to 10 members to kick. You have 60 seconds.",
-    "noneFound": "No targets have been found.",
+    "cantPunishAdmin": "Administrators cannot be kicked!",
     "cantPunishSelf": "You can't kick yourself!",
+    "dmEmbedDescription": "You have been kicked from {guild}.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedTitle": "Kicked",
     "error": "{user} couldn't be kicked.\n{err}",
-    "success": "{user} has been successfully kicked.",
-    "noDM": "I couldn't DM the target."
+    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}",
+    "infoEmbedTitle": "Kick",
+    "noDM": "I couldn't DM the target.",
+    "noneFound": "No targets have been found.",
+    "selectTargetEmbedDescription": "Select up to 10 members to kick. You have 60 seconds.",
+    "success": "{user} has been successfully kicked."
   },
   "lock": {
     "description": "Prevents everyone except administrators from writing in a channel.",
@@ -63,36 +65,36 @@
         "description": "The reason for locking the channel"
       }
     },
-    "noReason": "no reason specified",
-    "embedTitle": "Channel locked!",
     "embedDescription": "This channel has been locked.\nModerator: {mod}\nReason: {reason}",
+    "embedTitle": "Channel locked!",
+    "noReason": "no reason specified",
     "success": "The channel has been locked."
   },
   "mute": {
     "description": "Timeouts a member for a given time (min. 1min).",
     "options": {
-      "target": {
-        "description": "Who do you want to mute?"
+      "duration": {
+        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
       },
       "reason": {
         "description": "The target is going to see the reason in DMs."
       },
-      "duration": {
-        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
+      "target": {
+        "description": "Who do you want to mute?"
       }
     },
-    "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from {guild}.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
-    "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "Moderator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
-    "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
-    "cantPunishSelf": "You can't mute yourself!",
     "cantPunishAdmin": "Administrators cannot be muted!",
-    "noneFound": "No targets have been found.",
+    "cantPunishSelf": "You can't mute yourself!",
+    "dmEmbedDescription": "You have been muted from {guild}.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
+    "dmEmbedTitle": "Muted",
     "error": "I couldn't mute the target:\n{err}",
-    "success": "{user} has been successfully muted.",
+    "infoEmbedDescription": "Moderator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
+    "infoEmbedTitle": "Mute",
+    "invalidDuration": "The mute duration you provided is invalid!",
     "noDM": "\nI couldn't DM the target.",
-    "invalidDuration": "The mute duration you provided is invalid!"
+    "noneFound": "No targets have been found.",
+    "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
+    "success": "{user} has been successfully muted."
   },
   "nukechannel": {
     "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
@@ -101,13 +103,13 @@
         "description": "The channel to nuke."
       }
     },
-    "confirmEmbedTitle": "Nuke Channel",
-    "confirmEmbedDescription": "Are you sure you want to nuke {channel}?\n**This action is irreversible!**",
-    "confirmButtonLabel": "Confirm",
     "cancelButtonLabel": "Cancel",
     "canceledEmbedDescription": "The nuking has been canceled.",
-    "successEmbedDescription": ":radioactive: Channel Nuked!",
-    "embedFooterText": "Nuked by {user}"
+    "confirmButtonLabel": "Confirm",
+    "confirmEmbedDescription": "Are you sure you want to nuke {channel}?\n**This action is irreversible!**",
+    "confirmEmbedTitle": "Nuke Channel",
+    "embedFooterText": "Nuked by {user}",
+    "successEmbedDescription": ":radioactive: Channel Nuked!"
   },
   "purge": {
     "description": "removes a specific amount of messages",
@@ -116,30 +118,20 @@
       "examples": "7 #chat"
     },
     "options": {
+      "after_message": {
+        "description": "Input a message id. Only messages sent after that message get purged."
+      },
       "amount": {
         "description": "The amount of messages to to check and maybe purge."
       },
-      "only_containing": {
-        "description": "Only purge messages containing that.",
-        "choices": {
-          "mentions": "Member mentions",
-          "server_ads": "Discord Server ad links",
-          "images": "Images",
-          "embeds": "Embeds",
-          "text": "Text"
-        }
-      },
-      "member": {
-        "description": "Purge only messages from that member."
-      },
-      "channel": {
-        "description": "In witch channel do you want to purge?"
-      },
-      "remove_pinned": {
-        "description": "Do not skip pinned messages."
+      "before_message": {
+        "description": "Input a message id. Only messages sent before that message get purged."
       },
       "caps_percentage": {
         "description": "How much CAPS must be at least in messages to purge them?"
+      },
+      "channel": {
+        "description": "In witch channel do you want to purge?"
       },
       "contains": {
         "description": "Messages must contain this phrase to get purged."
@@ -147,17 +139,33 @@
       "does_not_contain": {
         "description": "Messages must not contain this phrase to get purged."
       },
-      "starts_with": {
-        "description": "Messages must start with this phrase to get purged."
+      "ends_with": {
+        "description": "Messages must end with this phrase to get purged."
+      },
+      "member": {
+        "description": "Purge only messages from that member."
+      },
+      "not_ends_with": {
+        "description": "Messages must not start end this phrase to get purged."
       },
       "not_starts_with": {
         "description": "Messages must not start with this phrase to get purged."
       },
-      "ends_with": {
-        "description": "Messages must end with this phrase to get purged."
+      "only_containing": {
+        "description": "Only purge messages containing that.",
+        "choices": {
+          "embeds": "Embeds",
+          "images": "Images",
+          "mentions": "Member mentions",
+          "server_ads": "Discord Server ad links",
+          "text": "Text"
+        }
       },
-      "not_ends_with": {
-        "description": "Messages must not start end this phrase to get purged."
+      "remove_pinned": {
+        "description": "Do not skip pinned messages."
+      },
+      "starts_with": {
+        "description": "Messages must start with this phrase to get purged."
       },
       "user_type": {
         "description": "Only messages from that type of user get purged.",
@@ -165,19 +173,13 @@
           "bot": "Bot",
           "human": "Human"
         }
-      },
-      "before_message": {
-        "description": "Input a message id. Only messages sent before that message get purged."
-      },
-      "after_message": {
-        "description": "Input a message id. Only messages sent after that message get purged."
       }
     },
+    "beforeAndAfter": "The `before` option cannot be used together with the `after` option!",
     "invalidNumber": "This is not a valid number!",
     "noNumber": "Please specify the number of messages to purge next time.",
-    "beforeAndAfter": "The `before` option cannot be used together with the `after` option!",
-    "paramsExcludeOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
     "noneFound": "No deleteable messages matching your parameters have been found.",
+    "paramsExcludeOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
     "success": "Successfully deleted {count}/{all} messages."
   },
   "unlock": {
@@ -194,26 +196,26 @@
         "description": "The reason for unlocking the channel"
       }
     },
+    "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
+    "embedTitle": "Channel unlocked!",
     "noReason": "no reason specified",
     "notLocked": "This channel is not locked!",
-    "embedTitle": "Channel unlocked!",
-    "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
     "success": "The channel has been unlocked."
   },
   "unmute": {
     "description": "lifts the timeout of a member",
     "options": {
-      "target": {
-        "description": "Who do you want to unmute?"
-      },
       "reason": {
         "description": "Why do you want to unmute the target?"
+      },
+      "target": {
+        "description": "Who do you want to unmute?"
       }
     },
+    "moderator": "Moderator",
     "noReason": "no reason specified",
     "notFound": "I couldn't find that member!",
     "notMuted": "This member is not muted!",
-    "moderator": "Moderator",
     "success": "Removed timeout for member {user}."
   }
 }
