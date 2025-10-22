@@ -1,47 +1,48 @@
 {
   "cooldown": "Questo comando o uno dei suoi sottocomandi è in fase di ricarica! Riprova in {time}s.",
-  "slashOnly": "Questo comando è disponibile solo come comando slash: {command}",
-  "guildOnly": "Questo comando o uno dei suoi sottocomandi è disponibile solo nelle gilde!",
-  "nonBeta": "Questo comando non è un comando beta! Questo bot esegue solo i comandi beta.",
   "disabled": "Questo comando è stato disabilitato dal bot dev. Motivo:\n{reason}",
-  "nsfw": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
-  "paramRequired": "Devi inserire un valore per l'opzione \"{option}\".\n> {description}",
-  "strictAutocompleteNoMatch": "Il tuo input per l'opzione \"{option}\" deve corrispondere a uno dei suggerimenti di completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
-  "strictAutocompleteNoMatchWValues": "Il tuo input per l'opzione \"{option}\" deve corrispondere a uno dei suggerimenti di completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.\n\nLe opzioni disponibili sono:\n{availableOptions}",
-  "invalidChannelType": "Il canale che hai inserito per l'opzione \"{option}\" deve essere una delle scelte del tipo di canale. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
-  "permissionDenied": {
-    "embedTitle": "Permessi Insufficienti",
-    "embedDescriptionUser": "Hai bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n{permissions}",
-    "embedDescriptionBot": "Ho bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n{permissions}"
-  },
-  "notAllowed": {
-    "anyone": "Nessuno può eseguire questo comando (impostato da un amministratore del server)!",
-    "user": "Non hai i permessi per eseguire questo comando (impostato da un amministratore del server)!",
-    "channel": "Non è consentito eseguire questo comando in questo canale (impostato da un amministratore del server)!",
-    "role": "Uno dei tuoi ruoli non è autorizzato ad eseguire questo comando (impostato da un amministratore del server)!"
-  },
+  "guildOnly": "Questo comando o uno dei suoi sottocomandi è disponibile solo nelle gilde!",
   "infoCMDs": {
     "emojis": {
-      "embedTitle": "Elimina Emoji",
-      "notFound": "Non è stato possibile trovare le emoji.",
-      "noPerm": "Non ho il permesso di eliminare emojis!",
-      "success": "L'emoji è stata eliminata con successo.",
       "add": {
         "selectMenuPlaceholder": "Seleziona la gilda a cui vuoi aggiungere le emoji.",
         "success": "L'emoji è stata aggiunta con successo alla gilda selezionata."
-      }
-    },
-    "roles": {
-      "embedTitle": "Elimina Ruolo",
-      "notFound": "Impossibile trovare il ruolo.",
-      "noPerm": "Non ho il permesso di eliminare quel ruolo!",
-      "success": "Il ruolo è stato eliminato con successo."
+      },
+      "embedTitle": "Elimina Emoji",
+      "noPerm": "Non ho il permesso di eliminare emojis!",
+      "notFound": "Non è stato possibile trovare le emoji.",
+      "success": "L'emoji è stata eliminata con successo."
     },
     "members": {
       "embedTitle": "Kick/Ban Membro",
-      "notFound": "Il membro non è stato trovato.",
+      "modalTextLabel": "Specificare il motivo del kicking/banning del membro.",
       "modalTitle": "Motivo",
-      "modalTextLabel": "Specificare il motivo del kicking/banning del membro."
+      "notFound": "Il membro non è stato trovato."
+    },
+    "roles": {
+      "embedTitle": "Elimina Ruolo",
+      "noPerm": "Non ho il permesso di eliminare quel ruolo!",
+      "notFound": "Impossibile trovare il ruolo.",
+      "success": "Il ruolo è stato eliminato con successo."
     }
-  }
+  },
+  "invalidChannelType": "Il canale che hai inserito per l'opzione \"{option}\" deve essere una delle scelte del tipo di canale. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
+  "missingDomainConfig": "Nessun dominio del sito web è stato configurato.",
+  "nonBeta": "Questo comando non è un comando beta! Questo bot esegue solo i comandi beta.",
+  "notAllowed": {
+    "anyone": "Nessuno può eseguire questo comando (impostato da un amministratore del server)!",
+    "channel": "Non è consentito eseguire questo comando in questo canale (impostato da un amministratore del server)!",
+    "role": "Uno dei tuoi ruoli non è autorizzato ad eseguire questo comando (impostato da un amministratore del server)!",
+    "user": "Non hai i permessi per eseguire questo comando (impostato da un amministratore del server)!"
+  },
+  "nsfw": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
+  "paramRequired": "Devi inserire un valore per l'opzione \"{option}\".\n> {description}",
+  "permissionDenied": {
+    "embedDescriptionBot": "Ho bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n{permissions}",
+    "embedDescriptionUser": "Hai bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n{permissions}",
+    "embedTitle": "Permessi Insufficienti"
+  },
+  "slashOnly": "Questo comando è disponibile solo come comando slash: {command}",
+  "strictAutocompleteNoMatch": "Il tuo input per l'opzione \"{option}\" deve corrispondere a uno dei suggerimenti di completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
+  "strictAutocompleteNoMatchWValues": "Il tuo input per l'opzione \"{option}\" deve corrispondere a uno dei suggerimenti di completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.\n\nLe opzioni disponibili sono:\n{availableOptions}"
 }
