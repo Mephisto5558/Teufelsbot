@@ -4,50 +4,52 @@
   "ban": {
     "description": "bandisce un membro dalla gilda",
     "options": {
-      "reason": {
-        "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
+      "delete_days_of_messages": {
+        "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
       },
       "duration": {
         "description": "Per quanto tempo vuoi ottenere gli obiettivi vietati?"
       },
+      "reason": {
+        "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
+      },
       "target": {
         "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
-      },
-      "delete_days_of_messages": {
-        "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
       }
     },
-    "dmEmbedTitle": "Bannato",
-    "dmEmbedDescription": "Sei stato bandito da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
-    "infoEmbedTitle": "Banna",
-    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}",
-    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da bandire. Hai 60 secondi.",
+    "cantPunishAdmin": "Gli amministratori non possono essere banditi!",
     "cantPunishSelf": "Non puoi bandire te stesso!",
-    "noneFound": "Nessun obiettivo è stato trovato.",
+    "dmEmbedDescription": "Sei stato bandito da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
+    "dmEmbedTitle": "Bannato",
     "error": "{user} non può essere bandito.\n{err}",
-    "success": "{user} è stato bandito con successo.",
-    "noDM": "Non riuscivo a DM il bersaglio."
+    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}",
+    "infoEmbedTitle": "Banna",
+    "noDM": "non sono riuscito a DM il bersaglio.",
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da bandire. Hai 60 secondi.",
+    "success": "{user} è stato bandito con successo."
   },
   "kick": {
     "description": "kicks a member from the guild",
     "options": {
-      "target": {
-        "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
-      },
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
+      },
+      "target": {
+        "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
       }
     },
-    "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "Sei stato cacciato da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
-    "infoEmbedTitle": "Espelli",
-    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}",
-    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da calciare. Hai 60 secondi.",
-    "noneFound": "Nessun obiettivo è stato trovato.",
+    "cantPunishAdmin": "Gli amministratori non possono essere cacciati!",
     "cantPunishSelf": "Non puoi calciarti!",
+    "dmEmbedDescription": "Sei stato cacciato da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
+    "dmEmbedTitle": "Kicked",
     "error": "{user} non può essere kickato.\n{err}",
-    "success": "{user} è stato espulso con successo.",
-    "noDM": "Non riuscivo a DM il bersaglio."
+    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}",
+    "infoEmbedTitle": "Espelli",
+    "noDM": "non sono riuscito a DM il bersaglio.",
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da calciare. Hai 60 secondi.",
+    "success": "{user} è stato espulso con successo."
   },
   "lock": {
     "description": "Impedisce a tutti tranne gli amministratori di scrivere in un canale.",
@@ -63,36 +65,36 @@
         "description": "Il motivo per bloccare il canale"
       }
     },
-    "noReason": "nessun motivo specificato",
-    "embedTitle": "Canale bloccato!",
     "embedDescription": "Questo canale è stato bloccato. Moderatore\n: {mod}\nMotivo: {reason}",
+    "embedTitle": "Canale bloccato!",
+    "noReason": "nessun motivo specificato",
     "success": "Il canale è stato bloccato."
   },
   "mute": {
     "description": "Timeout di un membro per un dato tempo (min. 1min).",
     "options": {
-      "target": {
-        "description": "Chi vuole mutare?"
+      "duration": {
+        "description": "Per quanto tempo vuoi disattivare il bersaglio? (ad esempio 1w3d2h5min, min 1min, max. 28d)"
       },
       "reason": {
         "description": "L'obiettivo sta per vedere il motivo in DMs."
       },
-      "duration": {
-        "description": "Per quanto tempo vuoi disattivare il bersaglio? (ad esempio 1w3d2h5min, min 1min, max. 28d)"
+      "target": {
+        "description": "Chi vuole mutare?"
       }
     },
-    "dmEmbedTitle": "Silenziato",
-    "dmEmbedDescription": "Sei stato mutato da {guild}.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
-    "infoEmbedTitle": "Silenzia",
-    "infoEmbedDescription": "Moderatore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
-    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
-    "cantPunishSelf": "Non puoi mutare te stesso!",
     "cantPunishAdmin": "Gli amministratori non possono essere mutati!",
-    "noneFound": "Nessun obiettivo è stato trovato.",
+    "cantPunishSelf": "Non puoi mutare te stesso!",
+    "dmEmbedDescription": "Sei stato mutato da {guild}.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
+    "dmEmbedTitle": "Silenziato",
     "error": "Non ho potuto silenziare il bersaglio:\n{err}",
-    "success": "{user} è stato silenziato con successo.",
+    "infoEmbedDescription": "Moderatore: {mod}\nDurata: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
+    "infoEmbedTitle": "Silenzia",
+    "invalidDuration": "La durata del silenziamento fornita non è valida!",
     "noDM": "\nnon sono riuscito a DM il bersaglio.",
-    "invalidDuration": "La durata del silenziamento fornita non è valida!"
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
+    "success": "{user} è stato silenziato con successo."
   },
   "nukechannel": {
     "description": "Cancella tutti i messaggi dei canali duplicando il canale e quindi eliminando quello originale",
@@ -101,13 +103,13 @@
         "description": "Il canale per nudo."
       }
     },
-    "confirmEmbedTitle": "Canale Nucleare",
-    "confirmEmbedDescription": "Sei sicuro di voler nuke {channel}?\n**Questa azione è irreversibile!**",
-    "confirmButtonLabel": "Conferma",
     "cancelButtonLabel": "Annulla",
     "canceledEmbedDescription": "Il nuking è stato annullato.",
-    "successEmbedDescription": ":radioactive: Canale Nucleato!",
-    "embedFooterText": "Nucleato da {user}"
+    "confirmButtonLabel": "Conferma",
+    "confirmEmbedDescription": "Sei sicuro di voler nuke {channel}?\n**Questa azione è irreversibile!**",
+    "confirmEmbedTitle": "Canale Nucleare",
+    "embedFooterText": "Nucleato da {user}",
+    "successEmbedDescription": ":radioactive: Canale Nucleato!"
   },
   "purge": {
     "description": "rimuove una quantità specifica di messaggi",
@@ -116,30 +118,20 @@
       "examples": "7 #chat"
     },
     "options": {
+      "after_message": {
+        "description": "Inserisci un id del messaggio. Solo i messaggi inviati dopo che il messaggio viene eliminato."
+      },
       "amount": {
         "description": "La quantità di messaggi da controllare e forse eliminare."
       },
-      "only_containing": {
-        "description": "Elimina solo i messaggi che lo contengono.",
-        "choices": {
-          "mentions": "Menzioni dei membri",
-          "server_ads": "Link del server di Discord",
-          "images": "Immagini",
-          "embeds": "Embeds",
-          "text": "Testo"
-        }
-      },
-      "member": {
-        "description": "Elimina solo i messaggi da quel membro."
-      },
-      "channel": {
-        "description": "Nel canale strega vuoi eliminare?"
-      },
-      "remove_pinned": {
-        "description": "Non saltare i messaggi fissati."
+      "before_message": {
+        "description": "Inserisci un id del messaggio. Solo i messaggi inviati prima che il messaggio venga eliminato."
       },
       "caps_percentage": {
         "description": "Quanto CAPS deve essere almeno nei messaggi per eliminarli?"
+      },
+      "channel": {
+        "description": "Nel canale strega vuoi eliminare?"
       },
       "contains": {
         "description": "I messaggi devono contenere questa frase per essere eliminati."
@@ -147,17 +139,33 @@
       "does_not_contain": {
         "description": "I messaggi non devono contenere questa frase per essere eliminati."
       },
-      "starts_with": {
-        "description": "I messaggi devono iniziare con questa frase per essere eliminati."
+      "ends_with": {
+        "description": "I messaggi devono terminare con questa frase per essere eliminati."
+      },
+      "member": {
+        "description": "Elimina solo i messaggi da quel membro."
+      },
+      "not_ends_with": {
+        "description": "I messaggi non devono iniziare a terminare questa frase per essere eliminati."
       },
       "not_starts_with": {
         "description": "I messaggi non devono iniziare con questa frase per essere eliminati."
       },
-      "ends_with": {
-        "description": "I messaggi devono terminare con questa frase per essere eliminati."
+      "only_containing": {
+        "description": "Elimina solo i messaggi che lo contengono.",
+        "choices": {
+          "embeds": "Embeds",
+          "images": "Immagini",
+          "mentions": "Menzioni dei membri",
+          "server_ads": "Link del server di Discord",
+          "text": "Testo"
+        }
       },
-      "not_ends_with": {
-        "description": "I messaggi non devono iniziare a terminare questa frase per essere eliminati."
+      "remove_pinned": {
+        "description": "Non saltare i messaggi fissati."
+      },
+      "starts_with": {
+        "description": "I messaggi devono iniziare con questa frase per essere eliminati."
       },
       "user_type": {
         "description": "Solo i messaggi da quel tipo di utente vengono eliminati.",
@@ -165,19 +173,13 @@
           "bot": "Bot",
           "human": "Umano"
         }
-      },
-      "before_message": {
-        "description": "Inserisci un id del messaggio. Solo i messaggi inviati prima che il messaggio venga eliminato."
-      },
-      "after_message": {
-        "description": "Inserisci un id del messaggio. Solo i messaggi inviati dopo che il messaggio viene eliminato."
       }
     },
+    "beforeAndAfter": "L'opzione `before` non può essere utilizzata insieme all'opzione `after`!",
     "invalidNumber": "Questo non è un numero valido!",
     "noNumber": "Specifica il numero di messaggi da eliminare la prossima volta.",
-    "beforeAndAfter": "L'opzione `before` non può essere utilizzata insieme all'opzione `after`!",
-    "paramsExcludeOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
     "noneFound": "Non sono stati trovati messaggi cancellabili corrispondenti ai tuoi parametri.",
+    "paramsExcludeOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
     "success": "Messaggi eliminati con successo {count}/{all}."
   },
   "unlock": {
@@ -194,26 +196,26 @@
         "description": "Il motivo per sbloccare il canale"
       }
     },
+    "embedDescription": "Questo canale è stato sbloccato. Moderatore\n: {mod}\nMotivo: {reason}",
+    "embedTitle": "Canale sbloccato!",
     "noReason": "nessun motivo specificato",
     "notLocked": "Questo canale non è bloccato!",
-    "embedTitle": "Canale sbloccato!",
-    "embedDescription": "Questo canale è stato sbloccato. Moderatore\n: {mod}\nMotivo: {reason}",
     "success": "Il canale è stato sbloccato."
   },
   "unmute": {
     "description": "solleva il timeout di un membro",
     "options": {
-      "target": {
-        "description": "Chi vuole disattivare il muto?"
-      },
       "reason": {
         "description": "Perché vuoi riattivare il bersaglio?"
+      },
+      "target": {
+        "description": "Chi vuole disattivare il muto?"
       }
     },
+    "moderator": "Moderatore",
     "noReason": "nessun motivo specificato",
     "notFound": "Non sono riuscito a trovare quell'membro!",
     "notMuted": "Questo membro non è mutato!",
-    "moderator": "Moderatore",
     "success": "Timeout rimosso per il membro {user}."
   }
 }
