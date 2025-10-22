@@ -1,36 +1,36 @@
 {
-  "someone": "jemandem",
-  "executor": "Gelöscht von",
-  "reason": "Begründung",
   "embeds": "{count} Embeds",
-  "unknownContent": "Unbekannt",
+  "executor": "Gelöscht von",
   "messageDelete": {
-    "embedDescription": "Eine Nachricht wurde von {executor} in {channel} gelöscht.",
-    "content": "Nachrichteninhalt",
     "author": "Autor",
-    "components": "{count} Komponenten"
+    "components": "{count} Komponenten",
+    "content": "Nachrichteninhalt",
+    "embedDescription": "Eine Nachricht wurde von {executor} in {channel} gelöscht."
   },
   "messageDeleteBulk": {
     "embedDescription": "{count} Nachrichten wurden von {executor} in {channel} gelöscht."
   },
   "messageUpdate": {
-    "embedDescription": "{executor} hat eine Nachricht in {channel} bearbeitet",
-    "oldContent": "Ursprüngliche Nachricht",
-    "newContent": "Neue Nachricht",
     "author": "Autor",
+    "embedDescription": "{executor} hat eine Nachricht in {channel} bearbeitet",
+    "messageLink": "Nachricht",
+    "newContent": "Neue Nachricht",
+    "oldContent": "Ursprüngliche Nachricht"
+  },
+  "reason": "Begründung",
+  "sayCommandUsed": {
+    "author": "Autor",
+    "content": "Nachrichteninhalt",
+    "embedDescription": "{executor} hat in {channel} einen Befehl genutzt, der den Bot eine Nachricht senden lässt.",
     "messageLink": "Nachricht"
   },
+  "someone": "jemandem",
+  "unknownContent": "Unbekannt",
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} ist dem Sprachkanal {newChannel} beigetreten.",
     "embedDescriptionLeave": "{executor} hat den Sprachkanal {oldChannel} verlassen.",
     "embedDescriptionMove": "{executor} vom Sprachkanal {oldChannel} zu {newChannel} gewechselt.",
-    "oldChannel": "Vorheriger Kanal",
-    "newChannel": "Aktueller Kanal"
-  },
-  "sayCommandUsed": {
-    "embedDescription": "{executor} hat in {channel} einen Befehl genutzt, der den Bot eine Nachricht senden lässt.",
-    "content": "Nachrichteninhalt",
-    "author": "Autor",
-    "messageLink": "Nachricht"
+    "newChannel": "Aktueller Kanal",
+    "oldChannel": "Vorheriger Kanal"
   }
 }
