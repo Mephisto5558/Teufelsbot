@@ -7,14 +7,11 @@
       "create": {
         "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
       },
-      "load": {
-        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+      "delete": {
+        "description": "Supprimer une sauvegarde.",
         "options": {
           "id": {
-            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
-          },
-          "no_clear": {
-            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+            "description": "La sauvegarde à supprimer."
           }
         }
       },
@@ -26,94 +23,157 @@
           }
         }
       },
-      "delete": {
-        "description": "Supprimer une sauvegarde.",
+      "load": {
+        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
         "options": {
           "id": {
-            "description": "La sauvegarde à supprimer."
+            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+          },
+          "no_clear": {
+            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
           }
         }
       }
     },
-    "embedTitle": "Sauvegarde du serveur",
-    "create": {
-      "settings": "{emoji} Sauvegarde des paramètres...",
-      "members": "{emoji} Sauvegarde des membres...",
-      "bans": "{emoji} Sauvegarde des bannis...",
-      "roles": "{emoji} Sauvegarde des rôles...",
-      "emojis": "{emoji} Saving emojis...",
-      "stickers": "{emoji} Sauvegarde des autocollants...",
-      "channels": "{emoji} Enregistrement des canaux, des fils et des messages...",
-      "images": "Icône, barre oblique et bannière d'enregistrement {emoji}...",
-      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez {cmd} pour plus d'informations sur la sauvegarde."
-    },
     "clear": {
-      "items": "{emoji} Suppression des émoticônes, des autocollants et des rôles...",
       "bans": "{emoji} Suppression des bannis...",
-      "settings": "{emoji} Suppression des paramètres...",
-      "ownWebhooks": "{emoji} Suppression des webhooks temporaires..."
+      "items": "{emoji} Suppression des émoticônes, des autocollants et des rôles...",
+      "ownWebhooks": "{emoji} Suppression des webhooks temporaires...",
+      "settings": "{emoji} Suppression des paramètres..."
     },
-    "load": {
-      "overwriteWarningDescription": "Cette action supprimera la plupart de votre serveur! Cela inclut les rôles, les webhooks, les canaux et les émoticônes.\nSi vous êtes sûr de vouloir faire cela, tapez 'Oui'. Tapez 'Non' pour annuler.\nVous pouvez également créer une sauvegarde avant le chargement, juste pour être sûr.",
-      "noneFound": "Aucune sauvegarde n'a été trouvée pour cette guilde!",
-      "cancelled": "Le chargement de la sauvegarde a été annulé.",
-      "enableDMs": "Veuillez activer le bot pour vous envoyer des MP afin que vous puissiez voir l'état du chargement.",
-      "loadingEmbedDescription": "Application de la sauvegarde sur le serveur.\nCela peut prendre un certain temps, selon la taille de la sauvegarde.",
-      "noPerm": "Seul le propriétaire de la guilde peut charger des sauvegardes !",
-      "settings": "Chargement des paramètres {emoji}...",
-      "features": "{emoji} Chargement des fonctionnalités du serveur...",
-      "roles": "Rôles de chargement {emoji}...",
-      "members": "{emoji} Chargement des rôles des membres et des surnoms...",
-      "channels": "{emoji} Chargement des canaux, des fils et des messages...",
-      "emojis": "{emoji} Chargement des émoticônes...",
-      "stickers": "{emoji} Chargement des autocollants...",
-      "bans": "{emoji} Chargement des bannis...",
-      "success": "La sauvegarde avec l'id {id} a été chargée avec succès.",
-      "error": "Une erreur est survenue lors du chargement de la sauvegarde."
+    "create": {
+      "bans": "{emoji} Sauvegarde des bannis...",
+      "channels": "{emoji} Enregistrement des canaux, des fils et des messages...",
+      "emojis": "{emoji} Saving emojis...",
+      "images": "Icône, barre oblique et bannière d'enregistrement {emoji}...",
+      "members": "{emoji} Sauvegarde des membres...",
+      "roles": "{emoji} Sauvegarde des rôles...",
+      "settings": "{emoji} Sauvegarde des paramètres...",
+      "stickers": "{emoji} Sauvegarde des autocollants...",
+      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez {cmd} pour plus d'informations sur la sauvegarde."
     },
     "delete": {
       "noPerm": "Seul le propriétaire de la guilde peut supprimer les sauvegardes !",
       "success": "Sauvegarde supprimée avec succès !"
     },
+    "embedTitle": "Sauvegarde du serveur",
     "get": {
-      "oneEmbedDescription": "**Informations sur la sauvegarde {id}**\n>>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
-      "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !",
-      "infos": ">>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
-      "found": "Sauvegardes {amount} trouvées.",
       "embedDescription": "Les sauvegardes suivantes ont été trouvées, triées par date:",
-      "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur."
+      "found": "Sauvegardes {amount} trouvées.",
+      "infos": ">>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
+      "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur.",
+      "oneEmbedDescription": "**Informations sur la sauvegarde {id}**\n>>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
+      "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !"
+    },
+    "load": {
+      "bans": "{emoji} Chargement des bannis...",
+      "cancelled": "Le chargement de la sauvegarde a été annulé.",
+      "channels": "{emoji} Chargement des canaux, des fils et des messages...",
+      "emojis": "{emoji} Chargement des émoticônes...",
+      "enableDMs": "Veuillez activer le bot pour vous envoyer des MP afin que vous puissiez voir l'état du chargement.",
+      "error": "Une erreur est survenue lors du chargement de la sauvegarde.",
+      "features": "{emoji} Chargement des fonctionnalités du serveur...",
+      "loadingEmbedDescription": "Application de la sauvegarde sur le serveur.\nCela peut prendre un certain temps, selon la taille de la sauvegarde.",
+      "members": "{emoji} Chargement des rôles des membres et des surnoms...",
+      "noPerm": "Seul le propriétaire de la guilde peut charger des sauvegardes !",
+      "noneFound": "Aucune sauvegarde n'a été trouvée pour cette guilde!",
+      "overwriteWarningDescription": "Cette action supprimera la plupart de votre serveur! Cela inclut les rôles, les webhooks, les canaux et les émoticônes.\nSi vous êtes sûr de vouloir faire cela, tapez 'Oui'. Tapez 'Non' pour annuler.\nVous pouvez également créer une sauvegarde avant le chargement, juste pour être sûr.",
+      "roles": "Rôles de chargement {emoji}...",
+      "settings": "Chargement des paramètres {emoji}...",
+      "stickers": "{emoji} Chargement des autocollants...",
+      "success": "La sauvegarde avec l'id {id} a été chargée avec succès."
     }
   },
   "setup": {
     "description": "Définit le bot vers le haut",
     "options": {
+      "add_prefix": {
+        "description": "Ajouter un autre préfixe pour le bot.",
+        "options": {
+          "case_insensitive": {
+            "description": "Le cas du préfixe doit-il être ignoré ?"
+          },
+          "new_prefix": {
+            "description": "le nouveau préfixe de bot pour cette guilde"
+          }
+        }
+      },
+      "autopublish": {
+        "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce.",
+        "options": {
+          "enabled": {
+            "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce."
+          }
+        }
+      },
+      "birthday": {
+        "description": "Configurer la chaîne d'anniversaire et le message."
+      },
+      "language": {
+        "description": "Changer la langue du bot.",
+        "options": {
+          "language": {
+            "description": "Dans quelle langue le garçon doit-il répondre?"
+          }
+        }
+      },
+      "logger": {
+        "description": "Enregistrer les actions que le journal d'audit ne peut pas enregistrer",
+        "options": {
+          "action": {
+            "description": "L'action que vous voulez enregistrer",
+            "choices": {
+              "all": "toutes les actions",
+              "messageDelete": "supprimer le message",
+              "messageUpdate": "Modifier le message",
+              "sayCommandUsed": "/say (or similar) command uses",
+              "voiceChannelActivity": "join/leave/switch voice channel"
+            }
+          },
+          "channel": {
+            "description": "La chaîne à laquelle vous voulez envoyer le message de log"
+          },
+          "enabled": {
+            "description": "Activer (vrai) ou désactiver (faux) l'enregistrement de l'action"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Supprime un préfixe pour le bot.",
+        "options": {
+          "prefix": {
+            "description": "le préfixe à supprimer pour cette guilde"
+          }
+        }
+      },
+      "serverbackup": {
+        "description": "Gérer les options pour les sauvegardes de votre serveur.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "admins": "Current server administrators",
+              "creator": "Créateur",
+              "creatorAndOwner": "Creator and Server owner",
+              "owner": "Server owner"
+            }
+          }
+        }
+      },
+      "set_prefix": {
+        "description": "Change le préfixe du bot.",
+        "options": {
+          "case_insensitive": {
+            "description": "Le cas du préfixe doit-il être ignoré ?"
+          },
+          "new_prefix": {
+            "description": "le nouveau préfixe de bot pour cette guilde"
+          }
+        }
+      },
       "toggle_command": {
         "description": "Autoriser/Interdire les rôles/canaux/membres de lancer une commande spécifique.",
         "options": {
-          "command": {
-            "description": "La commande que vous voulez activer."
-          },
-          "get": {
-            "description": "Récupère une liste de rôles/salons/membres interdits pour cette commande à la place."
-          },
-          "role_1": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
-          "role_2": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
-          "role_3": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
-          "role_4": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
-          "role_5": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
-          "role_6": {
-            "description": "Le rôle pour lequel vous voulez basculer la commande"
-          },
           "channel_1": {
             "description": "Le canal pour lequel vous voulez basculer la commande"
           },
@@ -132,6 +192,12 @@
           "channel_6": {
             "description": "Le canal pour lequel vous voulez basculer la commande"
           },
+          "command": {
+            "description": "La commande que vous voulez activer."
+          },
+          "get": {
+            "description": "Récupère une liste de rôles/salons/membres interdits pour cette commande à la place."
+          },
           "member_1": {
             "description": "Le membre pour lequel vous voulez basculer la commande"
           },
@@ -149,92 +215,26 @@
           },
           "member_6": {
             "description": "Le membre pour lequel vous voulez basculer la commande"
-          }
-        }
-      },
-      "language": {
-        "description": "Changer la langue du bot.",
-        "options": {
-          "language": {
-            "description": "Dans quelle langue le garçon doit-il répondre?"
-          }
-        }
-      },
-      "set_prefix": {
-        "description": "Change le préfixe du bot.",
-        "options": {
-          "new_prefix": {
-            "description": "le nouveau préfixe de bot pour cette guilde"
           },
-          "case_insensitive": {
-            "description": "Le cas du préfixe doit-il être ignoré ?"
-          }
-        }
-      },
-      "add_prefix": {
-        "description": "Ajouter un autre préfixe pour le bot.",
-        "options": {
-          "new_prefix": {
-            "description": "le nouveau préfixe de bot pour cette guilde"
+          "role_1": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
           },
-          "case_insensitive": {
-            "description": "Le cas du préfixe doit-il être ignoré ?"
-          }
-        }
-      },
-      "remove_prefix": {
-        "description": "Supprime un préfixe pour le bot.",
-        "options": {
-          "prefix": {
-            "description": "le préfixe à supprimer pour cette guilde"
-          }
-        }
-      },
-      "serverbackup": {
-        "description": "Gérer les options pour les sauvegardes de votre serveur.",
-        "options": {
-          "allowed_to_load": {
-            "description": "Change who is allowed to load server backups.",
-            "choices": {
-              "creator": "Créateur",
-              "owner": "Server owner",
-              "creatorAndOwner": "Creator and Server owner",
-              "admins": "Current server administrators"
-            }
-          }
-        }
-      },
-      "autopublish": {
-        "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce.",
-        "options": {
-          "enabled": {
-            "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce."
-          }
-        }
-      },
-      "logger": {
-        "description": "Enregistrer les actions que le journal d'audit ne peut pas enregistrer",
-        "options": {
-          "action": {
-            "description": "L'action que vous voulez enregistrer",
-            "choices": {
-              "all": "toutes les actions",
-              "messageDelete": "supprimer le message",
-              "messageUpdate": "Modifier le message",
-              "voiceChannelActivity": "join/leave/switch voice channel",
-              "sayCommandUsed": "/say (or similar) command uses"
-            }
+          "role_2": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
           },
-          "channel": {
-            "description": "La chaîne à laquelle vous voulez envoyer le message de log"
+          "role_3": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
           },
-          "enabled": {
-            "description": "Activer (vrai) ou désactiver (faux) l'enregistrement de l'action"
+          "role_4": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
+          },
+          "role_5": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
+          },
+          "role_6": {
+            "description": "Le rôle pour lequel vous voulez basculer la commande"
           }
         }
-      },
-      "birthday": {
-        "description": "Configurer la chaîne d'anniversaire et le message."
       },
       "wordcounter": {
         "description": "Activer (vrai) ou désactiver (faux) comptant les mots dans tous les messages utilisateur pour les statistiques.",
@@ -245,38 +245,30 @@
         }
       }
     },
-    "link": "Lier",
-    "useDashboard": "Utilisez le tableau de bord ({link}) pour modifier ce paramètre.",
-    "toggleCommand": {
-      "notFound": "Ce n'est pas une commande valide !",
-      "list": {
-        "all": "Tous les membres",
-        "embedTitle": "Rôles/canaux/membres interdits pour la commande {command}",
-        "embedDescription": "Aucun rôle, salon ou membre n'est actuellement pas autorisé."
-      },
-      "enabled": "La commande {command} est maintenant activée.",
-      "disabled": "La commande {command} est maintenant désactivée.",
-      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant {commandMention} sans spécifier aucun rôle, salon ou membre.",
-      "roles": "Rôles",
-      "channels": "Canaux",
-      "users": "Membres",
-      "embedTitle": "Paramètres de commande mis à jour pour \"{commandName}\"",
-      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||",
-      "embed": {
-        "enabled": "Supprimé (autorisé)",
-        "disabled": "Ajouté (rejeté)"
-      }
-    },
-    "language": {
-      "embedTitle": "Langue du bot modifiée !",
-      "embedDescription": "La langue a été définie sur {lang}."
-    },
-    "setPrefix": {
-      "saved": "Mon préfixe a été changé en {prefix}."
-    },
     "addPrefix": {
       "limitReached": "Vous ne pouvez pas ajouter plus de préfixes ! Essayez d'abord de supprimer les préfixes non utilisés.",
       "saved": "{prefix} a été ajouté en tant que préfixe supplémentaire."
+    },
+    "autopublish": {
+      "success": "{toggle} autopublishing."
+    },
+    "language": {
+      "embedDescription": "La langue a été définie sur {lang}.",
+      "embedTitle": "Langue du bot modifiée !"
+    },
+    "link": "Lier",
+    "logger": {
+      "actions": {
+        "all": "toutes les actions",
+        "messageDelete": "messages supprimés",
+        "messageUpdate": "messages modifiés",
+        "sayCommandUsed": "/say (or similar) command uses",
+        "voiceChannelActivity": "salon vocal joins/quittes/interrupteurs"
+      },
+      "disabled": "Les journaux pour {action} ne seront plus envoyés.",
+      "enabled": "Les journaux pour {action} seront envoyés à {channel}.",
+      "noChannel": "Vous n'avez pas spécifié de salon textuel vers lequel envoyer le log !",
+      "noEnabled": "Vous devez utiliser l'option `enabled` pour définir toutes les actions en même temps!"
     },
     "removePrefix": {
       "removed": "Le préfixe {prefix} a été supprimé."
@@ -284,22 +276,31 @@
     "serverbackup": {
       "success": "Successfully updated the settings!"
     },
-    "autopublish": {
-      "success": "{toggle} autopublishing."
+    "setPrefix": {
+      "saved": "Mon préfixe a été changé en {prefix}."
     },
-    "logger": {
-      "noChannel": "Vous n'avez pas spécifié de salon textuel vers lequel envoyer le log !",
-      "noEnabled": "Vous devez utiliser l'option `enabled` pour définir toutes les actions en même temps!",
-      "enabled": "Les journaux pour {action} seront envoyés à {channel}.",
-      "disabled": "Les journaux pour {action} ne seront plus envoyés.",
-      "actions": {
-        "all": "toutes les actions",
-        "messageDelete": "messages supprimés",
-        "messageUpdate": "messages modifiés",
-        "voiceChannelActivity": "salon vocal joins/quittes/interrupteurs",
-        "sayCommandUsed": "/say (or similar) command uses"
-      }
+    "toggleCommand": {
+      "channels": "Canaux",
+      "disabled": "La commande {command} est maintenant désactivée.",
+      "embed": {
+        "disabled": "Ajouté (rejeté)",
+        "enabled": "Supprimé (autorisé)"
+      },
+      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||",
+      "embedFooterText": "Ce paramètre n'affecte pas le propriétaire de la guilde.",
+      "embedTitle": "Paramètres de commande mis à jour pour \"{commandName}\"",
+      "enabled": "La commande {command} est maintenant activée.",
+      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant {commandMention} sans spécifier aucun rôle, salon ou membre.",
+      "list": {
+        "all": "Tous les membres",
+        "embedDescription": "Aucun rôle, salon ou membre n'est actuellement pas autorisé.",
+        "embedTitle": "Rôles/canaux/membres interdits pour la commande {command}"
+      },
+      "notFound": "Ce n'est pas une commande valide !",
+      "roles": "Rôles",
+      "users": "Membres"
     },
+    "useDashboard": "Utilisez le tableau de bord ({link}) pour modifier ce paramètre.",
     "wordcounter": {
       "success": "Comptage de mots {toggle}."
     }
