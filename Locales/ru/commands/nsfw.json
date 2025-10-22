@@ -10,30 +10,30 @@
       "type": {
         "description": "Тип изображения, который вы хотите увидеть. По умолчанию Hentai.",
         "choices": {
-          "hass": "Хентай пасс",
-          "hmidriff": "Hentai Taille",
-          "pgif": "Porn gif",
           "4k": "4к",
-          "hentai": "Hentai",
-          "hneko": "Hentai Neko",
-          "neko": "Неко",
-          "hkitsune": "Hentai Kitsune",
           "anal": "Анал",
-          "hanal": "Hentai Anal",
-          "gonewild": "Угнать дикий",
           "ass": "Асс",
-          "pussy": "Прыжок",
-          "thigh": "Бедро",
-          "hthigh": "Хентаи Тьё",
-          "paizuri": "Paizuri",
-          "tentacle": "Щупальца",
           "boobs": "Бубы",
+          "gonewild": "Угнать дикий",
+          "hanal": "Hentai Anal",
+          "hass": "Хентай пасс",
           "hboobs": "Хентаи Бубы",
+          "hentai": "Hentai",
+          "hkitsune": "Hentai Kitsune",
+          "hmidriff": "Hentai Taille",
+          "hneko": "Hentai Neko",
+          "hthigh": "Хентаи Тьё",
+          "neko": "Неко",
+          "paizuri": "Paizuri",
+          "pgif": "Porn gif",
+          "pussy": "Прыжок",
+          "tentacle": "Щупальца",
+          "thigh": "Бедро",
           "yaoi": "Yaoi"
         }
       }
     },
-    "error": "API ответил с ошибкой.",
-    "embedTitle": "Почему у меня горны?"
+    "embedTitle": "Почему у меня горны?",
+    "error": "API ответил с ошибкой."
   }
 }
