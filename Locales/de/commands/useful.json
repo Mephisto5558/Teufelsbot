@@ -269,7 +269,7 @@
         "description": "Wie viele Passwörter möchtest du generieren?"
       },
       "exclude_chars": {
-        "description": "Zeichen die, du nicht in deinem Passwort haben möchtest"
+        "description": "Zeichen die du nicht in deinem Passwort haben möchtest"
       },
       "include_chars": {
         "description": "Zeichen, die du in deinem Passwort haben möchtest, zusätzlich zum Standard Zeichensatz."
