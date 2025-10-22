@@ -3,7 +3,7 @@
   "categoryDescription": "Comandos que envían GIFs",
   "backflip": {
     "description": "¡Haz un contragolpe!",
-    "embedTitle": "Voltear",
-    "embedDescription": "¡{user} hace un contragolpe!"
+    "embedDescription": "¡{user} hace un contragolpe!",
+    "embedTitle": "Voltear"
   }
 }
