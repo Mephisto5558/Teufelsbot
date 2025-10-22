@@ -3,9 +3,9 @@
   "categoryDescription": "Minigiochi per giocare con da soli o con altri membri",
   "clickcounter": {
     "description": "Quanto spesso la tua gilda può fare clic su questo pulsante?",
+    "buttonLabel": "Clicca me!",
     "embedDescription": "Clic attuali: 0",
-    "embedFooterText": "Ultimo clic di {user}",
-    "buttonLabel": "Clicca me!"
+    "embedFooterText": "Ultimo clic di {user}"
   },
   "coinflip": {
     "description": "Capovolgi una moneta!",
@@ -27,19 +27,19 @@
       }
     },
     "added": {
-      "embedTitle": "Questo canale è ora un canale di conteggio!",
-      "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila.\nDivertiti!",
       "by": "Abilitato da {user}",
+      "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila.\nDivertiti!",
+      "embedTitle": "Questo canale è ora un canale di conteggio!",
       "success": "Ho aggiunto con successo {channel} come canale di conteggio."
     },
     "removed": {
-      "embedDescription": "Questo canale non è più un canale di conteggio!",
       "by": "Disabilitato da {user}",
+      "embedDescription": "Questo canale non è più un canale di conteggio!",
       "success": "Ho rimosso con successo {channel} come canale di conteggio."
     },
     "userDeletedMsg": {
-      "embedTitle": "Conteggio",
-      "embedDescription": "Numero Eliminato: {deletedNum}\nNumero Successivo: {nextNum}"
+      "embedDescription": "Numero Eliminato: {deletedNum}\nNumero Successivo: {nextNum}",
+      "embedTitle": "Conteggio"
     }
   },
   "mgstats": {
@@ -49,6 +49,38 @@
       "examples": "tictactoe @User1"
     },
     "options": {
+      "leaderboard": {
+        "description": "ottieni i primi 10 giocatori di una partita",
+        "options": {
+          "game": {
+            "description": "Wich gioco si desidera ottenere statistiche circa?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "settings": {
+            "description": "Applica/Disapplica i filtri nella classifica",
+            "choices": {
+              "all_users": "Tutti gli Utenti globalmente"
+            }
+          },
+          "sort": {
+            "description": "Ordina la classifica",
+            "choices": {
+              "f_alphabet_nick": "Nickname (ascendente)",
+              "f_alphabet_user": "Username (Ascending)",
+              "f_draws": "Meno Disegni",
+              "f_losses": "Meno Perdite",
+              "f_wins": "Meno Vittorie",
+              "m_alphabet_nick": "Nickname (discendente)",
+              "m_alphabet_user": "Username (discendente)",
+              "m_draws": "Più Disegni",
+              "m_losses": "Maggior Perdite",
+              "m_wins": "Più Vittorie"
+            }
+          }
+        }
+      },
       "user": {
         "description": "ottieni statistiche su di te o su un utente specifico",
         "options": {
@@ -62,56 +94,24 @@
             "description": "Wich utente vuoi ottenere statistiche circa?"
           }
         }
-      },
-      "leaderboard": {
-        "description": "ottieni i primi 10 giocatori di una partita",
-        "options": {
-          "game": {
-            "description": "Wich gioco si desidera ottenere statistiche circa?",
-            "choices": {
-              "tictactoe": "TicTacToe"
-            }
-          },
-          "sort": {
-            "description": "Ordina la classifica",
-            "choices": {
-              "m_wins": "Più Vittorie",
-              "f_wins": "Meno Vittorie",
-              "m_draws": "Più Disegni",
-              "f_draws": "Meno Disegni",
-              "m_losses": "Maggior Perdite",
-              "f_losses": "Meno Perdite",
-              "m_alphabet_user": "Username (discendente)",
-              "f_alphabet_user": "Username (Ascending)",
-              "m_alphabet_nick": "Nickname (discendente)",
-              "f_alphabet_nick": "Nickname (ascendente)"
-            }
-          },
-          "settings": {
-            "description": "Applica/Disapplica i filtri nella classifica",
-            "choices": {
-              "all_users": "Tutti gli Utenti globalmente"
-            }
-          }
-        }
       }
     },
-    "games": "Giochi: {games}",
-    "statsInfo": "Statistiche per questa gilda:",
-    "wins": "Vittorie: {wins}",
     "draws": "Disegni: {draws}",
-    "losses": "Perdite: {losses}",
-    "noOne": "nessuno",
-    "missingGameArg": "Devi darmi un `gioco` come primo argomento!",
-    "notFound": "Questa non è una voce di gioco valida. I giochi validi sono:\n{list}",
-    "wonAgainst": "Vinto contro:",
-    "lostAgainst": "Persi contro:",
-    "drewAgainst": "Sogno contro:",
+    "drewAgainst": "Drew contro:",
     "embedTitle": "Statistiche {user}di {game}",
     "embedTitleTop10": "Top 10 {game} giocatori",
+    "games": "Giochi: {games}",
+    "losses": "Perdite: {losses}",
+    "lostAgainst": "Persi contro:",
+    "missingGameArg": "Devi darmi un `gioco` come primo argomento!",
+    "noOne": "nessuno",
     "noPlayers": "Sembra che nessuno abbia ancora giocato...",
-    "youNoGamesPlayed": "Non hai ancora giocato nessuna partita {game}.",
-    "userNoGamesPlayed": "{user} non ha ancora giocato nessuna partita {game}."
+    "notFound": "Questa non è una voce di gioco valida. I giochi validi sono:\n{list}",
+    "statsInfo": "Statistiche per questa gilda:",
+    "userNoGamesPlayed": "{user} non ha ancora giocato nessuna partita {game}.",
+    "wins": "Vittorie: {wins}",
+    "wonAgainst": "Vinto contro:",
+    "youNoGamesPlayed": "Non hai ancora giocato nessuna partita {game}."
   },
   "rps": {
     "description": "Gioca forbici di carta rock contro i tuoi amici o il bot",
@@ -120,33 +120,33 @@
         "description": "A chi vuoi giocare contro?"
       }
     },
-    "rock": "Roccia",
-    "paper": "Carta",
-    "scissors": "Forbici",
+    "accept": {
+      "embedDescription": "Seleziona la tua mossa!",
+      "embedTitle": ":game_die: {player1} **VS** {player2}"
+    },
+    "canceled": ":x: {initiator} ha ritirato la sua sfida.",
     "challenge": {
+      "accept": "Accetta",
+      "botEmbedDescription": "Mi hai sfidato a un duello!",
+      "decline": "Rifiuta",
+      "embedDescription": "{user} ti ha sfidato a un duello!",
+      "embedTitle": "Forbici Di Carta Roccia",
+      "newChallenge": "{user} :crossed_swords: Nuova sfida duel",
       "opponentIsBot": "Non puoi sfidare i bot!",
       "opponentIsSelf": "Non puoi sfidarti!",
-      "embedTitle": "Forbici Di Carta Roccia",
-      "embedDescription": "{user} ti ha sfidato a un duello!",
-      "botEmbedDescription": "Mi hai sfidato a un duello!",
-      "start": "Inizia",
-      "accept": "Accetta",
-      "decline": "Rifiuta",
-      "newChallenge": "{user} :crossed_swords: Nuova sfida duel"
+      "start": "Inizia"
     },
-    "memberNotFound": "Almeno uno dei giocatori non è stato trovato!",
-    "canceled": ":x: {initiator} ha ritirato la sua sfida.",
     "declined": ":x: {opponent} non è salito alla sfida.",
-    "accept": {
-      "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Seleziona la tua mossa!"
-    },
     "end": {
       "alreadyChosen": "Hai già selezionato {move}! Si prega di attendere che il tuo avversario scelga.",
       "chosen": "{user} ha selezionato la loro mossa!",
       "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
       "win": ":tada: {winner} ha vinto la partita! {winEmoji} > {loseEmoji}"
-    }
+    },
+    "memberNotFound": "Almeno uno dei giocatori non è stato trovato!",
+    "paper": "Carta",
+    "rock": "Roccia",
+    "scissors": "Forbici"
   },
   "tictactoe": {
     "description": "giocare TicTacToe contro un amico o il bot",
@@ -169,19 +169,19 @@
       }
     },
     "added": {
-      "embedTitle": "Questo canale è ora un canale wordchain!",
-      "embedDescription": "Le regole sono semplici:\n> Inizia con qualsiasi parola.\n> La parola successiva deve iniziare con l'ultima lettera dell'ultima parola.\n> Non puoi dire due parole di fila.\nDivertiti!",
       "by": "Abilitato da {user}",
+      "embedDescription": "Le regole sono semplici:\n> Inizia con qualsiasi parola.\n> La parola successiva deve iniziare con l'ultima lettera dell'ultima parola.\n> Non puoi dire due parole di fila.\nDivertiti!",
+      "embedTitle": "Questo canale è ora un canale wordchain!",
       "success": "Ho aggiunto con successo {channel} come canale wordchain."
     },
     "removed": {
-      "embedDescription": "Questo canale non è più un canale wordchain.",
       "by": "Disabilitato da {user}",
+      "embedDescription": "Questo canale non è più un canale wordchain.",
       "success": "Ho rimosso con successo {channel} come canale wordchain."
     },
     "userDeletedMsg": {
-      "embedTitle": "Wordchain",
-      "embedDescription": "Parola Eliminata: {deletedWord}"
+      "embedDescription": "Parola Eliminata: {deletedWord}",
+      "embedTitle": "Wordchain"
     }
   }
 }
