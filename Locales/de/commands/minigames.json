@@ -3,9 +3,9 @@
   "categoryDescription": "Minigames zum allein oder mit anderen Mitgliedern Spielen",
   "clickcounter": {
     "description": "Wie oft kann dein Server den Button drücken?",
+    "buttonLabel": "Klick mich!",
     "embedDescription": "Aktuelle Klicks: 0",
-    "embedFooterText": "Letzter Klick von {user}",
-    "buttonLabel": "Klick mich!"
+    "embedFooterText": "Letzter Klick von {user}"
   },
   "coinflip": {
     "description": "Wirf eine Münze!",
@@ -27,19 +27,19 @@
       }
     },
     "added": {
-      "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
-      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen.\nViel Spaß!",
       "by": "Aktiviert von {user}",
+      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen.\nViel Spaß!",
+      "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
       "success": "Ich habe erfolgreich {channel} als Counting-Kanal hinzugefügt."
     },
     "removed": {
-      "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
       "by": "Deaktiviert von {user}",
+      "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
       "success": "Ich habe erfolgreich {channel} als Counting-Kanal entfernt."
     },
     "userDeletedMsg": {
-      "embedTitle": "Counting",
-      "embedDescription": "Gelöschte Zahl: {deletedNum}\nNächste Zahl: {nextNum}"
+      "embedDescription": "Gelöschte Zahl: {deletedNum}\nNächste Zahl: {nextNum}",
+      "embedTitle": "Counting"
     }
   },
   "mgstats": {
@@ -49,6 +49,38 @@
       "examples": "tictactoe @User1"
     },
     "options": {
+      "leaderboard": {
+        "description": "Erhalte die 10 besten Spieler eines Mini-Games",
+        "options": {
+          "game": {
+            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
+            "choices": {
+              "tictactoe": "Tic-Tac-Toe"
+            }
+          },
+          "settings": {
+            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage",
+            "choices": {
+              "all_users": "Alle User global"
+            }
+          },
+          "sort": {
+            "description": "Sortiere das Leaderboard",
+            "choices": {
+              "f_alphabet_nick": "Spitznamen (aufsteigend)",
+              "f_alphabet_user": "Benutzernamen (aufsteigend)",
+              "f_draws": "Wenigste Unentschieden",
+              "f_losses": "Wenigste Niederlagen",
+              "f_wins": "Wenigste Siege",
+              "m_alphabet_nick": "Spitznamen (absteigend)",
+              "m_alphabet_user": "Benutzernamen (absteigend)",
+              "m_draws": "Meiste Unentschieden",
+              "m_losses": "Meiste Niederlagen",
+              "m_wins": "Meiste Siege"
+            }
+          }
+        }
+      },
       "user": {
         "description": "Erhalte Statistiken über dich oder ein anderes Mitglied",
         "options": {
@@ -62,56 +94,24 @@
             "description": "Über welches Mitglied möchtest du Statistiken erhalten?"
           }
         }
-      },
-      "leaderboard": {
-        "description": "Erhalte die 10 besten Spieler eines Mini-Games",
-        "options": {
-          "game": {
-            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
-            "choices": {
-              "tictactoe": "Tic-Tac-Toe"
-            }
-          },
-          "sort": {
-            "description": "Sortiere das Leaderboard",
-            "choices": {
-              "m_wins": "Meiste Siege",
-              "f_wins": "Wenigste Siege",
-              "m_draws": "Meiste Unentschieden",
-              "f_draws": "Wenigste Unentschieden",
-              "m_losses": "Meiste Niederlagen",
-              "f_losses": "Wenigste Niederlagen",
-              "m_alphabet_user": "Benutzernamen (absteigend)",
-              "f_alphabet_user": "Benutzernamen (aufsteigend)",
-              "m_alphabet_nick": "Spitznamen (absteigend)",
-              "f_alphabet_nick": "Spitznamen (aufsteigend)"
-            }
-          },
-          "settings": {
-            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage",
-            "choices": {
-              "all_users": "Alle User global"
-            }
-          }
-        }
       }
     },
-    "games": "Spiele: {games}",
-    "statsInfo": "Statistiken für diesen Server:",
-    "wins": "Gewonnen: {wins}",
     "draws": "Unentschieden: {draws}",
-    "losses": "Verloren: {losses}",
-    "noOne": "niemand",
-    "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
-    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n{list}",
-    "wonAgainst": "Gewonnen gegen:",
-    "lostAgainst": "Verloren gegen:",
     "drewAgainst": "Unentschieden gegen:",
     "embedTitle": "{user}'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
+    "games": "Spiele: {games}",
+    "losses": "Verloren: {losses}",
+    "lostAgainst": "Verloren gegen:",
+    "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
+    "noOne": "niemand",
     "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
-    "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
-    "userNoGamesPlayed": "{user} hat noch nie {game} gespielt."
+    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n{list}",
+    "statsInfo": "Statistiken für diesen Server:",
+    "userNoGamesPlayed": "{user} hat noch nie {game} gespielt.",
+    "wins": "Gewonnen: {wins}",
+    "wonAgainst": "Gewonnen gegen:",
+    "youNoGamesPlayed": "Du hast noch nie {game} gespielt."
   },
   "rps": {
     "description": "Spiele Schere, Stein, Papier gegen deine Freunde oder den Bot",
@@ -120,33 +120,33 @@
         "description": "Gegen wen möchtest du spielen?"
       }
     },
-    "rock": "Stein",
-    "paper": "Papier",
-    "scissors": "Schere",
+    "accept": {
+      "embedDescription": "Wähle deinen Zug!",
+      "embedTitle": ":game_die: {player1} **VS** {player2}"
+    },
+    "canceled": ":x: {initiator} hat die Herausforderung zurückgezogen.",
     "challenge": {
+      "accept": "Annehmen",
+      "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
+      "decline": "Ablehnen",
+      "embedDescription": "{user} hat dich zu einem Duell herausgefordert!",
+      "embedTitle": "Schere, Stein, Papier",
+      "newChallenge": "{user} :crossed_swords: Neue Duell-Herausforderung",
       "opponentIsBot": "Du kannst keine Bots herausfordern!",
       "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
-      "embedTitle": "Schere, Stein, Papier",
-      "embedDescription": "{user} hat dich zu einem Duell herausgefordert!",
-      "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
-      "start": "Start",
-      "accept": "Annehmen",
-      "decline": "Ablehnen",
-      "newChallenge": "{user} :crossed_swords: Neue Duell-Herausforderung"
+      "start": "Start"
     },
-    "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
-    "canceled": ":x: {initiator} hat die Herausforderung zurückgezogen.",
     "declined": ":x: {opponent} hat die Herausforderung nicht angenommen.",
-    "accept": {
-      "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Wähle deinen Zug!"
-    },
     "end": {
       "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
       "chosen": "{user} hat seinen/ihren Zug gewählt!",
       "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
       "win": ":tada: {winner} hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
-    }
+    },
+    "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
+    "paper": "Papier",
+    "rock": "Stein",
+    "scissors": "Schere"
   },
   "tictactoe": {
     "description": "Spiele Tic-Tac-Toe gegen ein anderes Mitglied oder den Bot",
@@ -169,19 +169,19 @@
       }
     },
     "added": {
-      "embedTitle": "Dieser Kanal ist nun ein Wortketten-Kanal!",
-      "embedDescription": "Die Regeln sind einfach:\n> Starte mit einem beliebigen Wort.\n> Das nächste Wort muss mit dem letzten Buchstaben des letzten Wortes beginnen.\n> Du darfst nicht zwei Wörter hintereinander sagen.\nViel Spaß!",
       "by": "Aktiviert von {user}",
+      "embedDescription": "Die Regeln sind einfach:\n> Starte mit einem beliebigen Wort.\n> Das nächste Wort muss mit dem letzten Buchstaben des letzten Wortes beginnen.\n> Du darfst nicht zwei Wörter hintereinander sagen.\nViel Spaß!",
+      "embedTitle": "Dieser Kanal ist nun ein Wortketten-Kanal!",
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal hinzugefügt."
     },
     "removed": {
-      "embedDescription": "Dieser Kanal ist kein Wortketten-Kanal mehr.",
       "by": "Deaktiviert von {user}",
+      "embedDescription": "Dieser Kanal ist kein Wortketten-Kanal mehr.",
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal entfernt."
     },
     "userDeletedMsg": {
-      "embedTitle": "Wortketten",
-      "embedDescription": "Gelöschtes Wort: {deletedWord}"
+      "embedDescription": "Gelöschtes Wort: {deletedWord}",
+      "embedTitle": "Wortketten"
     }
   }
 }
