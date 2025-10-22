@@ -3,7 +3,7 @@
   "categoryDescription": "Команды, отправляющие GIF",
   "backflip": {
     "description": "Сделайте задний плав!",
-    "embedTitle": "Задний фон",
-    "embedDescription": "{user} делает фоп!"
+    "embedDescription": "{user} делает фоп!",
+    "embedTitle": "Задний фон"
   }
 }
