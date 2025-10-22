@@ -1,15 +1,15 @@
 {
-  "afkMsg": "{member} est AFK: {message} - {timestamp}",
   "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis {timestamp} ({formattedTime}).\nVotre message AFK était : \"{message}\"",
+  "afkMsg": "{member} est AFK: {message} - {timestamp}",
   "counting": {
     "error": "VOUS LE RECONNAISSEZ À {lastNumber}!! Ce canal est {channelHighscore}, le meilleur score de cette guilde est {guildHighscore}.\nLe prochain nombre est **1**.",
-    "wrongNumber": "Vous ne pouvez pas compter ?! Numéro incorrect.",
-    "sameUserTwice": "Vous ne pouvez pas compter deux nombres à la suite !"
+    "sameUserTwice": "Vous ne pouvez pas compter deux nombres à la suite !",
+    "wrongNumber": "Vous ne pouvez pas compter ?! Numéro incorrect."
   },
   "wordchain": {
     "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE {count} MOTS À \"{lastChar}\"!! Redémarrez en écrivant n'importe quel mot.",
-    "sameUserTwice": "Vous ne pouvez pas dire deux mots de suite !",
     "inALoop": "« Pourquoi est-ce que vous allez dans un cercle? Ce mot n'a été utilisé que récemment! »",
+    "sameUserTwice": "Vous ne pouvez pas dire deux mots de suite !",
     "wrongChar": "Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot."
   }
 }
