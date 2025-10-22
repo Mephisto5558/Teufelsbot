@@ -17,6 +17,7 @@
         "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       }
     },
+    "cantPunishAdmin": "Administratoren können nicht gebannt werden!",
     "cantPunishSelf": "Du kannst dich selbst nicht bannen!",
     "dmEmbedDescription": "Du wurdest von {guild} gebannt.\nModerator: {mod}\nBegründung: {reason}",
     "dmEmbedTitle": "Gebannt",
@@ -38,6 +39,7 @@
         "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       }
     },
+    "cantPunishAdmin": "Administratoren können nicht gekickt werden!",
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "dmEmbedDescription": "Du wurdest von {guild} gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "dmEmbedTitle": "Gekickt",
@@ -57,16 +59,16 @@
     },
     "options": {
       "channel": {
-        "description": "Den Kanal, den du sperren möchtest"
+        "description": "Den Kanal, den du locken möchtest"
       },
       "reason": {
-        "description": "Den Grund dafür, den Kanal zu sperren"
+        "description": "Den Grund dafür, den Kanal zu locken"
       }
     },
     "embedDescription": "Dieser Kanal wurde gesperrt.\nModerator: {mod}\nBegründung: {reason}",
     "embedTitle": "Kanal gesperrt!",
     "noReason": "Keine Begründung angegeben",
-    "success": "Der Kanal wurde gesperrt."
+    "success": "Der Kanal wurde gelockt."
   },
   "mute": {
     "description": "Timeouted ein Mitglied für eine bestimmte Zeit (min. 1min).",
