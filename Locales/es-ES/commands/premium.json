@@ -4,7 +4,7 @@
   "chatgpt": {
     "description": "¡Habla con ChatGPT!",
     "usage": {
-      "usage": "<mensaje>",
+      "usage": "<message>",
       "examples": "Hola"
     },
     "options": {
@@ -15,9 +15,9 @@
         "description": "¿Qué modelo quieres usar?"
       }
     },
-    "rateLimit": "Se ha alcanzado el número de ratelimit. Por favor, inténtalo de nuevo en unos segundos.",
-    "notAvailable": "La API no está disponible actualmente. Por favor, vuelve más tarde.",
     "error": "La API respondió con un error.",
+    "notAvailable": "La API no está disponible actualmente. Por favor, vuelve más tarde.",
+    "rateLimit": "Se ha alcanzado el número de ratelimit. Por favor, inténtalo de nuevo en unos segundos.",
     "regenerate": "Regenerar respuesta"
   },
   "editmessage": {
@@ -33,52 +33,52 @@
         "description": "Borrar todo en ese mensaje. Por ejemplo, incrustaciones, archivos"
       }
     },
-    "modalTitle": "Editar mensaje de comando",
-    "textInputLabel": "Escriba el nuevo contenido para ese mensaje.",
-    "textInputPlaceholder": "¡También puedes usar JSON!",
-    "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
-    "notBotMessage": "Sólo puedo editar mis propios mensajes!",
     "cannotEdit": "¡No puedo editar ese mensaje!",
     "emptyJson": "¡El JSON que proporcionaste está vacío!",
-    "link": "Enlace",
     "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n{err}",
-    "success": "El mensaje ha sido editado. {link}"
+    "link": "Enlace",
+    "modalTitle": "Editar mensaje de comando",
+    "notBotMessage": "Sólo puedo editar mis propios mensajes!",
+    "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
+    "success": "El mensaje ha sido editado. {link}",
+    "textInputLabel": "Escriba el nuevo contenido para ese mensaje.",
+    "textInputPlaceholder": "¡También puedes usar JSON!"
   },
   "record": {
     "description": "Grabar un canal de voz. Necesita la aprobación de los usuarios.",
     "options": {
-      "target": {
-        "description": "Grabar sólo un usuario específico."
-      },
       "channel": {
         "description": "¿Cuál es el canal de voz que desea grabar?"
       },
       "public": {
         "description": "Haz pública la grabación, así cualquier miembro de la hermandad puede escucharla."
+      },
+      "target": {
+        "description": "Grabar sólo un usuario específico."
       }
     },
-    "noTarget": "¡No hay nadie que grabar! O todos los blancos son bots o no están en un canal de voz! Si usted suministró un canal, ¡asegúrese de que es el que está en el destino!",
-    "needVoiceChannel": "¡Necesitas proporcionar un canal de voz o estar en uno!",
-    "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
-    "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
-    "embedTitle": "Grabador de voz",
-    "embedDescription": "{user} quiere grabarte en el canal de voz {channel}.\n{publicOrPrivate}\nPresione un botón para permitir o denegar la grabación de su voz.",
-    "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
-    "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
-    "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
-    "denied": "Nadie quiere ser grabado.",
-    "canceled": "La solicitud de grabación ha sido cancelada.",
     "allow": "Permitir grabación",
+    "canceled": "La solicitud de grabación ha sido cancelada.",
+    "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
+    "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
+    "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
+    "denied": "Nadie quiere ser grabado.",
     "deny": "Rechazar grabación",
+    "embedDescription": "{user} quiere grabarte en el canal de voz {channel}.\n{publicOrPrivate}\nPresione un botón para permitir o denegar la grabación de su voz.",
+    "embedTitle": "Grabador de voz",
+    "get": "Obtener la grabación",
+    "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
+    "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
+    "needVoiceChannel": "¡Necesitas proporcionar un canal de voz o estar en uno!",
+    "noTarget": "¡No hay nadie que grabar! O todos los blancos son bots o no están en un canal de voz! Si usted suministró un canal, ¡asegúrese de que es el que está en el destino!",
+    "notFound": "¡La grabación no ha sido encontrada!",
     "pause": "Pausar grabación",
+    "paused": "🔇 Pusí la grabación {channel}.",
+    "privateReady": "Pulse el botón para obtener la grabación.",
+    "recording": "🎙️ Ahora estoy grabando {channel} ({users})!",
     "resume": "Reanudar grabación",
     "stop": "Detener grabación",
-    "get": "Obtener la grabación",
-    "updated": "Tu respuesta ha sido establecida a {permission}. Estoy esperando a que los otros miembros respondan.",
-    "paused": "🔇 Pusí la grabación {channel}.",
-    "recording": "🎙️ Ahora estoy grabando {channel} ({users})!",
-    "notFound": "¡La grabación no ha sido encontrada!",
-    "privateReady": "Pulse el botón para obtener la grabación.",
-    "success": "🔉 ¡Aquí está su grabación!"
+    "success": "🔉 ¡Aquí está su grabación!",
+    "updated": "Tu respuesta ha sido establecida a {permission}. Estoy esperando a que los otros miembros respondan."
   }
 }

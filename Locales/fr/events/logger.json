@@ -1,36 +1,36 @@
 {
-  "someone": "une personne",
-  "executor": "Supprimé par",
-  "reason": "Raison",
   "embeds": "{count} Embeds",
-  "unknownContent": "Inconnu",
+  "executor": "Supprimé par",
   "messageDelete": {
-    "embedDescription": "Un message a été supprimé par {executor} dans {channel}.",
-    "content": "Contenu du message",
     "author": "Auteur",
-    "components": "Composants {count}"
+    "components": "Composants {count}",
+    "content": "Contenu du message",
+    "embedDescription": "Un message a été supprimé par {executor} dans {channel}."
   },
   "messageDeleteBulk": {
     "embedDescription": "Les messages {count} ont été supprimés par {executor} dans {channel}."
   },
   "messageUpdate": {
-    "embedDescription": "{executor} a modifié un message dans {channel}.",
-    "oldContent": "Message original",
-    "newContent": "Nouveau message",
     "author": "Auteur",
+    "embedDescription": "{executor} a modifié un message dans {channel}.",
+    "messageLink": "Message",
+    "newContent": "Nouveau message",
+    "oldContent": "Message original"
+  },
+  "reason": "Raison",
+  "sayCommandUsed": {
+    "author": "Auteur",
+    "content": "Contenu du message",
+    "embedDescription": "{executor} a utilisé une commande dans {channel} qui fait envoyer un message au bot.",
     "messageLink": "Message"
   },
+  "someone": "une personne",
+  "unknownContent": "Inconnu",
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} a rejoint le salon vocal {newChannel}.",
     "embedDescriptionLeave": "{executor} a quitté le salon vocal {oldChannel}.",
     "embedDescriptionMove": "{executor} est passé du canal vocal {oldChannel} à {newChannel}.",
-    "oldChannel": "Chaîne précédente",
-    "newChannel": "Chaîne actuelle"
-  },
-  "sayCommandUsed": {
-    "embedDescription": "{executor} a utilisé une commande dans {channel} qui fait envoyer un message au bot.",
-    "content": "Contenu du message",
-    "author": "Auteur",
-    "messageLink": "Message"
+    "newChannel": "Chaîne actuelle",
+    "oldChannel": "Chaîne précédente"
   }
 }

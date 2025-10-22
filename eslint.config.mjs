@@ -14,7 +14,7 @@ const
 export default [
   ...config,
   {
-    ignores: ['./Locales/!(en|de)/**', './Utils/DiscordAPIErrorCodes.json']
+    ignores: ['./Locales/!(en)/**', './Utils/DiscordAPIErrorCodes.json']
   },
   {
     name: 'templates',

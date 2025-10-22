@@ -1,36 +1,36 @@
 {
-  "someone": "alguien",
-  "executor": "Eliminado por",
-  "reason": "Razón",
   "embeds": "{count} Embeds",
-  "unknownContent": "Desconocido",
+  "executor": "Eliminado por",
   "messageDelete": {
-    "embedDescription": "Un mensaje fue eliminado por {executor} en {channel}.",
-    "content": "Contenido del mensaje",
     "author": "Autor",
-    "components": "Componentes {count}"
+    "components": "Componentes {count}",
+    "content": "Contenido del mensaje",
+    "embedDescription": "Un mensaje fue eliminado por {executor} en {channel}."
   },
   "messageDeleteBulk": {
     "embedDescription": "{count} mensajes fueron eliminados por {executor} en {channel}."
   },
   "messageUpdate": {
-    "embedDescription": "{executor} editó un mensaje en {channel}.",
-    "oldContent": "Mensaje original",
-    "newContent": "Nuevo mensaje",
     "author": "Autor",
+    "embedDescription": "{executor} editó un mensaje en {channel}.",
+    "messageLink": "Mensaje",
+    "newContent": "Nuevo mensaje",
+    "oldContent": "Mensaje original"
+  },
+  "reason": "Razón",
+  "sayCommandUsed": {
+    "author": "Autor",
+    "content": "Contenido del mensaje",
+    "embedDescription": "{executor} usó un comando en {channel} que hace que el bot envíe un mensaje.",
     "messageLink": "Mensaje"
   },
+  "someone": "alguien",
+  "unknownContent": "Desconocido",
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} se unió al canal de voz {newChannel}.",
     "embedDescriptionLeave": "{executor} dejó el canal de voz {oldChannel}.",
     "embedDescriptionMove": "{executor} cambió del canal de voz {oldChannel} a {newChannel}.",
-    "oldChannel": "Canal anterior",
-    "newChannel": "Canal actual"
-  },
-  "sayCommandUsed": {
-    "embedDescription": "{executor} usó un comando en {channel} que hace que el bot envíe un mensaje.",
-    "content": "Contenido del mensaje",
-    "author": "Autor",
-    "messageLink": "Mensaje"
+    "newChannel": "Canal actual",
+    "oldChannel": "Canal anterior"
   }
 }

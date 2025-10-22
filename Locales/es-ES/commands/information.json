@@ -4,15 +4,15 @@
   "avatar": {
     "description": "muestra el avatar del usuario",
     "options": {
-      "target": {
-        "description": "el usuario del que quieres obtener el avatar"
-      },
       "size": {
         "description": "el tamaño que quieres obtener"
+      },
+      "target": {
+        "description": "el usuario del que quieres obtener el avatar"
       }
     },
-    "embedDescription": "Avatar de {user}",
-    "averageColor": "Color promedio"
+    "averageColor": "Color promedio",
+    "embedDescription": "Avatar de {user}"
   },
   "changelog": {
     "description": "Obtener la última lista de cambios.",
@@ -24,6 +24,9 @@
       "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
+      "command": {
+        "description": "El comando para el que quieres obtener estadísticas."
+      },
       "scope": {
         "description": "Obtén estadísticas de comando para el gremio actual, tú o el bot en general.",
         "choices": {
@@ -31,21 +34,18 @@
           "guild": "Gremio",
           "user": "Usuario"
         }
-      },
-      "command": {
-        "description": "El comando para el que quieres obtener estadísticas."
       }
     },
-    "embedTitle": "Estadísticas de Comando para {mode}",
-    "notFound": "¡Ese comando no existe!",
-    "embedDescriptionOne": "El comando {command} ha sido ejecutado {total} veces (Slash: {slash} | Prefijo: {prefix}).",
     "embedDescriptionMany": "Estos son los 10 comandos más utilizados:",
-    "embedFieldValue": "{total} (barra: {slash} | Prefijo: {prefix})"
+    "embedDescriptionOne": "El comando {command} ha sido ejecutado {total} veces (Slash: {slash} | Prefijo: {prefix}).",
+    "embedFieldValue": "{total} (barra: {slash} | Prefijo: {prefix})",
+    "embedTitle": "Estadísticas de Comando para {mode}",
+    "notFound": "¡Ese comando no existe!"
   },
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
-    "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en {link} para abrir el panel."
+    "embedDescriptionDashboard": "Haz clic en {link} para abrir el panel.",
+    "embedTitle": "Tablero"
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
@@ -57,18 +57,18 @@
         "description": "El emoji o su id sobre el que quieres obtener información"
       }
     },
-    "notFound": "No se encontró información para este emoji.",
-    "embedTitle": "Información sobre \"{emoji}\"",
-    "name": "Nombre",
-    "id": "ID",
-    "guild": "Gremio",
+    "addToGuild": "Añadir a un gremio",
+    "allowedRoles": "Rol permitido",
     "animated": "Animado",
-    "creator": "Creador",
     "available": "Disponible",
     "createdAt": "Creado el",
-    "allowedRoles": "Rol permitido",
-    "addToGuild": "Añadir a un gremio",
-    "delete": "Eliminar Emoji"
+    "creator": "Creador",
+    "delete": "Eliminar Emoji",
+    "embedTitle": "Información sobre \"{emoji}\"",
+    "guild": "Gremio",
+    "id": "ID",
+    "name": "Nombre",
+    "notFound": "No se encontró información para este emoji."
   },
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
@@ -83,52 +83,52 @@
         "description": "¿De qué comando quieres obtener información?"
       }
     },
+    "all": {
+      "embedDescription": "Estas son las diferentes categorías de comandos. Por favor, seleccione una del menú desplegable.",
+      "embedFooterText": "Utilice la opción 'command' para obtener más información sobre un comando específico.",
+      "embedTitle": "🔰Todos mis comandos",
+      "notFound": "No se encontraron comandos..."
+    },
     "categoryListPlaceholder": "¿Qué categoría de comandos quieres ver?",
     "commandListPlaceholder": "¿Qué comando quieres ver?",
     "devEmbedFooterText": "Dev-Bot | Solo se muestran comandos beta",
     "one": {
-      "notFound": "No se encontró información para el comando {command}.",
-      "embedTitle": "{category} » {command}",
-      "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefixes}",
-      "prefixAlias": "Alias de comandos de prefijo",
-      "slashAlias": "Alias de Comandos Slash",
+      "usage": "Uso",
       "aliasOf": "Alias de",
       "botPerms": "Permisos de bot requeridos",
-      "userPerms": "Permisos de usuario requeridos",
       "cooldowns": "Enfriamiento del comando",
-      "usage": "Uso",
-      "examples": "Ejemplos"
-    },
-    "all": {
-      "embedTitle": "🔰Todos mis comandos",
-      "embedDescription": "Estas son las diferentes categorías de comandos. Por favor, seleccione una del menú desplegable.",
-      "notFound": "No se encontraron comandos...",
-      "embedFooterText": "Utilice la opción 'command' para obtener más información sobre un comando específico."
+      "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefixes}",
+      "embedTitle": "{category} » {command}",
+      "examples": "Ejemplos",
+      "notFound": "No se encontró información para el comando {command}.",
+      "prefixAlias": "Alias de comandos de prefijo",
+      "slashAlias": "Alias de Comandos Slash",
+      "userPerms": "Permisos de usuario requeridos"
     }
   },
   "info": {
     "description": "muestra algunas estadísticas e informaciones sobre el bot.",
+    "commands": "Comandos: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefijo: {prefix}",
     "dev": "Desarrollador",
-    "shard": "Fragmento",
+    "embedTitle": "Estadísticas",
     "guild": "ID de Gremio Interno",
     "guilds": "Gremios",
-    "commands": "Comandos: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefijo: {prefix}",
-    "starts": "Comienza",
     "lastStart": "Último inicio",
-    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.",
-    "embedTitle": "Estadísticas",
     "links": {
-      "repo": "GitHub",
+      "dashboard": "Tablero",
       "discord": "Discordia",
       "invite": "Invitar",
-      "dashboard": "Tablero",
-      "privacyPolicy": "Política de privacidad"
-    }
+      "privacyPolicy": "Política de privacidad",
+      "repo": "GitHub"
+    },
+    "shard": "Fragmento",
+    "starts": "Comienza",
+    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina."
   },
   "invite": {
     "description": "Envía un enlace para añadir el bot a tu gremio.",
-    "embedTitle": "Invitar",
-    "embedDescription": "¡Gracias por tu interés! Haz clic en {link} para añadirme a tu gremio. ^"
+    "embedDescription": "¡Gracias por tu interés! Haz clic en {link} para añadirme a tu gremio. ^",
+    "embedTitle": "Invitar"
   },
   "ping": {
     "description": "Consigue el ping del bot",
@@ -137,19 +137,19 @@
         "description": "Obtener el ping promedio de 60 pings."
       }
     },
-    "average": {
-      "loading": "Ping... {current}/{target}\nSiguiente ping {timestamp}",
-      "embedDescription": "Pings: {pings} | Duración: `{duration}s`\nAPI:\n> Ping más bajo: `{wsLowest}ms`\n> Ping más alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMensaje Enviado:\n> Pin más bajo: `{msgLowest}ms`\n> Ping más alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
-    },
     "api": "API",
+    "average": {
+      "embedDescription": "Pings: {pings} | Duración: `{duration}s`\nAPI:\n> Ping más bajo: `{wsLowest}ms`\n> Ping más alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMensaje Enviado:\n> Pin más bajo: `{msgLowest}ms`\n> Ping más alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`",
+      "loading": "Ping... {current}/{target}\nSiguiente ping {timestamp}"
+    },
     "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Enviar mensaje"
   },
   "prefix": {
     "description": "Muestra los prefijos del bot del gremio",
-    "currentPrefixes": "Mis prefijos actuales son:\n{prefixes}",
-    "caseInsensitive": " (mayúsculas insensibles)"
+    "caseInsensitive": " (mayúsculas insensibles)",
+    "currentPrefixes": "Mis prefijos actuales son:\n{prefixes}"
   },
   "roleinfo": {
     "description": "Obtener información sobre un rol",
@@ -162,17 +162,17 @@
         "description": "el rol sobre el que quieres obtener información"
       }
     },
-    "mention": "Mención",
-    "members": "Miembros",
+    "admin": "Administrador",
     "color": "Color",
-    "mentionable": "Mencionable",
+    "createdAt": "Creado el",
+    "delete": "Eliminar rol",
     "hoist": "Elevar",
     "managed": "Gestionado",
-    "position": "Posición",
-    "createdAt": "Creado el",
+    "members": "Miembros",
+    "mention": "Mención",
+    "mentionable": "Mencionable",
     "permissions": "Permisos",
-    "admin": "Administrador",
-    "delete": "Eliminar rol"
+    "position": "Posición"
   },
   "serverinfo": {
     "description": "Obtener información sobre una hermandad",
@@ -181,46 +181,46 @@
         "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
+    "boosts": {
+      "1": ", Nivel 1",
+      "2": ", Nivel 2",
+      "3": ", Nivel 3",
+      "name": "Optimizar"
+    },
+    "channels": "Canales",
+    "createdAt": "Creado el",
+    "defaultNotifications": {
+      "0": "Todos los mensajes",
+      "1": "Solo menciones",
+      "name": "Notificaciones por defecto"
+    },
+    "downloadBanner": "Descargar banner",
+    "downloadIcon": "Descargar icono",
+    "emojis": "Emojis",
+    "id": "ID",
+    "joinGuild": "Unirse al gremio",
+    "locale": "Local",
     "memberStats": "{all} (Humanos: {humans}, Bots: {bots})",
     "members": "Miembros",
+    "owner": "Propietario",
+    "partnered": "Gremio asociado",
+    "roles": "Roles",
+    "uses": " Usos",
+    "vanityUrl": "URL de Vanity",
     "verificationLevel": {
-      "name": "Nivel de verificación",
       "0": "Ninguna",
       "1": "Baja",
       "2": "Medio",
       "3": "Alta",
-      "4": "Muy alta"
-    },
-    "id": "ID",
-    "createdAt": "Creado el",
-    "defaultNotifications": {
-      "name": "Notificaciones por defecto",
-      "0": "Todos los mensajes",
-      "1": "Solo menciones"
-    },
-    "owner": "Propietario",
-    "locale": "Local",
-    "partnered": "Gremio asociado",
-    "emojis": "Emojis",
-    "boosts": {
-      "name": "Optimizar",
-      "1": ", Nivel 1",
-      "2": ", Nivel 2",
-      "3": ", Nivel 3"
-    },
-    "roles": "Roles",
-    "channels": "Canales",
-    "vanityUrl": "URL de Vanity",
-    "uses": " Usos",
-    "downloadIcon": "Descargar icono",
-    "downloadBanner": "Descargar banner",
-    "joinGuild": "Unirse al gremio"
+      "4": "Muy alta",
+      "name": "Nivel de verificación"
+    }
   },
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
-    "online": "en línea",
+    "embedDescription": "El bot ha sido {link} para {time}.",
     "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido {link} para {time}."
+    "online": "en línea"
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
@@ -233,11 +233,6 @@
         "description": "el usuario sobre el que quieres obtener información"
       }
     },
-    "guildOwner": "Propietario del gremio",
-    "guildAdmin": "Administrador del Gremio",
-    "admin": "Administrador",
-    "guildMod": "Moderador del gremio",
-    "guildMember": "Miembro del gremio",
     "activity": {
       "0": "Reproduce {activity}",
       "1": "Streams {activity}",
@@ -246,19 +241,15 @@
       "4": "Estado: \"{message}\"",
       "5": "Compitiendo en {activity}"
     },
-    "mention": "Mención",
-    "displayName": "Mostrar nombre",
-    "type": "Tipo",
-    "roles": "Roles",
-    "position": "Posición",
+    "admin": "Administrador",
+    "banMember": "Banear miembro",
+    "birthday": "Cumpleaños (edad)",
     "color": "Color",
     "createdAt": "Creado el",
-    "joinedAt": "Se unió en",
-    "birthday": "Cumpleaños (edad)",
-    "timedOutUntil": "Tiempo agotado hasta",
-    "rolesWithPerms": "Rayos con permisos",
+    "displayName": "Mostrar nombre",
+    "downloadAvatar": "Descargar Avatar",
+    "downloadBanner": "Descargar banner",
     "flags": {
-      "name": "Banderas",
       "ActiveDeveloper": "Desarrollador activo",
       "BotHTTPInteractions": "HTTP Bot",
       "BugHunterLevel1": "Cazador de insectos Nivel 1",
@@ -275,35 +266,31 @@
       "Staff": "Empleado de Discord",
       "TeamPseudoUser": "Pseudo-Usuario del Equipo",
       "VerifiedBot": "Bot verificado",
-      "VerifiedDeveloper": "Desarrollador de bots verificado temprano"
+      "VerifiedDeveloper": "Desarrollador de bots verificado temprano",
+      "name": "Banderas"
     },
-    "perms": "Permisos",
-    "downloadAvatar": "Descargar Avatar",
-    "downloadBanner": "Descargar banner",
+    "guildAdmin": "Administrador del Gremio",
+    "guildMember": "Miembro del gremio",
+    "guildMod": "Moderador del gremio",
+    "guildOwner": "Propietario del gremio",
+    "joinedAt": "Se unió en",
     "kickMember": "Expulsar miembro",
-    "banMember": "Banear miembro"
+    "mention": "Mención",
+    "perms": "Permisos",
+    "position": "Posición",
+    "roles": "Roles",
+    "rolesWithPerms": "Rayos con permisos",
+    "timedOutUntil": "Tiempo agotado hasta",
+    "type": "Tipo"
   },
   "vote": {
     "description": "obtener el enlace a la solicitud de funciones de los bots y la página de votación",
-    "embedTitle": "Votaciones",
-    "embedDescriptionVote": "Haga clic en {link} para abrir la página web de la solicitud de votación y funcionalidad."
+    "embedDescriptionVote": "Haga clic en {link} para abrir la página web de la solicitud de votación y funcionalidad.",
+    "embedTitle": "Votaciones"
   },
   "wordcounter": {
     "description": "Mira cuántas palabras se han dicho en un gremio, un canal o por un miembro.",
     "options": {
-      "guild": {
-        "description": "Mira los canales más altos y los miembros más altos de un gremio.",
-        "options": {
-          "get": {
-            "description": "Mira los canales más altos y los miembros más altos de un gremio.",
-            "options": {
-              "guild_id": {
-                "description": "El ID del gremio objetivo. Por defecto éste."
-              }
-            }
-          }
-        }
-      },
       "channel": {
         "description": "Ver a los miembros más destacados de un canal.",
         "options": {
@@ -312,6 +299,19 @@
             "options": {
               "channel": {
                 "description": "El canal de destino. Por defecto éste."
+              }
+            }
+          }
+        }
+      },
+      "guild": {
+        "description": "Mira los canales más altos y los miembros más altos de un gremio.",
+        "options": {
+          "get": {
+            "description": "Mira los canales más altos y los miembros más altos de un gremio.",
+            "options": {
+              "guild_id": {
+                "description": "El ID del gremio objetivo. Por defecto éste."
               }
             }
           }
@@ -334,30 +334,30 @@
         }
       }
     },
-    "notEnabled": "El conteo de palabras no está habilitado para el gremio seleccionado. Un administrador puede habilitarlo ejecutando {command}.",
-    "memberEmbedTitle": "Estadísticas de miembros",
-    "memberEmbedDescription": "Estos son los mejores miembros de {amount}:",
-    "guild": {
-      "invalidGuild": "El id del gremio proporcionado no es válido.",
-      "embedTitle": "Estadísticas {guild}",
-      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}",
-      "channelEmbedTitle": "Estadísticas del canal",
-      "channelEmbedDescription": "Estos son los canales {amount} más destacados:"
-    },
     "channel": {
-      "embedTitle": "Estadísticas #{channel}",
-      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}"
+      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}",
+      "embedTitle": "Estadísticas #{channel}"
     },
+    "guild": {
+      "channelEmbedDescription": "Estos son los canales {amount} más destacados:",
+      "channelEmbedTitle": "Estadísticas del canal",
+      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}",
+      "embedTitle": "Estadísticas {guild}",
+      "invalidGuild": "El id del gremio proporcionado no es válido."
+    },
+    "memberEmbedDescription": "Estos son los mejores miembros de {amount}:",
+    "memberEmbedTitle": "Estadísticas de miembros",
+    "notEnabled": "El conteo de palabras no está habilitado para el gremio seleccionado. Un administrador puede habilitarlo ejecutando {command}.",
     "user": {
       "enable": {
         "success": "Cuento de palabras {toggle} para ti."
       },
       "get": {
-        "notEnabledUser": "El recuento de palabras no está habilitado para ti. Puedes activarlo para tu usuario ejecutando {command}.",
-        "embedTitle": "Estadísticas {user}",
         "embedDescription": "Las palabras totales que enviaste desde el comienzo de la recuperación en {enabledAt}: {amount}",
+        "embedTitle": "Estadísticas {user}",
+        "guildEmbedDescription": "Estos son tus gremios {amount} superiores:",
         "guildEmbedTitle": "Estadísticas del gremio",
-        "guildEmbedDescription": "Estos son tus gremios {amount} superiores:"
+        "notEnabledUser": "El recuento de palabras no está habilitado para ti. Puedes activarlo para tu usuario ejecutando {command}."
       }
     }
   }

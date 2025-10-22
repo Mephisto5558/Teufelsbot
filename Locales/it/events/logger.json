@@ -1,36 +1,36 @@
 {
-  "someone": "qualcuno",
-  "executor": "Eliminato da",
-  "reason": "Motivo",
   "embeds": "{count} Embeds",
-  "unknownContent": "Sconosciuto",
+  "executor": "Eliminato da",
   "messageDelete": {
-    "embedDescription": "Un messaggio è stato eliminato da {executor} in {channel}.",
-    "content": "Contenuto Messaggio",
     "author": "Autore",
-    "components": "Componenti {count}"
+    "components": "Componenti {count}",
+    "content": "Contenuto Messaggio",
+    "embedDescription": "Un messaggio è stato eliminato da {executor} in {channel}."
   },
   "messageDeleteBulk": {
     "embedDescription": "{count} messaggi sono stati eliminati da {executor} in {channel}."
   },
   "messageUpdate": {
-    "embedDescription": "{executor} ha modificato un messaggio in {channel}.",
-    "oldContent": "Messaggio Originale",
-    "newContent": "Nuovo Messaggio",
     "author": "Autore",
+    "embedDescription": "{executor} ha modificato un messaggio in {channel}.",
+    "messageLink": "Messaggio",
+    "newContent": "Nuovo Messaggio",
+    "oldContent": "Messaggio Originale"
+  },
+  "reason": "Motivo",
+  "sayCommandUsed": {
+    "author": "Autore",
+    "content": "Contenuto Messaggio",
+    "embedDescription": "{executor} ha usato un comando in {channel} che fa inviare un messaggio al bot.",
     "messageLink": "Messaggio"
   },
+  "someone": "qualcuno",
+  "unknownContent": "Sconosciuto",
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} è entrato nel canale vocale {newChannel}.",
     "embedDescriptionLeave": "{executor} ha lasciato il canale vocale {oldChannel}.",
     "embedDescriptionMove": "{executor} è passato dal canale vocale {oldChannel} a {newChannel}.",
-    "oldChannel": "Canale Precedente",
-    "newChannel": "Canale Corrente"
-  },
-  "sayCommandUsed": {
-    "embedDescription": "{executor} ha usato un comando in {channel} che fa inviare un messaggio al bot.",
-    "content": "Contenuto Messaggio",
-    "author": "Autore",
-    "messageLink": "Messaggio"
+    "newChannel": "Canale Corrente",
+    "oldChannel": "Canale Precedente"
   }
 }

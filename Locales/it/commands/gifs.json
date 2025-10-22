@@ -3,7 +3,7 @@
   "categoryDescription": "Comandi che inviano GIF",
   "backflip": {
     "description": "Fai un backflip!",
-    "embedTitle": "Backflip",
-    "embedDescription": "{user} fa un backflip!"
+    "embedDescription": "{user} fa un backflip!",
+    "embedTitle": "Backflip"
   }
 }

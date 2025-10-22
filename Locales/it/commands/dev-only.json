@@ -11,10 +11,10 @@
         "description": "L'ID utente che si desidera (un)bloccare."
       }
     },
+    "cantBlacklistDev": "Non riesco a blacklist uno sviluppatore del bot!",
     "notFound": "Nessuna voce trovata per questo id.",
-    "saved": "{user} è stato blacklist dall'uso del bot.",
     "removed": "La voce blacklist per {user} è stata rimossa.",
-    "cantBlacklistDev": "Non riesco a blacklist uno sviluppatore del bot!"
+    "saved": "{user} è stato blacklist dall'uso del bot."
   },
   "dbget": {
     "description": "interroga i dati dal database",
@@ -43,26 +43,26 @@
         "description": "Il codice JavaScript da valutare"
       }
     },
-    "finished": "comando valutato:\n{code}",
-    "success": "{msg} senza errori.",
     "emptyRejection": "Rifiuto Promessa Vuota",
-    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
+    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```",
+    "finished": "comando valutato:\n{code}",
+    "success": "{msg} senza errori."
   },
   "exec": {
     "description": "iniettare il codice Bash direttamente nella shell del bot",
+    "usage": {
+      "usage": "<sh code>",
+      "examples": "echo 'Ciao Mondo!'"
+    },
     "options": {
       "command": {
         "description": "Il comando bash che dovrebbe essere eseguito"
       }
     },
-    "usage": {
-      "usage": "<sh code>",
-      "examples": "echo 'Ciao Mondo!'"
-    },
+    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```",
     "finished": "Comando bash valutato:\n{code}",
-    "stdout": "{msg} con il seguente output:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
-    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
+    "stdout": "{msg} con il seguente output:\nstdout:\n{stdout}"
   },
   "reload": {
     "description": "ricarica un file o una categoria",
@@ -75,9 +75,9 @@
         "description": "Il nome del comando da ricaricare."
       }
     },
+    "error": "Si è verificato un errore durante il ricaricamento:\n{error}\nControlla la console per maggiori informazioni.",
     "invalidCommand": "Questo non è un comando valido.",
     "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
-    "error": "Si è verificato un errore durante il ricaricamento:\n{error}\nControlla la console per maggiori informazioni.",
     "noneReloaded": "Nessun comando è stato ricaricato.",
     "reloaded": "I seguenti comandi {count} sono stati ricaricati:\n{commands}"
   },
@@ -115,8 +115,8 @@
         "description": "Tipo di attività"
       }
     },
-    "set": "La mia attività è stata impostata su {name} di tipo {type}.",
-    "reset": "La mia attività è stata impostata su `nessuna`."
+    "reset": "La mia attività è stata impostata su `nessuna`.",
+    "set": "La mia attività è stata impostata su {name} di tipo {type}."
   },
   "setchangelog": {
     "description": "Aggiorna i changelogs in modo che gli utenti siano aggiornati.",
@@ -128,8 +128,8 @@
       "usage": "[numero (predefinito 0)] [channel]",
       "examples": "7 #counting-canale"
     },
+    "invalidChannel": "Il canale fornito non è un canale di conteggio!",
     "invalidNumber": "Il numero fornito non è valido!",
-    "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
     "success": "Contare per {channel} è stato impostato su {number}."
   },
   "test": {
@@ -137,8 +137,8 @@
   },
   "todo": {
     "description": "Ottieni link alla lista di todo dello sviluppatore.",
+    "discordNotes": "Note di dev nel server di supporto",
     "list": "ToDo Excel",
-    "website": "Voto Sito Web",
-    "discordNotes": "Note di dev nel server di supporto"
+    "website": "Voto Sito Web"
   }
 }
