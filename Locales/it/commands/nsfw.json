@@ -4,36 +4,36 @@
   "nsfw": {
     "description": "Ottieni un'immagine NSFW",
     "usage": {
-      "usage": "[type]"
+      "usage": "[tipo]"
     },
     "options": {
       "type": {
         "description": "Il tipo di immagine che si desidera visualizzare. Predefinito per hentai.",
         "choices": {
-          "hass": "Hentai culo",
-          "hmidriff": "Hentai Taille",
-          "pgif": "Porn gif",
           "4k": "4k",
-          "hentai": "Hentai",
-          "hneko": "Hentai Neko",
-          "neko": "Neko",
-          "hkitsune": "Hentai Kitsune",
           "anal": "Anale",
-          "hanal": "Hentai Anal",
-          "gonewild": "Fuori selvatici",
           "ass": "Ass",
-          "pussy": "Figa",
-          "thigh": "Coscia",
-          "hthigh": "Hentai Thigh",
-          "paizuri": "Paizuri",
-          "tentacle": "Tentacolo",
           "boobs": "Tette",
+          "gonewild": "Fuori selvatici",
+          "hanal": "Hentai Anal",
+          "hass": "Hentai culo",
           "hboobs": "Hentai Boobs",
+          "hentai": "Hentai",
+          "hkitsune": "Hentai Kitsune",
+          "hmidriff": "Hentai Taille",
+          "hneko": "Hentai Neko",
+          "hthigh": "Hentai Thigh",
+          "neko": "Neko",
+          "paizuri": "Paizuri",
+          "pgif": "Porn gif",
+          "pussy": "Figa",
+          "tentacle": "Tentacolo",
+          "thigh": "Coscia",
           "yaoi": "Yaoi"
         }
       }
     },
-    "error": "L'API ha risposto con un errore.",
-    "embedTitle": "Perché ar u horny?"
+    "embedTitle": "Perché ar u horny?",
+    "error": "L'API ha risposto con un errore."
   }
 }
