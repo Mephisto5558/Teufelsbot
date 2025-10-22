@@ -1,36 +1,36 @@
 {
-  "someone": "кто-то",
-  "executor": "Удалено",
-  "reason": "Причина",
   "embeds": "{count} Embeds",
-  "unknownContent": "Неизвестен",
+  "executor": "Удалено",
   "messageDelete": {
-    "embedDescription": "Сообщение было удалено {executor} в {channel}.",
-    "content": "Содержание сообщения",
     "author": "Автор",
-    "components": "Компоненты {count}"
+    "components": "Компоненты {count}",
+    "content": "Содержание сообщения",
+    "embedDescription": "Сообщение было удалено {executor} в {channel}."
   },
   "messageDeleteBulk": {
     "embedDescription": "{count} сообщения были удалены {executor} в {channel}."
   },
   "messageUpdate": {
-    "embedDescription": "{executor} отредактировал сообщение в {channel}.",
-    "oldContent": "Оригинальное сообщение",
-    "newContent": "Новое сообщение",
     "author": "Автор",
+    "embedDescription": "{executor} отредактировал сообщение в {channel}.",
+    "messageLink": "Сообщение",
+    "newContent": "Новое сообщение",
+    "oldContent": "Оригинальное сообщение"
+  },
+  "reason": "Причина",
+  "sayCommandUsed": {
+    "author": "Автор",
+    "content": "Содержание сообщения",
+    "embedDescription": "{executor} использовал команду в {channel} , которая заставляет бота отправлять сообщение.",
     "messageLink": "Сообщение"
   },
+  "someone": "кто-то",
+  "unknownContent": "Неизвестен",
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} присоединился к голосовому каналу {newChannel}.",
     "embedDescriptionLeave": "{executor} покинул голосовой канал {oldChannel}.",
     "embedDescriptionMove": "{executor} переключен с голосового канала {oldChannel} на {newChannel}.",
-    "oldChannel": "Предыдущий канал",
-    "newChannel": "Текущий канал"
-  },
-  "sayCommandUsed": {
-    "embedDescription": "{executor} использовал команду в {channel} , которая заставляет бота отправлять сообщение.",
-    "content": "Содержание сообщения",
-    "author": "Автор",
-    "messageLink": "Сообщение"
+    "newChannel": "Текущий канал",
+    "oldChannel": "Предыдущий канал"
   }
 }
