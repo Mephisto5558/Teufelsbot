@@ -40,61 +40,52 @@ type BaseCommand<initialized extends boolean = boolean, commandType extends comm
   /**
    * Gets set to the command's filename.
    * For slash commands, must be lowercase. */
-  name: string;
+  readonly name: string;
 
   /** Currently not used */
-  nameLocalizations?: Record<string, BaseCommand<true, commandType>['name']>;
+  readonly nameLocalizations?: Record<string, BaseCommand<true, commandType>['name']>;
 
   /**
    * Gets set automatically from language files.
    * For slash commands, can not be longer then 100 chars. */
-  description: string;
+  readonly description: string;
 
   /**
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
    * @see {@link command.description} */
-  descriptionLocalizations: Record<Locale, BaseCommand<true, commandType>['description']>;
+  readonly descriptionLocalizations: Record<Locale, BaseCommand<true, commandType>['description']>;
 
   /**
    * Command usage information for the end-user.
    * Should be in the command file if its language-independent, otherwise in the language files.
    *
    * Gets modified upon initialization. */
-  usage: { usage?: string; examples?: string };
-
+  readonly usage: { usage?: string; examples?: string };
 
   /**
    * Gets set automatically from language files.
    * @see {@link command.usage} */
-  usageLocalizations: Record<string, BaseCommand['usage']>;
+  readonly usageLocalizations: Record<string, BaseCommand['usage']>;
 
   /** Gets set to the lowercase folder name the command is in. */
-  category: string;
+  readonly category: string;
 
-  /**
-   * **Do not set manually.**
-   *
-   * If the command is an alias, this property will have the original name. */
-  aliasOf?: BaseCommand['name'];
+  /** If the command is an alias, this property will have the original name. */
+  readonly aliasOf?: BaseCommand['name'];
 
-  /**
-   * **Do not set manually.**
-   *
-   * The command's full file path, used for e.g. reloading the command. */
-  filePath: string;
+  /** The command's full file path, used for e.g. reloading the command. */
+  readonly filePath: string;
 } : {
 
-  /** @deprecated Change the filename to the desired name instead. */
-  name?: string;
-
-  /** @deprecated Use language files instead. */
-  description?: string;
+  /** To change the name, change the filename to the desired name. */
+  readonly name?: string;
+  readonly description?: string;
 
   usage?: { usage?: string; examples?: string };
 
-  /** @deprecated Change the directory name to the desired category instead. */
-  category?: string;
+  /** To change the category, change the directory name to the desired category instead. */
+  readonly category?: string;
 });
 
 type Config = {

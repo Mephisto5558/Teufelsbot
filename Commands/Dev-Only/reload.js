@@ -1,4 +1,4 @@
-/* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-deprecated
+/* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment
 -- will be fixed when commands are moved to their own lib */
 
 const
