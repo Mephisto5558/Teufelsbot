@@ -6,6 +6,8 @@ const
 
 module.exports = {
   advice: require('./advice'),
+  chatgpt: require('./chatgpt'),
+  chatgpt_fetchAPI: require('./chatgpt_fetchAPI'),
   fact: require('./fact'),
   help_commandQuery: commandQuery,
   help_categoryQuery: categoryQuery,

@@ -2,7 +2,7 @@
   "categoryName": "Premium",
   "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
   "chatgpt": {
-    "description": "Sprich mit ChatGPT!",
+    "description": "Sprich mit ChatGPT! ChatGPT kennt die letzten 50 Nachrichten dieses Kanals.",
     "usage": {
       "usage": "<Nachricht>",
       "examples": "Hallo"
