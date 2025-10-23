@@ -3,7 +3,7 @@
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
-  { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
+  { constants: { embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   MAX_MSGS = 9;
 
 /** @type {command<'both', false>} */
@@ -52,7 +52,7 @@ module.exports = {
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
-          else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, JSON_SPACES);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- possibly not a string, but we aren't able to type it all */
           else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString();

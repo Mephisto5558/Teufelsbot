@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Message } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond } } = require('#Utils'),
 
   RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'],
 
@@ -42,7 +42,7 @@ async function fetchAPI(lang, deep) {
 
   if ('choices' in res && res.choices[0].message.content) return res.choices[0].message.content;
 
-  log.error('chatgpt command API error:', JSON.stringify(res, undefined, 2));
+  log.error('chatgpt command API error:', JSON.stringify(res, undefined, JSON_SPACES));
   return lang('error');
 }
 
