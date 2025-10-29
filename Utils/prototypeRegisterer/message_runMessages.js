@@ -151,10 +151,10 @@ async function handleWordcounter(cleanMsg) {
 
 /** @type {runMessages} */
 module.exports = function runMessages() {
-  if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
+  if (this.originalContent?.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
 
-  if (this.client.botType == 'dev') return this;
+  if (this.client.botType == 'dev' || !this.originalContent) return this;
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) void handleCounting.call(this);
