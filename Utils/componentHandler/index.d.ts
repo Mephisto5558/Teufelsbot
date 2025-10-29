@@ -7,6 +7,8 @@ import type { BackupSystem, commandExecutionWrapper } from '..';
 
 export {
   advice,
+  chatgpt,
+  chatgpt_fetchAPI,
   fact,
   help_commandQuery,
   help_categoryQuery,
@@ -39,6 +41,22 @@ declare function advice(
   this: GuildButtonInteraction & { customId: 'advice' },
   lang: lang
 ): ComponentReturnType;
+
+declare function chatgpt<
+  USER_ID extends Snowflake,
+  COMMAND extends 'regenerate',
+  MODEL extends string
+>(
+  this: ButtonInteraction<undefined> & { customId: `chatgpt.${USER_ID}.${COMMAND}.${MODEL}` },
+  lang: lang, userId: USER_ID, command: COMMAND, model: MODEL
+): ComponentReturnType;
+
+declare function chatgpt_fetchAPI<
+  MODEL extends string
+>(
+  this: Interaction | Message | ButtonInteraction<undefined>,
+  lang: lang, model?: MODEL, deep?: boolean
+): Promise<[string, MODEL]>;
 
 declare function fact(
   this: ButtonInteraction<undefined> & { customId: 'fact' },
