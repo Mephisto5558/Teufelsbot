@@ -109,23 +109,17 @@ export default [
         ]
       })
     }
-      ...Array.isArray(sortKeysRule)
-        ? {
-            'jsonc/sort-keys': [
-              sortKeysRule[0],
-              {
-                pathPattern: '^$',
-                order: [
-                  'id',
-                  'name',
-                  'description',
-                  'position',
-                  { order: { type: 'asc' } }
-                ]
-              }
-            ]
-          }
-        : {}
+  },
+  {
+    name: 'overwrite:Tests',
+    files: ['./Tests/**/*.mjs'],
+    rules: {
+      'id-length': getModifiedRule(config, 'id-length', {
+        exceptions: ['t']
+      }),
+      'max-nested-callbacks': getModifiedRule(config, 'max-nested-callbacks', 4), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+      '@typescript-eslint/no-magic-numbers': 'off',
+      'unicorn/no-null': 'off'
     }
   }
 ];
