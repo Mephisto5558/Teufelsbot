@@ -1,6 +1,6 @@
 const
   { inlineCode } = require('discord.js'),
-  { getTargetMembers } = require('#Utils');
+  { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
 
 /** @type {command<'prefix', false>} */
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
 
       if (requests.length) {
         const result = await this.client.webServer.voteSystem.update(requests, this.client.user.id);
-        if (!result.success) throw new Error(JSON.stringify(result, undefined, 2));
+        if (!result.success) throw new Error(JSON.stringify(result, undefined, JSON_SPACES));
       }
     }
 

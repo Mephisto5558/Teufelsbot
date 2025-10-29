@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, custom/cyclomatic-complexity,
+/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity,
    @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access,
    @typescript-eslint/no-unsafe-argument -- will be fixed when commands are moved to their own lib */
 
