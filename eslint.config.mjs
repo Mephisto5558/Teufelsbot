@@ -1,12 +1,8 @@
-import config from '@mephisto5558/eslint-config';
+import config, { getModifiedRule } from '@mephisto5558/eslint-config';
 
 /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
   ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
-
-const
-  sortKeysRule = config.find(e => e.rules && 'jsonc/sort-keys' in e.rules).rules['jsonc/sort-keys'],
-  keyNameCasingRule = config.find(e => e.rules && 'jsonc/key-name-casing' in e.rules).rules['jsonc/key-name-casing'];
 
 /**
  * @type {typeof config}
@@ -59,80 +55,59 @@ export default [
     name: 'overwrite:locales/commands',
     files: ['./Locales/*/commands/*.json'],
     rules: {
-      ...Array.isArray(keyNameCasingRule)
-        ? {
-            'jsonc/key-name-casing': [
-              keyNameCasingRule[0],
-              {
-                ...keyNameCasingRule[1],
-                snake_case: true /* eslint-disable-line camelcase */
-              }
-            ]
-          }
-        : {},
-      ...Array.isArray(sortKeysRule)
-        ? {
-            'jsonc/sort-keys': [
-              sortKeysRule[0],
-              {
-                pathPattern: '^$',
-                order: [
-                  'categoryName',
-                  'categoryDescription',
-                  { order: { type: 'asc' } }
-                ]
-              },
-              {
-                pathPattern: '^(?!categoryName|categoryDescription).+$',
-                order: [
-                  'description',
-                  'usage',
-                  'options',
-                  { order: { type: 'asc' } }
-                ]
-              },
-              {
-                pathPattern: String.raw`^(?!categoryName|categoryDescription).+\.options.*$`,
-                order: [
-                  'description',
-                  'options',
-                  'choices',
-                  { order: { type: 'asc' } }
-                ]
-              },
-              {
-                pathPattern: String.raw`.*\.usage$`,
-                order: [
-                  'usage',
-                  'examples'
-                ]
-              }
-            ]
-          }
-        : {}
+      'jsonc/key-name-casing': getModifiedRule(config, 'jsonc/key-name-casing', {
+        snake_case: true /* eslint-disable-line camelcase */
+      }),
+      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys',
+        {
+          pathPattern: '^$',
+          order: [
+            'categoryName',
+            'categoryDescription',
+            { order: { type: 'asc' } }
+          ]
+        },
+        {
+          pathPattern: '^(?!categoryName|categoryDescription).+$',
+          order: [
+            'description',
+            'usage',
+            'options',
+            { order: { type: 'asc' } }
+          ]
+        },
+        {
+          pathPattern: String.raw`^(?!categoryName|categoryDescription).+\.options.*$`,
+          order: [
+            'description',
+            'options',
+            'choices',
+            { order: { type: 'asc' } }
+          ]
+        },
+        {
+          pathPattern: String.raw`.*\.usage$`,
+          order: [
+            'usage',
+            'examples'
+          ]
+        })
     }
   },
   {
     name: 'overwrite:dashboard-settings',
     files: ['./Website/DashboardSettings/*/_index.json'],
     rules: {
-      ...Array.isArray(sortKeysRule)
-        ? {
-            'jsonc/sort-keys': [
-              sortKeysRule[0],
-              {
-                pathPattern: '^$',
-                order: [
-                  'id',
-                  'name',
-                  'description',
-                  'position',
-                  { order: { type: 'asc' } }
-                ]
-              }
-            ]
-          }
-        : {}
+      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys', {
+        pathPattern: '^$',
+        order: [
+          'id',
+          'name',
+          'description',
+          'position',
+          { order: { type: 'asc' } }
+        ]
+      })
     }
   }
 ];
