@@ -50,7 +50,8 @@ const
 /** @type {(message: Interaction | Message) => string} */
 function createUserName(message) {
   const member = message.member ?? message.user;
-  return message.user.username
+  return `[${message.createdAt.toISOString()}] `
+    + message.user.username
     + (message.user.username == member.displayName ? '' : ` (${member.displayName})`)
     + `${message.client.config.devIds.has(message.user.id) ? ' [DEV]' : ''}: `;
 }
