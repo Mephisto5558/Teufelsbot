@@ -49,7 +49,7 @@ function cooldown(name, cooldowns = {}) {
     cooldownList = [];
 
   for (const [cdName, value] of Object.entries(cooldowns)) {
-    if (!value || this[cdName] === null) continue;
+    if (!value || this[cdName] == undefined) continue;
 
     timeStamps[cdName] ??= new Map();
     const timestamp = timeStamps[cdName].get(this[cdName].id) ?? 0;

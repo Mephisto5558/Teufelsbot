@@ -189,8 +189,10 @@ export declare function errorHandler(
 
 export declare function filename(path: string): string;
 
-/** Removes `null`, `undefined`, empty arrays and empty objects recursively. */
-export declare function filterEmptyEntries(obj: object): object;
+/**
+ * Removes `null`, `undefined`, empty arrays and empty objects recursively from an object or array.
+ * Returns an empty object `{}` for any non-object input (e.g. primitives, `null`). */
+export declare function filterEmptyEntries(obj: unknown): object;
 
 export declare function findAllEntries(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
