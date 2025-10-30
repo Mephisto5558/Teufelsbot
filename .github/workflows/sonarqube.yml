@@ -1,0 +1,40 @@
+name: Test and Coverage
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  sonarqube:
+    name: Create coverage report and run SonarQube scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # to checkout code
+      pull-requests: write # to comment on PRs
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests and generate coverage file
+        run: npm run test
+        continue-on-error: true
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
