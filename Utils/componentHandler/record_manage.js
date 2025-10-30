@@ -80,11 +80,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   embed.data.description = lang('recording', { channel: channelMention(voiceChannelId), users: membersToRecord.map(userMention).join(', ') });
   void this.message.edit({ embeds: [embed], components: [component] });
 
-  try { await access('./VoiceRecords/raw'); }
-  catch (err) {
-    if (err.code != 'ENOENT') throw err;
-    await mkdir('./VoiceRecords/raw', { recursive: true });
-  }
+  await mkdir('./VoiceRecords/raw', { recursive: true });
 
   for (const userId of membersToRecord) {
     connection.receiver

@@ -12,7 +12,7 @@ const
     AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
   } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { access, mkdir, readFile } = require('node:fs/promises'),
+  { mkdir, readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
   { I18nProvider } = require('@mephisto5558/i18n'),
