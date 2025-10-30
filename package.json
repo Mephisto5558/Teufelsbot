@@ -29,7 +29,8 @@
   "types": "./types/globals.d.ts",
   "scripts": {
     "eslint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md",
-    "test": "node Tests/index.mjs"
+    "test": "npm run test:file \"./Tests/**/*.mjs\"",
+    "test:file": "node --test --stack-trace-limit=1 --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=Tests/lcov.info --test-coverage-exclude=Tests/** --import ./Tests/setup.mjs --"
   },
   "dependencies": {
     "@discordjs/voice": "^0.19.0",
