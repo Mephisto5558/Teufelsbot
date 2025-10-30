@@ -4,7 +4,7 @@ import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
-import type { Log } from '../Utils/prototypeRegisterer';
+import type { LogInterface } from '../Utils/prototypeRegisterer';
 import type DBStructure from './database';
 import type locals, { commandTypes, defaultCommandType } from './locals';
 
@@ -104,8 +104,8 @@ declare global {
     sleep: (ms: number) => Promise<void>,
 
     /** Custom logging, including logfiles. */
-    log: typeof Log;
-  type log = typeof Log;
+    log: LogInterface;
+  type log = LogInterface;
 
   type Snowflake = `${bigint}`;
 

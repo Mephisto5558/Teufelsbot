@@ -22,10 +22,10 @@ declare enum LogLevels {
 }
 
 /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions */
-interface Log extends CallableFunction {
+interface Log<FILE_LOGGING_ENABLED extends boolean = true> extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
   logLevel: keyof typeof LogLevels;
-  logFilesDir: string;
+  logFilesDir: FILE_LOGGING_ENABLED extends true ? string : never;
 
   (...str: unknown[]): this;
   debug(...str: unknown[]): this;
@@ -41,7 +41,9 @@ interface Log extends CallableFunction {
   _log({ file, type, prefix }?: { file?: keyof typeof LogLevels; type?: string; prefix?: string }, ...args: unknown[]): this;
 }
 
-declare const LogClass: new(logLevel?: keyof typeof LogLevels, logFileDir?: string) => Log;
+declare const LogClass: new<
+  DIR extends string | false = string
+>(logLevel?: keyof typeof LogLevels, logFileDir?: DIR) => Log<DIR extends boolean ? false : true>;
 
 /** Modified from the default one to set additional properties and modify the message content. */
 declare function _patch(

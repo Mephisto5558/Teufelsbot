@@ -12,7 +12,7 @@ const
     AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
   } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { readFile } = require('node:fs/promises'),
+  { access, mkdir, readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
   { I18nProvider } = require('@mephisto5558/i18n'),
@@ -36,6 +36,8 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 /** @type {LogInterface} */
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
+
+void mkdir(log.logFilesDir, { recursive: true });
 
 const
   config = setDefaultConfig(),
@@ -117,7 +119,7 @@ Object.defineProperties(Object.prototype, {
     /** @type {(this: object) => number} */
     get: function get() {
       let count = 0;
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
+
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
 
       return count;

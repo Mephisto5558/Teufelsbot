@@ -1,7 +1,7 @@
 /** @import { LogInterface } from '.' */
 
 const
-  { access, appendFile, mkdir } = require('node:fs/promises'),
+  { appendFile } = require('node:fs/promises'),
   { join } = require('node:path');
 
 const logLevels = {
@@ -16,14 +16,6 @@ const logLevels = {
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {
-    /* eslint-disable-next-line custom/no-async-constructor -- constructor functions cannot be async and we don't want an extra `init` function.
-    We just hope the system has enough time to create the dir. */
-    access(logFilesDir).catch(err => {
-      if (err.code != 'ENOENT') throw err;
-
-      void mkdir(logFilesDir);
-    });
-
     super('...str', 'return this.log(...str)');
 
     /** @type {this} */
@@ -35,7 +27,7 @@ module.exports = class Log extends Function {
        Setting it to `bound` is required for chained calls. */
     this.date = bound.date = new Date().toISOString().split('T')[0];
     this.logLevel = bound.logLevel = logLevel;
-    this.logFilesDir = bound.logFilesDir = logFilesDir;
+    if (logFilesDir) this.logFilesDir = bound.logFilesDir = logFilesDir;
     /* eslint-enable no-multi-assign */
 
     /* eslint-disable-next-line no-constructor-return -- That return is required for the code to work. */
@@ -60,7 +52,7 @@ module.exports = class Log extends Function {
 
   /** @type {LogInterface['_logToFile']} */
   _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
-    void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
+    if (this.logFilesDir) void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
     return this;
   }
 

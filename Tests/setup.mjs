@@ -1,3 +1,3 @@
-/* eslint-disable import-x/no-unassigned-import */
+import { Log } from '#Utils/prototypeRegisterer'; // load custom prototypes
 
-import '#Utils/prototypeRegisterer'; // load custom prototypes
+globalThis.log = new Log(undefined, false); // disable file logging
