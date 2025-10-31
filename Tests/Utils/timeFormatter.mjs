@@ -7,7 +7,7 @@ import { timeFormatter, timestamp } from '#Utils/timeFormatter.js';
 const
   i18n = await new I18nProvider({
     defaultLocale: 'de',
-    localePath: './Locales',
+    localesPath: './Locales',
     errorNotFound: true
   }).init(),
   lang = i18n.getTranslator('de'),
