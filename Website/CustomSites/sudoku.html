@@ -9,11 +9,14 @@
     <meta name="description" content="A simple Sudoku game with configurable size and difficulty.">
 
     <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
-      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')"
-      onerror="alert('An error occurred during ressource loading. Please check your internet connection and reload the page.')">
+      integrity='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js" integrity="sha512-Ha24RzIaqElkku8jAovayjsRmx2W8+8MujsRkAz63wQmpDOJ7kXJcZOgjbf8lf5V0OqCMcsGVo85ahdUkQa3HQ=='
+      crossorigin='anonymous' onload="
+        globalThis.loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css');
+        globalThis.loadLocal('css', '/css/sudoku-mobile.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku-mobile.css', { media: '(max-width: 600px)', });
+        globalThis.loadLocal('script', '../../min/js/sudoku/index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/sudoku/index.js', { type: 'module', defer: true });
+        delete globalThis.loadLocal;
+      ">
     </script>
-    <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?1'
-      onload="loadLocal('css', '/css/sudoku-mobile.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku-mobile.css', { media: '(max-width: 600px)' })"></script>
   </head>
   <body>
     <header>
@@ -77,9 +80,5 @@
         <p id='win-info'>You won! Click the button above to generate a new Sudoku.</p>
       </div>
     </main>
-
-    <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?2'
-      onload="loadLocal('script', '../../min/js/sudoku/index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/sudoku/index.js', { type: 'module' })">
-    </script>
   </body>
 </html>
