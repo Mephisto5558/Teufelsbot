@@ -25,16 +25,21 @@
       crossorigin='anonymous' />
   </noscript>
 
-  <script src='https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.js'
-    crossorigin='anonymous' async></script>
+  <script src='https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.js' crossorigin='anonymous' async></script>
 
-  <link rel='stylesheet' href='https://mephisto5558.github.io/Website-Assets/min/css/vote.css'
-    crossorigin='anonymous' />
+  <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
+    onload="loadLocal('css', '/css/vote.css', 'https://mephisto5558.github.io/Website-Assets/min/css/vote.css')"
+    onerror="alert('An error occurred during ressource loading. Please check your internet connection and reload the page.')">
+  </script>
+  <noscript>
+    <link rel='stylesheet' href='https://mephisto5558.github.io/Website-Assets/min/css/vote.css'
+      crossorigin='anonymous' />
+  </noscript>
 </head>
 
 <body>
   <div id='header-container'>
-    <a href='#'>
+    <a href='?'>
       <h1>Feature Requests</h1>
     </a>
     <button class='grey-hover' id='toggle-cards-display' title='Toggle display mode'>
@@ -68,7 +73,9 @@
 
   <div id='cards-container-pending' class='cards-container'></div>
   <main id='cards-container' class='cards-container'></main>
-  <script src='https://mephisto5558.github.io/Website-Assets/min/js/vote/index.js' type='module'></script>
+  <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?1'
+    onload="loadLocal('script', '../../min/js/vote/index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/vote/index.js', { type: 'module' })">
+  </script>
 </body>
 
 </html>
