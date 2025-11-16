@@ -34,7 +34,7 @@
   "dependencies": {
     "@discordjs/voice": "^0.19.0",
     "@mephisto5558/bot-website": "github:Mephisto5558/Bot-Website",
-    "@mephisto5558/i18n": "github:Mephisto5558/I18n#b169b7b935ae5725e38148396db2713f159c41f2",
+    "@mephisto5558/i18n": "2.x",
     "@mephisto5558/mongoose-db": "github:Mephisto5558/Mongoose-DB",
     "@snazzah/davey": "^0.1.7",
     "better-ms": "^1.1.7",

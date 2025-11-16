@@ -104,6 +104,7 @@ void (async function main() {
 
   const newClient = createClient();
   await newClient.loadEnvAndDB();
+  await newClient.i18n.init();
 
   await syncEmojis.call(newClient);
 
