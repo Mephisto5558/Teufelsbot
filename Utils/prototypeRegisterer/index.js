@@ -117,7 +117,6 @@ Object.defineProperties(Object.prototype, {
     /** @type {(this: object) => number} */
     get: function get() {
       let count = 0;
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
 
       return count;
@@ -144,6 +143,7 @@ function createDbHandlers(class_) {
   return {
     /** @type {Record<string, (this: User | Guild, val: unknown) => unknown>} */
     db: {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive from the DB lib */
       get() { return this.client.db.get(collection, this.id) ?? {}; },
       set(val) { void this.updateDB(undefined, val); }
     },
@@ -158,7 +158,6 @@ function createDbHandlers(class_) {
       // note that this type is not quite correct, but `(import('discord.js').User | import('discord.js').Guild)['deleteDB'] does not work`
       /** @type {Guild['deleteDB']} */
       value: async function deleteDB(key) {
-        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
         if (!key) throw new Error(`Missing key; cannot delete ${this.constructor.name} using this method!`);
         return this.client.db.delete(collection, `${this.id}.${key}`);
       }
