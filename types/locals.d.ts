@@ -121,6 +121,7 @@ type Config = {
   /** @default true */
   replyOnNonBetaCommand: boolean;
   disableWebserver?: boolean;
+  disableCommands?: boolean;
   enableConsoleFix?: boolean;
 };
 
