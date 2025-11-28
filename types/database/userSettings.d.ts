@@ -1,4 +1,4 @@
-import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Database as WebsiteDB } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
 
 import type { channelId, cmdStats, guildId, userId } from './common';

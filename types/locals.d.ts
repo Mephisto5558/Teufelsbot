@@ -132,25 +132,32 @@ type BoundFunction<isAsync extends boolean = false> = new (
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
 
-export class WebServer extends LibWebServer {
-  client: Discord.Client<true>;
+export declare class WebServer<Ready extends boolean = boolean> extends LibWebServer<Ready> {
   db: DB<Database>;
+  client: Client<Ready>;
 }
 
-export type customPage<RunReqBody = unknown, RunResBody = unknown> = Omit<LibCustomPage, 'run'> & {
-  run?: Omit<LibCustomPage['run'], GenericFunction>
-    | ((
-      this: WebServer,
-      res: Response<RunResBody | undefined>,
-      req: Request<undefined, undefined, RunReqBody | undefined>,
-      next: NextFunction
-    ) => ReturnType<LibCustomPage['run']>);
+export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<T[K]>> = Omit<T, K> & {
+  [P in K]: Exclude<T[P], GenericFunction> | ((this: This, ...args: Args) => ReturnType<Extract<T[P], GenericFunction>>);
 };
 
-export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set' | 'type'> & {
-  type: Omit<LibDashboardSetting['type'], GenericFunction>
-    | ((this: WebServer, ...args: Parameters<LibDashboardSetting['type']>) => ReturnType<LibDashboardSetting['type']>);
+type GetReadyState<T> = T extends GenericFunction
+  ? ThisParameterType<T> extends LibWebServer<infer Ready>
+    ? Ready
+    : never
+  : never;
 
-  get?(this: WebServer, ...args: Parameters<LibDashboardSetting['get']>): ReturnType<LibDashboardSetting['get']>;
-  set?(this: WebServer, ...args: Parameters<LibDashboardSetting['set']>): ReturnType<LibDashboardSetting['set']>;
-};
+// Modifying the `this` type and params
+export type customPage<RunReqBody = unknown, RunResBody = unknown> = ReplaceMethod<
+  LibCustomPage, 'run', WebServer<GetReadyState<LibCustomPage['run']>>, [
+    res: Response<RunResBody | undefined>,
+    req: Request<undefined, undefined, RunReqBody | undefined>,
+    next: NextFunction
+  ]
+>;
+
+// Modifying the `this` type
+export type dashboardSetting
+  = ReplaceMethod<LibDashboardSetting, 'type', WebServer<GetReadyState<LibDashboardSetting['type']>>>
+    & ReplaceMethod<LibDashboardSetting, 'get', WebServer<GetReadyState<LibDashboardSetting['get']>>>
+    & ReplaceMethod<LibDashboardSetting, 'set', WebServer<GetReadyState<LibDashboardSetting['set']>>>;

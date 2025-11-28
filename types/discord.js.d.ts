@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
 import type Discord from 'discord.js';
-import type { WebServer } from '@mephisto5558/bot-website';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
 
@@ -32,7 +31,7 @@ declare module 'discord.js' {
     giveawaysManager?: GiveawaysManager;
 
     /** `undefined` if `this.botType == 'dev'` */
-    webServer?: WebServer;
+    webServer?: locals.WebServer<Ready>;
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB<Database>;
     i18n: I18nProvider;

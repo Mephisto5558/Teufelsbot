@@ -119,7 +119,7 @@ declare global {
   type Database = DBStructure.Database;
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
-  type GenericFunction<Ret = any> = (...args: any)=> Ret;
+  type GenericFunction<Ret = any> = (...args: any) => Ret;
 
   type OmitFirstParameters<
     T extends GenericFunction, N extends number = 1, Acc extends unknown[] = []
@@ -184,7 +184,7 @@ declare global {
             ? Message<guildOnly extends true ? true : boolean>
             : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
         lang: lang, client: Discord.Client<true>
-      )=> Promise<unknown>)
+      ) => Promise<unknown>)
       | undefined;
     };
 
@@ -212,7 +212,7 @@ declare global {
             ? Discord.AutocompleteInteraction<'cached'>
             : Discord.AutocompleteInteraction<'cached'> | Discord.Message,
         query: string
-      )=> locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
+      ) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
     );
 
     /**
