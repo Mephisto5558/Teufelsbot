@@ -13,10 +13,7 @@ const
  * Writes the data to a file.
  * @this {Client} */
 async function backupDBs() {
-  const data = this.db.reduce().reduce((acc, { key, value }) => {
-    acc[key] = value;
-    return acc;
-  }, {});
+  const data = Object.fromEntries(this.db.reduce().map(e => [e.key, e.value]));
 
   return writeFile(`dbbackup_${new Date().toISOString().split('T')[0]}.json`, JSON.stringify(data));
 }

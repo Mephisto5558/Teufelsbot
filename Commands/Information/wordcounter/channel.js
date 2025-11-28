@@ -28,7 +28,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle', channel.name),
         description: lang('embedDescription', {
-          enabledAt: time(new Date(Math.max(this.guild.db.wordCounter.enabledAt, this.channel.createdAt)), TimestampStyles.ShortDateTime),
+          enabledAt: time(new Date(Math.max(this.guild.db.wordCounter.enabledAt, this.channel.createdAt)), TimestampStyles.ShortDateShortTime),
           amount: bold(this.guild.db.wordCounter.channels[channel.id] ?? 0)
         }),
         color: Colors.Blurple

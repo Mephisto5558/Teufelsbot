@@ -44,7 +44,7 @@ module.exports = {
         title: lang('embedTitle', this.member.displayName),
         thumbnail: { url: this.user.displayAvatarURL() },
         description: lang('embedDescription', {
-          enabledAt: time(this.user.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime),
+          enabledAt: time(this.user.db.wordCounter.enabledAt, TimestampStyles.ShortDateShortTime),
           amount: bold(this.user.db.wordCounter.sum)
         }),
         color: Colors.Blurple
