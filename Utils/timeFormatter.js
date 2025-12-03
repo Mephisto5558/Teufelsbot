@@ -38,8 +38,9 @@ function timeFormatter(ms, lang) {
   return {
     negative, total: ms,
     formatted: lang?.(id, { years, months, days, hours, minutes, seconds })
-      ?? [years, days].map(e => e.toString().padStart(YEAR_STR_LENGTH, '0')).join('-') + ', '
-      + [hours, minutes, seconds].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join(':')
+      ?? years.toString().padStart(YEAR_STR_LENGTH, '0')
+      + '-' + [months, days].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join('-')
+      + ', ' + [hours, minutes, seconds].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join(':')
   };
 }
 

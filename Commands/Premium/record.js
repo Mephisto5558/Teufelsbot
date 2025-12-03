@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } = require('discord.js'),
-  { access, mkdir } = require('node:fs/promises'),
+  { mkdir } = require('node:fs/promises'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 function isEncryptionAvailable() {
@@ -17,7 +17,7 @@ function isEncryptionAvailable() {
 }
 
 // Due to VoiceRecords being in .gitignore, we may need to create it.
-if (isEncryptionAvailable()) access('./VoiceRecords/raw').catch(async () => mkdir('./VoiceRecords/raw', { recursive: true }));
+if (isEncryptionAvailable()) await mkdir('./VoiceRecords/raw', { recursive: true });
 else log.warn('Missing encryption library for record Command!');
 
 /** @type {command<'slash'>} */

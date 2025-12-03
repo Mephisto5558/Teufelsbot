@@ -21,7 +21,6 @@ module.exports = function timeValidator(timeStr) {
       numberBuffer += unitBuffer + char;
       unitBuffer = '';
     }
-    else return [];
 
     previousChar = char;
   }

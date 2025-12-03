@@ -12,7 +12,7 @@ const
     AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
   } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { readFile } = require('node:fs/promises'),
+  { mkdir, readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
   { I18nProvider } = require('@mephisto5558/i18n'),
@@ -36,6 +36,8 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 /** @type {LogInterface} */
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
+
+void mkdir(log.logFilesDir, { recursive: true });
 
 const
   config = setDefaultConfig(),

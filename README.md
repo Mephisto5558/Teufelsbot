@@ -7,6 +7,7 @@
 [![CodeQL](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/github-code-scanning/codeql)
 [![ESLint](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/eslint.yml/badge.svg?branch=main)](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/eslint.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Mephisto5558_Teufelsbot)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Mephisto5558_Teufelsbot)
 [![Crowdin](https://badges.crowdin.net/teufelsbot/localized.svg)](https://crowdin.com/project/teufelsbot)<br>
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=security_rating)](https://sonarcloud.io/component_measures?metric=Security&id=Mephisto5558_Teufelsbot)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=sqale_rating)](https://sonarcloud.io/component_measures?metric=Maintainability&id=Mephisto5558_Teufelsbot)
