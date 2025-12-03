@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
-  { msInSecond, timestamp } = require('#Utils').timeFormatter,
+  { timeFormatter: { msInSecond, timestamp }, shellExec } = require('#Utils'),
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
   /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */
@@ -36,6 +36,16 @@ function getCommandCount(client) {
   return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
 }
 
+/** @this {Interaction} */
+async function getGitInfo() {
+  const
+    [shortHash, hash, ref, ts] = (await shellExec('git show -s --format="%h|%H|%D|%ct"').catch(() => ({ stdout: '' }))).stdout.split('|'),
+    branch = ref?.match(/HEAD -> (?<branch>.*?)(?:,|$)/)?.groups?.branch ?? 'main',
+    commitURL = this.client.config.github.repo ? `${this.client.config.github.repo}/commit/${hash}` : undefined;
+
+  return { shortHash, commitURL, branch, ts };
+}
+
 /** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
@@ -45,8 +55,10 @@ module.exports = {
   async run(lang) {
     const
       startTime = Date.now() - process.uptime() * msInSecond,
+      git = await getGitInfo.call(this),
       description
         = `${lang('dev')}: ${hyperlink('Mephisto5558', userLink('691550551825055775'))}\n` // Please do not change this line.
+          + (git.shortHash ? `Version: ${hyperlink(git.branch + '#' + git.shortHash, git.commitURL)} (${timestamp(parseInt(git.ts) * msInSecond)})\n` : '')
           + (this.inGuild()
             ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
             + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
