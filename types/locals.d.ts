@@ -157,7 +157,9 @@ export type customPage<RunReqBody = unknown, RunResBody = unknown> = ReplaceMeth
 >;
 
 // Modifying the `this` type
-export type dashboardSetting
-  = ReplaceMethod<LibDashboardSetting, 'type', WebServer<GetReadyState<LibDashboardSetting['type']>>>
-    & ReplaceMethod<LibDashboardSetting, 'get', WebServer<GetReadyState<LibDashboardSetting['get']>>>
-    & ReplaceMethod<LibDashboardSetting, 'set', WebServer<GetReadyState<LibDashboardSetting['set']>>>;
+export type dashboardSetting = ReplaceMethod<
+  ReplaceMethod<
+    ReplaceMethod<LibDashboardSetting, 'set', WebServer<GetReadyState<LibDashboardSetting['set']>>>,
+    'get', WebServer<GetReadyState<LibDashboardSetting['get']>>
+  >, 'type', WebServer<GetReadyState<LibDashboardSetting['type']>>
+>;
