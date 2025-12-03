@@ -51,9 +51,10 @@ async function wordchainHandler(lang) {
 
 /** @this {ClientEvents['messageDelete'][0]} */
 function shouldRun() {
+  const setting = this.guild?.db.config.logger?.messageDelete;
   if (
-    !this.guild?.db.config.logger?.messageDelete.channel
-    || this.guild.members.me.permissionsIn(this.guild.db.config.logger.messageDelete.channel)
+    !setting?.enabled || !this.guild.channels.cache.has(setting.channel)
+    || this.guild.members.me.permissionsIn(setting.channel)
       .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
   ) return;
 

@@ -15,6 +15,7 @@ function shouldRun(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
     this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
+    || !this.guild.channels.cache.has(setting.channel)
     || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)
   ) return;
 
