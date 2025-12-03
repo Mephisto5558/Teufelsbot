@@ -2,6 +2,7 @@
   "devIds": [
     "Array of discord user IDs. the application owner will always be in here."
   ],
+  "disableCommands": "Boolean. Disabled any command handling. Defaults to false",
   "disableWebserver": "Boolean. Disables the webserver (including the dashboard) if set to true. Defaults to false",
   "discordInvite": "Support Server URL. Optional",
   "enableConsoleFix": "Boolean. Activate this if the console on which the bot operates does not execute entered bash commands (e.g. pterodactyl). If the command runs twice, deactivate this. Defaults to false.",

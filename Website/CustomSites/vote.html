@@ -13,28 +13,26 @@
   </style>
   <link rel='preload' as='style' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'
     crossorigin='anonymous' onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'
-      crossorigin='anonymous' />
-  </noscript>
-
   <link rel='preload' as='style' href='https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark/dark.min.css'
     crossorigin='anonymous' onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark/dark.min.css'
-      crossorigin='anonymous' />
-  </noscript>
 
-  <script src='https://cdn.jsdelivr.net/npm/sweetalert2/dist/sweetalert2.min.js'
+  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.26.3'
+    integrity='sha512-hagIRTXVfDUpx5boVMvpXIDJ6O9xDkoDn1RAvOuovyn2GmB1VkFeiK3QPS6pbwmGxMN2Vz3qg0S343/Am7pl1w=='
     crossorigin='anonymous' async></script>
 
-  <link rel='stylesheet' href='https://mephisto5558.github.io/Website-Assets/min/css/vote.css'
-    crossorigin='anonymous' />
+  <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
+    integrity='sha512-Ha24RzIaqElkku8jAovayjsRmx2W8+8MujsRkAz63wQmpDOJ7kXJcZOgjbf8lf5V0OqCMcsGVo85ahdUkQa3HQ=='
+    crossorigin='anonymous' onload="
+      globalThis.loadLocal('css', '/css/vote.css', 'https://mephisto5558.github.io/Website-Assets/min/css/vote.css');
+      globalThis.loadLocal('script', '../../min/js/vote/index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/vote/index.js', { type: 'module', defer: true });
+      delete globalThis.loadLocal;
+    ">
+  </script>
 </head>
 
 <body>
   <div id='header-container'>
-    <a href='#'>
+    <a href='?'>
       <h1>Feature Requests</h1>
     </a>
     <button class='grey-hover' id='toggle-cards-display' title='Toggle display mode'>
@@ -68,7 +66,6 @@
 
   <div id='cards-container-pending' class='cards-container'></div>
   <main id='cards-container' class='cards-container'></main>
-  <script src='https://mephisto5558.github.io/Website-Assets/min/js/vote/index.js' type='module'></script>
 </body>
 
 </html>

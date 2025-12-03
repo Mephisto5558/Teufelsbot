@@ -42,7 +42,7 @@ module.exports = {
 
       if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
-      const total = bold(cmdStats[command.name] ? Object.values(cmdStats[command.name]).reduce((acc, e) => acc + (e ?? 0), 0) : 0);
+      const total = bold(Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0));
       embed.data.description = lang('embedDescriptionOne', {
         total, command: 'id' in command ? commandMention(command.name, command.id) : inlineCode(command.name),
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
@@ -55,7 +55,7 @@ module.exports = {
           (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
         ))
         .map(([k, v]) => [k, {
-          total: Object.values(v).reduce((acc, e) => acc + Number(e ?? 0), 0),
+          total: Object.values(v).reduce((acc, e) => acc + e, 0),
           slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0)
         }])
         .toSorted(([, a], [, b]) => b.total - a.total)

@@ -8,6 +8,61 @@ const
 
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
+
+/**
+ * @this {Interaction<true>}
+ * @param {lang} lang */
+async function getTargetMessage(lang) {
+  let msg;
+  try {
+    const /** @type {Snowflake} */ msgId = this.options.getString('message_id', true);
+    msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
+  }
+  catch (err) {
+    if (err instanceof DiscordAPIError && [DiscordAPIErrorCodes.UnknownMessage, DiscordAPIErrorCodes.InvalidFormBody].includes(err.code))
+      return;
+
+    throw err;
+  }
+
+  if (msg.author.id != this.client.user.id) await this.reply({ content: lang('notBotMessage'), flags: MessageFlags.Ephemeral });
+  else if (msg.editable) return msg;
+  else await this.reply({ content: lang('cannotEdit'), flags: MessageFlags.Ephemeral });
+}
+
+/**
+ * @this {Interaction<true>}
+ * @param {lang} lang */
+async function sendModal(lang) {
+  const modal = new ModalBuilder({
+    title: lang('modalTitle'),
+    customId: 'newContent_modal',
+    components: [new ActionRowBuilder({
+      components: [new TextInputBuilder({
+        customId: 'newContent_text',
+        label: lang('textInputLabel'),
+        placeholder: lang('textInputPlaceholder'),
+        style: TextInputStyle.Paragraph,
+        required: true
+      })]
+    })]
+  });
+
+  void this.showModal(modal);
+
+  let modalInteraction;
+  try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
+  catch (err) {
+    if (err instanceof DiscordAPIError && err.code == DiscordjsErrorCodes.InteractionCollectorError)
+      return;
+
+    throw err;
+  }
+
+  await modalInteraction.deferReply({ flags: MessageFlags.Ephemeral });
+  return modalInteraction;
+}
+
 /** @type {command<'slash'>} */
 module.exports = {
   permissions: { user: ['ManageMessages'] },
@@ -32,47 +87,17 @@ module.exports = {
 
   async run(lang) {
     const
-      modal = new ModalBuilder({
-        title: lang('modalTitle'),
-        customId: 'newContent_modal',
-        components: [new ActionRowBuilder({
-          components: [new TextInputBuilder({
-            customId: 'newContent_text',
-            label: lang('textInputLabel'),
-            placeholder: lang('textInputPlaceholder'),
-            style: TextInputStyle.Paragraph,
-            required: true
-          })]
-        })]
-      }),
-      clear = this.options.getBoolean('remove_attachments');
+      clear = this.options.getBoolean('remove_attachments'),
+      msg = await getTargetMessage.call(this, lang);
 
-    let msg, modalInteraction;
-    try {
-      const /** @type {Snowflake} */ msgId = this.options.getString('message_id', true);
-      msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
-    }
-    catch (err) {
-      if (!(err instanceof DiscordAPIError) || ![DiscordAPIErrorCodes.UnknownMessage, DiscordAPIErrorCodes.InvalidFormBody].includes(err.code))
-        throw err;
+    if (!msg) return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
 
-      return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
-    }
-
-    if (msg.author.id != this.client.user.id) return this.reply({ content: lang('notBotMessage'), flags: MessageFlags.Ephemeral });
-    if (!msg.editable) return this.reply({ content: lang('cannotEdit'), flags: MessageFlags.Ephemeral });
-
-    void this.showModal(modal);
-    try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
-    catch (err) { if (err.code != DiscordjsErrorCodes.InteractionCollectorError) throw err; }
-
+    const modalInteraction = await sendModal.call(this, msg, lang);
     if (!modalInteraction) return this.customReply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
 
-    await modalInteraction.deferReply({ flags: MessageFlags.Ephemeral });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
     let json;
-
     try { json = JSON.parse(content); }
     catch { /** empty */ }
 

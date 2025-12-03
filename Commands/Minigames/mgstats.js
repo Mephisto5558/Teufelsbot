@@ -31,8 +31,8 @@ function formatStatCount(input, all) {
   input = Number.parseInt(input);
   all = Number.parseInt(all);
 
-  if (!Number.parseInt(input)) return inlineCode(0);
-  if (!Number.parseInt(all) && all != 0) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);
+  if (!input) return inlineCode(0);
+  if (Number.isNaN(all)) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);
 
   return inlineCode(input) + (all ? '(' + inlineCode(`${Number.parseFloat((input / all * maxPercentage).toFixed(2))}%`) + ')' : '');
 }

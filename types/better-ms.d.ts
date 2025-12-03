@@ -11,7 +11,6 @@ declare module 'better-ms' {
     offset: number;
 
     static toNow(earlier: Date | number | string, showIn: boolean): string;
-    private static parse(pattern: string): number;
 
     static readonly regex: RegExp;
     static readonly commas: RegExp;

@@ -112,10 +112,14 @@ void (async function main() {
 
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
+  if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
+
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
   const
     handlerPromises = [
-      ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
+      ...Object.entries(handlers)
+        .filter(([k]) => !['eventHandler', ...newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []].includes(k))
+        .map(async ([,handler]) => handler.call(newClient)),
       newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
     ],
 

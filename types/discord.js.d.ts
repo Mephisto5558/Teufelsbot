@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
 import type Discord from 'discord.js';
-import type { WebServer } from '@mephisto5558/bot-website';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
 
@@ -32,7 +31,7 @@ declare module 'discord.js' {
     giveawaysManager?: GiveawaysManager;
 
     /** `undefined` if `this.botType == 'dev'` */
-    webServer?: WebServer;
+    webServer?: locals.WebServer<Ready>;
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB<Database>;
     i18n: I18nProvider;
@@ -146,7 +145,10 @@ declare module 'discord.js' {
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ``` */
     updateDB<K extends locals.FlattenedUserSettings | undefined>(
-      this: User, key: K, value: GetValueByKey<NonNullable<Database['userSettings'][Snowflake]>, K>
+      this: User, key: K,
+      value: K extends undefined
+        ? NonNullable<Database['userSettings'][Snowflake]>
+        : GetValueByKey<NonNullable<Database['userSettings'][Snowflake]>, K>
     ): Promise<Database['userSettings']>;
 
     deleteDB(this: User, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
@@ -179,7 +181,10 @@ declare module 'discord.js' {
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
      * ``` */
     updateDB<K extends locals.FlattenedGuildSettings | undefined>(
-      this: Guild, key: K, value: GetValueByKey<NonNullable<Database['guildSettings'][Snowflake]>, K>
+      this: Guild, key: K,
+      value: K extends undefined
+        ? NonNullable<Database['guildSettings'][Snowflake]>
+        : Exclude<GetValueByKey<NonNullable<Database['guildSettings'][Snowflake]>, K>, undefined>
     ): Promise<Database['guildSettings']>;
 
     deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;

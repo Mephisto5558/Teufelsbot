@@ -80,13 +80,20 @@ declare global {
     get __count__(this: object): number;
   }
 
-  // https://github.com/uhyo/better-typescript-lib/issues/56#issuecomment-2580171329
-
   type KeyToString<K extends PropertyKey> = K extends string ? K : K extends number ? `${K}` : never;
   interface ObjectConstructor {
-    keys<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): KeyToString<K>[];
-    values<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): V[];
-    entries<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): [KeyToString<K>, V][];
+    keys<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): KeyToString<K>[]; // handles things like enums
+    keys<T>(o: T): KeyToString<keyof T>[];
+
+    values<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): V[]; // handles things like enums
+    values<T>(o: T): ({
+      [K in keyof T]: undefined extends T[K] ? T[K] : Required<T>[K]
+    } extends { [_ in keyof T]: infer V } ? V : never)[];
+
+    entries<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): [KeyToString<K>, V][]; // handles things like enums
+    entries<T>(o: T): ({
+      [K in keyof T]: undefined extends T[K] ? T[K] : Required<T>[K]
+    } extends { [_ in keyof T]: infer V } ? [KeyToString<keyof T>, V] : never)[];
   }
 
   interface Date {

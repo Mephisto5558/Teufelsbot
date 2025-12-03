@@ -29,6 +29,7 @@ const
     replyOnDisabledCommand: 'boolean',
     replyOnNonBetaCommand: 'boolean',
     disableWebServer: 'boolean',
+    disableCommands: 'boolean',
     enableConsoleFix: 'boolean'
   });
 

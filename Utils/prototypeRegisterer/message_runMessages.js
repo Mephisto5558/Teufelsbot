@@ -11,7 +11,7 @@ const
 
 /** @this {Message<true>} */
 function replyToTriggers() {
-  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: secToMs(10) })) return;
+  if (!this.guild.db.triggers?.__count__ || cooldowns.call(this, 'triggers', { channel: secToMs(10) })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
     .filter(e => (e.wildcard

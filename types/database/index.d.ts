@@ -1,4 +1,4 @@
-import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Database as WebsiteDB } from '@mephisto5558/bot-website';
 
 import type { backups } from './backups';
 import type { botSettings } from './botSettings';

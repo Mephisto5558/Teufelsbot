@@ -36,7 +36,7 @@ module.exports = {
         title: lang('embedTitle', guild.name),
         thumbnail: { url: guild.iconURL() },
         description: lang('embedDescription', {
-          enabledAt: time(guild.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime),
+          enabledAt: time(guild.db.wordCounter.enabledAt, TimestampStyles.ShortDateShortTime),
           amount: bold(guild.db.wordCounter.sum)
         })
       }),
