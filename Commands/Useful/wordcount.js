@@ -30,7 +30,7 @@ module.exports = {
 
   async run(lang) {
     let msgId = this.options?.getString('message_id') ?? this.args?.[0];
-    try { SnowflakeUtil.decode(msgId); }
+    try { SnowflakeUtil.deconstruct(msgId); }
     catch { msgId = undefined; }
 
     const msg = msgId

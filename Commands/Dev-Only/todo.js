@@ -7,7 +7,7 @@ module.exports = {
   prefixCommand: true,
 
   async run(lang) {
-    const { domain, port = 0, todo, vote } = this.client.config.website;
+    const { domain, port, todo, vote } = this.client.config.website;
 
     let domainUrl;
     if (domain) domainUrl = domain + (port ? `:${port}` : '');

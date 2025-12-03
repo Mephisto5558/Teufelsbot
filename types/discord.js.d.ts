@@ -54,7 +54,7 @@ declare module 'discord.js' {
 
   interface ClientApplication {
     /** Get an application Emoji's mention by it's name. Requires the ApplicationEmojiManager's cache to be populated. */
-    getEmoji(this: ClientApplication, emoji: string): `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
+    getEmoji<NAME extends string>(this: ClientApplication, emoji: NAME): `<a:${NAME}:${Snowflake}>` | `<${NAME}:${Snowflake}>` | undefined;
   }
 
   interface Message {

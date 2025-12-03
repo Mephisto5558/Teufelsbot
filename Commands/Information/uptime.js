@@ -11,7 +11,7 @@ module.exports = {
 
   async run(lang) {
     const
-      { website: { domain, port = 0, uptime }, disableWebserver } = this.client.config,
+      { website: { domain, port, uptime }, disableWebserver } = this.client.config,
 
       embed = new EmbedBuilder({
         description: lang(

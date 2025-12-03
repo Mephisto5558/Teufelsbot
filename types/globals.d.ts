@@ -64,6 +64,11 @@ declare global {
     unique(this: T[]): T[];
   }
 
+  interface String {
+    toLowerCase<T extends string>(this: T): Lowercase<T>;
+    toUpperCase<T extends string>(this: T): Uppercase<T>;
+  }
+
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
 

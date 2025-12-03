@@ -1,4 +1,5 @@
-/* eslint camelcase: [error, {allow: [help_]}] */
+/* eslint camelcase: [warn, {allow: [help_]}] */
+
 const { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 /** @type {command<'both', false>} */

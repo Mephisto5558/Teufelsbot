@@ -10,7 +10,7 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 
   async run(lang) {
-    const { domain, port = 0 } = this.client.config.website;
+    const { domain, port } = this.client.config.website;
 
     if (!domain) return this.customReply(lang('events.command.missingDomainConfig'));
     return this.customReply(lang('useDashboard', hyperlink(lang('link'), domain + (port ? `:${port}` : '') + `/guild/${this.guild.id}#birthday`)));

@@ -2,6 +2,7 @@ const
   { Team } = require('discord.js'),
   { createHash } = require('node:crypto'),
   { getTargetMembers } = require('#Utils'),
+
   maxPercentage = 100,
   hashPartLength = 5,
   botIds = ['964315306015211560', '948978571802710047'],

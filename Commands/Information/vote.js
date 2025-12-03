@@ -12,7 +12,7 @@ module.exports = {
 
   async run(lang) {
     const
-      { domain, port = 0, vote } = this.client.config.website,
+      { domain, port, vote } = this.client.config.website,
 
       embed = new EmbedBuilder({
         title: lang('embedTitle'),

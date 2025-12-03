@@ -11,7 +11,7 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard or domain url path in config.json',
 
   async run(lang) {
-    const { domain, port = 0, dashboard } = this.client.config.website;
+    const { domain, port, dashboard } = this.client.config.website;
     if (!domain) return this.customReply(lang('events.command.missingDomainConfig'));
 
     const embed = new EmbedBuilder({

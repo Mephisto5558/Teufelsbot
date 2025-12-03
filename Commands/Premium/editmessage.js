@@ -4,10 +4,9 @@ const
     DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
-  { DiscordAPIErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+  { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#Utils'),
 
-  MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
-
+  MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
 /**
  * @this {Interaction<true>}
@@ -66,7 +65,7 @@ async function sendModal(lang) {
 /** @type {command<'slash'>} */
 module.exports = {
   permissions: { user: ['ManageMessages'] },
-  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   slashCommand: true,
   prefixCommand: false,
   noDefer: true,

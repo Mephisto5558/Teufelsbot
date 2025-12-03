@@ -4,6 +4,7 @@ const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
   { constants: { embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
+
   MAX_MSGS = 9;
 
 /** @type {command<'both', false>} */
@@ -89,6 +90,7 @@ module.exports = {
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
+
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive - appears to be to complex for TS to understand(?) */
     if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }

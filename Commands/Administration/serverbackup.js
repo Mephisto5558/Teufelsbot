@@ -5,7 +5,7 @@ const
   { timeFormatter: { timestamp }, commandMention, toMs: { minToMs } } = require('#Utils'),
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
-  BYTES_IN_KILOBITE = 1024;
+  BYTES_IN_KILOBYTE = 1024;
 
 /** @param {Database['backups'][backupId]} backup */
 function getData(backup) {
@@ -14,7 +14,7 @@ function getData(backup) {
       createdAt: timestamp(backup.createdAt),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
-        return size > BYTES_IN_KILOBITE ? `${(size / BYTES_IN_KILOBITE).toFixed(2)}KB` : `${size}B`;
+        return size > BYTES_IN_KILOBYTE ? `${(size / BYTES_IN_KILOBYTE).toFixed(2)}KB` : `${size}B`;
       })(),
       members: backup.members?.length ?? 0,
       channels: (

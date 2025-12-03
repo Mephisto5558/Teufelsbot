@@ -1,4 +1,4 @@
-import type { EmbedField, Guild, GuildChannel, GuildMember, User } from 'discord.js';
+import type { EmbedField, Guild, GuildChannel, GuildMember, User, bold } from 'discord.js';
 
 type data<guildOnly extends boolean = true> = {
   options?: commandOptions<false, 'slash'>[];
@@ -14,4 +14,4 @@ export function getTopChannelMembers(guild: Guild, channelId: Snowflake, amt?: n
 export function format<K, V>(
   data: Record<K, V>, sliceAmt: number,
   mapFn: (data: [K, V]) => [Guild | GuildChannel | GuildMember | undefined, number | undefined]
-): { name: string; value: `**${V}**`; inline: false }[];
+): { name: string; value: ReturnType<typeof bold<V>>; inline: false }[];

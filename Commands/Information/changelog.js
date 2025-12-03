@@ -1,10 +1,10 @@
 const
   { Colors, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { timeFormatter: { msInSecond, secsInDay }, getConfig } = require('#Utils'),
+  { timeFormatter: { msInSecond }, getConfig, toMs: { hourToMs } } = require('#Utils'),
   { github: ghConfig = {} } = getConfig(),
 
-  CACHE_TIMEOUT = msInSecond * secsInDay / 2, // 12h
+  CACHE_TIMEOUT = hourToMs(12), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 12h */
   MAX_COMMIT_LENGTH = 100,
   suffix = '...';
 
@@ -19,7 +19,7 @@ async function getCommits() {
   const
     { github } = this.config,
 
-    // https://docs.github.com/de/rest/commits/commits#list-commits
+    // https://docs.github.com/rest/commits/commits#list-commits
     res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {

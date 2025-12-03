@@ -117,11 +117,11 @@ module.exports = {
 
         if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += `${bold(lang('statsInfo'))}\n`;
         if (targetData.wonAgainst)
-          embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+          embed.data.description += `${lang('wonAgainst')}\n${manageData.call(this, targetData.wonAgainst) ?? '> ' + lang('noOne')}\n\n`;
         if (targetData.lostAgainst)
-          embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+          embed.data.description += `${lang('lostAgainst')}\n${manageData.call(this, targetData.lostAgainst) ?? '> ' + lang('noOne')}\n\n`;
         if (targetData.drewAgainst)
-          embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) ?? '> ' + lang('noOne')) + '\n';
+          embed.data.description += `${lang('drewAgainst')}\n${manageData.call(this, targetData.drewAgainst) ?? '> ' + lang('noOne')}\n`;
       }
       else {
         embed.data.description = target.id == this.member.id

@@ -1,6 +1,7 @@
 const
   { codeBlock } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
+
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
   DEFAULT_CHARSET = [...String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
@@ -47,7 +48,7 @@ module.exports = {
       exclude = this.options.getString('exclude_chars') ?? '',
       include = this.options.getString('include_chars') ?? '',
       length = this.options.getInteger('length') ?? DEFAULT_PASSWORD_LENGTH,
-      /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = [],
+      /** @type {ReturnType<typeof codeBlock<string>>[]} */ passwordList = [],
 
       segmenter = new Intl.Segmenter(lang.config.locale, { granularity: 'grapheme' });
 

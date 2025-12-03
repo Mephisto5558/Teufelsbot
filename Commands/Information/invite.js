@@ -11,9 +11,8 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
 
   async run(lang) {
-    const { domain = 'missingdomain', port = 0, invite } = this.client.config.website;
+    const { domain, port, invite } = this.client.config.website;
     if (!domain) return this.customReply(lang('events.command.missingDomainConfig'));
-
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),

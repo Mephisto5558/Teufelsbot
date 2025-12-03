@@ -2,8 +2,11 @@
 
 const
   { codeBlock } = require('discord.js'),
+  { minToMs } = require('#Utils').toMs,
 
-  vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
+  paramMap = { __dirname, __filename, exports, module, require },
+  vars = [...Object.keys(paramMap), 'lang'],
+  params = Object.values(paramMap),
 
   /** @type {BoundFunction<true>} */
   /* eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-assignment -- It get's used (and filled) later */
@@ -12,7 +15,7 @@ const
   /** @type {BoundFunction} */
   BoundFunction = Function.bind(undefined, ...vars),
 
-  TIMEOUT_MS = 6e5; // 10min
+  TIMEOUT_MS = minToMs(10);
 
 /**
  * @param {number} ms
@@ -36,8 +39,7 @@ module.exports = {
 
     try {
       await Promise.race([
-        (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content))
-          .call(this, __dirname, __filename, module, exports, require, lang),
+        (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content)).call(this, ...params, lang),
         timeout(TIMEOUT_MS)
       ]);
 

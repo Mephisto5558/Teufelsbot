@@ -1,6 +1,7 @@
 const
   { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
+
   defaultMaxNum = 100;
 
 /** @type {command<'both', false>} */
