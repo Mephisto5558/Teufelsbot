@@ -117,7 +117,6 @@ export default [
       'id-length': getModifiedRule(config, 'id-length', {
         exceptions: ['t']
       }),
-      'max-nested-callbacks': getModifiedRule(config, 'max-nested-callbacks', 4), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
       '@typescript-eslint/no-magic-numbers': 'off',
       'unicorn/no-null': 'off'
     }
