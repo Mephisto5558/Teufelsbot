@@ -17,7 +17,7 @@ function isEncryptionAvailable() {
 }
 
 // Due to VoiceRecords being in .gitignore, we may need to create it.
-if (isEncryptionAvailable()) await mkdir('./VoiceRecords/raw', { recursive: true });
+if (isEncryptionAvailable()) void mkdir('./VoiceRecords/raw', { recursive: true });
 else log.warn('Missing encryption library for record Command!');
 
 /** @type {command<'slash'>} */
