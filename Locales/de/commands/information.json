@@ -123,7 +123,8 @@
     },
     "shard": "Shard",
     "starts": "Starts",
-    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt."
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.",
+    "version": "Version"
   },
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",

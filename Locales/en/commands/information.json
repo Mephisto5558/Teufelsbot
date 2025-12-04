@@ -123,7 +123,8 @@
     },
     "shard": "Shard",
     "starts": "Starts",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated."
+    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.",
+    "version": "Version"
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",

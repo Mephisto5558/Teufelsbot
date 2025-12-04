@@ -36,10 +36,17 @@ function getCommandCount(client) {
   return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
 }
 
-/** @this {Interaction} */
-async function getGitInfo() {
+/**
+ * @this {Interaction}
+ * @param {number} unixTimestamp */
+async function getGitInfo(unixTimestamp) {
   const
-    [shortHash, hash, ref, ts] = (await shellExec('git show -s --format="%h|%H|%D|%ct"').catch(() => ({ stdout: '' }))).stdout.split('|'),
+    commitHash = unixTimestamp
+      ? (await shellExec(`git rev-list -n 1 --before=${unixTimestamp} HEAD`).catch(() => ({ stdout: '' }))).stdout.trim()
+      : 'HEAD',
+    [shortHash = '', hash, ref, ts] = (
+      await shellExec(`git show -s --format="%h|%H|%D|%ct" ${commitHash}`).catch(() => ({ stdout: '' }))
+    ).stdout.split('|'),
     branch = ref?.match(/HEAD -> (?<branch>.*?)(?:,|$)/)?.groups?.branch ?? 'main',
     commitURL = this.client.config.github.repo ? `${this.client.config.github.repo}/commit/${hash}` : undefined;
 
@@ -55,10 +62,11 @@ module.exports = {
   async run(lang) {
     const
       startTime = Date.now() - process.uptime() * msInSecond,
-      git = await getGitInfo.call(this),
+      git = await getGitInfo.call(this, Math.floor(startTime / msInSecond)),
+      commitLink = git.commitURL ? hyperlink(git.branch + '#' + git.shortHash, git.commitURL) : git.branch + '#' + git.shortHash,
       description
         = `${lang('dev')}: ${hyperlink('Mephisto5558', userLink('691550551825055775'))}\n` // Please do not change this line.
-          + (git.shortHash ? `Version: ${hyperlink(git.branch + '#' + git.shortHash, git.commitURL)} (${timestamp(parseInt(git.ts) * msInSecond)})\n` : '')
+          + (git.shortHash ? `${lang('version')}: ${commitLink} (${timestamp(Number(git.ts) * msInSecond)})\n` : '')
           + (this.inGuild()
             ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
             + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
