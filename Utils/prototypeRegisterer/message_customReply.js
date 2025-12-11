@@ -27,12 +27,12 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
 
   if (options.content && options.content.length > messageMaxLength) {
     // matches one code block, it's code, and the language (extention) it is in.
-    const match = /```(?<ext>\n?\w+\n)?(?<code>(?:.|\n)+)```/.exec(options.content);
+    const match = /```(?:\n?(?<ext>\w+)\n)?(?<code>(?:.|\n)+)```/.exec(options.content);
 
     options.files = [
       ...options.files ?? [],
       match?.[0].length == options.content.length
-        ? new AttachmentBuilder(Buffer.from(match.groups.code), { name: `content.${match.groups.ext}` })
+        ? new AttachmentBuilder(Buffer.from(match.groups.code.trim()), { name: `content.${match.groups.ext}` })
         : new AttachmentBuilder(Buffer.from(options.content), { name: 'content.txt' })
     ];
 
