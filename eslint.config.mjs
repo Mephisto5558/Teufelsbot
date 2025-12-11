@@ -1,4 +1,4 @@
-import config, { getModifiedRule } from '@mephisto5558/eslint-config';
+import config, { getModifiedRule, jsGlob, tsGlob } from '@mephisto5558/eslint-config';
 
 /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
@@ -14,7 +14,7 @@ export default [
   },
   {
     name: 'templates',
-    files: ['Templates/*.{js,ts}'],
+    files: [`Templates/*${tsGlob}`, `Templates/*${jsGlob}`],
     rules: {
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-unused-vars': 'off'
@@ -22,7 +22,7 @@ export default [
   },
   {
     name: 'overwrite:scripts',
-    files: ['**/*.{js,ts}'],
+    files: [`**/*${tsGlob}`, `**/*${jsGlob}`],
     languageOptions: {
       globals: {
         // promisified setTimeout
@@ -112,7 +112,7 @@ export default [
   },
   {
     name: 'overwrite:Tests',
-    files: ['./Tests/**/*.mjs'],
+    files: [`./Tests/**/*${jsGlob}`],
     rules: {
       'id-length': getModifiedRule(config, 'id-length', {
         exceptions: ['t']
