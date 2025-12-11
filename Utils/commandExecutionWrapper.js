@@ -32,6 +32,9 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
   try {
     await command.run.call(this, cmdLang);
 
+    if (!this.client.settings.cmdStats[commandName]?.createdAt)
+      await this.client.db.update('botSettings', `cmdStats.${commandName}.createdAt`, new Date());
+
     if (this.client.botType != 'dev') {
       await this.client.db.update(
         'botSettings', `cmdStats.${commandName}.${commandType}`,

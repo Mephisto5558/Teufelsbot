@@ -161,7 +161,9 @@ export declare function checkTargetManageable(
 
 export declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, commandType: keyof Database['botSettings']['cmdStats'][string], lang: lang
+  command: command<'both', boolean, true> | undefined,
+  commandType: Exclude<keyof Database['botSettings']['cmdStats'][string], 'createdAt'>,
+  lang: lang
 ): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention. */

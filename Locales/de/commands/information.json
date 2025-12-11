@@ -36,6 +36,8 @@
         }
       }
     },
+    "createdAtMany": "Erstellt am {createdAt}",
+    "createdAtOne": "Er wurde am {createdAt} erstellt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:",
     "embedDescriptionOne": "Der {command}-Befehl wurde {total} Mal (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
     "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})",
@@ -98,6 +100,7 @@
       "botPerms": "Erforderliche Bot-Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
       "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
+      "embedFooterTextCreatedAt": "Befehl erstellt am {createdAt}",
       "embedTitle": "{category} » {command}",
       "examples": "Beispiele",
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: {command}.",

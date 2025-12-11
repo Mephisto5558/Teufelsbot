@@ -9,7 +9,10 @@ export type botSettings = {
     name: string;
     type: ActivityType;
   };
-  cmdStats: cmdStats;
+  cmdStats: cmdStats & Record<string, {
+    /** Is only missing for very old commands that no longer exist. */
+    createdAt?: Date;
+  }>;
   blacklist?: userId[];
   timeEvents: {
     lastFileClear?: Date;

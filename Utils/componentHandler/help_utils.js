@@ -185,7 +185,10 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
       description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, lang, command),
       footer: {
-        text: lang('one.embedFooterText', `"${this.guild.prefixes.map(e => e.prefix).join('", "')}"`)
+        text: lang('one.embedFooterTextCreatedAt', this.client.settings.cmdStats[command.name].createdAt.toLocaleDateString(
+          helpLang.config.locale, { day: '2-digit', month: '2-digit', year: 'numeric' }
+        ))
+        + '\n' + lang('one.embedFooterText', `"${this.guild.prefixes.map(e => e.prefix).join('", "')}"`)
       },
       color: Colors.Blurple
     });

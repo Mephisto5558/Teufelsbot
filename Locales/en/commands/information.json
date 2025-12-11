@@ -36,6 +36,8 @@
         }
       }
     },
+    "createdAtMany": "Created at {createdAt}",
+    "createdAtOne": "It has been created at {createdAt}.",
     "embedDescriptionMany": "These are 10 most used commands:",
     "embedDescriptionOne": "The {command} command has been run {total} times (Slash: {slash} | Prefix: {prefix}).",
     "embedFieldValue": "{total} (Slash: {slash} | Prefix: {prefix})",
@@ -98,6 +100,7 @@
       "botPerms": "Required Bot Permissions",
       "cooldowns": "Command Cooldowns",
       "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefixes}",
+      "embedFooterTextCreatedAt": "Command created at {createdAt}",
       "embedTitle": "{category} » {command}",
       "examples": "Examples",
       "notFound": "No information found for command {command}.",
