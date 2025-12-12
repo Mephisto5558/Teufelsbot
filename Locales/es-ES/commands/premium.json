@@ -2,7 +2,7 @@
   "categoryName": "Premium",
   "categoryDescription": "Comandos que (necesitarán) una membresía premium",
   "chatgpt": {
-    "description": "¡Habla con ChatGPT!",
+    "description": "¡Habla con ChatGPT! ChatGPT conoce los últimos 50 mensajes en este canal.",
     "usage": {
       "usage": "<message>",
       "examples": "Hola"
