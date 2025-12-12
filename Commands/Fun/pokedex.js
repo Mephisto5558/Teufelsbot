@@ -80,7 +80,7 @@ async function getEvolutions(pokemon) {
 
 /** @type {command<'both', false>} */
 module.exports = {
-  usage: { examples: 'Bulbasaur' },
+  usage: { examples: 'Bulbasaur' }, beta: 1,
   prefixCommand: true,
   slashCommand: true,
   dmPermission: true,
@@ -119,7 +119,13 @@ module.exports = {
         color: Colors.Blurple,
         footer: {
           text: (await pokedex.getPokemonSpeciesByName(pokemon.species.name)).flavor_text_entries
-            .filter(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)).at(-1).flavor_text
+            .findLast(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)).flavor_text
+            .replaceAll('\f', '\n') // See https://github.com/veekun/pokedex/issues/218#issuecomment-339841781
+            .replaceAll('\u00AD\n', '')
+            .replaceAll('\u00AD', '')
+            .replaceAll(' -\n', ' - ')
+            .replaceAll('-\n', '-')
+            .replaceAll('\n', ' ')
         },
         author: {
           name: `PokéDex: ${capitalize(pokemon.name)}`,
