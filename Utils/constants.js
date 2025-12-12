@@ -28,6 +28,7 @@ module.exports = Object.freeze({
   bulkDeleteMaxMessageAmt: 100,
   HTTP_STATUS_CLOUDFLARE_BLOCKED: 522, // // https://community.cloudflare.com/t/community-tip-fixing-error-522-connection-timed-out/42325
   JSON_SPACES: 2,
+  maxPercentage: 100,
   suffix: '...',
 
   /**
