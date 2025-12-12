@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { msInSecond } = require('#Utils').timeFormatter;
+  { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils');
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -19,10 +19,7 @@ module.exports = {
 
       /** @type {{ text: string, source: string, source_url: string }} */
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.config.locale}`, {
-        headers: {
-          'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
-          Accept: 'application/json'
-        }
+        headers: commonHeaders(this.client)
       }).then(async e => e.json()),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),

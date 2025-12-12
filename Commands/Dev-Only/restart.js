@@ -1,6 +1,7 @@
 const
   { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
   fetch = require('node-fetch').default,
+  { commonHeaders } = require('#Utils').constants,
 
   getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply');
 
@@ -31,10 +32,8 @@ module.exports = {
         method: 'POST',
         headers: {
           // https://pterodactyl-api-docs.netvpx.com/docs/authentication#required-headers
-          Authorization: `Bearer ${process.env.restartServerAPIKey}`,
-          'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
+          ...commonHeaders(this.client, true),
+          Authorization: `Bearer ${process.env.restartServerAPIKey}`
         },
         body: JSON.stringify({ signal: 'restart' })
       });

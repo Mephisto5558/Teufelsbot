@@ -5,13 +5,11 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, Colors, EmbedBuilder } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   fetch = require('node-fetch').default,
+  { commonHeaders } = require('#Utils').constants,
 
   /** @type {(client: Client, pokemon: string) => Promise<Pokemon[] | undefined>} */
   fetchAPI = async (client, pokemon) => fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`, {
-    headers: {
-      'User-Agent': `Discord Bot ${client.application.name ?? ''} (${client.config.github.repo ?? ''})`,
-      Accept: 'application/json'
-    }
+    headers: commonHeaders(client)
   }).then(async e => e.json()),
 
   INCHES_IN_FEET = 12,

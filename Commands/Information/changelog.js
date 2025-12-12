@@ -1,7 +1,7 @@
 const
   { Colors, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { timeFormatter: { msInSecond }, getConfig, toMs: { hourToMs } } = require('#Utils'),
+  { constants: { commonHeaders }, timeFormatter: { msInSecond }, getConfig, toMs: { hourToMs } } = require('#Utils'),
   { github: ghConfig = {} } = getConfig(),
 
   CACHE_TIMEOUT = hourToMs(12), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 12h */
@@ -17,15 +17,13 @@ let commitsCache;
  * @returns {Promise<string[]>} */
 async function getCommits() {
   const
-    { github } = this.config,
 
     // https://docs.github.com/rest/commits/commits#list-commits
-    res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
+    res = await fetch(`https://api.github.com/repos/${this.config.github.userName}/${this.config.github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
-        'User-Agent': `Discord Bot ${this.application.name ?? ''} (${github.repo ?? ''})`,
-        Authorization: `Bearer ${process.env.githubKey}`,
-        Accept: 'application/json'
+        ...commonHeaders(this),
+        Authorization: `Bearer ${process.env.githubKey}`
       }
     }),
     /** @type {{ commit: { message: string } }[]} */ json = await res.json();
