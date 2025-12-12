@@ -2,7 +2,7 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
-  { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
 
   TIMEOUT = 2500,
   defaultAPIList = [
@@ -44,10 +44,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     setTimeout(() => timeoutSignal.abort(), TIMEOUT);
 
     const res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
-      headers: {
-        'User-Agent': `Discord Bot ${this.application.name ?? ''} (${this.config.github.repo ?? ''})`,
-        Accept: 'application/json'
-      },
+      headers: commonHeaders(this),
       signal: timeoutSignal.signal
     }).then(async e => {
       if (!e.ok) throw new Error(await e.text());

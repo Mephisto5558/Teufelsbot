@@ -3,7 +3,7 @@
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
-  { constants: { embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
+  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
 
   MAX_MSGS = 9;
 
@@ -21,9 +21,14 @@ module.exports = {
     const
       query = this.options?.getString('query') ?? this.content,
       message = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
-      headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
-      defaultLangWiki = wikiInit({ headers, apiUrl: `https://${lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),
-      wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),
+      defaultLangWiki = wikiInit({
+        headers: commonHeaders(this.client),
+        apiUrl: `https://${lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php`
+      }),
+      wiki = wikiInit({
+        headers: commonHeaders(this.client),
+        apiUrl: `https://${this.guild?.localeCode ?? lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php`
+      }),
 
       /** @type {string | undefined} */
       result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];

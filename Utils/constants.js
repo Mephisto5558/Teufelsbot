@@ -28,5 +28,15 @@ module.exports = Object.freeze({
   bulkDeleteMaxMessageAmt: 100,
   HTTP_STATUS_CLOUDFLARE_BLOCKED: 522, // // https://community.cloudflare.com/t/community-tip-fixing-error-522-connection-timed-out/42325
   JSON_SPACES: 2,
-  suffix: '...'
+  suffix: '...',
+
+  /**
+   * @param {Client<boolean>} client
+   * @param {boolean} hasBody */
+  commonHeaders: (client, hasBody = false) => Object.freeze({
+    'User-Agent': `Discord Bot ${client.application?.name ?? client.user?.displayName ?? ''}`
+      + (client.config.github.repo ? ` (${client.config.github.repo})` : ''),
+    Accept: 'application/json',
+    ...hasBody ? { 'Content-Type': 'application/json' } : undefined
+  })
 });

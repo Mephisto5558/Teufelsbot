@@ -1,13 +1,11 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
+  { commonHeaders } = require('#Utils').constants,
 
   /** @type {(client: Client) => Promise<{slip: {id: number, advice: string}}>} */
   fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
-    headers: {
-      'User-Agent': `Discord Bot ${client.application.name ?? ''} (${client.config.github.repo ?? ''})`,
-      Accept: 'application/json'
-    }
+    headers: commonHeaders(client)
   })).json();
 
 /** @type {command<'both', false>} */

@@ -2,7 +2,7 @@ const
   { EmbedBuilder } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   fetch = require('node-fetch').default,
-  { msInSecond } = require('#Utils').timeFormatter,
+  { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils'),
 
   secretChance = 1e4; // 1 in 10_000
 
@@ -26,10 +26,7 @@ module.exports = {
   async run(lang) {
     /** @type {{ success: boolean, message: string, color: number }} */
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`, {
-      headers: {
-        'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
-        Accept: 'application/json'
-      }
+      headers: commonHeaders(this.client)
     }).then(async e => e.json());
 
     if (!data.success) {

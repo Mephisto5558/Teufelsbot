@@ -3,7 +3,7 @@
 const
   { ButtonInteraction, ChatInputCommandInteraction, cleanContent } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { JSON_SPACES } = require('../constants'),
+  { JSON_SPACES, commonHeaders } = require('../constants'),
   getCommands = require('../getCommands'),
 
   DEFAULT_MODEL = 'gpt-oss-20b',
@@ -91,10 +91,8 @@ module.exports = async function fetchAPI(lang, model = DEFAULT_MODEL, deep = fal
     res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.chatGPTApiKey}`,
-        'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+        ...commonHeaders(this.client, true),
+        Authorization: `Bearer ${process.env.chatGPTApiKey}`
       },
       body: JSON.stringify({ model, messages })
     }).then(async e => e.json());

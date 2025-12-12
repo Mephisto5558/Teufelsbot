@@ -7,7 +7,7 @@ const
     MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
   } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { JSON_SPACES } = require('./constants'),
+  { JSON_SPACES, commonHeaders } = require('./constants'),
   { msInSecond, secsInMinute } = require('./timeFormatter'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
 
@@ -95,15 +95,14 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
         if (!(github.userName && github.repoName)) throw new Error('Missing GitHub username or repo name config');
 
         const
-          headers = {
-            Authorization: `Bearer ${process.env.githubKey}`,
-            'User-Agent': `Discord Bot ${this.application.name ?? ''} (${github.repo ?? ''})`,
-            Accept: 'application/json'
-          },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}`
             + (message.commandName ? `command "${message.commandName}"` : ''),
           issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
-            method: 'GET', headers
+            method: 'GET',
+            headers: {
+              ...commonHeaders(this),
+              Authorization: `Bearer ${process.env.githubKey}`
+            }
           }),
 
           /** @type {{ title: string, state: 'open' | 'closed' }[]} */
@@ -118,7 +117,11 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         const
           res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
-            headers, method: 'POST',
+            method: 'POST',
+            headers: {
+              ...commonHeaders(this, true),
+              Authorization: `Bearer ${process.env.githubKey}`
+            },
             body: JSON.stringify({
               title, labels: ['bug'],
               body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n`
