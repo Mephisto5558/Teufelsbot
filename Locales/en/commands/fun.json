@@ -307,15 +307,15 @@
       }
     },
     "abilities": "Abilities",
-    "currentStage": "\nCurrent Evolution Stage: {stage}",
-    "error": "An error occurred.",
     "evolutionLine": "Evolutionary line",
     "gen": "Generation",
+    "gender": {
+      "female": "female",
+      "genderless": "genderless",
+      "male": "male"
+    },
     "genderRatio": "Gender Ratio",
     "heightWeight": "Height and Weight",
-    "invalidJson": "The API responded with invalid data.",
-    "noGender": "Genderless",
-    "notFound": "I couldn't find a pokémon with that name!",
     "types": "Type(s)"
   },
   "reddit": {
