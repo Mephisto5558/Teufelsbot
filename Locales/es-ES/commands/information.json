@@ -36,6 +36,8 @@
         }
       }
     },
+    "createdAtMany": "Creado en {createdAt}",
+    "createdAtOne": "Se ha creado en {createdAt}.",
     "embedDescriptionMany": "Estos son los 10 comandos más utilizados:",
     "embedDescriptionOne": "El comando {command} ha sido ejecutado {total} veces (Slash: {slash} | Prefijo: {prefix}).",
     "embedFieldValue": "{total} (barra: {slash} | Prefijo: {prefix})",
@@ -98,6 +100,7 @@
       "botPerms": "Permisos de bot requeridos",
       "cooldowns": "Enfriamiento del comando",
       "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefixes}",
+      "embedFooterTextCreatedAt": "Comando creado en {createdAt}",
       "embedTitle": "{category} » {command}",
       "examples": "Ejemplos",
       "notFound": "No se encontró información para el comando {command}.",
@@ -123,7 +126,8 @@
     },
     "shard": "Fragmento",
     "starts": "Comienza",
-    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina."
+    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.",
+    "version": "Versión"
   },
   "invite": {
     "description": "Envía un enlace para añadir el bot a tu gremio.",
