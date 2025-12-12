@@ -1,13 +1,12 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
-  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
     'm_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses',
     'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'
   ],
-  TOPLIST_MAX_USERS = 3,
-  maxPercentage = 100;
+  TOPLIST_MAX_USERS = 3;
 
 /**
  * @this {GuildInteraction | Message<true>}
