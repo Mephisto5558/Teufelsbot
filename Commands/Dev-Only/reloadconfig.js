@@ -2,6 +2,7 @@ const
   { Team } = require('discord.js'),
   { resolve } = require('node:path'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
+  { loadEnv } = require('#Utils/prototypeRegisterer/client__loadEnvAndDB'),
 
   filePath = resolve(process.cwd(), 'config.json');
 
@@ -27,6 +28,8 @@ module.exports = {
 
     config.devIds.add(this.client.application.owner instanceof Team ? this.client.application.owner.ownerId : this.client.application.owner.id);
     this.client.config = config;
+
+    await loadEnv.call(this.client);
     return this.customReply(lang('success'));
   }
 };

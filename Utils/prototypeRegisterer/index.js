@@ -12,9 +12,8 @@ const
     AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
   } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { mkdir, readFile } = require('node:fs/promises'),
+  { mkdir } = require('node:fs/promises'),
   { join } = require('node:path'),
-  { parseEnv } = require('node:util'),
   { I18nProvider } = require('@mephisto5558/i18n'),
   { DB } = require('@mephisto5558/mongoose-db'),
   TicTacToe = require('discord-tictactoe'),
@@ -23,11 +22,10 @@ const
   findAllEntries = require('../findAllEntries'),
   Log = require('./Log'),
   { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain'),
+  { loadEnvAndDB } = require('./client__loadEnvAndDB'),
   _patch = require('./message__patch'),
   customReply = require('./message_customReply'),
   runMessages = require('./message_runMessages'),
-
-  defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
@@ -41,14 +39,6 @@ void mkdir(log.logFilesDir, { recursive: true });
 
 const
   config = setDefaultConfig(),
-  requiredEnv = [
-    'environment',
-    'humorAPIKey', 'rapidAPIKey',
-    'githubKey', 'chatGPTApiKey',
-    'dbdLicense',
-    'dbConnectionStr', 'token', 'secret'
-  ],
-
   overwrites = Object.fromEntries(Object.entries({
     globals: ['globalThis.sleep()', 'globalThis.log()'],
     vanilla: [
@@ -209,41 +199,7 @@ Object.defineProperties(Client.prototype, {
   },
 
   loadEnvAndDB: {
-    /** @type {Client['loadEnvAndDB']} */
-    value: async function loadEnvAndDB() {
-      process.loadEnvFile('.env');
-      if (process.env.environment != 'main') {
-        try {
-          // process.loadEnvFile does not overwrite existing keys
-          Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
-        }
-        catch (err) {
-          if (err.code == 'ENOENT') {
-            throw new Error(
-              `Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`,
-              { cause: err }
-            );
-          }
-
-          throw new Error(`Could not parse "env.${process.env.environment}" file.`, { cause: err });
-        }
-      }
-
-      const missingEnv = requiredEnv.filter(e => !process.env[e]);
-      if (missingEnv.length) throw new Error(`Missing environment variable(s) "${missingEnv.join('", "')}"`);
-
-      const db = await new DB().init(
-        process.env.dbConnectionStr, 'db-collections',
-        defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' })
-      );
-      if (!db.cache.size) {
-        log('Database is empty, generating default data');
-        await db.generate();
-      }
-
-      this.db = db;
-      this.botType = process.env.environment;
-    }
+    value: loadEnvAndDB
   },
   awaitReady: {
     /** @type {Client['awaitReady']} */
