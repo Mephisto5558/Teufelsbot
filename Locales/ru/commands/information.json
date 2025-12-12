@@ -36,6 +36,8 @@
         }
       }
     },
+    "createdAtMany": "Создано в {createdAt}",
+    "createdAtOne": "Он был создан на {createdAt}.",
     "embedDescriptionMany": "Это 10 наиболее часто используемых команд:",
     "embedDescriptionOne": "Команда {command} была запущена {total} раз (Slash: {slash} | Префикс: {prefix}).",
     "embedFieldValue": "{total} (Slash: {slash} | Префикс: {prefix})",
@@ -98,6 +100,7 @@
       "botPerms": "Требуемые разрешения для ботов",
       "cooldowns": "Команда перезарядки",
       "embedFooterText": "Синтаксис: <> = обязательно, [] = необязательные | Префиксы: {prefixes}",
+      "embedFooterTextCreatedAt": "Команда создана в {createdAt}",
       "embedTitle": "{category} » {command}",
       "examples": "Примеры",
       "notFound": "Информация для команды {command} не найдена.",
@@ -123,7 +126,8 @@
     },
     "shard": "Осколок",
     "starts": "Начинается",
-    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}"
+    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}",
+    "version": "Версии"
   },
   "invite": {
     "description": "Отправляет ссылку для добавления бота в гильдию.",
