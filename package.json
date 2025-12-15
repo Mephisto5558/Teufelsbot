@@ -58,7 +58,7 @@
   "devDependencies": {
     "@mephisto5558/eslint-config": "github:Mephisto5558/ESLint-Config",
     "@types/express": "5.x",
-    "@types/node": "22.x",
+    "@types/node": "25.x",
     "@types/passport": "1.x"
   },
   "optionalDependencies": {
