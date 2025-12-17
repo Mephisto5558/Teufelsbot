@@ -1,12 +1,12 @@
 /**
- * @import * as PokedexT from 'pokedex-promise-v2'
+ * @import * as PokeAPI from 'pokedex-promise-v2'
  * @import { Locale } from '@mephisto5558/i18n' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
-  /** @type {typeof PokedexT} */ Pokedex = require('pokedex-promise-v2').default,
+  /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
   { maxPercentage } = require('#Utils').constants,
 
 
@@ -66,11 +66,11 @@ async function getGenerationMap(client) {
   }, {});
 }
 
-/** @param {PokedexT.Pokemon} pokemon */
+/** @param {PokeAPI.Pokemon} pokemon */
 async function getEvolutions(pokemon) {
   const
 
-    /** @type {(chain: PokedexT.Chain) => string[]} */
+    /** @type {(chain: PokeAPI.Chain) => string[]} */
     getEvolutionNames = chain => [chain.species.name, ...chain.evolves_to.flatMap(getEvolutionNames)],
     chainUrl = (await pokedex.getPokemonSpeciesByName(pokemon.species.name)).evolution_chain.url;
 
@@ -95,15 +95,16 @@ module.exports = {
   async run(lang) {
     const msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading')));
 
-    let /** @type {PokedexT.Pokemon} */ pokemon = await pokedex.getPokemonByName(this.options?.getString('pokémon', true) ?? this.args[0]);
+    let /** @type {PokeAPI.Pokemon} */ pokemon = await pokedex.getPokemonByName(this.options?.getString('pokémon', true) ?? this.args[0]);
     if (Array.isArray(pokemon)) pokemon = pokemon[0];
 
-    /* eslint-disable require-atomic-updates -- fine here */
+    /* eslint-disable require-atomic-updates -- this is fine due to caching */
     genderMap ??= await getGenderMap();
     generationsMap ??= await getGenerationMap(this.client);
     /* eslint-enable require-atomic-updates */
 
     const
+      species = await pokedex.getPokemonSpeciesByName(pokemon.species.name),
       height = pokemon.height < DM_TO_CM
         ? `${Number.parseFloat((pokemon.height * DM_TO_CM).toFixed(2))}cm`
         : `${Number.parseFloat((pokemon.height * DM_TO_M).toFixed(2))}m`,
@@ -118,8 +119,10 @@ module.exports = {
         thumbnail: { url: pokemon.sprites.other.showdown.front_default },
         color: Colors.Blurple,
         footer: {
-          text: (await pokedex.getPokemonSpeciesByName(pokemon.species.name)).flavor_text_entries
-            .findLast(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)).flavor_text
+          text: species.flavor_text_entries
+            .findLast(/** @param {PokeAPI.FlavorText & { language: PokeAPI.Name['language'] & { name: Locale } }} e */
+              e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)
+            ).flavor_text
             .replaceAll('\f', '\n') // See https://github.com/veekun/pokedex/issues/218#issuecomment-339841781
             .replaceAll('\u00AD\n', '')
             .replaceAll('\u00AD', '')
