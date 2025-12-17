@@ -309,11 +309,11 @@
     "abilities": "Fähigkeiten",
     "evolutionLine": "Entwicklungslinie",
     "gen": "Generation",
-    "gender":{
+    "gender": {
       "female": "weiblich",
       "genderless": "geschlechtslos",
       "male": "männlich"
-   },
+    },
     "genderRatio": "Geschlechtsverhältnis",
     "heightWeight": "Höhe und Gewicht",
     "types": "Type(en)"
