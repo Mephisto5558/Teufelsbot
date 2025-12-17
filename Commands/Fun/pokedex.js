@@ -78,9 +78,27 @@ async function getEvolutions(pokemon) {
   return getEvolutionNames((await pokedex.getResource(chainUrl)).chain);
 }
 
+/** @type {Awaited<ReturnType<typeof getPokemonList>> | undefined} */
+let pokemonList;
+
+const
+  getPokemonList = async () => (await pokedex.getPokemonsList()).results.map(e => e.name);
+
+/** @type {Awaited<ReturnType<typeof getLocalNameMap>> | undefined} */
+let localNameMap;
+
+/** @returns {Promise<Record<string, Record<Locale, string>>>} */
+async function getLocalNameMap() {
+  return (await pokedex.getResource((await pokedex.getPokemonSpeciesList()).results.map(e => e.url)))
+    .reduce((acc, /** @type {PokeAPI.PokemonSpecies} species */ species) => {
+      acc[species.name] = Object.fromEntries(species.names.map(e => [e.language.name, e.name.toLowerCase()]));
+      return acc;
+    }, {});
+}
+
 /** @type {command<'both', false>} */
 module.exports = {
-  usage: { examples: 'Bulbasaur' }, beta: 1,
+  usage: { examples: 'Bulbasaur' },
   prefixCommand: true,
   slashCommand: true,
   dmPermission: true,
@@ -89,22 +107,31 @@ module.exports = {
     type: 'String',
     required: true,
     strictAutocomplete: true,
-    async autocompleteOptions() { return (await pokedex.getPokemonsList()).results.map(e => e.name); }
+    async autocompleteOptions() {
+      /* eslint-disable-next-line require-atomic-updates -- this is fine due to caching */
+      localNameMap ??= await getLocalNameMap();
+      return Object.entries(localNameMap).flatMap(e => [e[0], ...Object.values(e[1])]);
+    }
   }],
 
   async run(lang) {
-    const msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading')));
-
-    let /** @type {PokeAPI.Pokemon} */ pokemon = await pokedex.getPokemonByName(this.options?.getString('pokémon', true) ?? this.args[0]);
-    if (Array.isArray(pokemon)) pokemon = pokemon[0];
+    const
+      msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     /* eslint-disable require-atomic-updates -- this is fine due to caching */
     genderMap ??= await getGenderMap();
     generationsMap ??= await getGenerationMap(this.client);
+    pokemonList ??= await getPokemonList();
+    localNameMap ??= await getLocalNameMap(); // typeguard, guaranteed to not be `undefined` due to being filled in autocompleteOptions
     /* eslint-enable require-atomic-updates */
 
     const
+      /** @type {string} */ query = this.options?.getString('pokémon', true) ?? this.args[0],
+      pokemon = await pokedex.getPokemonByName(
+        query in localNameMap ? query : Object.entries(localNameMap).find(([, v]) => Object.values(v).some(e => e == query))[0]
+      ),
       species = await pokedex.getPokemonSpeciesByName(pokemon.species.name),
+      localName = localNameMap[species.name]?.[this.guild?.localeCode ?? this.user.localeCode ?? lang.defaultConfig.defaultLocale],
       height = pokemon.height < DM_TO_CM
         ? `${Number.parseFloat((pokemon.height * DM_TO_CM).toFixed(2))}cm`
         : `${Number.parseFloat((pokemon.height * DM_TO_M).toFixed(2))}m`,
@@ -131,7 +158,7 @@ module.exports = {
             .replaceAll('\n', ' ')
         },
         author: {
-          name: `PokéDex: ${capitalize(pokemon.name)}`,
+          name: 'PokéDex: ' + (localName == pokemon.name ? capitalize(pokemon.name) : `${capitalize(localName)} (${capitalize(pokemon.name)})`),
           iconURL: pokemon.sprites.other.showdown.front_shiny
         },
         fields: [
