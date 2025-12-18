@@ -58,7 +58,7 @@ module.exports = {
     else {
       embed.data.description = lang('embedDescriptionMany');
       embed.data.fields = Object.entries(cmdStats)
-        .filter(([k]) => !this.client.config.ownerOnlyFolders.includes(
+        .filter(([k]) => !this.client.config.devOnlyFolders.includes(
           (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
         ))
         .map(([k, v]) => [k, {

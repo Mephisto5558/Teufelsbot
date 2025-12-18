@@ -142,7 +142,7 @@ module.exports = async function checkForErrors(command, lang) {
   }
 
   // DO NOT REMOVE THE FOLLOWING LINE
-  if (this.client.config.ownerOnlyFolders.includes(command.category) && !this.client.config.devIds.has(this.user.id)) return true;
+  if (this.client.config.devOnlyFolders.includes(command.category) && !this.client.config.devIds.has(this.user.id)) return true;
   if (this instanceof Message && this.guild?.members.me.communicationDisabledUntil) return true;
   if (command.disabled) return this.client.config.replyOnDisabledCommand ? ['disabled', command.disabledReason ?? 'Not provided'] : true;
 

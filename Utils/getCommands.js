@@ -7,7 +7,7 @@ module.exports = function getCommands(lang) {
   const commandList = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique().reduce((
     /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: commandList }[]} */ acc, cmd
   ) => {
-    if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
+    if (this.config.devOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 
     let category = acc.find(e => e.category == cmd.category);
     if (!category) {

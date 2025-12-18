@@ -2,6 +2,9 @@
   "devIds": [
     "Array of discord user IDs. the application owner will always be in here."
   ],
+  "devOnlyFolders": [
+    "Array of folder names which contain dev-only commands. Case insensitive. Defaults to 'dev-only'"
+  ],
   "disableCommands": "Boolean. Disabled any command handling. Defaults to false",
   "disableWebserver": "Boolean. Disables the webserver (including the dashboard) if set to true. Defaults to false",
   "discordInvite": "Support Server URL. Optional",
@@ -15,9 +18,6 @@
   "hideNonBetaCommandLog": "Boolean. Hides the info that a non-beta slash command has been skipped. Defaults to false",
   "hideOverwriteWarning": "Boolean. Hides the \"Overwriting following variables and functions\" warning, Defaults to false",
   "mailAddress": "Support Mail address. Optional",
-  "ownerOnlyFolders": [
-    "Array of folder names which contain owner-only commands. Case insensitive. Defaults to 'owner-only'"
-  ],
   "replyOnDisabledCommand": "Boolean. Reply with an error message if a disabled command is run. Defaults to true",
   "replyOnNonBetaCommand": "Boolean. Reply with an error message if a non-beta command is run. Defaults to true",
   "website": {

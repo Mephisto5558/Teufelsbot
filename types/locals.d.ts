@@ -91,6 +91,9 @@ type BaseCommand<initialized extends boolean = boolean, commandType extends comm
 type Config = {
   /** Will always include the application owner (or application team owner if existing) id */
   devIds: Set<Snowflake>;
+
+  /** @default ['dev-only'] */
+  devOnlyFolders: string[];
   website: {
     domain?: string;
     port?: number;
@@ -106,9 +109,6 @@ type Config = {
     userName?: string;
     repoName?: string;
   };
-
-  /** @default ['dev-only'] */
-  ownerOnlyFolders: string[];
   discordInvite?: string;
   mailAddress?: string;
   hideOverwriteWarning?: boolean;

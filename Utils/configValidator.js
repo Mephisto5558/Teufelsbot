@@ -5,6 +5,7 @@ const
   configPath = require('node:path').resolve(process.cwd(), 'config.json'),
   validConfig = Object.freeze({
     devIds: 'object', // set<string>
+    devOnlyFolders: ['string'],
     website: Object.freeze({
       domain: 'string',
       port: 'number',
@@ -20,7 +21,6 @@ const
       userName: 'string',
       repoName: 'string'
     }),
-    ownerOnlyFolders: ['string'],
     discordInvite: 'string',
     mailAddress: 'string',
     hideOverwriteWarning: 'boolean',
@@ -76,7 +76,7 @@ function setDefaultConfig() {
   config.github ??= {};
   config.replyOnDisabledCommand ??= true;
   config.replyOnNonBetaCommand ??= true;
-  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only'];
+  config.devOnlyFolders = config.devOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only'];
 
   return config;
 }

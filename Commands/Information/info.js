@@ -12,7 +12,7 @@ const
  * @this {Client<true>}
  * @param {command} cmd */
 function commandListFilter(cmd) {
-  return !cmd.aliasOf && !this.config.ownerOnlyFolders.includes(cmd.category) && !cmd.disabled;
+  return !cmd.aliasOf && !this.config.devOnlyFolders.includes(cmd.category) && !cmd.disabled;
 }
 
 /** @param {Client<true>} client */

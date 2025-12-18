@@ -152,7 +152,7 @@ function createInfoFields(lang, cmd = {}) {
  * @param {command<string, boolean, true> | undefined} cmd */
 function filterCommands(cmd) {
   return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
-    && (!this.client.config.ownerOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
+    && (!this.client.config.devOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
 }
 
 /** @type {help_commandQuery} */
