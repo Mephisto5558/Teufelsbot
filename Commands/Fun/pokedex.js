@@ -19,52 +19,36 @@ const
 
   /* eslint-disable-next-line jsdoc/no-undefined-types -- false positive */
   /** @type {<T extends string>(str: T) => Capitalize<T>} */
-  capitalize = str => str[0].toUpperCase() + str.slice(1);
+  capitalize = str => str.charAt(0).toUpperCase() + str.slice(1),
 
-/** @type {Awaited<ReturnType<typeof getGenderMap>> | undefined} */
-let genderMap;
+  cache = {
+    /** @type {Record<PokeAPI.PokemonSpecies['name'], Record<Locale, string>>} */ localNames: {},
+    /** @type {string[]} */ autocomplete: [],
+    /** @type {Promise<void> | undefined} */ initPromise: undefined,
 
-async function getGenderMap() {
-  /** @type {Record<string, Record<string, `${number}%`>>} */
-  const species = {};
+    fill: async () => {
+      if (cache.autocomplete.length) return;
 
-  for (const gender of await pokedex.getGenderByName((await pokedex.getGendersList()).results.map(e => e.name))) {
-    for (const pokemon of gender.pokemon_species_details) {
-      species[pokemon.pokemon_species.name] ??= {};
+      cache.initPromise ??= (async () => {
+        /** @type {PokeAPI.PokemonSpecies[]} */
+        const speciesDetails = await pokedex.getResource((await pokedex.getPokemonSpeciesList()).results.map(e => e.url));
 
-      let percentage;
-      if (gender.name == 'genderless') percentage = maxPercentage;
-      else if (gender.name == 'female') percentage = (pokemon.rate / GENDER_RATE) * maxPercentage;
-      else percentage = ((GENDER_RATE - pokemon.rate) / GENDER_RATE) * maxPercentage;
+        for (const species of speciesDetails)
+          cache.localNames[species.name] = Object.fromEntries(species.names.map(e => [e.language.name, e.name.toLowerCase()]));
 
-      if (percentage == maxPercentage) species[pokemon.pokemon_species.name] = gender.name;
-      else species[pokemon.pokemon_species.name][gender.name] = `${percentage}%`;
-    }
-  }
+        cache.autocomplete = Object.entries(cache.localNames).flatMap(([k, v]) => [k, ...Object.values(v)]);
+      })();
 
-  return species;
-}
+      return cache.initPromise;
+    },
 
-/** @type {Awaited<ReturnType<typeof getGenerationMap>> | undefined} */
-let generationsMap;
+    /** @type {(query: string) => string} */
+    findDefaultName: query => (query in cache.localNames
+      ? query
+      : Object.entries(cache.localNames).find(([, v]) => Object.values(v).includes(query))?.[0] ?? query)
+  };
 
-/**
- * @param {Client} client
- * @returns {Promise<Record<string, Record<Locale, string>>>} */
-async function getGenerationMap(client) {
-  const generations = await Promise.all(
-    (await pokedex.getGenerationsList()).results.map(async e => pokedex.getGenerationByName(e.name))
-  );
-
-  return generations.reduce((acc, gen) => {
-    const names = Object.fromEntries(gen.names
-      .filter(e => client.i18n.availableLocales.has(e.language.name))
-      .map(e => [e.language.name, e.name]));
-
-    for (const version of gen.version_groups) acc[version.name] = names;
-    return acc;
-  }, {});
-}
+void cache.fill(); // already filling so autocompleteOptions does not time out
 
 /** @param {PokeAPI.Pokemon} pokemon */
 async function getEvolutions(pokemon) {
@@ -72,28 +56,30 @@ async function getEvolutions(pokemon) {
 
     /** @type {(chain: PokeAPI.Chain) => string[]} */
     getEvolutionNames = chain => [chain.species.name, ...chain.evolves_to.flatMap(getEvolutionNames)],
-    chainUrl = (await pokedex.getPokemonSpeciesByName(pokemon.species.name)).evolution_chain.url;
+
+    /** @type {PokeAPI.PokemonSpecies} *//* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+    species = await pokedex.getResource(pokemon.species.url);
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access -- will always be a chain */
-  return getEvolutionNames((await pokedex.getResource(chainUrl)).chain);
+  return getEvolutionNames((await pokedex.getResource(species.evolution_chain.url)).chain);
 }
 
-/** @type {Awaited<ReturnType<typeof getPokemonList>> | undefined} */
-let pokemonList;
+/**
+ * @param {-1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8} genderRate
+ * @param {lang} lang */
+function getGenderRate(genderRate, lang) {
+  switch (genderRate) {
+    case -1: return lang('gender.genderless');
+    case 0: return lang('gender.male');
+    case GENDER_RATE: return lang('gender.female');
+    default: {
+      const
+        male = (1 - genderRate / GENDER_RATE) * maxPercentage,
+        female = (genderRate / GENDER_RATE) * maxPercentage;
 
-const
-  getPokemonList = async () => (await pokedex.getPokemonsList()).results.map(e => e.name);
-
-/** @type {Awaited<ReturnType<typeof getLocalNameMap>> | undefined} */
-let localNameMap;
-
-/** @returns {Promise<Record<string, Record<Locale, string>>>} */
-async function getLocalNameMap() {
-  return (await pokedex.getResource((await pokedex.getPokemonSpeciesList()).results.map(e => e.url)))
-    .reduce((acc, /** @type {PokeAPI.PokemonSpecies} species */ species) => {
-      acc[species.name] = Object.fromEntries(species.names.map(e => [e.language.name, e.name.toLowerCase()]));
-      return acc;
-    }, {});
+      return lang('gender.ratios', { female: inlineCode(female), male: inlineCode(male) });
+    }
+  }
 }
 
 /** @type {command<'both', false>} */
@@ -108,40 +94,28 @@ module.exports = {
     required: true,
     strictAutocomplete: true,
     async autocompleteOptions() {
-      /* eslint-disable-next-line require-atomic-updates -- this is fine due to caching */
-      localNameMap ??= await getLocalNameMap();
-      return Object.entries(localNameMap).flatMap(e => [e[0], ...Object.values(e[1])]);
+      await cache.fill();
+      return cache.autocomplete;
     }
   }],
 
   async run(lang) {
     const
-      msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading')));
+      msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
+      pokemon = await pokedex.getPokemonByName(cache.findDefaultName((this.options?.getString('pokémon', true) ?? this.args[0]).toLowerCase())),
 
-    /* eslint-disable require-atomic-updates -- this is fine due to caching */
-    genderMap ??= await getGenderMap();
-    generationsMap ??= await getGenerationMap(this.client);
-    pokemonList ??= await getPokemonList();
-    localNameMap ??= await getLocalNameMap(); // typeguard, guaranteed to not be `undefined` due to being filled in autocompleteOptions
-    /* eslint-enable require-atomic-updates */
-
-    const
-      /** @type {string} */ query = this.options?.getString('pokémon', true) ?? this.args[0],
-      pokemon = await pokedex.getPokemonByName(
-        query in localNameMap ? query : Object.entries(localNameMap).find(([, v]) => Object.values(v).some(e => e == query))[0]
-      ),
-      species = await pokedex.getPokemonSpeciesByName(pokemon.species.name),
-      localName = localNameMap[species.name]?.[this.guild?.localeCode ?? this.user.localeCode ?? lang.defaultConfig.defaultLocale],
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Not using `getPokemonSpeciesByName` to better utilize the lib's cache. */
+      /** @type {PokeAPI.PokemonSpecies} */ species = await pokedex.getResource(pokemon.species.url),
+      localName = cache.localNames[species.name]?.[this.guild?.localeCode ?? this.user.localeCode ?? lang.defaultConfig.defaultLocale],
       height = pokemon.height < DM_TO_CM
         ? `${Number.parseFloat((pokemon.height * DM_TO_CM).toFixed(2))}cm`
         : `${Number.parseFloat((pokemon.height * DM_TO_M).toFixed(2))}m`,
       weight = pokemon.weight < HG_TO_KG
         ? `${Number.parseFloat((pokemon.weight * HG_TO_G).toFixed(2))}g`
         : `${Number.parseFloat((pokemon.weight * HG_TO_KG).toFixed(2))}kg`,
-      genders = genderMap[pokemon.species.name] ?? 'global.unknown',
-      genderRatio = typeof genders == 'string'
-        ? lang(`gender.${genders}`)
-        : Object.entries(genders).map(([k, v]) => `${lang('gender.' + k)}: ${inlineCode(v)}`).join(', '),
+
+      /** @type {PokeAPI.Generation} *//* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+      generationRes = await pokedex.getResource(species.generation.url),
       embed = new EmbedBuilder({
         thumbnail: { url: pokemon.sprites.other.showdown.front_default },
         color: Colors.Blurple,
@@ -164,7 +138,7 @@ module.exports = {
         fields: [
           [lang('types'), pokemon.types.map(e => e.type.name).join(', ')],
           [lang('abilities'), pokemon.abilities.map(e => capitalize(e.ability.name)).join(', ')],
-          [lang('genderRatio'), genderRatio],
+          [lang('genderRatio'), getGenderRate(species.gender_rate, lang)],
           [lang('heightWeight'), `${height}, ${weight}`],
           [
             lang('evolutionLine'),
@@ -172,10 +146,8 @@ module.exports = {
           ],
           [
             lang('gen'),
-            (
-              generationsMap[pokemon.game_indices[0].version.name]
-              ?? Object.entries(generationsMap).find(([k]) => k.includes(pokemon.game_indices[0].version.name))[1]
-            )[this.guild?.localeCode ?? this.user.localeCode]
+            /* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- this is fine */
+            generationRes.names.find(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode))?.name ?? generationRes.name
           ]
         ].map(/** @param {[string, string]} field */ ([k, v]) => ({ name: k, value: v, inline: false }))
       }),

@@ -312,7 +312,8 @@
     "gender": {
       "female": "female",
       "genderless": "genderless",
-      "male": "male"
+      "male": "male",
+      "ratios": "female: {female}%, male: {male}%"
     },
     "genderRatio": "Gender Ratio",
     "heightWeight": "Height and Weight",
