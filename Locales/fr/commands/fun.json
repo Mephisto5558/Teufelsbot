@@ -307,15 +307,15 @@
       }
     },
     "abilities": "Capacités",
-    "currentStage": "\nPhase d'évolution actuelle: {stage}",
-    "error": "Une erreur est survenue.",
     "evolutionLine": "Ligne évolutionniste",
     "gen": "Générer",
+    "gender": {
+      "female": "femelle",
+      "genderless": "sans sexe",
+      "male": "mâle"
+    },
     "genderRatio": "Ratio de genre",
     "heightWeight": "Hauteur et poids",
-    "invalidJson": "L'API a répondu avec des données non valides.",
-    "noGender": "Sans sexe",
-    "notFound": "Je n'ai pas pu trouver de pochette avec ce nom!",
     "types": "Type(s)"
   },
   "reddit": {
