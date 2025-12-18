@@ -22,18 +22,15 @@ function getCommandCategories() { return getCommands.call(this).map(e => e.categ
  * @this {Interaction | Message | SelectMenuInteraction}
  * @returns {string | undefined} */
 function getDefaultOption() {
-  let defaultOption;
-  if (this instanceof ChatInputCommandInteraction) {
-    if (!this.options.getString('command')) defaultOption = this.options.getString('category');
+  if (this instanceof ChatInputCommandInteraction && !this.options.getString('command')) return this.options.getString('category');
+  if (this instanceof Message) {
+    if (this.args.length > 1) return (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
+    return this.args[0];
   }
-  else if (this instanceof Message)
-    defaultOption = (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
-  else if (
+  if (
     this instanceof StringSelectMenuInteraction && this.message.components[0]
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
-  ) defaultOption = this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
-
-  return defaultOption;
+  ) return this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
 }
 
 /**
