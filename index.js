@@ -43,7 +43,7 @@ const
       Partials.Reaction
     ],
     presence: {
-      activities: [{ name: '/help', type: ActivityType.Playing }]
+      activities: [{ name: 'Starting...', type: ActivityType.Custom }]
     }
   });
 
