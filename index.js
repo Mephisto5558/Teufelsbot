@@ -67,7 +67,7 @@ async function processMessageEventCallback(handlerPromises, message) {
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
         webhookUrl: process.env.votingWebhookURL,
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
-        ownerIds: [...this.config.devIds], defaultAPIVersion: 1
+        ownerIds: [...this.config.devIds], autoApproveOwnerRequests: true, defaultAPIVersion: 1
       }, errorHandler.bind(this)
     ).init(
       {},
