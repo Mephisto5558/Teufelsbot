@@ -312,7 +312,8 @@
     "gender": {
       "female": "hembra",
       "genderless": "sin género",
-      "male": "varón"
+      "male": "varón",
+      "ratios": "hembra: {female}%, hombre: {male}%"
     },
     "genderRatio": "Ratio de género",
     "heightWeight": "Altura y peso",
