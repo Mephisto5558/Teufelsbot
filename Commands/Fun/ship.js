@@ -1,10 +1,9 @@
 const
-  { Team } = require('discord.js'),
   { createHash } = require('node:crypto'),
   { getTargetMembers, constants: { maxPercentage } } = require('#Utils'),
 
   hashPartLength = 5,
-  botIds = ['964315306015211560', '948978571802710047'],
+  botIds = new Set(['964315306015211560', '948978571802710047']),
   botDevShip = 80,
   /** @type {[Snowflake, Snowflake, number][]} */ customShips = [];
 
@@ -13,11 +12,8 @@ const
  * @param {Snowflake} target1
  * @param {Snowflake} target2 */
 function getCustomShipPercentage(target1, target2) {
-  const { owner } = this.client.application;
-  if (owner && botIds.some(e => e == target1 || e == target2)) {
-    const devIds = owner instanceof Team ? [...owner.members.keys()] : [owner.id];
-    if (devIds.some(e => e == target1 || e == target2)) return botDevShip;
-  }
+  if ((this.client.config.devIds.has(target1) || this.client.config.devIds.has(target2)) && (botIds.has(target1) || botIds.has(target2)))
+    return botDevShip;
 
   /* eslint-disable-next-line sonarjs/no-empty-collection -- may be filled in the future */
   return customShips.find(e => e.includes(target1) && e.includes(target2))?.[2];
@@ -56,6 +52,6 @@ module.exports = {
     const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
     if (!user1) return this.customReply(lang('global.unknownUser'));
-    return this.customReply(`${user1.displayName} :heart: ${user2.displayName}: ${calculatePercentage.call(this, user1, user2)}%`);
+    return this.customReply(`${user1.displayName} :heart: ${user2.displayName}: ${calculatePercentage.call(this, user1.id, user2.id)}%`);
   }
 };
