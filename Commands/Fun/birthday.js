@@ -68,7 +68,7 @@ const birthdayMainFunctions = {
 
         embed.data.description = lang('getUser.date', {
           user: target.displayName,
-          month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
+          monthName: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
           daysUntil: bold(daysUntil)
         });
 
@@ -98,7 +98,7 @@ const birthdayMainFunctions = {
           dateStr = bold(
             date.getMonth() == today.getMonth() && date.getDate() == today.getDate()
               ? `${lang('getAll.today')} 🎉`
-              : lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() })
+              : lang('getAll.date', { monthName: lang(`months.${date.getMonth() + 1}`), day: date.getDate() })
           ),
           age = getAge(date) + 1,
           msg = '> ' + userMention(id) + (age < currentYear ? ` (${age})` : '') + '\n';

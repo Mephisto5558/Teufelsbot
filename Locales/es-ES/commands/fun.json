@@ -102,13 +102,13 @@
       }
     },
     "getAll": {
-      "date": "{month} {day}",
+      "date": "{monthName} {day}",
       "embedTitle": "Los próximos cumpleaños",
       "notFound": "Nadie tiene un juego de cumpleaños...",
       "today": "Hoy"
     },
     "getUser": {
-      "date": "{user} ha cumpleaños el **{month} {day}**.",
+      "date": "{user} ha cumpleaños el **{monthName} {day}**.",
       "embedTitle": "Cumpleaños de {user}",
       "newAge": "Ellos girarán {age} ese día.",
       "notFound": "{user} no tiene cumpleaños :("

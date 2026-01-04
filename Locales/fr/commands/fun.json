@@ -102,13 +102,13 @@
       }
     },
     "getAll": {
-      "date": "{month} {day}",
+      "date": "{monthName} {day}",
       "embedTitle": "Les prochains anniversaires",
       "notFound": "Personne n'a de set d'anniversaire...",
       "today": "Aujourd'hui"
     },
     "getUser": {
-      "date": "{user} a l'anniversaire le **{month} {day}**.",
+      "date": "{user} a l'anniversaire le **{monthName} {day}**.",
       "embedTitle": "Anniversaire de {user}",
       "newAge": "Ils tourneront {age} ce jour-là.",
       "notFound": "{user} n'a pas d'anniversaire :("

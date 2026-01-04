@@ -102,13 +102,13 @@
       }
     },
     "getAll": {
-      "date": "{day}. {month}",
+      "date": "{day}. {monthName}",
       "embedTitle": "Die nächsten Geburtstage",
       "notFound": "Niemand hat seinen Geburtstag angegeben...",
       "today": "Heute"
     },
     "getUser": {
-      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
+      "date": "{user} hat am **{day}. {monthName}** Geburtstag. Das ist in {daysUntil} Tagen!",
       "embedTitle": "{user}'s Geburtstag",
       "newAge": "Er/Sie wird {age} Jahre alt.",
       "notFound": "{user} hat kein Geburtstag :("

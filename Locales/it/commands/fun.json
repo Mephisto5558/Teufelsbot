@@ -102,13 +102,13 @@
       }
     },
     "getAll": {
-      "date": "{month} {day}",
+      "date": "{monthName} {day}",
       "embedTitle": "I prossimi compleanni",
       "notFound": "Nessuno ha un set di compleanno...",
       "today": "Oggi"
     },
     "getUser": {
-      "date": "{user} ha il compleanno il **{month} {day}**. È in {daysUntil} giorni!",
+      "date": "{user} ha il compleanno il **{monthName} {day}**. È in {daysUntil} giorni!",
       "embedTitle": "compleanno di {user}",
       "newAge": "Si accenderà {age} in quel giorno.",
       "notFound": "{user} non ha compleanno :("
