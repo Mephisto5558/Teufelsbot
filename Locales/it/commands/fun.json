@@ -735,39 +735,5 @@
       "shortFieldName": "ID {id}",
       "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **{wildcard}"
     }
-  },
-  "vote": {
-    "description": "Crea un sondaggio per qualcosa",
-    "usage": {
-      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
-      "examples": "#voto Avete bene? | Sì | No"
-    },
-    "options": {
-      "channel": {
-        "description": "Dove dovrei postare il sondaggio?"
-      },
-      "option_n": {
-        "description": "La risposta {num} a questo sondaggio"
-      },
-      "question": {
-        "description": "Che cosa volete che le persone voti?"
-      },
-      "type": {
-        "description": "Che tipo di voto vuoi?",
-        "choices": {
-          "anonymous": "anonimo",
-          "normal": "normale"
-        }
-      }
-    },
-    "buttonEmbedFooterText": "Il creatore di questo sondaggio può premere il pulsante ❌ per chiudere il sondaggio.",
-    "embedFooterText": "Il creatore di questo sondaggio può reagire con ❌ per chiudere il sondaggio.",
-    "embedTitle": "Sondaggio",
-    "ended": "Il sondaggio è finito!",
-    "fieldsOptions": "Opzioni",
-    "fieldsQuestion": "Domanda",
-    "noPerm": "Non hai il permesso di inviare messaggi in quel canale!",
-    "noQuestion": "Hai bisogno di fornire una domanda per un sondaggio...",
-    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `|`) per un sondaggio..."
   }
 }
