@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
-  { getTargetChannel, timeFormatter: { msInSecond }, getCommandName } = require('#Utils'),
+  { getTargetChannel, timeFormatter: { msInSecond }, getCommandName, findPaths } = require('#Utils'),
   collectorTimeout = 3e4;
 
 /** @type {command<'both'>} */
@@ -71,6 +71,13 @@ module.exports = {
 
         for (const [, webhook] of await channel.fetchWebhooks())
           await webhook.edit({ channel: cloned.id, reason });
+
+        const settingsToMigrate = findPaths(this.guild.db, channel.id);
+        await Promise.all(settingsToMigrate.values.map(async e => this.guild.updateDB(e, cloned.id)));
+        await Promise.all(settingsToMigrate.keys.map(async e => {
+          await this.guild.updateDB(`${e}.${cloned.id}`, this.client.db.get('guildSettings', `${this.guild.id}.${e}.${channel.id}`));
+          await this.guild.deleteDB(`${e}.${channel.id}`);
+        }));
 
         await channel.delete(reason);
 

@@ -16,6 +16,7 @@ const utils = {
   filename: require('./filename'),
   filterEmptyEntries: require('./filterEmptyEntries'),
   findAllEntries: require('./findAllEntries'),
+  findPaths: require('./findPaths'),
   formatCommand: require('./formatCommand'),
   getAge: require('./getAge'),
   getCommandName: require('./getCommandName'),
