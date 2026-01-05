@@ -735,39 +735,5 @@
       "shortFieldName": "ID {id}",
       "shortFieldValue": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}"
     }
-  },
-  "vote": {
-    "description": "Erstelle eine Umfrage",
-    "usage": {
-      "usage": "<Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
-      "examples": "#voten Geht es dir gut? | Ja | Nein"
-    },
-    "options": {
-      "channel": {
-        "description": "In welchen Kanal soll ich die Abstimmung senden?"
-      },
-      "option_n": {
-        "description": "Die {num}. Antwort zu dieser Umfrage"
-      },
-      "question": {
-        "description": "Worüber soll abgestimmt werden?"
-      },
-      "type": {
-        "description": "Welche Abstimmungsart möchtest du nutzen?",
-        "choices": {
-          "anonymous": "Anonym",
-          "normal": "Normal"
-        }
-      }
-    },
-    "buttonEmbedFooterText": "Der Ersteller dieser Abstimmung kann den ❌ Button drücken, um sie zu beenden.",
-    "embedFooterText": "Der Ersteller dieser Abstimmung kann mit ❌ reagieren, um sie zu beenden.",
-    "embedTitle": "Abstimmung",
-    "ended": "Die Abstimmung ist beendet!",
-    "fieldsOptions": "Antworten",
-    "fieldsQuestion": "Thema",
-    "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
-    "noQuestion": "Du musst schon eine Frage stellen...",
-    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)..."
   }
 }
