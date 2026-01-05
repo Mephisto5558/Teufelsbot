@@ -200,6 +200,10 @@ export declare function findAllEntries(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 
+export declare function findPaths(
+  obj: Record<string, unknown>, targetKey: string, keys?: string[], values?: string[], currKey?: string
+): { keys: string[]; values: string[] };
+
 /** @throws {Error} on non-autofixable invalid data */
 export declare function formatCommand<T extends command | commandOptions<false>>(
   option: T, path: string, id: string, i18n: I18nProvider
