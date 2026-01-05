@@ -735,39 +735,5 @@
       "shortFieldName": "ID {id}",
       "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}"
     }
-  },
-  "vote": {
-    "description": "Crear una encuesta para algo",
-    "usage": {
-      "usage": "<channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
-      "examples": "#voto ¿Tienes razón? | Sí | No"
-    },
-    "options": {
-      "channel": {
-        "description": "¿Dónde debo publicar la encuesta?"
-      },
-      "option_n": {
-        "description": "La respuesta {num} a esta encuesta"
-      },
-      "question": {
-        "description": "¿Qué quiere que voten los ciudadanos?"
-      },
-      "type": {
-        "description": "¿Qué tipo de voto desea usted?",
-        "choices": {
-          "anonymous": "anónimo",
-          "normal": "normal"
-        }
-      }
-    },
-    "buttonEmbedFooterText": "El creador de esta encuesta puede pulsar el botón ❌ para cerrar la encuesta.",
-    "embedFooterText": "El creador de esta encuesta puede reaccionar con ❌ para cerrar la encuesta.",
-    "embedTitle": "Encuesta",
-    "ended": "¡La encuesta ha terminado!",
-    "fieldsOptions": "Opciones",
-    "fieldsQuestion": "Pregunta",
-    "noPerm": "¡No tienes permiso para enviar mensajes en ese canal!",
-    "noQuestion": "Necesitas proporcionar una pregunta para una encuesta...",
-    "notEnoughOptions": "Necesitas proporcionar al menos dos opciones (dividirlas con un `|`) para una encuesta..."
   }
 }
