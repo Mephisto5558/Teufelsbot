@@ -20,7 +20,7 @@
     "description": "Erhalte Daten aus der Datenbank",
     "usage": {
       "usage": "<Datenbank-Name> <Schlüssel>",
-      "examples": "datenbank a.b.c"
+      "examples": "database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>"
     },
     "options": {
       "database": {

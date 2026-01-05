@@ -18,7 +18,13 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const result = this.client.db.get(this.args[0], this.args[1]);
+    const
+      path = this.args[1]
+        ?.replaceAll(/<thisguild>/gi, this.guild.id)
+        .replaceAll(/<thischannel>/gi, this.channel.id)
+        .replaceAll(/<this(?:member|user)>/gi, this.user.id),
+      result = this.client.db.get(this.args[0], path);
+
     return this.customReply(result ? codeBlock('json', JSON.stringify(result, undefined, JSON_SPACES)) : lang('notFound'));
   }
 };

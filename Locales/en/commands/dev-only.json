@@ -20,7 +20,7 @@
     "description": "query data from the database",
     "usage": {
       "usage": "<database name> <key>",
-      "examples": "database a.b.c"
+      "examples": "database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>"
     },
     "options": {
       "database": {
