@@ -735,39 +735,5 @@
       "shortFieldName": "ID {id}",
       "shortFieldValue": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard: **{wildcard}"
     }
-  },
-  "vote": {
-    "description": "Create a poll for something",
-    "usage": {
-      "usage": "<channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
-      "examples": "#voting Are you all right? | Yes | No"
-    },
-    "options": {
-      "channel": {
-        "description": "Where should I post the poll?"
-      },
-      "option_n": {
-        "description": "The {num} answer to this poll"
-      },
-      "question": {
-        "description": "What do you want people to vote about?"
-      },
-      "type": {
-        "description": "What kind of vote do you want?",
-        "choices": {
-          "anonymous": "anonymous",
-          "normal": "normal"
-        }
-      }
-    },
-    "buttonEmbedFooterText": "The creator of this poll can press the ❌ Button to close the poll.",
-    "embedFooterText": "The creator of this poll can react with ❌ to close the poll.",
-    "embedTitle": "Poll",
-    "ended": "The poll has ended!",
-    "fieldsOptions": "Options",
-    "fieldsQuestion": "Question",
-    "noPerm": "You don't have the permission to send messages in that channel!",
-    "noQuestion": "You need to provide a question for a poll...",
-    "notEnoughOptions": "You need to provide at least two options (split them with an `|`) for a poll..."
   }
 }
