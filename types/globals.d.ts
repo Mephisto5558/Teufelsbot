@@ -1,5 +1,8 @@
 /* eslint-disable sonarjs/no-built-in-override */
 
+import type * as __ from '@mephisto5558/better-types'; /* eslint-disable-line import-x/no-namespace -- load in global definitions */
+
+/* eslint-disable-next-line import-x/order */
 import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
@@ -7,10 +10,6 @@ import type DiscordTicTacToe from 'discord-tictactoe';
 import type { LogInterface } from '../Utils/prototypeRegisterer';
 import type DBStructure from './database';
 import type locals, { commandTypes, defaultCommandType } from './locals';
-
-type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
-type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
-type ISODateTime = `${ISODate}T${ISOTime}Z`;
 
 // #region global
 declare global {
@@ -31,11 +30,6 @@ declare global {
       restartServerURL?: `https://${string}/api/client/servers/${string}/power`;
       restartServerAPIKey?: string;
     }
-
-    interface Require {
-      /* eslint-disable-next-line @typescript-eslint/prefer-function-type -- overwriting only the function signature */
-      (id: string): unknown;
-    }
   }
 
   interface Array<T> {
@@ -50,11 +44,6 @@ declare global {
     unique(this: T[]): T[];
   }
 
-  interface String {
-    toLowerCase<T extends string>(this: T): Lowercase<T>;
-    toUpperCase<T extends string>(this: T): Uppercase<T>;
-  }
-
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
 
@@ -62,36 +51,9 @@ declare global {
     inRange(min?: number, max?: number): boolean;
   }
 
-  interface BigInt {
-    toString(radix?: 10): `${bigint}`;
-  }
-
   interface Object {
     /** The amount of items in the object. */
     get __count__(this: object): number;
-  }
-
-  type KeyToString<K extends PropertyKey> = K extends string ? K : K extends number ? `${K}` : never;
-  interface ObjectConstructor {
-    keys<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): KeyToString<K>[]; // handles things like enums
-    keys<T>(o: T): KeyToString<keyof T>[];
-
-    values<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): V[]; // handles things like enums
-    values<T>(o: T): ({
-      [K in keyof T]: undefined extends T[K] ? T[K] : Required<T>[K]
-    } extends { [_ in keyof T]: infer V } ? V : never)[];
-
-    entries<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): [KeyToString<K>, V][]; // handles things like enums
-    entries<T>(o: T): ({
-      [K in keyof T]: undefined extends T[K] ? T[K] : Required<T>[K]
-    } extends { [_ in keyof T]: infer V } ? [KeyToString<keyof T>, V] : never)[];
-  }
-
-  interface Date {
-    /**
-     * Give a more precise return type to the method `toISOString()`:
-     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString     */
-    toISOString(): ISODateTime;
   }
 
   /* eslint-enable @typescript-eslint/consistent-type-definitions */
@@ -105,16 +67,7 @@ declare global {
     log: LogInterface;
   type log = LogInterface;
 
-  type Snowflake = `${bigint}`;
-
   type Database = DBStructure.Database;
-
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
-  type GenericFunction<Ret = any> = (...args: any) => Ret;
-
-  type OmitFirstParameters<
-    T extends GenericFunction, N extends number = 1, Acc extends unknown[] = []
-  > = Acc['length'] extends N ? Parameters<T> extends [...Acc, ...infer Rest] ? Rest : never : OmitParameters<T, N, [...Acc, unknown]>;
 
   type lang<UNF extends boolean = false, L extends Locale | undefined = Locale> = Translator<UNF, L>;
 

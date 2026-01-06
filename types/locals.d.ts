@@ -3,7 +3,6 @@ import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as Lib
 import type { Locale } from '@mephisto5558/i18n';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
 import type { NextFunction, Request, Response } from 'express';
-import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
@@ -137,7 +136,7 @@ export declare class WebServer<Ready extends boolean = boolean> extends LibWebSe
   client: Client<Ready>;
 }
 
-export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<T[K]>> = Omit<T, K> & {
+export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<T[K]>> = StrictOmit<T, K> & {
   [P in K]: Exclude<T[P], GenericFunction> | ((this: This, ...args: Args) => ReturnType<Extract<T[P], GenericFunction>>);
 };
 

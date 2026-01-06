@@ -28,7 +28,7 @@ function reloadPrefixCommand(file, command, reloadedArray) {
 
 /**
  * @this {Client}
- * @param {Pick<Partial<command<'slash' | 'both', boolean, true>>, 'id'> & Omit<command<'slash' | 'both', boolean, true>, 'id'>} file
+ * @param {Pick<Partial<command<'slash' | 'both', boolean, true>>, 'id'> & StrictOmit<command<'slash' | 'both', boolean, true>, 'id'>} file
  * @param {command<'slash' | 'both', boolean>} command
  * @param {string[]} reloadedArray */
 async function reloadSlashCommand(file, command, reloadedArray) {

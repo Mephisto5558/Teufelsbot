@@ -56,7 +56,8 @@
     "wikijs": "^6.4.1"
   },
   "devDependencies": {
-    "@mephisto5558/eslint-config": "github:Mephisto5558/ESLint-Config",
+    "@mephisto5558/better-types": "latest",
+    "@mephisto5558/eslint-config": "latest",
     "@types/express": "5.x",
     "@types/node": "22.x",
     "@types/passport": "1.x"
