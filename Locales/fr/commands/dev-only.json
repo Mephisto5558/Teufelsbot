@@ -19,8 +19,7 @@
   "dbget": {
     "description": "interroger les données de la base de données",
     "usage": {
-      "usage": "<database name> <key>",
-      "examples": "base de données a.b.c"
+      "usage": "<database name> <key>"
     },
     "options": {
       "database": {
