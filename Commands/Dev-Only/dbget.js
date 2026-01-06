@@ -4,6 +4,7 @@ const
 
 /** @type {command<'prefix', false>} */
 module.exports = {
+  usage: { examples: 'database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>' },
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
