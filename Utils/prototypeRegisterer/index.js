@@ -25,9 +25,7 @@ const
   { loadEnvAndDB } = require('./client__loadEnvAndDB'),
   _patch = require('./message__patch'),
   customReply = require('./message_customReply'),
-  runMessages = require('./message_runMessages'),
-
-  parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
+  runMessages = require('./message_runMessages');
 
 module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallengeMention };
 
@@ -42,7 +40,6 @@ const
   overwrites = Object.fromEntries(Object.entries({
     globals: ['globalThis.sleep()', 'globalThis.log()'],
     vanilla: [
-      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
       'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
     ],
     discordJs: [
@@ -55,7 +52,7 @@ const
       'GuildMember#db', 'GuildMember#localeCode',
       'Guild#localeCode', 'Guild#prefix', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
     ]
-  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+  }).map(([k, v]) => [k, v.join(', ')]));
 
 if (!config.hideOverwriteWarning) {
   console.warn([
@@ -65,14 +62,6 @@ if (!config.hideOverwriteWarning) {
     `  Discord.js: ${overwrites.discordJs}`,
     '  Modifying Discord.js Message._patch method.'
   ].join('\n'));
-}
-
-if (parentUptime) {
-  /* eslint-disable-next-line custom/unbound-method -- still on the same class */
-  process.childUptime = process.uptime;
-  process.uptime = function uptime() {
-    return this.childUptime() + parentUptime;
-  };
 }
 
 // #region BuildIn

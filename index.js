@@ -48,39 +48,6 @@ const
   });
 
 /**
- * @this {Client<true>}
- * @param {Promise[]} handlerPromises
- * @param {string} message */
-async function processMessageEventCallback(handlerPromises, message) {
-  if (message != 'Start WebServer') return;
-  process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
-
-  if (this.config.disableWebserver) log('Webserver is disabled by config.json.');
-  else {
-    await Promise.all(handlerPromises);
-
-    this.webServer ??= await new WebServer(
-      this, this.db,
-      { secret: process.env.secret, dbdLicense: process.env.dbdLicense },
-      {
-        domain: this.config.website.domain, port: this.config.website.port,
-        support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
-        webhookUrl: process.env.votingWebhookURL,
-        errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
-        ownerIds: [...this.config.devIds], autoApproveOwnerRequests: true, defaultAPIVersion: 1
-      }, errorHandler.bind(this)
-    ).init(
-      {},
-      { commands: getCommands.call(this, this.i18n.getTranslator({ locale: 'en', undefinedNotFound: true })) },
-      { votingPath: this.config.website.vote }
-    );
-  }
-
-  handlers.eventHandler.call(this);
-  await events.clientReady.call(this); // run due to it not being ran on clientReady, before the handler is loaded
-}
-
-/**
  * @this {Client<false>}
  * @param {string} token
  * @returns {Promise<Client<true>>} */
@@ -114,27 +81,37 @@ void (async function main() {
 
   if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
 
-  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
-  const
-    handlerPromises = [
-      ...Object.entries(handlers)
-        .filter(([k]) => !['eventHandler', ...newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []].includes(k))
-        .map(async ([,handler]) => handler.call(newClient)),
-      newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
-    ],
+  await Promise.all([
+    ...Object.entries(handlers)
+      .filter(([k]) => !(newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []).includes(k))
+      .map(async ([,handler]) => handler.call(newClient)),
+    newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
+  ]);
 
-    client = await loginClient.call(newClient, process.env.token);
+  const client = await loginClient.call(newClient, process.env.token);
 
-  if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
-
-  await Promise.all(handlerPromises);
-
-  if (process.send?.('Finished starting') === false) {
-    log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
-    process.exit(1);
+  if (client.config.disableWebserver) log('Webserver is disabled by config.json.');
+  else {
+    /* eslint-disable-next-line require-atomic-updates */
+    client.webServer = await new WebServer(
+      client, client.db,
+      { secret: process.env.secret, dbdLicense: process.env.dbdLicense },
+      {
+        domain: client.config.website.domain, port: client.config.website.port,
+        support: { discord: client.config.discordInvite, mail: client.config.mailAddress },
+        webhookUrl: process.env.votingWebhookURL,
+        errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
+        ownerIds: [...client.config.devIds], autoApproveOwnerRequests: true, defaultAPIVersion: 1
+      }, errorHandler.bind(client)
+    ).init(
+      {},
+      { commands: getCommands.call(client, client.i18n.getTranslator({ locale: 'en', undefinedNotFound: true })) },
+      { votingPath: client.config.website.vote }
+    );
   }
 
-  if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
+  handlers.eventHandler.call(client);
+  await events.clientReady.call(client); // run due to it not being ran on clientReady, before the handler is loaded
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 

@@ -17,20 +17,6 @@ declare global {
   // #region Buildins
   /* eslint-disable @typescript-eslint/consistent-type-definitions */
   namespace NodeJS {
-    interface Process {
-
-      /** The real process uptime. This property only exists if process args include uptime=... */
-      childUptime?(): number;
-
-      /**
-       * If `process.childUptime` exists (process args includes uptime=...), this is
-       *
-       * `process.childUptime() + parentUptime`
-       *
-       * Otherwise it is the default `process.uptime()` */
-      uptime(): number;
-    }
-
     interface ProcessEnv {
       environment: 'main' | 'dev' | string & {};
       humorAPIKey: string;
