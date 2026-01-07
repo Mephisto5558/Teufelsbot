@@ -1,6 +1,6 @@
 /** @import { advice } from '.' */
 
-const commandExecutionWrapper = require('../commandExecutionWrapper');
+const { commandExecutionWrapper } = require('@mephisto5558/command');
 
 /** @type {advice} */
 module.exports = async function advice(lang) {

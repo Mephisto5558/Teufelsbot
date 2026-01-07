@@ -1,11 +1,10 @@
 import type {
-  APIAllowedMentions, AnyThreadChannel, AutocompleteFocusedOption, AutocompleteInteraction, BaseGuildTextChannel,
-  BaseInteraction, CategoryChannel, ChatInputCommandInteraction, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
+  APIAllowedMentions, AnyThreadChannel, BaseGuildTextChannel,
+  CategoryChannel, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
   GuildMember, GuildTextBasedChannel, Message, MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User,
   VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
@@ -41,12 +40,6 @@ export declare namespace afk {
   function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
   /* eslint-enable jsdoc/informative-docs */
 }
-
-export declare function autocompleteGenerator(
-  this: AutocompleteInteraction | ChatInputCommandInteraction | Message,
-  command: command<'both', boolean, true>,
-  target: AutocompleteFocusedOption, locale: Locale
-): Promise<{ name: string | number; value: string | number }[] | undefined>;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
 export declare namespace BackupSystem {
@@ -145,26 +138,11 @@ export declare namespace BackupSystem {
   }
 }
 
-/**
- * @returns The error key and replacement values for `lang()` or `false` if no error.
- * Returns `true` if error happend but has been handled internally. */
-export declare function checkForErrors(
-  this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, lang: lang
-): Promise<[string, Record<string, string> | string | undefined] | boolean>;
-
 /** @returns the error message id to use with i18n. */
 export declare function checkTargetManageable(
   this: Interaction | Message,
   member: GuildMember
 ): string | undefined;
-
-export declare function commandExecutionWrapper(
-  this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined,
-  commandType: Exclude<keyof Database['botSettings']['cmdStats'][string], 'createdAt'>,
-  lang: lang
-): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention. */
 export declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
@@ -177,12 +155,6 @@ export declare function componentHandler(
 ): Promise<unknown>;
 
 export declare function convertToMedal(i: number): string;
-
-export { cooldown as cooldowns };
-declare function cooldown(
-  this: BaseInteraction | Message,
-  name: string, cooldowns?: Record<'user' | 'guild' | 'channel', number>
-): number;
 
 export declare function errorHandler(
   this: Client,
@@ -204,30 +176,10 @@ export declare function findPaths(
   obj: Record<string, unknown>, targetKey: string, keys?: string[], values?: string[], currKey?: string
 ): { keys: string[]; values: string[] };
 
-/** @throws {Error} on non-autofixable invalid data */
-export declare function formatCommand<T extends command | commandOptions<false>>(
-  option: T, path: string, id: string, i18n: I18nProvider
-): T;
-
 export declare function getAge(date: Date): number;
 
 /** Gets the original command name, not the alias name */
 export declare function getCommandName(this: Client, commandName: string): string;
-
-export declare function getCommands(
-  this: Client,
-  lang: lang<true>
-): {
-  category: string;
-  subTitle: '';
-  aliasesDisabled: boolean;
-  list: {
-    commandName: string;
-    commandUsage: string;
-    commandDescription: string;
-    commandAlias: string;
-  }[];
-}[];
 
 export declare function getConfig(): Partial<Config>;
 
@@ -293,18 +245,10 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   ): Promise<boolean>;
 }
 
-export declare function localizeUsage<CMD extends command<'both', false>>(
-  command: CMD, path: string, i18n: I18nProvider
-): [CMD['usage'], Record<string, CMD['usage']>] | [];
-
 export declare function logSayCommandUse(
   this: Message<true>,
   member: GuildMember, lang: lang
 ): Promise<Message<true> | undefined>;
-
-export declare function permissionTranslator<T extends string | string[] | undefined>(
-  perms?: T, locale?: Locale, i18n: I18nProvider
-): T extends undefined ? [] : T extends string ? string : string[];
 
 /** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
 export declare function seededHash(str: string, seed?: number): number;
@@ -312,12 +256,6 @@ export declare function seededHash(str: string, seed?: number): number;
 export declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
-
-export { equal as slashCommandsEqual };
-declare function equal<T extends command<'both', boolean, true> | commandOptions<true> | undefined>(
-  a: T, b: T
-): boolean;
-
 
 /** @example '3w2d', '5h' */
 export declare function timeValidator<T extends string | undefined>(

@@ -3,7 +3,8 @@ import type {
   ActionRow, BaseInteraction, ButtonComponent, ButtonInteraction, Collection, EmbedBuilder, GuildMember,
   InteractionResponse, StringSelectMenuComponent, StringSelectMenuInteraction
 } from 'discord.js';
-import type { BackupSystem, commandExecutionWrapper } from '..';
+import type { commandExecutionWrapper } from '@mephisto5558/command';
+import type { BackupSystem } from '..';
 
 export {
   advice,

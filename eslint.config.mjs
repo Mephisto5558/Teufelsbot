@@ -34,8 +34,6 @@ export default [
         CommandOptions: 'readonly',
 
         // [TYPES] see globals.d.ts
-        GenericFunction: 'writable',
-        Snowflake: 'writable',
         Database: 'writable',
         lang: 'writable',
         slashCommand: 'writable',

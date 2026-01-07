@@ -35,6 +35,7 @@
   "dependencies": {
     "@discordjs/voice": "^0.19.0",
     "@mephisto5558/bot-website": "latest",
+    "@mephisto5558/command": "file:../Command_v2",
     "@mephisto5558/i18n": "2.x",
     "@mephisto5558/mongoose-db": "latest",
     "@snazzah/davey": "^0.1.7",
@@ -59,7 +60,6 @@
     "@mephisto5558/better-types": "latest",
     "@mephisto5558/eslint-config": "latest",
     "@types/express": "5.x",
-    "@types/node": "22.x",
     "@types/passport": "1.x"
   },
   "optionalDependencies": {

@@ -9,9 +9,10 @@ Error.stackTraceLimit = maxStackTraceLimit;
 const
   { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials, Team } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
+  { getCommands, loaders } = require('@mephisto5558/command'),
   {
     GiveawaysManager, configValidator: { configValidationLoop },
-    gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */
+    gitpull, errorHandler, shellExec /* , BackupSystem */
   } = require('#Utils'),
   events = require('./Events'),
   handlers = require('./Handlers'),
@@ -82,8 +83,8 @@ void (async function main() {
   if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
 
   await Promise.all([
-    ...Object.entries(handlers)
-      .filter(([k]) => !(newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []).includes(k))
+    ...Object.entries({ ...handlers, ...loaders })
+      .filter(([k]) => !(newClient.config.disableCommands ? Object.keys(loaders) : []).includes(k))
       .map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
   ]);
