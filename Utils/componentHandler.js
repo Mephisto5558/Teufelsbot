@@ -2,8 +2,8 @@
 
 const
   { Colors, EmbedBuilder, MessageFlags, Role, inlineCode } = require('discord.js'),
+  cooldowns = require('@mephisto5558/command/utils/cooldowns'),
   /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
-  cooldowns = require('./cooldowns'),
   errorHandler = require('./errorHandler'),
   { msInSecond } = require('./timeFormatter');
 

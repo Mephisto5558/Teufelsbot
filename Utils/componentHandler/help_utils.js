@@ -7,7 +7,7 @@ const
     ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
     StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode
   } = require('discord.js'),
-  permissionTranslator = require('../permissionTranslator'),
+  { permissionTranslator } = require('@mephisto5558/command'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /** @type {help_getCommands} */

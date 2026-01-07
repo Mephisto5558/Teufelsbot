@@ -2,7 +2,7 @@
 
 const
   { Colors, EmbedBuilder } = require('discord.js'),
-  { constants: { autocompleteOptionsMaxAmt } } = require('#Utils');
+  { constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command');
 
 /** @type {subcommand} */
 module.exports = {

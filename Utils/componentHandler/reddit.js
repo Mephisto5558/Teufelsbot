@@ -1,6 +1,6 @@
 /** @import { reddit } from '.' */
 
-const commandExecutionWrapper = require('../commandExecutionWrapper');
+const { commandExecutionWrapper } = require('@mephisto5558/command');
 
 /** @type {reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {

@@ -5,8 +5,9 @@ const
     ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
     ButtonStyle, EmbedBuilder, PermissionFlagsBits, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
+  { permissionTranslator } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
+  { getTargetMembers, getAge, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
 /**
  * @param {GuildMember} member

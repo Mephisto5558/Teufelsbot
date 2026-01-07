@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
 module.exports = Object.freeze({
   pinnedMessagesMaxAmt: 250, // per channel
-  autocompleteOptionsMaxAmt: 25,
   embedTitleMaxLength: 256,
   embedDescriptionMaxLength: 4096,
   embedFieldMaxAmt: 25,
@@ -9,12 +8,8 @@ module.exports = Object.freeze({
   messageMaxLength: 2000,
   memberNameMinLength: 1,
   memberNameMaxLength: 32,
-  descriptionMaxLength: 100,
-  choicesMaxAmt: 25,
   choiceNameMinLength: 1,
   choiceNameMaxLength: 100,
-  choiceValueMinLength: 2,
-  choiceValueMaxLength: 100,
   buttonLabelMaxLength: 80,
   buttonURLMaxLength: 512,
   messageActionRowMaxAmt: 5,

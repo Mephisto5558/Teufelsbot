@@ -1,6 +1,6 @@
 /** @import { ClientEvents } from 'discord.js' */
 
-const { commandExecutionWrapper } = require('#Utils');
+const { commandExecutionWrapper } = require('@mephisto5558/command');
 
 /** @this {ClientEvents['messageCreate'][0]} */
 module.exports = async function messageCreate() {
