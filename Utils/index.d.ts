@@ -238,18 +238,18 @@ export declare function getDirectories(
 /** @default targetOptionName = 'channel' */
 export declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  { targetOptionName, returnSelf }?: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
 export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  { targetOptionName, returnSelf }?: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 export declare function __getTargetUser<T extends boolean>(
   interaction: Interaction | Message,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  { targetOptionName, returnSelf }?: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, GuildMember | User>
 ): MaybeWithUndefined<User, T>;
 
@@ -259,7 +259,7 @@ export declare function __getTargetUser<T extends boolean>(
 export declare function getTargetMembers<
   I extends Interaction | Message,
   O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
->(interaction: I, options: O): {
+>(interaction: I, options?: O): {
   -readonly [K in keyof O]: (I extends GuildInteraction | Message<true> ? GuildMember : User)
     | (O[K]['returnSelf'] extends true ? never : undefined)
 };
@@ -274,7 +274,7 @@ export declare function getTargetMembers<
 /** @default targetOptionName = 'target' */
 export declare function getTargetRole<T extends boolean>(
   interaction: GuildInteraction | Message<true>,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  { targetOptionName, returnSelf }?: { targetOptionName?: string; returnSelf?: T }
 ): MaybeWithUndefined<Role, T>;
 
 export declare function gitpull(): Promise<Error | { message: 'OK' }>;

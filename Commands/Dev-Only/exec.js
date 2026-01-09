@@ -18,9 +18,12 @@ module.exports = {
     const msg = await this.reply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     try {
-      const { stdout = lang('global.none'), stderr } = await shellExec(this.content);
-      let response = lang('stdout', { msg: `${lang('finished', codeBlock('sh', this.content))}\n`, stdout: codeBlock(stdout) });
-      if (stderr) response += `\n${lang('stderr', codeBlock(stderr))}`;
+      const { stdout, stderr } = await shellExec(this.content);
+      let response = lang('stdout', {
+        msg: `${lang('finished', codeBlock('sh', this.content))}\n`,
+        stdout: codeBlock(stdout.trim() || lang('global.none'))
+      });
+      if (stderr.trim()) response += `\n${lang('stderr', codeBlock(stderr.trim()))}`;
 
       await msg.customReply(response);
     }
