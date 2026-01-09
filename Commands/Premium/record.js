@@ -1,6 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } = require('discord.js'),
   { mkdir } = require('node:fs/promises'),
+  { Command } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 function isEncryptionAvailable() {
@@ -20,11 +21,9 @@ function isEncryptionAvailable() {
 if (isEncryptionAvailable()) void mkdir('./VoiceRecords/raw', { recursive: true });
 else log.warn('Missing encryption library for record Command!');
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   cooldowns: { user: msInSecond * 10 },
-  slashCommand: true,
-  prefixCommand: false,
   disabled: !isEncryptionAvailable(),
   disabledReason: 'No encryption library is installed.',
   options: [
@@ -91,4 +90,4 @@ module.exports = {
       components
     });
   }
-};
+});

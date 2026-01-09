@@ -3,6 +3,7 @@
  * @import { GuildMember } from 'discord.js' */
 
 const
+  { Command } = require('@mephisto5558/command'),
   TicTacToe = require('discord-tictactoe'),
   { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
   { sendChallengeMention } = require('#Utils/prototypeRegisterer'),
@@ -39,12 +40,10 @@ async function updateStats(firstID, secondID, type, db) {
   ]);
 }
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
-  slashCommand: true,
-  prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],
 
   async run(lang) {
@@ -64,4 +63,4 @@ module.exports = {
 
     return game.handleInteraction(this);
   }
-};
+});

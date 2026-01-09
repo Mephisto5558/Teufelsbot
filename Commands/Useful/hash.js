@@ -1,13 +1,12 @@
 const
   { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createHash, getHashes } = require('node:crypto'),
+  { Command } = require('@mephisto5558/command'),
   { constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: false,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -40,4 +39,4 @@ module.exports = {
 
     return this.editReply({ content: lang('text', inlineCode(createHash(method).update(input).digest('hex'))), embeds: [embed] });
   }
-};
+});

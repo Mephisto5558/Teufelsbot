@@ -1,13 +1,13 @@
 const
   { ActivityType, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
 
   /** @type {Record<Lowercase<keyof typeof ActivityType>, ActivityType>} */
   ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
   options: [
     {
@@ -40,4 +40,4 @@ module.exports = {
 
     return this.customReply(lang('set', { name: inlineCode(activity.name), type: inlineCode(ActivityType[activity.type]) }));
   }
-};
+});

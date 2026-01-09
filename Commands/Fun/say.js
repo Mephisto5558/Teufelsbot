@@ -2,13 +2,12 @@
 
 const
   { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
     {
@@ -54,4 +53,4 @@ module.exports = {
 
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }
-};
+});

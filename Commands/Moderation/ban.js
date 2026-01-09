@@ -1,10 +1,10 @@
-const { maxBanMessageDeleteDays } = require('#Utils').constants;
+const
+  { Command } = require('@mephisto5558/command'),
+  { maxBanMessageDeleteDays } = require('#Utils').constants;
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
     {
       name: 'reason',
@@ -21,4 +21,4 @@ module.exports = {
   ],
 
   run: require('#Utils/combinedCommands').ban_kick_mute
-};
+});

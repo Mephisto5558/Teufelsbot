@@ -1,14 +1,13 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs }, commandMention } = require('#Utils'),
 
   MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- range limit */
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
   options: [{
     name: 'time',
@@ -30,4 +29,4 @@ module.exports = {
     const stamp = timestamp(time, TimestampStyles.RelativeTime);
     return this.customReply(lang('success', { time: stamp, raw: inlineCode(stamp) }));
   }
-};
+});

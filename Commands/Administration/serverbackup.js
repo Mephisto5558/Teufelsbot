@@ -2,6 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { timeFormatter: { timestamp }, commandMention, toMs: { minToMs } } = require('#Utils'),
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
@@ -101,11 +102,9 @@ const backupMainFunctions = {
   }
 };
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   permissions: { client: ['Administrator'], user: ['Administrator'] },
-  prefixCommand: false,
-  slashCommand: true,
   disabled: true,
   disabledReason: 'This command is still in development',
   options: [
@@ -156,4 +155,4 @@ module.exports = {
     lang.config.backupPaths.push(`${lang.config.backupPaths[0]}.${this.options.getSubcommand()}`);
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));
   }
-};
+});

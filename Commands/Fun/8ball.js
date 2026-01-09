@@ -1,9 +1,9 @@
-const { seededHash } = require('#Utils');
+const
+  { Command } = require('@mephisto5558/command'),
+  { seededHash } = require('#Utils');
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
   options: [{
     name: 'question',
@@ -22,4 +22,4 @@ module.exports = {
       ^ seededHash(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length
     ]);
   }
-};
+});

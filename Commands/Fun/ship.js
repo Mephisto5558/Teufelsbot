@@ -1,5 +1,6 @@
 const
   { createHash } = require('node:crypto'),
+  { Command } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { maxPercentage } } = require('#Utils'),
 
   hashPartLength = 5,
@@ -35,10 +36,8 @@ function calculatePercentage(user1Id, user2Id) {
   return Number.parseInt(combinedHash.slice(0, hashPartLength), 16) % (maxPercentage + 1);
 }
 
-/** @type {command<'both'>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   options: [
     {
       name: 'user1',
@@ -54,4 +53,4 @@ module.exports = {
     if (!user1) return this.customReply(lang('global.unknownUser'));
     return this.customReply(`${user1.displayName} :heart: ${user2.displayName}: ${calculatePercentage.call(this, user1.id, user2.id)}%`);
   }
-};
+});

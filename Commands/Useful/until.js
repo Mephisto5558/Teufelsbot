@@ -1,4 +1,5 @@
 const
+  { Command } = require('@mephisto5558/command'),
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
 
   /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
@@ -33,10 +34,8 @@ function getTime(year, month, day, ...args) {
     : new Date(year, month, day, ...args).getTime();
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
   usage: {
     usage: '[dd] [MM] [yyyy] [hh] [mm] [ss]',
@@ -95,4 +94,4 @@ module.exports = {
 
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }
-};
+});

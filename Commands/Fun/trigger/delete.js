@@ -1,11 +1,15 @@
-/** @import subcommand from '.' */
+/** @import TriggerSubcommand from '.' */
 
 const
   { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {TriggerSubcommand} */
+module.exports = new CommandOption({
+  name: 'delete',
+  type: 'Subcommand',
   options: [{
     name: 'query_or_id',
     type: 'String',
@@ -19,4 +23,4 @@ module.exports = {
     await this.guild.deleteDB(`triggers.${id}`);
     return this.editReply(lang('deletedOne', inlineCode(id)));
   }
-};
+});

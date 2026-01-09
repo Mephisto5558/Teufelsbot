@@ -1,10 +1,9 @@
-const { channelLink, hyperlink } = require('discord.js');
+const
+  { channelLink, hyperlink } = require('discord.js'),
+  { Command } = require('@mephisto5558/command');
 
-/** @type {command<'prefix'>} */
-module.exports = {
-  name: 'todo',
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
 
   async run(lang) {
     const { domain, port, todo, vote } = this.client.config.website;
@@ -18,4 +17,4 @@ module.exports = {
       + '\n' + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }
-};
+});

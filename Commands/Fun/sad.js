@@ -1,10 +1,11 @@
-const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
+const
+  { Command } = require('@mephisto5558/command'),
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+  responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
+
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
 
   async run() { return this.customReply(responseList.random()); }
-};
+});

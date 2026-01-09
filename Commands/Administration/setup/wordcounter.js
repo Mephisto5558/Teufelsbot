@@ -1,7 +1,9 @@
-/** @import subcommand from '.' */
+const { CommandOption } = require('@mephisto5558/command');
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'wordcounter',
+  type: 'Subcommand',
   options: [{
     name: 'enabled',
     type: 'Boolean',
@@ -17,4 +19,4 @@ module.exports = {
 
     return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
   }
-};
+});

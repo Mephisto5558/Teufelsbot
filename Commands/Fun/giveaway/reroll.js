@@ -1,7 +1,11 @@
-/** @import subcommand from '.' */
+/** @import GiveawaySubcommand from './index' */
 
-/** @type {subcommand} */
-module.exports = {
+const { CommandOption } = require('@mephisto5558/command');
+
+/** @type {GiveawaySubcommand} */
+module.exports = new CommandOption({
+  name: 'reroll',
+  type: 'Subcommand',
   options: [{
     name: 'id',
     type: 'String',
@@ -21,4 +25,4 @@ module.exports = {
 
     return this.editReply({ content: lang('rerolled'), components });
   }
-};
+});

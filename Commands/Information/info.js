@@ -14,6 +14,7 @@ const
     ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
     Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
   { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils'),
 
@@ -67,7 +68,7 @@ function formatBytes(bytes, lang) {
 
 /**
  * @this {Client<true>}
- * @param {command} cmd */
+ * @param {Command} cmd */
 function commandListFilter(cmd) {
   return !cmd.aliasOf && !this.config.devOnlyFolders.includes(cmd.category) && !cmd.disabled;
 }
@@ -254,10 +255,8 @@ async function createResourceGraph(lang) {
   return buffer;
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
 
   async run(lang) {
@@ -308,4 +307,4 @@ module.exports = {
       files: graph ? [new AttachmentBuilder(graph, { name: 'stats.webp' })] : undefined
     });
   }
-};
+});

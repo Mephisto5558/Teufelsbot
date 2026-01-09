@@ -1,17 +1,16 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils');
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: {
     usage: '["en" | "de"]',
     examples: 'fact en'
   },
   cooldowns: { channel: msInSecond / 10 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
 
   async run(lang) {
@@ -36,4 +35,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

@@ -1,14 +1,14 @@
-/** @type {command<'slash'>} */
-module.exports = {
+const { Command } = require('@mephisto5558/command');
+
+module.exports = new Command({
+  types: ['slash'],
   permissions: { user: ['ManageMessages'] },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    { name: 'add', type: 'Subcommand' },
-    { name: 'edit', type: 'Subcommand' },
-    { name: 'delete', type: 'Subcommand' },
-    { name: 'clear', type: 'Subcommand' },
-    { name: 'get', type: 'Subcommand' }
+    require('./add'),
+    require('./edit'),
+    require('./delete'),
+    require('./clear'),
+    require('./get')
   ],
 
   run() {
@@ -18,4 +18,4 @@ module.exports = {
 
     return { oldData, query };
   }
-};
+});

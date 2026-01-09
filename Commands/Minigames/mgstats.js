@@ -1,5 +1,6 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
@@ -36,12 +37,10 @@ function formatStatCount(input, all) {
   return inlineCode(input) + (all ? '(' + inlineCode(`${Number.parseFloat((input / all * maxPercentage).toFixed(2))}%`) + ')' : '');
 }
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   options: [
     {
       name: 'user',
@@ -151,4 +150,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

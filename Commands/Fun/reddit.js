@@ -3,6 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  { Command } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
 
@@ -30,12 +31,10 @@ function fetchPost({ children } = {}, filterNSFW = true) {
   };
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'memes hot' },
   cooldowns: { channel: msInSecond / 10 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -123,4 +122,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

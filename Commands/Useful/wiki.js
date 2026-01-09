@@ -2,18 +2,17 @@
 
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
   { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
 
   MAX_MSGS = 9;
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { channel: msInSecond / 10, user: msInSecond / 10 * 2 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [{ name: 'query', type: 'String' }],
 
@@ -99,4 +98,4 @@ module.exports = {
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive - appears to be to complex for TS to understand(?) */
     if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }
-};
+});

@@ -1,12 +1,11 @@
 const
   { codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { constants: { JSON_SPACES } } = require('#Utils');
 
-/** @type {command<'prefix', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   usage: { examples: 'database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>' },
-  slashCommand: false,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -28,4 +27,4 @@ module.exports = {
 
     return this.customReply(result ? codeBlock('json', JSON.stringify(result, undefined, JSON_SPACES)) : lang('notFound'));
   }
-};
+});

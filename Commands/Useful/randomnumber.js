@@ -1,15 +1,14 @@
 const
   { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
+  { Command } = require('@mephisto5558/command'),
 
   defaultMaxNum = 100;
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: '1 10' },
   aliases: { prefix: ['random-number'] },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -42,4 +41,4 @@ module.exports = {
       }));
     }
   }
-};
+});

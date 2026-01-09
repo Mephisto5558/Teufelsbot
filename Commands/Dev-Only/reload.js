@@ -1,19 +1,21 @@
 /* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment
 -- will be fixed when commands are moved to their own lib */
 
+/** @import { CommandType } from '@mephisto5558/command' */
+
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { basename, dirname, resolve } = require('node:path'),
-  { formatCommand, slashCommandsEqual } = require('@mephisto5558/command'),
+  { Command, formatCommand } = require('@mephisto5558/command'),
   { commandMention, filename } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;
 
 /**
  * @this {Client}
- * @param {command<'prefix' | 'both', boolean, true>} file
- * @param {command<'prefix' | 'both', boolean>} command
+ * @param {Command<CommandType[], boolean>} file
+ * @param {Command<CommandType[], boolean>} command
  * @param {string[]} reloadedArray */
 function reloadPrefixCommand(file, command, reloadedArray) {
   file.id = command.id;
@@ -29,11 +31,11 @@ function reloadPrefixCommand(file, command, reloadedArray) {
 
 /**
  * @this {Client}
- * @param {Pick<Partial<command<'slash' | 'both', boolean, true>>, 'id'> & StrictOmit<command<'slash' | 'both', boolean, true>, 'id'>} file
- * @param {command<'slash' | 'both', boolean>} command
+ * @param {Pick<Partial<Command<['slash'], boolean>>, 'id'> & StrictOmit<Command<['slash'], boolean>, 'id'>} file
+ * @param {Command<['slash'], boolean>} command
  * @param {string[]} reloadedArray */
 async function reloadSlashCommand(file, command, reloadedArray) {
-  const equal = slashCommandsEqual(file, command);
+  const equal = file.isEqualTo(command);
 
   if (equal) file.id = command.id;
   else {
@@ -83,13 +85,13 @@ async function reloadSlashCommand(file, command, reloadedArray) {
 
 /**
  * @this {Client}
- * @param {command<string, boolean, true>} command
+ * @param {Command<CommandType[], boolean>} command
  * @param {string[]} reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];
 
-  /** @type {command<string, boolean>} */
+  /** @type {Command<CommandType[], boolean>} */
   let file = {};
   try {
     file = formatCommand(
@@ -112,10 +114,8 @@ async function reloadCommand(command, reloadedArray) {
   }
 }
 
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
   options: [{
     name: 'command_name',
@@ -147,7 +147,7 @@ module.exports = {
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
-            /** @type {command<'both', boolean>} */
+            /** @type {Command<CommandType[], boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
             cmd.category = this.args[1].split('/')[1].toLowerCase();
@@ -189,4 +189,4 @@ module.exports = {
     void (errorOccurred ? msg.reply(replyText) : msg.edit(replyText));
     log.debug('Finished reloading commands.');
   }
-};
+});

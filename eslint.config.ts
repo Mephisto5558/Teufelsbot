@@ -19,18 +19,10 @@ export default [
     languageOptions: {
       globals: {
         log: 'readonly',
-        SlashCommand: 'readonly',
-        PrefixCommand: 'readonly',
-        MixedCommand: 'readonly',
-        CommandOptions: 'readonly',
 
         // [TYPES] see globals.d.ts
         Database: 'writable',
         lang: 'writable',
-        slashCommand: 'writable',
-        prefixCommand: 'writable',
-        command: 'writable',
-        commandOptions: 'writable',
         Client: 'writable',
         Message: 'writable',
         PartialMessage: 'writable',

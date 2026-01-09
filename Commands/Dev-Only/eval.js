@@ -2,6 +2,7 @@
 
 const
   { codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { minToMs } = require('#Utils').toMs,
 
   paramMap = { __dirname, __filename, exports, module, require },
@@ -22,10 +23,8 @@ const
  * @returns {Promise<string>} */
 const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
   options: [{
     name: 'code',
@@ -51,4 +50,4 @@ module.exports = {
     }
     finally { log.debug(`evaluated command '${this.content}'`); }
   }
-};
+});

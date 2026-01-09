@@ -1,9 +1,14 @@
-/** @import subcommand from '.' */
+/** @import TriggerSubcommand from '.' */
 
-const { inlineCode } = require('discord.js');
+const
+  { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {TriggerSubcommand} */
+module.exports = new CommandOption({
+  name: 'clear',
+  type: 'Subcommand',
   options: [{
     name: 'confirmation',
     type: 'String',
@@ -17,4 +22,4 @@ module.exports = {
     await this.guild.deleteDB('triggers');
     return this.editReply(lang('deletedAll', inlineCode(oldData.__count__)));
   }
-};
+});

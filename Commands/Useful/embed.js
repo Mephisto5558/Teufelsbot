@@ -1,16 +1,15 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
 
   /** @type {(interaction: Interaction, name: string) => string | undefined} */
   getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
-/** @type {command<'slash', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   permissions: { user: ['EmbedLinks'] },
   cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
-  slashCommand: true,
-  prefixCommand: false,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -98,4 +97,4 @@ module.exports = {
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
   }
-};
+});

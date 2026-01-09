@@ -1,8 +1,8 @@
-/** @type {command<'slash'>} */
-module.exports = {
+const { Command } = require('@mephisto5558/command');
+
+module.exports = new Command({
+  types: ['slash'],
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
     {
       name: 'reason',
@@ -13,4 +13,4 @@ module.exports = {
   ],
 
   run: require('#Utils/combinedCommands').ban_kick_mute
-};
+});

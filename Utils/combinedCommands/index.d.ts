@@ -1,5 +1,6 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 
+import type { Command, CommandType } from '@mephisto5558/command';
 
 export {
   ban_kick_mute,
@@ -7,12 +8,12 @@ export {
   setupMinigameChannel
 };
 
-type slashCommand = command<'slash', true, true>['run'];
-type mixedCommand = command<'both', true, true>['run'];
+type SlashCommand = Command<['slash']>['run'];
+type mixedCommand = Command<CommandType[]>['run'];
 
 declare function ban_kick_mute(
-  this: ThisParameterType<NonNullable<slashCommand>>, ...args: Parameters<NonNullable<slashCommand>>
-): ReturnType<NonNullable<slashCommand>>;
+  this: ThisParameterType<NonNullable<SlashCommand>>, ...args: Parameters<NonNullable<SlashCommand>>
+): ReturnType<NonNullable<SlashCommand>>;
 declare function lock_unlock(
   this: ThisParameterType<NonNullable<mixedCommand>>, ...args: Parameters<NonNullable<mixedCommand>>
 ): ReturnType<NonNullable<mixedCommand>>;

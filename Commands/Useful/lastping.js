@@ -2,13 +2,12 @@
 
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, toMs: { secToMs } } = require('#Utils');
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { guild: 200, user: secToMs(10) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
     {
@@ -51,4 +50,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

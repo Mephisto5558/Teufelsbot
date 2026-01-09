@@ -1,11 +1,12 @@
-/** @import subcommand from '.' */
-
 const
   { Constants, channelLink } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'logger',
+  type: 'Subcommand',
   options: [
     {
       name: 'action',
@@ -41,4 +42,4 @@ module.exports = {
     await this.guild.updateDB(`config.logger.${action}`, { channel, enabled });
     return this.editReply(lang(enabled ? 'enabled' : 'disabled', { channel: channelLink(channel), action: lang(`actions.${action}`) }));
   }
-};
+});

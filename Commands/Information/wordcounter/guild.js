@@ -1,12 +1,13 @@
-/** @import subcommand from '.' */
-
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
-/** @type {subcommand<false>} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'guild',
+  type: 'SubcommandGroup',
   options: [{
     name: 'get',
     type: 'Subcommand',
@@ -55,4 +56,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed, channelEmbed, memberEmbed] });
   }
-};
+});

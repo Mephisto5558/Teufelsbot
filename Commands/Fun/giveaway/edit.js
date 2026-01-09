@@ -1,12 +1,16 @@
 /**
- * @import { GuildMember } from 'discord.js'
- * @import subcommand from '.' */
+ * @import GiveawaySubcommand from './index'
+ * @import { GuildMember } from 'discord.js' */
 
 const
+  { CommandOption } = require('@mephisto5558/command'),
   { timeValidator } = require('#Utils');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {GiveawaySubcommand} */
+module.exports = new CommandOption({
+  name: 'edit',
+  type: 'Subcommand',
   options: [
     {
       name: 'id',
@@ -60,4 +64,4 @@ module.exports = {
 
     return this.editReply({ content: lang('edited'), components });
   }
-};
+});

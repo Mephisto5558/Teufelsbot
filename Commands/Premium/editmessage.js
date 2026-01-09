@@ -4,6 +4,7 @@ const
     DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#Utils'),
 
   MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
@@ -62,12 +63,10 @@ async function sendModal(lang) {
   return modalInteraction;
 }
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
-  slashCommand: true,
-  prefixCommand: false,
   noDefer: true,
   options: [
     {
@@ -133,4 +132,4 @@ module.exports = {
 
     return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));
   }
-};
+});

@@ -1,11 +1,13 @@
-/** @import subcommand from '.' */
-
 const
   { Colors, EmbedBuilder } = require('discord.js'),
-  { constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command');
+  { CommandOption, constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command'),
+  { timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'language',
+  type: 'Subcommand',
+  cooldowns: { guild: msInSecond * 10 },
   options: [{
     name: 'language',
     type: 'String',
@@ -33,7 +35,6 @@ module.exports = {
         locale: this.client.i18n.availableLocales.has(language) ? language : lang.defaultConfig.defaultLocale
       });
 
-    /** @type {command<'slash', true, true>} */
     let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName);
     if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf));
 
@@ -46,4 +47,4 @@ module.exports = {
     await this.guild.updateDB('config.lang', language);
     return this.editReply({ embeds: [embed] });
   }
-};
+});

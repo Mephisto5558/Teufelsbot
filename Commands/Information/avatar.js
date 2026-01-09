@@ -1,13 +1,12 @@
 const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     { name: 'target', type: 'User' },
@@ -48,4 +47,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

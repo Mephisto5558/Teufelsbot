@@ -1,9 +1,14 @@
-/** @import subcommand from '.' */
+/** @import TriggerSubcommand from '.' */
 
-const { inlineCode } = require('discord.js');
+const
+  { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {TriggerSubcommand} */
+module.exports = new CommandOption({
+  name: 'add',
+  type: 'Subcommand',
   options: [
     {
       name: 'trigger',
@@ -30,4 +35,4 @@ module.exports = {
     await this.guild.updateDB(`triggers.${id}`, data);
     return this.editReply(lang('saved', inlineCode(data.trigger)));
   }
-};
+});

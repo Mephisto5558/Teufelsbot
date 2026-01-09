@@ -1,15 +1,15 @@
-const responseList = [
-  'c:', 'C:', ':D', 'uwu', 'Wuiiii',
-  'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147',
-  'https://tenor.com/view/happy-cat-smile-cat-gif-26239281'
-];
+const
+  { Command } = require('@mephisto5558/command'),
+  responseList = [
+    'c:', 'C:', ':D', 'uwu', 'Wuiiii',
+    'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147',
+    'https://tenor.com/view/happy-cat-smile-cat-gif-26239281'
+  ];
 
 let addedEmoji = false;
 
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
 
   async run() {
@@ -20,4 +20,4 @@ module.exports = {
 
     return this.customReply(responseList.random());
   }
-};
+});
