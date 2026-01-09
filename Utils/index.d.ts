@@ -161,8 +161,6 @@ export declare function errorHandler(
   err: Error, context?: unknown, lang?: lang
 ): Promise<void>;
 
-export declare function filename(path: string): string;
-
 /**
  * Removes `null`, `undefined`, empty arrays and empty objects recursively from an object or array.
  * Returns an empty object `{}` for any non-object input (e.g. primitives, `null`). */
@@ -182,10 +180,6 @@ export declare function getAge(date: Date): number;
 export declare function getCommandName(this: Client, commandName: string): string;
 
 export declare function getConfig(): Partial<Config>;
-
-export declare function getDirectories(
-  path: string
-): Promise<string>;
 
 /** @default targetOptionName = 'channel' */
 export declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
