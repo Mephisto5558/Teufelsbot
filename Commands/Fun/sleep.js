@@ -1,9 +1,9 @@
-const { setAfkPrefix } = require('#Utils').afk;
+const
+  { Command } = require('@mephisto5558/command'),
+  { setAfkPrefix } = require('#Utils').afk;
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
 
   async run(lang) {
@@ -15,4 +15,4 @@ module.exports = {
       emoji: [this.client.application.getEmoji('angel'), this.client.application.getEmoji('derp_ball')].random()
     }));
   }
-};
+});

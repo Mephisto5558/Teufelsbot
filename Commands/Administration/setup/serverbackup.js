@@ -1,9 +1,12 @@
-/** @import subcommand from '.' */
+const 
+  { CommandOption } = require('@mephisto5558/command'),
 
-const backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
+  backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'serverbackup',
+  type: 'Subcommand',
   options: [{
     name: 'allowed_to_load',
     type: 'String',
@@ -16,4 +19,4 @@ module.exports = {
     await this.guild.updateDB('serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
     return this.editReply(lang('success'));
   }
-};
+});

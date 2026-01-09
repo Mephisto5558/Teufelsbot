@@ -1,14 +1,13 @@
 const
   { Constants } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter,
   { setupMinigameChannel } = require('#Utils/combinedCommands');
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   permissions: { user: ['ManageChannels'] },
   cooldowns: { channel: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   options: [{
     name: 'channel',
     type: 'Channel',
@@ -16,4 +15,4 @@ module.exports = {
   }],
 
   run: setupMinigameChannel
-};
+});

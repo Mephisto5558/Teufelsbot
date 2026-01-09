@@ -1,17 +1,16 @@
 const
   { EmbedBuilder } = require('discord.js'),
   { randomInt } = require('node:crypto'),
+  { Command } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils'),
 
   secretChance = 1e4; // 1 in 10_000
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'hentai' },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [{
     name: 'type',
@@ -40,4 +39,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

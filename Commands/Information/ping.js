@@ -1,14 +1,13 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage } } = require('#Utils'),
 
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { channel: secToMs(1) },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
@@ -78,4 +77,4 @@ module.exports = {
 
     return msg.edit({ embeds: [embed] });
   }
-};
+});

@@ -1,13 +1,12 @@
 const
   { ChatInputCommandInteraction } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus }, toMs: { secToMs } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -43,4 +42,4 @@ module.exports = {
       this.options?.getString('message') ?? this.content?.slice(global ? nicknamePrefix.length + 1 : 0, maxAllowedAFKMsgLength)
     );
   }
-};
+});

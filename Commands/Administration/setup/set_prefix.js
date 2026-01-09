@@ -1,9 +1,11 @@
-/** @import subcommand from '.' */
+const
+  { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command');
 
-const { inlineCode } = require('discord.js');
-
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'set_prefix',
+  type: 'Subcommand',
   options: [
     {
       name: 'new_prefix',
@@ -23,4 +25,4 @@ module.exports = {
 
     return this.customReply(lang('saved', inlineCode(prefix)));
   }
-};
+});

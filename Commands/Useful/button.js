@@ -1,12 +1,13 @@
 const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   {
     DiscordAPIErrorCodes, timeFormatter: { msInSecond }, filterEmptyEntries,
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
   } = require('#Utils');
 
 /**
- * @this {ThisParameterType<NonNullable<command<'slash'>['run']>>}
+ * @this {ThisParameterType<NonNullable<(typeof module.exports)['run']>>}
  * @param {Snowflake} msgId
  * @param {lang} lang */
 async function getEditableMessage(msgId, lang) {
@@ -31,7 +32,7 @@ async function getEditableMessage(msgId, lang) {
 }
 
 /**
- * @this {ThisParameterType<NonNullable<command<'slash'>['run']>>}
+ * @this {ThisParameterType<NonNullable<(typeof module.exports)['run']>>}
  * @param {Message | undefined} msg
  * @param {string | undefined} url */
 async function sendUpdatedMsg(msg, url) {
@@ -61,11 +62,9 @@ async function sendUpdatedMsg(msg, url) {
   return button;
 }
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   cooldowns: { user: msInSecond / 2 },
-  slashCommand: true,
-  prefixCommand: false,
   ephemeralDefer: true,
   options: [
     {
@@ -137,4 +136,4 @@ module.exports = {
         : lang('success', codeBlock('json', JSON.stringify(filterEmptyEntries(button.data))))
     );
   }
-};
+});

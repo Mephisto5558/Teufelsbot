@@ -1,6 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
+  { Command } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
   { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
 
@@ -80,12 +81,10 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'dadjoke' },
   cooldowns: { channel: msInSecond / 10 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -136,4 +135,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

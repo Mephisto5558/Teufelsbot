@@ -1,13 +1,17 @@
 /**
- * @import { GuildMember } from 'discord.js'
- * @import subcommand from '.' */
+ * @import GiveawaySubcommand from './index'
+ * @import { GuildMember } from 'discord.js' */
 
 const
   { Constants, bold, roleMention, userMention } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { timeValidator } = require('#Utils');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {GiveawaySubcommand} */
+module.exports = new CommandOption({
+  name: 'create',
+  type: 'Subcommand',
   options: [
     {
       name: 'prize',
@@ -99,4 +103,4 @@ module.exports = {
     components[0].components[0].setURL(giveaway.messageURL);
     return this.editReply({ content: lang('started'), components });
   }
-};
+});

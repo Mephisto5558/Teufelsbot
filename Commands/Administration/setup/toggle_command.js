@@ -1,7 +1,6 @@
-/** @import subcommand from '.' */
-
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
 
   getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
@@ -12,8 +11,10 @@ const
   /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
   types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'toggle_command',
+  type: 'Subcommand',
   options: [
     {
       name: 'command',
@@ -109,4 +110,4 @@ module.exports = {
     await this.guild.updateDB(`config.commands.${command}.disabled`, commandData);
     return this.editReply({ embeds: [embed] });
   }
-};
+});

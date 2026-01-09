@@ -1,13 +1,12 @@
 const
   { userMention } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: msInSecond / 10 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
     {
       name: 'target',
@@ -32,4 +31,4 @@ module.exports = {
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
     return this.editReply(lang('success', userMention(target.user.id)));
   }
-};
+});

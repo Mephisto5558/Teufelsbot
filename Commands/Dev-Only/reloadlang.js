@@ -1,7 +1,7 @@
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+const { Command } = require('@mephisto5558/command');
+
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
   beta: true,
 
@@ -11,4 +11,4 @@ module.exports = {
     await this.client.i18n.loadAllLocales();
     return this.customReply(lang('success'));
   }
-};
+});

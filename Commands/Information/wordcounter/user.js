@@ -1,12 +1,13 @@
-/** @import subcommand from '.' */
-
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
   { getTopGuilds } = require('./_utils');
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'user',
+  type: 'SubcommandGroup',
   options: [
     {
       name: 'enable',
@@ -59,4 +60,4 @@ module.exports = {
     await this.customReply({ embeds: [embed] });
     return this.followUp({ embeds: [guildEmbed], flags: MessageFlags.Ephemeral });
   }
-};
+});

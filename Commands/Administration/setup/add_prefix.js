@@ -1,11 +1,12 @@
-/** @import subcommand from '.' */
-
 const
   { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   MAX_PREFIXES_PER_GUILD = 2;
 
-/** @type {subcommand} */
-module.exports = {
+/** @type {CommandOption<['slash']>} */
+module.exports = new CommandOption({
+  name: 'add_prefix',
+  type: 'Subcommand',
   options: [
     {
       name: 'new_prefix',
@@ -29,4 +30,4 @@ module.exports = {
     await this.client.db.pushToSet('guildSettings', `${this.guild.id}.config.prefixes.${this.client.botType}`, ...newPrefixes);
     return this.customReply(lang('saved', inlineCode(newPrefixes[0].prefix)));
   }
-};
+});

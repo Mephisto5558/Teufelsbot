@@ -1,20 +1,21 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getMilliseconds } = require('better-ms'),
   { timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>} */
-module.exports = {
+
+/** @type {Command<['slash']>} */
+module.exports = new Command({
+  type: ['slash'],
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: false,
   ephemeralDefer: true,
   options: [
-    { name: 'create', type: 'Subcommand' },
-    { name: 'end', type: 'Subcommand' },
-    { name: 'edit', type: 'Subcommand' },
-    { name: 'reroll', type: 'Subcommand' }
+    require('./create'),
+    require('./end'),
+    require('./edit'),
+    require('./reroll')
   ],
 
   async run(lang) {
@@ -50,4 +51,4 @@ module.exports = {
 
     return { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId };
   }
-};
+});

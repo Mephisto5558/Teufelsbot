@@ -1,5 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants,
 
@@ -8,10 +9,8 @@ const
     headers: commonHeaders(client)
   })).json();
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
 
   async run(lang) {
@@ -31,4 +30,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

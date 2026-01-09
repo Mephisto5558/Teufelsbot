@@ -1,28 +1,24 @@
-const { timeFormatter: { msInSecond } } = require('#Utils');
+const
+  { Command } = require('@mephisto5558/command'),
+  { timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   aliases: { slash: ['config'] },
   permissions: { user: ['ManageGuild'] },
   cooldowns: { user: msInSecond * 10 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    { name: 'toggle_command', type: 'Subcommand' },
-    {
-      name: 'language',
-      type: 'Subcommand',
-      cooldowns: { guild: msInSecond * 10 }
-    },
-    { name: 'set_prefix', type: 'Subcommand' },
-    { name: 'add_prefix', type: 'Subcommand' },
-    { name: 'remove_prefix', type: 'Subcommand' },
-    { name: 'serverbackup', type: 'Subcommand' },
-    { name: 'autopublish', type: 'Subcommand' },
-    { name: 'logger', type: 'Subcommand' },
-    { name: 'birthday', type: 'Subcommand' },
-    { name: 'wordcounter', type: 'Subcommand' }
+    require('./toggle_command'),
+    require('./language'),
+    require('./set_prefix'),
+    require('./add_prefix'),
+    require('./remove_prefix'),
+    require('./serverbackup'),
+    require('./autopublish'),
+    require('./logger'),
+    require('./birthday'),
+    require('./wordcounter')
   ],
 
-  run: undefined
-};
+  run() { /* Handled by the individual subcommands. */ }
+});

@@ -2,6 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, shellExec } = require('#Utils'),
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
@@ -10,7 +11,7 @@ const
 
 /**
  * @this {Client<true>}
- * @param {command} cmd */
+ * @param {Command} cmd */
 function commandListFilter(cmd) {
   return !cmd.aliasOf && !this.config.devOnlyFolders.includes(cmd.category) && !cmd.disabled;
 }
@@ -53,10 +54,8 @@ async function getGitInfo(unixTimestamp) {
   return { shortHash, commitURL, branch, ts };
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
 
   async run(lang) {
@@ -102,4 +101,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });
   }
-};
+});

@@ -1,5 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter,
 
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
@@ -20,11 +21,9 @@ const
  * @param {string?} lastRandomChar */
 const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
-/** @type {command<'slash', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: false,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -80,4 +79,4 @@ module.exports = {
 
     return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset.join('')) }));
   }
-};
+});

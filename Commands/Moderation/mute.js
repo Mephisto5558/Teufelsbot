@@ -1,12 +1,12 @@
-const { timeValidator, timeFormatter: { msInSecond } } = require('#Utils');
+const
+  { Command } = require('@mephisto5558/command'),
+  { timeValidator, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash'],
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: msInSecond / 10 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
     {
       name: 'target',
@@ -28,4 +28,4 @@ module.exports = {
   ],
 
   run: require('#Utils/combinedCommands').ban_kick_mute
-};
+});

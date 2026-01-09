@@ -2,6 +2,7 @@
 
 const
   { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /**
@@ -13,11 +14,9 @@ function getMessageFromReference(client, reference = {}) {
   return channel?.messages.cache.get(reference.messageId);
 }
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -49,4 +48,4 @@ module.exports = {
       reply: { messageReference: msgId }
     });
   }
-};
+});

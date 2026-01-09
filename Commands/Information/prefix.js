@@ -1,12 +1,11 @@
 const
   { inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter;
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   beta: true,
 
   async run(lang) {
@@ -15,4 +14,4 @@ module.exports = {
       this.guild.prefixes.map(e => `${inlineCode(e.prefix)} ${e.caseinsensitive ? lang('caseInsensitive') : ''}`).join('\n')
     ));
   }
-};
+});

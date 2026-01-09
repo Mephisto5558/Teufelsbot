@@ -1,5 +1,6 @@
 /**
  * @import { SelectMenuInteraction } from 'discord.js'
+ * @import { Command, CommandType } from '@mephisto5558/command'
  * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from '.' */
 
 const
@@ -95,7 +96,7 @@ function createCommandsComponent(lang, category) {
 /**
  * @this {Interaction | Message}
  * @param {lang} lang
- * @param {command<'prefix' | 'slash' | 'both', boolean, true> | undefined} cmd */
+ * @param {Command<CommandType[], boolean> | undefined} cmd */
 function createInfoFields(lang, cmd = {}) {
   const arr = [];
 
@@ -120,7 +121,6 @@ function createInfoFields(lang, cmd = {}) {
     });
   }
 
-  /** @type {['channel' | 'guild' | 'user', number][]} */
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({
@@ -149,7 +149,7 @@ function createInfoFields(lang, cmd = {}) {
 
 /**
  * @this {Interaction | Message}
- * @param {command<string, boolean, true> | undefined} cmd */
+ * @param {Command<CommandType[], boolean> | undefined} cmd */
 function filterCommands(cmd) {
   return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
     && (!this.client.config.devOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));

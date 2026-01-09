@@ -1,11 +1,15 @@
-/** @import subcommand, { triggersArray } from '.' */
+/** @import TriggerSubcommand, { triggersArray } from '.' */
 
 const
   { inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {TriggerSubcommand} */
+module.exports = new CommandOption({
+  name: 'edit',
+  type: 'Subcommand',
   options: [
     {
       name: 'query_or_id',
@@ -36,4 +40,4 @@ module.exports = {
     await this.guild.updateDB(`triggers.${id}`, data);
     return this.editReply(lang('edited', inlineCode(data.trigger)));
   }
-};
+});

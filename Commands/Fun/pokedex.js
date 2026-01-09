@@ -4,6 +4,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
@@ -82,11 +83,9 @@ function getGenderRate(genderRate, lang) {
   }
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'Bulbasaur' },
-  prefixCommand: true,
-  slashCommand: true,
   dmPermission: true,
   options: [{
     name: 'pokémon',
@@ -173,4 +172,4 @@ module.exports = {
 
     return msg.edit({ content: '', embeds: [embed], components: [component] });
   }
-};
+});

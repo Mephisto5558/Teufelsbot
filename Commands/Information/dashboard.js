@@ -1,11 +1,10 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
   disabled: !!disableWebserver || !website.domain || !website.dashboard,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard or domain url path in config.json',
@@ -22,4 +21,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

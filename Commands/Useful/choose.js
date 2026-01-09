@@ -1,9 +1,10 @@
-const LONG_CHOICE_LENGTH = 100;
+const
+  { Command } = require('@mephisto5558/command'),
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+  LONG_CHOICE_LENGTH = 100;
+
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   dmPermission: true,
   options: [{
     name: 'options',
@@ -19,4 +20,4 @@ module.exports = {
     if (!choice) return this.customReply(lang('noChoices'));
     return this.customReply(lang(choice.length > LONG_CHOICE_LENGTH ? 'choiceLong' : 'choice', choice));
   }
-};
+});

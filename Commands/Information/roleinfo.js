@@ -3,16 +3,14 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder,
     ImageFormat, PermissionFlagsBits, RouteBases, hyperlink, inlineCode
   } = require('discord.js'),
-  { permissionTranslator } = require('@mephisto5558/command'),
+  { Command, permissionTranslator } = require('@mephisto5558/command'),
   { getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   aliases: { prefix: ['role-info'] },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],
 
   async run(lang) {
@@ -71,4 +69,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components });
   }
-};
+});

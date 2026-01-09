@@ -5,18 +5,17 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
     PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 
   /* eslint-disable-next-line unicorn/prefer-string-raw -- this can be improved using RegExp.escape in Node24 */
   emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: ':derp:' },
   aliases: { prefix: ['emoji-info'] },
-  slashCommand: true,
-  prefixCommand: true,
   options: [{
     name: 'emoji',
     type: 'String',
@@ -76,4 +75,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

@@ -1,5 +1,6 @@
 const
   { Colors, EmbedBuilder } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { commonHeaders }, timeFormatter: { msInSecond }, getConfig, toMs: { hourToMs } } = require('#Utils'),
   { github: ghConfig = {} } = getConfig(),
@@ -36,12 +37,10 @@ async function getCommits() {
   });
 }
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   aliases: { prefix: ['changelogs'] },
   cooldowns: { channel: msInSecond * 10 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',
@@ -65,4 +64,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

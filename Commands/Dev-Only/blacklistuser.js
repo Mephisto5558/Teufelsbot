@@ -1,13 +1,12 @@
 const
   { inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
 
-/** @type {command<'prefix', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['prefix'],
   usage: { examples: '12345678901234568' },
   aliases: { prefix: ['blacklist'] },
-  slashCommand: false,
-  prefixCommand: true,
   dmPermission: true,
   options: [{
     name: 'target',
@@ -45,4 +44,4 @@ module.exports = {
 
     return this.customReply(lang('saved', inlineCode(target)));
   }
-};
+});

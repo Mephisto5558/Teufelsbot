@@ -1,12 +1,16 @@
-/** @import subcommand from '.' */
+/** @import TriggerSubcommand from '.' */
 
 const
   { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
+  { CommandOption } = require('@mephisto5558/command'),
   { embedFieldMaxAmt, suffix } = require('#Utils').constants,
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {subcommand} */
-module.exports = {
+
+/** @type {TriggerSubcommand} */
+module.exports = new CommandOption({
+  name: 'get',
+  type: 'Subcommand',
   options: [
     {
       name: 'query_or_id',
@@ -69,4 +73,4 @@ module.exports = {
 
     return this.editReply({ embeds: [embed] });
   }
-};
+});

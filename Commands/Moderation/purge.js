@@ -4,6 +4,7 @@
 
 const
   { Collection, Constants, Message } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   {
     getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }
   } = require('#Utils'),
@@ -92,7 +93,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 }
 
 /**
- * @this {ThisParameterType<NonNullable<command<'both'>['run']>>}
+ * @this {ThisParameterType<NonNullable<(typeof module.exports)['run']>>}
  * @param {number | undefined} amount
  * @param {purge.shouldDeleteMsgOptions} options
  * @param {boolean} exists
@@ -114,13 +115,11 @@ function checkParams(amount, options, exists, lang) {
   return true;
 }
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
   cooldowns: { guild: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
     {
@@ -198,4 +197,4 @@ module.exports = {
 
     return this.customReply(lang('success', { count, all: messages.length }), msInSecond * 10);
   }
-};
+});

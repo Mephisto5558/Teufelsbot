@@ -1,15 +1,14 @@
 const
   { Team } = require('discord.js'),
   { resolve } = require('node:path'),
+  { Command } = require('@mephisto5558/command'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
   { loadEnv } = require('#Utils/prototypeRegisterer/client__loadEnvAndDB'),
 
   filePath = resolve(process.cwd(), 'config.json');
 
-/** @type {command<'prefix', false>} */
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new Command({
+  types: ['prefix'],
   dmPermission: true,
   beta: true,
 
@@ -32,4 +31,4 @@ module.exports = {
     await loadEnv.call(this.client);
     return this.customReply(lang('success'));
   }
-};
+});

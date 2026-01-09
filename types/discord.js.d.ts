@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
 import type Discord from 'discord.js';
+import type { Command } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
 
@@ -21,8 +22,8 @@ declare module 'discord-api-types/v10' {
 
 declare module 'discord.js' {
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
-    slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
+    prefixCommands: Discord.Collection<Command['name'], Command<['prefix'], boolean>>;
+    slashCommands: Discord.Collection<Command['name'], Command<['slash'], boolean>>;
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 

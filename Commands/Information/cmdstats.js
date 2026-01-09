@@ -1,13 +1,12 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, inlineCode } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond }, commandMention, timeFormatter: { timestamp } } = require('#Utils');
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: 'user joke' },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
     {
@@ -79,4 +78,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

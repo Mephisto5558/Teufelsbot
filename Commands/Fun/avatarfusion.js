@@ -1,14 +1,13 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers, toMs: { secToMs } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   cooldowns: { user: secToMs(2) },
-  slashCommand: true,
-  prefixCommand: true,
   options: [
     {
       name: 'base',
@@ -25,7 +24,7 @@ module.exports = {
 
   async run(lang) {
     const
-      type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
+      isGuild = (this.options?.getString('avatar_type') ?? 'server') == 'server',
       [base, overlay] = getTargetMembers(this, [{ targetOptionName: 'base' }, { targetOptionName: 'overlay', returnSelf: true }]);
 
     if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));
@@ -38,7 +37,7 @@ module.exports = {
 
     if (base.id == overlay.id) {
       embed.data.image = {
-        url: type == 'server'
+        url: isGuild
           ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE })
           : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE })
       };
@@ -47,7 +46,7 @@ module.exports = {
 
     const
       msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading', this.client.application.getEmoji('loading')))] }),
-      baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
+      baseAvatar = await loadImage((isGuild ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
       overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
       canvas = new Canvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
@@ -61,4 +60,4 @@ module.exports = {
 
     return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: `${this.commandName}.png` }] });
   }
-};
+});

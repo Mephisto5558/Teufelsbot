@@ -1,5 +1,6 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
+  { Command } = require('@mephisto5558/command'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 
@@ -17,11 +18,9 @@ const
     .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
-/** @type {command<'both', false>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   usage: { examples: '1+1' },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [{
     name: 'expression',
@@ -47,4 +46,4 @@ module.exports = {
       }))
     ] });
   }
-};
+});

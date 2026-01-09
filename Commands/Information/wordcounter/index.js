@@ -1,17 +1,13 @@
-/** @type {command<'slash'>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: false,
+const { Command } = require('@mephisto5558/command');
+
+module.exports = new Command({
+  types: ['slash'],
   dmPermission: true,
   options: [
-    { name: 'guild', type: 'SubcommandGroup' },
-    {
-      name: 'channel',
-      type: 'SubcommandGroup',
-      dmPermission: false
-    },
-    { name: 'user', type: 'SubcommandGroup' }
+    require('./guild'),
+    require('./channel'),
+    require('./user')
   ],
 
-  run: undefined
-};
+  run() { /* Handled by the individual subcommands. */ }
+});

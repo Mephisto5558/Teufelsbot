@@ -5,7 +5,7 @@ const
     ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
     ButtonStyle, EmbedBuilder, PermissionFlagsBits, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { permissionTranslator } = require('@mephisto5558/command'),
+  { Command, permissionTranslator } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
@@ -22,12 +22,10 @@ function getMemberType(member, lang) {
   return type;
 }
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new Command({
+  types: ['slash', 'prefix'],
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
 
   async run(lang) {
@@ -141,4 +139,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components });
   }
-};
+});
