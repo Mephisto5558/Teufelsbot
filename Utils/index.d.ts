@@ -236,20 +236,20 @@ export declare function getDirectories(
 ): Promise<string>;
 
 /** @default targetOptionName = 'channel' */
-export declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
+export declare function getTargetChannel<I extends Interaction | Message, T extends boolean = false>(
   interaction: I,
-  { targetOptionName, returnSelf }?: { targetOptionName?: string; returnSelf?: T }
+  options?: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
+export declare function __getTargetMember<I extends Interaction | Message, T extends boolean = false>(
   interaction: I,
-  { targetOptionName, returnSelf }?: { targetOptionName: string; returnSelf?: T },
+  options: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
-export declare function __getTargetUser<T extends boolean>(
+export declare function __getTargetUser<T extends boolean = false>(
   interaction: Interaction | Message,
-  { targetOptionName, returnSelf }?: { targetOptionName: string; returnSelf?: T },
+  options: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, GuildMember | User>
 ): MaybeWithUndefined<User, T>;
 
@@ -258,23 +258,20 @@ export declare function __getTargetUser<T extends boolean>(
  * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
   I extends Interaction | Message,
-  O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
->(interaction: I, options?: O): {
-  -readonly [K in keyof O]: (I extends GuildInteraction | Message<true> ? GuildMember : User)
-    | (O[K]['returnSelf'] extends true ? never : undefined)
-};
-
-export declare function getTargetMembers<
-  I extends Interaction | Message,
-  O extends { targetOptionName?: string; returnSelf?: boolean } | undefined
+  O extends readonly (
+    { targetOptionName?: string; returnSelf?: boolean } | { targetOptionName?: string; returnSelf?: boolean }[]
+  ) | undefined = undefined,
+  MemberType = I extends GuildInteraction | Message<true> ? GuildMember : User
 >(
   interaction: I, options?: O
-): (I extends GuildInteraction | Message<true> ? GuildMember : User) | (O extends { returnSelf: true } ? never : undefined);
+): O extends readonly unknown[]
+  ? { -readonly [K in keyof O]: MaybeWithUndefined<MemberType, O[K] extends { returnSelf: true } ? true : false> }
+  : MaybeWithUndefined<MemberType, O extends { returnSelf: true } ? true : false>;
 
 /** @default targetOptionName = 'target' */
-export declare function getTargetRole<T extends boolean>(
+export declare function getTargetRole<T extends boolean = false>(
   interaction: GuildInteraction | Message<true>,
-  { targetOptionName, returnSelf }?: { targetOptionName?: string; returnSelf?: T }
+  options?: { targetOptionName?: string; returnSelf?: T }
 ): MaybeWithUndefined<Role, T>;
 
 export declare function gitpull(): Promise<Error | { message: 'OK' }>;

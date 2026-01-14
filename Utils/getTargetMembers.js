@@ -67,19 +67,19 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
 
 /** @type {getTargetMembersT} */
 module.exports = function getTargetMembers(interaction, targetSettings) {
-  /** @type {NonNullable<Exclude<Parameters<getTargetMembersT>[1], Array>>[] | undefined} */
-  let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
-  if (!targetSettings || !settings.length) settings = [{}];
+  /** @type {NonNullable<Exclude<Parameters<getTargetMembersT>[1], Array>>[]} */
+  const
+    settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings ?? {}],
 
-  /** @type {ReturnType<__getTargetMember>[]} */
-  const members = [...settings.reduce((/** @type {Map<Snowflake, unknown>} */ acc, { targetOptionName, returnSelf }, i) => {
-    const
-      member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc),
-      id = member?.id ?? `target${i || ''}`;
+    /** @type {ReturnType<__getTargetMember>[]} */
+    members = [...settings.reduce((/** @type {Map<string, ReturnType<__getTargetMember>>} */ acc, { targetOptionName, returnSelf }, i) => {
+      const
+        member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc),
+        id = member?.id ?? `target${i || ''}`;
 
-    acc.set(acc.has(id) ? `${id}${i}` : id, member);
-    return acc;
-  }, new Map()).values()];
+      acc.set(acc.has(id) ? `${id}${i}` : id, member);
+      return acc;
+    }, new Map()).values()];
 
-  return Array.isArray(targetSettings) && targetSettings[0].__count__ ? members : members[0];
+  return Array.isArray(targetSettings) ? members : members[0];
 };
