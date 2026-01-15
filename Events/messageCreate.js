@@ -1,6 +1,6 @@
 /** @import { ClientEvents } from 'discord.js' */
 
-const { commandExecutionWrapper } = require('@mephisto5558/command');
+const { commandExecutionWrapper, commandTypes } = require('@mephisto5558/command');
 
 /** @this {ClientEvents['messageCreate'][0]} */
 module.exports = async function messageCreate() {
@@ -27,5 +27,5 @@ module.exports = async function messageCreate() {
       locale: this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode
     });
 
-  return commandExecutionWrapper.call(this, command, 'prefix', lang);
+  return commandExecutionWrapper.call(this, command, commandTypes.prefix, lang);
 };
