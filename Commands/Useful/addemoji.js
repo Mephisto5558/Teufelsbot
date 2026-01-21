@@ -2,7 +2,7 @@ const
   { CDNRoutes, Colors, EmbedBuilder, ImageFormat, RouteBases, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
 
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
@@ -21,8 +21,8 @@ const checkUrl = async url => new Promise((resolve, reject) => {
 });
 
 module.exports = new Command({
-  types: ['slash'],
-  permissions: { client: ['ManageGuildExpressions'], user: ['ManageGuildExpressions'] },
+  types: [commandTypes.slash],
+  permissions: { client: [Permissions.ManageGuildExpressions], user: [Permissions.ManageGuildExpressions] },
   cooldowns: { user: msInSecond * 2 },
   options: [
     {

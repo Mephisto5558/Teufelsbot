@@ -1,10 +1,10 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { shellExec } = require('#Utils');
 
 module.exports = new Command({
-  types: ['prefix'],
+  types: [commandTypes.prefix],
   dmPermission: true,
   options: [{
     name: 'command',

@@ -1,14 +1,14 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
 
   /** @type {(interaction: Interaction, name: string) => string | undefined} */
   getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
 module.exports = new Command({
-  types: ['slash'],
-  permissions: { user: ['EmbedLinks'] },
+  types: [commandTypes.slash],
+  permissions: { user: [Permissions.EmbedLinks] },
   cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   dmPermission: true,
   ephemeralDefer: true,

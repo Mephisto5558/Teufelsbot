@@ -1,8 +1,8 @@
-const { Command } = require('@mephisto5558/command');
+const { Command, Permissions, commandTypes } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: ['slash'],
-  permissions: { user: ['ManageMessages'] },
+  types: [commandTypes.slash],
+  permissions: { user: [Permissions.ManageMessages] },
   options: [
     require('./add'),
     require('./edit'),

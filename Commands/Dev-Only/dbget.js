@@ -1,10 +1,10 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
-  types: ['slash'],
+  types: [commandTypes.slash],
   usage: { examples: 'database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>' },
   dmPermission: true,
   options: [

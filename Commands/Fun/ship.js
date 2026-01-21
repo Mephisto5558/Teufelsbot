@@ -1,6 +1,6 @@
 const
   { createHash } = require('node:crypto'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { maxPercentage } } = require('#Utils'),
 
   hashPartLength = 5,
@@ -37,7 +37,7 @@ function calculatePercentage(user1Id, user2Id) {
 }
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   options: [
     {
       name: 'user1',

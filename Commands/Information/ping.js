@@ -1,12 +1,13 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { Command } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, sleep, toMs: { secToMs }, constants: { maxPercentage } } = require('#Utils'),
 
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   cooldowns: { channel: secToMs(1) },
   dmPermission: true,
   beta: true,

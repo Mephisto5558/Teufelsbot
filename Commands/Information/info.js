@@ -14,7 +14,7 @@ const
     ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
     Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
   { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils'),
 
@@ -256,7 +256,7 @@ async function createResourceGraph(lang) {
 }
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   dmPermission: true,
 
   async run(lang) {

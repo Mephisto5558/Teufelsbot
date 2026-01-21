@@ -1,4 +1,4 @@
-const 
+const
   { CommandOption } = require('@mephisto5558/command'),
 
   backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));

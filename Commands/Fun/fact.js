@@ -1,11 +1,11 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils');
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   usage: {
     usage: '["en" | "de"]',
     examples: 'fact en'
