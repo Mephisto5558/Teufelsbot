@@ -1,11 +1,11 @@
 const
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { timeValidator, timeFormatter: { msInSecond } } = require('#Utils');
 
 module.exports = new Command({
-  types: ['slash'],
-  aliases: { prefix: ['timeout'], slash: ['timeout'] },
-  permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
+  types: [commandTypes.slash],
+  aliases: { [commandTypes.slash]: ['timeout'], [commandTypes.prefix]: ['timeout'] },
+  permissions: { client: [Permissions.MuteMembers], user: [Permissions.MuteMembers] },
   cooldowns: { user: msInSecond / 10 },
   options: [
     {

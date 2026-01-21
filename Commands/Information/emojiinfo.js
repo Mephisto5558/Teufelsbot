@@ -5,7 +5,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
     PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 
@@ -13,9 +13,9 @@ const
   emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   usage: { examples: ':derp:' },
-  aliases: { prefix: ['emoji-info'] },
+  aliases: { [commandTypes.prefix]: ['emoji-info'] },
   options: [{
     name: 'emoji',
     type: 'String',

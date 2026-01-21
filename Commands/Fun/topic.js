@@ -1,10 +1,10 @@
 // Credit for many of the response messages goes to the Lawliet Bot: `https://github.com/Aninoss/lawliet-bot/tree/master/src/main/jib/data/resources`.
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
-  { Command } = require('@mephisto5558/command');
+  { Command, commandTypes } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   dmPermission: true,
 
   async run(lang) {

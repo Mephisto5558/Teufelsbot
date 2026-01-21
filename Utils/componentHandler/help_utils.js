@@ -8,7 +8,7 @@ const
     ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
     StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode
   } = require('discord.js'),
-  { permissionTranslator } = require('@mephisto5558/command'),
+  { commandTypes, permissionTranslator } = require('@mephisto5558/command'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /** @type {help_getCommands} */
@@ -101,11 +101,10 @@ function createInfoFields(lang, cmd = {}) {
   const arr = [];
 
   if ('aliases' in cmd) {
-    if ('prefix' in cmd.aliases && cmd.aliases.prefix.length)
-      arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
-
-    if ('slash' in cmd.aliases && cmd.aliases.slash.length)
-      arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
+    for (const commandType of Object.values(commandTypes)) {
+      if (commandType in cmd.aliases && cmd.aliases[commandType].length)
+        arr.push({ name: lang(`one.${commandType}Alias`), value: cmd.aliases[commandType].map(inlineCode).join(', '), inline: true });
+    }
   }
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
   if (cmd.permissions?.client?.length) {

@@ -1,11 +1,11 @@
 const
   { Constants } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
-  permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
+  types: [commandTypes.slash, commandTypes.prefix],
+  permissions: { client: [Permissions.ManageRoles], user: [Permissions.ManageRoles] },
   cooldowns: { user: msInSecond },
   options: [
     { name: 'channel', type: 'Channel', channelTypes: Constants.GuildTextBasedChannelTypes },

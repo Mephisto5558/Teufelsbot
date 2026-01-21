@@ -7,7 +7,7 @@ const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { basename, dirname, resolve } = require('node:path'),
-  { Command, formatCommand } = require('@mephisto5558/command'),
+  { Command, commandTypes, formatCommand } = require('@mephisto5558/command'),
   { commandMention, filename } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;
@@ -115,7 +115,7 @@ async function reloadCommand(command, reloadedArray) {
 }
 
 module.exports = new Command({
-  types: ['prefix'],
+  types: [commandTypes.prefix],
   dmPermission: true,
   options: [{
     name: 'command_name',

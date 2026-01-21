@@ -2,13 +2,13 @@
 
 const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
-  aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
+  types: [commandTypes.slash, commandTypes.prefix],
+  aliases: { [commandTypes.prefix]: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { user: msInSecond },
   options: [{
     name: 'guild_id_or_invite',

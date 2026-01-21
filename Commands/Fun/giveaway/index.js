@@ -1,14 +1,12 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { getMilliseconds } = require('better-ms'),
   { timeFormatter: { msInSecond } } = require('#Utils');
 
-
-/** @type {Command<['slash']>} */
 module.exports = new Command({
-  type: ['slash'],
-  permissions: { user: ['ManageMessages'] },
+  types: [commandTypes.slash],
+  permissions: { user: [Permissions.ManageMessages] },
   cooldowns: { user: msInSecond },
   ephemeralDefer: true,
   options: [

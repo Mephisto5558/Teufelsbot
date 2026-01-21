@@ -1,10 +1,10 @@
 const
-  { Command } = require('@mephisto5558/command'),
+  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
   { maxBanMessageDeleteDays } = require('#Utils').constants;
 
 module.exports = new Command({
-  types: ['slash'],
-  permissions: { client: ['BanMembers'], user: ['BanMembers'] },
+  types: [commandTypes.slash],
+  permissions: { client: [Permissions.BanMembers], user: [Permissions.BanMembers] },
   options: [
     {
       name: 'reason',

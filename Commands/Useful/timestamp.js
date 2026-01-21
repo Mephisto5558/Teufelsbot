@@ -1,13 +1,13 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs }, commandMention } = require('#Utils'),
 
   MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- range limit */
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   dmPermission: true,
   options: [{
     name: 'time',

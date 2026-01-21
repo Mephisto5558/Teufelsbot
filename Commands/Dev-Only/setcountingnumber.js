@@ -1,12 +1,12 @@
 const
   { bold, channelLink } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { getCommandName, getTargetChannel } = require('#Utils');
 
 
 module.exports = new Command({
-  types: ['prefix'],
-  aliases: { prefix: ['setcountingnum'] },
+  types: [commandTypes.prefix],
+  aliases: { [commandTypes.prefix]: ['setcountingnum'] },
 
   async run(lang) {
     const

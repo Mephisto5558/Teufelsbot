@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, shellExec } = require('#Utils'),
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
@@ -55,7 +55,7 @@ async function getGitInfo(unixTimestamp) {
 }
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   dmPermission: true,
 
   async run(lang) {

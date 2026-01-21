@@ -1,12 +1,12 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers, toMs: { secToMs } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   cooldowns: { user: secToMs(2) },
   options: [
     {

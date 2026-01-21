@@ -23,7 +23,7 @@ function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) 
   if (interaction.content) {
     const botMention = userMention(interaction.client.user.id);
     if (
-      target && target.id == interaction.client.user.id
+      target?.id == interaction.client.user.id
       && interaction.content.startsWith(botMention)
       && interaction.content.indexOf(botMention) == interaction.content.lastIndexOf(botMention)
     ) target = undefined;
@@ -48,7 +48,7 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
     if (interaction.content) {
       const botMention = userMention(interaction.client.user.id);
       if (
-        target && target.id == interaction.client.user.id
+        target?.id == interaction.client.user.id
         && interaction.content.startsWith(botMention)
         && interaction.content.indexOf(botMention) == interaction.content.lastIndexOf(botMention)
       ) target = undefined;

@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 
@@ -19,7 +19,7 @@ const
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   usage: { examples: '1+1' },
   dmPermission: true,
   options: [{

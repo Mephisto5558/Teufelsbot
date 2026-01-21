@@ -1,10 +1,10 @@
 const
   { inlineCode } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
+  types: [commandTypes.slash, commandTypes.prefix],
   cooldowns: { user: msInSecond },
   beta: true,
 

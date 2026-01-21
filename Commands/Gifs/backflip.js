@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, RouteBases } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { msInSecond } = require('#Utils').timeFormatter,
   images = [
     '1137786635392651314/backflip-anime.gif', '1137786636017602632/flip-anime.gif', '1137786636659335321/ichigo-mashimaro-backflip.gif',
@@ -9,8 +9,8 @@ const
   ];
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
-  aliases: { prefix: ['flip'] },
+  types: [commandTypes.slash, commandTypes.prefix],
+  aliases: { [commandTypes.prefix]: ['flip'] },
   cooldowns: { user: msInSecond },
   dmPermission: true,
 

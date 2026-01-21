@@ -1,4 +1,6 @@
-/** @type {command<'both'>} */
+/** @import { Command, CommandOption, CommandType } from '@mephisto5558/command' */
+
+/** @type {Command<CommandType[]>} */
 module.exports = {
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: [] },
@@ -27,7 +29,7 @@ module.exports = {
 /* do not copy anything below, that are just explanations.
    strictAutocomplete makes it like choices but without max. options
    subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked) */
-/** @type {commandOptions[]} */
+/** @type {CommandOption[]} */
 const options = [{
   name: '',
   type: 'Subcommand',

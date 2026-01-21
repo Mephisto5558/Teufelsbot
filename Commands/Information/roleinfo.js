@@ -3,13 +3,14 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder,
     ImageFormat, PermissionFlagsBits, RouteBases, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, permissionTranslator } = require('@mephisto5558/command'),
+  { Command, commandTypes, permissionTranslator } = require('@mephisto5558/command'),
   { getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
+
   ROLE_DISPLAY_THRESHOLD = 16;
 
 module.exports = new Command({
-  types: ['slash', 'prefix'],
-  aliases: { prefix: ['role-info'] },
+  types: [commandTypes.slash, commandTypes.prefix],
+  aliases: { [commandTypes.prefix]: ['role-info'] },
   cooldowns: { user: msInSecond },
   options: [{ name: 'role', type: 'Role' }],
 

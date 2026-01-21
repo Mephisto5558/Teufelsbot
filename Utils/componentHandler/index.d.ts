@@ -3,7 +3,7 @@ import type {
   ActionRow, BaseInteraction, ButtonComponent, ButtonInteraction, Collection, EmbedBuilder, GuildMember,
   InteractionResponse, StringSelectMenuComponent, StringSelectMenuInteraction
 } from 'discord.js';
-import type { commandExecutionWrapper } from '@mephisto5558/command';
+import type { Command, CommandType, commandExecutionWrapper } from '@mephisto5558/command';
 import type { BackupSystem } from '..';
 
 export {
@@ -72,7 +72,7 @@ declare function help_categoryQuery(
   this: Interaction | Message | StringSelectMenuInteraction,
   lang: lang, query?: string
 ): Promise<Message>;
-declare function help_getCommands(this: Interaction | Message): Command<['slash', 'prefix'], boolean>[];
+declare function help_getCommands(this: Interaction | Message): Command<CommandType[], boolean>[];
 declare function help_getCommandCategories(this: Interaction | Message): string[];
 declare function help_allQuery(
   this: Interaction | Message,

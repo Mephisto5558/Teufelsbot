@@ -1,6 +1,6 @@
 const
   { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants,
 
@@ -10,7 +10,7 @@ let restarting = false;
 
 
 module.exports = new Command({
-  types: ['prefix'],
+  types: [commandTypes.prefix],
   dmPermission: true,
   beta: true,
   disabled: !process.env.restartServerURL || !process.env.restartServerAPIKey,

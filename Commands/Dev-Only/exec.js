@@ -1,10 +1,10 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command } = require('@mephisto5558/command'),
+  { Command, commandTypes } = require('@mephisto5558/command'),
   { shellExec } = require('#Utils');
 
 module.exports = new Command({
-  types: ['prefix'],
+  types: [commandTypes.prefix],
   dmPermission: true,
   options: [{
     name: 'command',
@@ -17,7 +17,7 @@ module.exports = new Command({
     const msg = await this.reply(lang('global.loading', this.client.application.getEmoji('loading')));
 
     try {
-      const { stdout = lang('global.none'), stderr } = await shellExec(this.content);
+      const { stdout, stderr } = await shellExec(this.content);
       let response = lang('stdout', { msg: `${lang('finished', codeBlock('sh', this.content))}\n`, stdout: codeBlock(stdout) });
       if (stderr) response += `\n${lang('stderr', codeBlock(stderr))}`;
 
