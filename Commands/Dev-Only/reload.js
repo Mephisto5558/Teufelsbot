@@ -1,116 +1,64 @@
-/* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment
--- will be fixed when commands are moved to their own lib */
-
 /** @import { CommandType } from '@mephisto5558/command' */
 
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
-  { basename, dirname, resolve } = require('node:path'),
-  { Command, commandTypes, formatCommand } = require('@mephisto5558/command'),
-  { commandMention, filename } = require('#Utils'),
+  { resolve } = require('node:path'),
+  { Command, commandTypes, filename, loadFile } = require('@mephisto5558/command'),
+  { commandMention } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;
 
 /**
  * @this {Client}
- * @param {Command<CommandType[], boolean>} file
- * @param {Command<CommandType[], boolean>} command
- * @param {string[]} reloadedArray */
-function reloadPrefixCommand(file, command, reloadedArray) {
-  file.id = command.id;
-  this.prefixCommands.set(file.name, file);
-  reloadedArray.push(file.name);
-
-  for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
-  for (const alias of file.aliases?.prefix ?? []) {
-    this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
-    reloadedArray.push(alias);
-  }
-}
-
-/**
- * @this {Client}
- * @param {Pick<Partial<Command<['slash'], boolean>>, 'id'> & StrictOmit<Command<['slash'], boolean>, 'id'>} file
- * @param {Command<['slash'], boolean>} command
- * @param {string[]} reloadedArray */
-async function reloadSlashCommand(file, command, reloadedArray) {
-  const equal = file.isEqualTo(command);
-
-  if (equal) file.id = command.id;
-  else {
-    if ('id' in command) await this.application.commands.delete(command.id);
-    if (file.disabled || this.botType == 'dev' && !file.beta) {
-      file.id = command.id;
-      log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
-    }
-    else {
-      file.id = (await this.application.commands.create(file)).id;
-      log(`Reloaded Slash Command ${file.name}`);
-    }
-  }
-
-  this.slashCommands.delete(command.name);
-  this.slashCommands.set(file.name, file);
-  reloadedArray.push(commandMention(file.name, file.id ?? 0));
-
-  for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
-    const { id } = this.slashCommands.get(alias) ?? {};
-    let cmdId = id;
-
-    if (equal) {
-      this.slashCommands.delete(alias);
-      this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
-    }
-    else {
-      this.slashCommands.delete(alias);
-
-      if (file.disabled || this.botType == 'dev' && !file.beta) {
-        if (id) await this.application.commands.delete(id);
-        cmdId = undefined;
-
-        log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
-      }
-      else {
-        cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
-        log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
-      }
-
-      this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
-    }
-
-    reloadedArray.push(commandMention(alias, cmdId ?? 0));
-  }
-}
-
-/**
- * @this {Client}
- * @param {Command<CommandType[], boolean>} command
+ * @param {Command<CommandType[], boolean> | string} commandOrPath
  * @param {string[]} reloadedArray gets modified and not returned */
-async function reloadCommand(command, reloadedArray) {
-  /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
-  delete require.cache[command.filePath];
-
+async function reloadCommand(commandOrPath, reloadedArray) {
   /** @type {Command<CommandType[], boolean>} */
-  let file = {};
-  try {
-    file = formatCommand(
-      require(command.filePath), command.filePath,
-      `commands.${basename(dirname(command.filePath)).toLowerCase()}.${filename(command.filePath)}`,
-      this.i18n
-    );
+  let newCommand;
+
+  if (typeof commandOrPath == 'string') {
+    newCommand = await loadFile(commandOrPath);
+    if ('default' in newCommand) newCommand = newCommand.default;
+
+    newCommand.init(this.i18n, commandOrPath, log);
+    if (newCommand.types.includes(commandTypes.slash))
+      newCommand.commandId = (await newCommand.reloadApplicationCommand(this.application, newCommand))?.id;
   }
-  catch (err) {
-    if (err.code != 'MODULE_NOT_FOUND') throw err;
+  else newCommand = await commandOrPath.reload(this.application);
+
+  if (commandOrPath instanceof Command) {
+    this.prefixCommands.delete(commandOrPath.name);
+    this.slashCommands.delete(commandOrPath.name);
+    for (const alias of commandOrPath.aliases.prefix) this.prefixCommands.delete(alias);
+    for (const alias of commandOrPath.aliases.slash) this.slashCommands.delete(alias);
   }
 
-  this.prefixCommands.delete(command.name);
-  if (file.prefixCommand) reloadPrefixCommand.call(this, file, command, reloadedArray);
+  if (newCommand.types.includes(commandTypes.prefix)) {
+    this.prefixCommands.set(newCommand.name, newCommand);
+    reloadedArray.push(newCommand.name);
 
-  if (file.slashCommand) await reloadSlashCommand.call(this, file, command, reloadedArray);
-  else if (!file.slashCommand && command.slashCommand) {
-    this.slashCommands.delete(command.name);
-    if ('id' in command) await this.application.commands.delete(command.id);
+    for (const alias of newCommand.aliases.prefix) {
+      const commandClone = Object.assign(Object.create(Object.getPrototypeOf(newCommand)), newCommand);
+      commandClone.aliasOf = newCommand.name;
+      this.prefixCommands.set(alias, commandClone);
+      reloadedArray.push(alias);
+    }
+  }
+
+  if (newCommand.types.includes(commandTypes.slash)) {
+    this.slashCommands.set(newCommand.name, newCommand);
+    reloadedArray.push(commandMention(newCommand.name, newCommand.commandId));
+
+    const allAppCommands = await this.application.commands.fetch();
+    for (const alias of newCommand.aliases.slash) {
+      const commandClone = Object.assign(Object.create(Object.getPrototypeOf(newCommand)), newCommand);
+      commandClone.aliasOf = newCommand.name;
+      commandClone.commandId = allAppCommands.find(cmd => cmd.name == alias)?.id;
+
+      this.slashCommands.set(alias, commandClone);
+      reloadedArray.push(commandMention(alias, commandClone.commandId));
+    }
   }
 }
 
@@ -147,16 +95,10 @@ module.exports = new Command({
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
-            /** @type {Command<CommandType[], boolean>} */
-            const cmd = require(filePath);
-            cmd.filePath = filePath;
-            cmd.category = this.args[1].split('/')[1].toLowerCase();
-
-            await reloadCommand.call(this.client, cmd, reloadedArray);
+            const command = commandList.get(filename(filePath).toLowerCase());
+            await reloadCommand.call(this.client, command ?? filePath, reloadedArray);
           }
 
-          /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
-          delete require.cache[filePath];
           break;
         }
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
