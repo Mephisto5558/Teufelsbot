@@ -4,7 +4,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, capitalize, commandTypes } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
@@ -17,10 +17,6 @@ const
   HG_TO_KG = .1,
   GENDER_RATE = 8, // See https://pokeapi.co/docs/v2#pokemonspeciesgender
   pokedex = new Pokedex(),
-
-  /* eslint-disable-next-line jsdoc/no-undefined-types -- false positive */
-  /** @type {<T extends string>(str: T) => Capitalize<T>} */
-  capitalize = str => str.charAt(0).toUpperCase() + str.slice(1),
 
   cache = {
     /** @type {Record<PokeAPI.PokemonSpecies['name'], Record<Locale, string>>} */ localNames: {},

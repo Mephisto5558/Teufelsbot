@@ -2,7 +2,7 @@
 
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, capitalize, commandTypes } = require('@mephisto5558/command'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
   { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
 
@@ -50,8 +50,7 @@ module.exports = new Command({
         fields: Object.entries(info).reduce((acc, [k, v]) => {
           if (['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
-          k = k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim();
-          k = k[0].toUpperCase() + k.slice(1);
+          k = capitalize(k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim());
 
           // very verbose if, for intellisense
           /** @type {string} */
