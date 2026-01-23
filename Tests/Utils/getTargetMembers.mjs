@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
+/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+
+
 import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
@@ -39,6 +42,8 @@ await test('getTargetMembers', { concurrency: true }, async t => {
 
       return {
         inGuild: () => isInGuild,
+
+        /** @type {Partial<CommandInteractionOptionResolver>} */
         options: { getMember: () => {}, getUser: () => {} },
         mentions: {
           members: new Collection(),

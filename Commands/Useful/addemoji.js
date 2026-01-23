@@ -14,7 +14,7 @@ const checkUrl = async url => new Promise((resolve, reject) => {
     .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
-    .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
+    .on('timeout', () => void req.destroy({ name: 'AbortError', message: 'Request timed out' }))
     .on('error', err => reject(err))
     .end();
 });

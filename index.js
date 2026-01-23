@@ -122,6 +122,7 @@ void (async function main() {
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
+    /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     process.stdin.on('data', async buffer => {
       try {
         const { stdout, stderr } = await shellExec(buffer.toString().trim());
@@ -135,7 +136,7 @@ void (async function main() {
   }
 
   process
-    .on('unhandledRejection', async err => errorHandler.call(client, err))
-    .on('uncaughtExceptionMonitor', async err => errorHandler.call(client, err))
-    .on('uncaughtException', async err => errorHandler.call(client, err));
+    .on('unhandledRejection', err => void errorHandler.call(client, err))
+    .on('uncaughtExceptionMonitor', err => void errorHandler.call(client, err))
+    .on('uncaughtException', err => void errorHandler.call(client, err));
 })();

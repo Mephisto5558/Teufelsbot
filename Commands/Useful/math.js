@@ -1,20 +1,21 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
   mathjs = require('mathjs'),
-  math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 
-  /** @type {Record<string, string>} hurts to annotate it this way but not really having a choice due to `@typescript-eslint/no-unsafe-return` */
-  superscripts = {
+  math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
+  superscripts = Object.freeze({
     '²': '^2', '³': '^3',
     '⁴': '^4', '⁵': '^5',
     '⁶': '^6', '⁷': '^7',
     '⁸': '^8', '⁹': '^9'
-  },
-  parseSpecialChars = /** @param {string} str */ str => str
+  }),
+
+  /** @type {(str: string) => string} */
+  parseSpecialChars = str => str
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
-    .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
+    .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, /** @param {keyof superscripts} e */ e => superscripts[e])
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
 /** @type {command<'both', false>} */

@@ -91,6 +91,8 @@ module.exports = async function ban_kick_mute(lang) {
     }),
     collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
       .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: minToMs(1), filter: i => i.user.id == this.user.id })
+
+      /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 

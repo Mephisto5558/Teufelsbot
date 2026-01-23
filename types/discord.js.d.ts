@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
-import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
+import type { DB, GetValueByKey } from '@mephisto5558/mongoose-db';
 
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';

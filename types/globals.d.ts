@@ -9,7 +9,7 @@ import type DiscordTicTacToe from 'discord-tictactoe';
 
 import type { LogInterface } from '../Utils/prototypeRegisterer';
 import type DBStructure from './database';
-import type locals, { commandTypes, defaultCommandType } from './locals';
+import type locals from './locals';
 
 // #region global
 declare global {
@@ -73,7 +73,7 @@ declare global {
   // #region commands
   type slashCommand<
     initialized extends boolean = false,
-    commandType extends commandTypes = defaultCommandType
+    commandType extends locals.commandTypes = locals.defaultCommandType
   > = locals.BaseCommand<initialized, commandType> & {
     slashCommand: true;
     aliases?: { slash?: locals.BaseCommand['name'][] };
@@ -101,14 +101,14 @@ declare global {
 
   type prefixCommand<
     initialized extends boolean = false,
-    commandType extends commandTypes = defaultCommandType
+    commandType extends locals.commandTypes = locals.defaultCommandType
   > = locals.BaseCommand<initialized, commandType> & {
     prefixCommand: true;
     aliases?: { prefix?: locals.BaseCommand['name'][] };
   };
 
   type command<
-    commandType extends commandTypes = defaultCommandType,
+    commandType extends locals.commandTypes = locals.defaultCommandType,
     guildOnly extends boolean = true, initialized extends boolean = false
   > = locals.BaseCommand<initialized, commandType>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized, commandType> : object)
@@ -129,7 +129,7 @@ declare global {
       | undefined;
     };
 
-  type commandOptions<initialized extends boolean = boolean, commandType extends commandTypes = defaultCommandType> = {
+  type commandOptions<initialized extends boolean = boolean, commandType extends locals.commandTypes = locals.defaultCommandType> = {
     name: string;
 
     /** Numbers in milliseconds */

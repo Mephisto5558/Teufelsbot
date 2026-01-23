@@ -49,6 +49,7 @@ module.exports = {
       });
 
     collector
+      /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
       .on('collect', async button => {
         const reply = await button.deferReply();
 

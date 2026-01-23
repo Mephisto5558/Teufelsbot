@@ -103,6 +103,7 @@ module.exports = async function slashCommandHandler() {
   }
   log(`Deleted ${deletedCommandCount} Slash Commands`);
 
+  /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
   this.on(Events.InteractionCreate, async interaction => {
     try { await require('../Events').interactionCreate.call(interaction); }
     catch (err) { await errorHandler.call(this, err, interaction); }

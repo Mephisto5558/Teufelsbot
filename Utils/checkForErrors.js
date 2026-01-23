@@ -22,7 +22,7 @@ const
  * @this {Interaction | Message}
  * @param {command<'both', boolean, true>} command
  * @param {lang} lang
- * @returns {Promise<[string, { option: string; description: string }] | [string, { option: string; availableOptions?: string }] | false>} */
+ * @returns {Promise<[string, { option: string, description: string }] | [string, { option: string, availableOptions?: string }] | false>} */
 async function checkOptions(command, lang) {
   /** @type {command<'both', boolean, true> | commandOptions<true>} */
   let option = command;

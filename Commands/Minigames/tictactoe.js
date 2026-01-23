@@ -59,8 +59,8 @@ module.exports = {
 
     if (gameTarget) void sendChallengeMention(this, gameTarget, lang);
 
-    game.on('win', async data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
-    game.on('tie', async data => eventCallback.call(this, data.players, ['draw'], lang, game));
+    game.on('win', data => void eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
+    game.on('tie', data => void eventCallback.call(this, data.players, ['draw'], lang, game));
 
     return game.handleInteraction(this);
   }

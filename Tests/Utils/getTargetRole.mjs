@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
+/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+
+
 import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
@@ -20,8 +23,14 @@ await test('getTargetRole', { concurrency: true }, async t => {
       ]);
 
       return {
+        /** @type {Partial<CommandInteractionOptionResolver>} */
         options: { getRole: () => {} },
-        mentions: { roles: { first: () => {} } },
+        mentions: {
+          roles: {
+            /** @type {Collection['first']} */
+            first: () => {}
+          }
+        },
         guild: { roles: { cache } },
         member: { roles: { highest: mockHighestRole } },
         content: '',

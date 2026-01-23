@@ -37,5 +37,5 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
     msg = await this.customReply({ content: opponent.user.bot ? undefined : userMention(opponent.id), embeds: [embed], components: [component] }),
     deleteTime = 5000;
 
-  if (!opponent.user.bot) return msg.reply(lang('newChallenge', userMention(opponent.id))).then(e => setTimeout(e.delete.bind(e), deleteTime));
+  if (!opponent.user.bot) return msg.reply(lang('newChallenge', userMention(opponent.id))).then(e => setTimeout(() => void e.delete(), deleteTime));
 };

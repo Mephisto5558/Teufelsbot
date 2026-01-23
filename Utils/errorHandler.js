@@ -89,6 +89,8 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
   const { github, devIds } = this.config;
 
   msg.createMessageComponentCollector({ max: 1, componentType: ComponentType.Button, time: msInSecond * secsInMinute })
+
+    /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     .on('collect', async button => {
       await button.deferUpdate();
 

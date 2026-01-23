@@ -91,7 +91,7 @@ module.exports = {
       }
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
-      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);
+      setTimeout(() => void cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);
 
       post = fetchPost(res.data, filterNSFW);
     }

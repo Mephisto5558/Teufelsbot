@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
+/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+
+
 import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import getTargetChannel from '#Utils/getTargetChannel.js';
+
 
 await test('getTargetChannel', { concurrency: true }, async t => {
   const
@@ -21,8 +25,14 @@ await test('getTargetChannel', { concurrency: true }, async t => {
       ]);
 
       return {
+        /** @type {Partial<CommandInteractionOptionResolver>} */
         options: { getChannel: () => {} },
-        mentions: { channels: { first: () => {} } },
+        mentions: {
+          channels: {
+          /** @type {Collection['first']} */
+            first: () => {}
+          }
+        },
         guild: { channels: { cache } },
         channel: mockInteractionChannel,
         content: '',

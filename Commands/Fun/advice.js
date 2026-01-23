@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants,
 
-  /** @type {(client: Client) => Promise<{slip: {id: number, advice: string}}>} */
+  /** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
   fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
     headers: commonHeaders(client)
   })).json();

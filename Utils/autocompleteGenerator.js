@@ -8,7 +8,7 @@ const
  * @this {ThisParameterType<autocompleteGenerator>}
  * @param {string} searchValue
  * @param {lang<true>} lang
- * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options
+ * @param {commandOptions['autocompleteOptions'] | { name: unknown, value: unknown } | undefined} options
  * @returns {Promise<[] | { name: string, value: string | number }[]>} */
 async function autocompleteFormatter(searchValue, lang, options) {
   if (!options) return [];

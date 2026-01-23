@@ -53,6 +53,8 @@ async function playAgain(interaction, lang) {
   });
 
   collector
+
+    /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     .on('collect', /** @param {ButtonInteraction} PAButton */ async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
