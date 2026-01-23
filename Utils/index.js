@@ -28,7 +28,8 @@ const utils = {
   sleep: require('./sleep'),
   timeFormatter: require('./timeFormatter'),
   timeValidator: require('./timeValidator'),
-  toMs: require('./toMs')
+  toMs: require('./toMs'),
+  updateCommandStats: require('./updateCommandStats')
 };
 
 module.exports = utils;
