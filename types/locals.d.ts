@@ -1,3 +1,7 @@
+/* eslint-disable-next-line import-x/no-unassigned-import, import-x/no-empty-named-blocks, import-x/order, unicorn/require-module-specifiers
+ -- fixes typing issues with WebServer.client */
+import type {} from './discord.js';
+
 import type Discord from 'discord.js';
 import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
