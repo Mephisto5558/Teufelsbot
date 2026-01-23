@@ -5,7 +5,7 @@ const
     ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags,
     PermissionFlagsBits, bold, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
-  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond }, sleep } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
   TWENTY_SEC = 2e4;

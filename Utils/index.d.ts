@@ -321,6 +321,8 @@ export declare function timeValidator<T extends string | undefined>(
   timeStr?: T
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
+export declare function sleep(delay?: number): Promise<void>;
+
 export declare namespace configValidator {
   type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
   type validConfigEntry = validConfigPrimitives | [validConfigPrimitives] | { [key: string]: validConfigEntry };

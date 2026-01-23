@@ -60,11 +60,8 @@ declare global {
   // #endregion
 
   // #region custom
-  const
-    sleep: (ms: number) => Promise<void>,
-
-    /** Custom logging, including logfiles. */
-    log: LogInterface;
+  /** Custom logging, including logfiles. */
+  const log: LogInterface;
   type log = LogInterface;
 
   type Database = DBStructure.Database;

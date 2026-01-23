@@ -35,6 +35,7 @@ const utils = {
   shellExec: require('./shellExec'),
   slashCommandsEqual: require('./slashCommandsEqual'),
   prototypeRegisterer: require('./prototypeRegisterer'),
+  sleep: require('./sleep'),
   timeFormatter: require('./timeFormatter'),
   timeValidator: require('./timeValidator'),
   toMs: require('./toMs')

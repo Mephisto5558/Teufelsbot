@@ -31,14 +31,13 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 
 /** @type {LogInterface} */
 globalThis.log = new Log();
-globalThis.sleep = require('node:util').promisify(setTimeout);
 
 void mkdir(log.logFilesDir, { recursive: true });
 
 const
   config = setDefaultConfig(),
   overwrites = Object.fromEntries(Object.entries({
-    globals: ['globalThis.sleep()', 'globalThis.log()'],
+    globals: ['globalThis.log()'],
     vanilla: [
       'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
     ],

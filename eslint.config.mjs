@@ -25,8 +25,6 @@ export default [
     files: [`**/*${tsGlob}`, `**/*${jsGlob}`],
     languageOptions: {
       globals: {
-        // promisified setTimeout
-        sleep: 'readonly',
         log: 'readonly',
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
