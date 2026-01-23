@@ -81,14 +81,13 @@ void (async function main() {
 
   if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
 
-  await Promise.all([
+  const client = (await Promise.all([
+    loginClient.call(newClient, process.env.token),
     ...Object.entries(handlers)
       .filter(([k]) => !(newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []).includes(k))
       .map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
-  ]);
-
-  const client = await loginClient.call(newClient, process.env.token);
+  ]))[0];
 
   if (client.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
@@ -122,7 +121,6 @@ void (async function main() {
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
-    /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     process.stdin.on('data', async buffer => {
       try {
         const { stdout, stderr } = await shellExec(buffer.toString().trim());
