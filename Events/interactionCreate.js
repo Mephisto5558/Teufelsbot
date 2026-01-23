@@ -1,7 +1,7 @@
 /** @import { ClientEvents } from 'discord.js' */
 
 const
-  { autocompleteGenerator, commandExecutionWrapper, commandTypes } = require('@mephisto5558/command'),
+  { autocompleteGenerator } = require('@mephisto5558/command'),
   { componentHandler } = require('#Utils');
 
 /** @this {ClientEvents['interactionCreate'][0]} */
@@ -20,5 +20,5 @@ module.exports = async function interactionCreate() {
   const command = this.client.slashCommands.get(this.commandName);
   if (command && this.isAutocomplete()) return this.respond(await autocompleteGenerator.call(this, command, this.focused, this.client.i18n, locale));
 
-  if (this.isCommand()) return commandExecutionWrapper.call(this, command, commandTypes.slash, lang);
+  if (this.isCommand()) return command.runWrapper(this, this.client.i18n, locale);
 };

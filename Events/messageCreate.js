@@ -1,7 +1,5 @@
 /** @import { ClientEvents } from 'discord.js' */
 
-const { commandExecutionWrapper, commandTypes } = require('@mephisto5558/command');
-
 /** @this {ClientEvents['messageCreate'][0]} */
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
@@ -21,11 +19,6 @@ module.exports = async function messageCreate() {
   if (this.user.bot) return;
   if (!this.commandName) return this.inGuild() ? this.runMessages() : undefined;
 
-  const
-    command = this.client.prefixCommands.get(this.commandName),
-    lang = this.client.i18n.getTranslator({
-      locale: this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode
-    });
-
-  return commandExecutionWrapper.call(this, command, commandTypes.prefix, lang);
+  const command = this.client.prefixCommands.get(this.commandName);
+  return command.runWrapper(this, this.client.i18n, this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode);
 };

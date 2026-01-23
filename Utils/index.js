@@ -27,7 +27,8 @@ const utils = {
   prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter'),
   timeValidator: require('./timeValidator'),
-  toMs: require('./toMs')
+  toMs: require('./toMs'),
+  updateCommandStats: require('./updateCommandStats')
 };
 
 module.exports = utils;
