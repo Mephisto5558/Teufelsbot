@@ -59,7 +59,7 @@
     "@mephisto5558/better-types": "latest",
     "@mephisto5558/eslint-config": "latest",
     "@types/express": "5.x",
-    "@types/node": "22.x",
+    "@types/node": "24.x",
     "@types/passport": "1.x"
   },
   "optionalDependencies": {
@@ -68,6 +68,6 @@
     "zlib-sync": "^0.1.10"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.0.0"
   }
 }

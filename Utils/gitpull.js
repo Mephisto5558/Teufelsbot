@@ -13,7 +13,7 @@ module.exports = async function gitpull() {
 
   try { data = await shellExec('git pull'); }
   catch (rawErr) {
-    const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+    const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);
     log.error(`GIT PULL\nExec error: ${err.message}`);
     return err;
   }

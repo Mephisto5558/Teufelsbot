@@ -125,7 +125,7 @@ module.exports = {
 
     try { button = await sendUpdatedMsg.call(this, msg, url); }
     catch (rawErr) {
-      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);
       if (err instanceof SyntaxError && !err.message.includes('JSON')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }

@@ -46,7 +46,7 @@ module.exports = {
       return await msg.customReply(lang('success', `${lang('finished', codeBlock('js', this.content))}\n`));
     }
     catch (rawErr) {
-      const err = rawErr instanceof Error ? rawErr : new Error(rawErr ?? lang('emptyRejection'));
+      const err = Error.isError(rawErr) ? rawErr : new Error(rawErr ?? lang('emptyRejection'));
       return void msg.customReply(lang('error', { msg: `${lang('finished', codeBlock('js', this.content))}\n`, name: err.name, err: err.message }));
     }
     finally { log.debug(`evaluated command '${this.content}'`); }

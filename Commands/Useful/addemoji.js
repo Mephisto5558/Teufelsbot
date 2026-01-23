@@ -73,7 +73,7 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += `\n${lang('limitedToRoles', limitToRoles.map(roleMention).join(', '))}`;
     }
     catch (rawErr) {
-      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);
 
       if (err.code == DiscordAPIErrorCodes.InvalidFormBody && err.message.includes('image[BINARY_TYPE_MAX_SIZE]'))
         embed.data.description = lang('error', codeBlock(lang('tooBig')));

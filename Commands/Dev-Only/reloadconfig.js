@@ -22,7 +22,7 @@ module.exports = {
     const config = setDefaultConfig();
     try { configValidationLoop(config, validConfig, true); }
     catch (rawErr) {
-      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);
       return this.customReply(lang('error', err.message));
     }
 
