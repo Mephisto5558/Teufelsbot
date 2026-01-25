@@ -20,5 +20,5 @@ module.exports = async function messageCreate() {
   if (!this.commandName) return this.inGuild() ? this.runMessages() : undefined;
 
   const command = this.client.prefixCommands.get(this.commandName);
-  return command.runWrapper(this, this.client.i18n, this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode);
+  return command.runWrapper(this, this.client.i18n, (this.inGuild() ? this.guild : this.user).localeCode);
 };
