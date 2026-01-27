@@ -22,9 +22,9 @@ module.exports = new CommandOption({
   ],
 
   async run(lang) {
-    lang.config.backupPaths.push(`${lang.config.backupPaths.at(-1)}.${this.options.getSubcommand(true)}`);
+    lang.config.backupPaths.push(`${lang.config.backupPaths.at(-1)}.${this.options.getSubcommand()}`);
 
-    if (this.options.getSubcommand(true) == 'enable') {
+    if (this.options.getSubcommand() == 'enable') {
       const enabled = this.options.getBoolean('enabled', true);
       await (this.user.db.wordCounter
         ? this.user.updateDB('wordCounter.enabled', enabled)
