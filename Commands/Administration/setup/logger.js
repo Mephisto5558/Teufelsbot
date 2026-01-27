@@ -1,6 +1,8 @@
 const
   { Constants, channelLink } = require('discord.js'),
   { CommandOption } = require('@mephisto5558/command'),
+
+  /** @type {['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
 /** @type {CommandOption<['slash']>} */
@@ -24,8 +26,6 @@ module.exports = new CommandOption({
 
   async run(lang) {
     const
-
-      /** @type {'all' | 'messageDelete' | 'messageUpdate' | 'voiceChannelActivity' | 'sayCommandUsed'} */
       action = this.options.getString('action', true),
       channel = (
         this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes)

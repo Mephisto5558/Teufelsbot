@@ -35,8 +35,8 @@ module.exports = new CommandOption({
         locale: this.client.i18n.availableLocales.has(language) ? language : lang.defaultConfig.defaultLocale
       });
 
-    let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName);
-    if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf));
+    let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName) ?? {};
+    if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf) ?? {});
 
     const embed = new EmbedBuilder({
       title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
