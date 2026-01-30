@@ -3,6 +3,7 @@ const utils = {
   BackupSystem: require('./backupSystem'),
   checkTargetManageable: require('./checkTargetManageable'),
   commandMention: require('./commandMention'),
+  commandPermissionCheck: require('./commandPermissionCheck'),
   componentHandler: require('./componentHandler'),
   configValidator: require('./configValidator'),
   constants: require('./constants'),
