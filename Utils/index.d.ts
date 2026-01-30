@@ -5,6 +5,7 @@ import type {
   VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
+import type { commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
@@ -149,6 +150,8 @@ export declare function commandMention<CommandName extends string, CommandId ext
   name: CommandName, id: CommandId
 ): `</${CommandName}:${CommandId}>`;
 
+export const commandPermissionCheck: customPermissionChecksFn;
+
 export declare function componentHandler(
   this: MessageComponentInteraction,
   lang: lang
@@ -255,6 +258,8 @@ export declare function shellExec(
 export declare function timeValidator<T extends string | undefined>(
   timeStr?: T
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
+
+export const updateCommandStats: commandDoneFn;
 
 export declare namespace configValidator {
   type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
