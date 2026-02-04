@@ -14,6 +14,7 @@ const
   { randomInt } = require('node:crypto'),
   { mkdir } = require('node:fs/promises'),
   { join } = require('node:path'),
+  { CooldownsManager } = require('@mephisto5558/command'),
   { I18nProvider } = require('@mephisto5558/i18n'),
   { DB } = require('@mephisto5558/mongoose-db'),
   TicTacToe = require('discord-tictactoe'),
@@ -163,7 +164,7 @@ Object.defineProperties(Client.prototype, {
       warnLoggingFunction: log._log.bind(log, { file: 'warn', type: 'I18n' })
     })
   },
-  cooldowns: { value: new Map() },
+  cooldowns: { value: new CooldownsManager() },
   config: { value: config, writable: true },
 
   /** @type {Record<string, (this: Client, val: unknown) => unknown>} */

@@ -2,7 +2,6 @@
 
 const
   { bold } = require('discord.js'),
-  cooldowns = require('@mephisto5558/command/utils/cooldowns'),
   { removeAfkStatus, sendAfkMessages } = require('../afk'),
   { secToMs } = require('../toMs'),
 
@@ -11,7 +10,7 @@ const
 
 /** @this {Message<true>} */
 function replyToTriggers() {
-  if (!this.guild.db.triggers?.__count__ || cooldowns.call(this, 'triggers', { channel: secToMs(10) })) return;
+  if (!this.guild.db.triggers?.__count__ || this.client.cooldowns.update('triggers', this, { channel: secToMs(10) })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
     .filter(e => (e.wildcard
@@ -151,7 +150,7 @@ async function handleWordcounter(cleanMsg) {
 
 /** @type {runMessages} */
 module.exports = function runMessages() {
-  if (this.originalContent?.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
+  if (this.originalContent?.includes(this.client.user.id) && !this.client.cooldowns.update('botMentionReaction', this, { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
 
   if (this.client.botType == 'dev' || !this.originalContent) return this;
@@ -169,7 +168,7 @@ module.exports = function runMessages() {
   if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
   if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
     void removeAfkStatus.call(this);
-  if (!cooldowns.call(this, 'afkMsg', { channel: secToMs(10), user: secToMs(10) })) void sendAfkMessages.call(this);
+  if (!this.client.cooldowns.update('afkMsg', this, { channel: secToMs(10), user: secToMs(10) })) void sendAfkMessages.call(this);
 
   return this;
 };

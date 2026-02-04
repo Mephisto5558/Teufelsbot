@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
 import type Discord from 'discord.js';
-import type { Command } from '@mephisto5558/command';
+import type { Command, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
 
@@ -29,7 +29,7 @@ declare module 'discord.js' {
 
     /** `undefined` if `this.botType == 'dev'` */
     webServer?: locals.WebServer<Ready>;
-    cooldowns: Map<string, Record<string, Map<string, number>>>;
+    cooldowns: CooldownsManager;
     db: DB<Database>;
     i18n: I18nProvider;
     botType: NodeJS.ProcessEnv['environment'];
