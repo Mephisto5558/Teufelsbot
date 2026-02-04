@@ -120,7 +120,7 @@ function createInfoFields(lang, cmd = {}) {
     });
   }
 
-  const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
+  const cooldowns = Object.entries(cmd.cooldowns).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,

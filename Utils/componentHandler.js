@@ -2,7 +2,6 @@
 
 const
   { Colors, EmbedBuilder, MessageFlags, Role, inlineCode } = require('discord.js'),
-  cooldowns = require('@mephisto5558/command/utils/cooldowns'),
   /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
   errorHandler = require('./errorHandler'),
   { msInSecond } = require('./timeFormatter');
@@ -13,7 +12,7 @@ module.exports = async function messageComponentHandler(lang) {
 
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
-    cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: msInSecond }),
+    cooldown = this.client.cooldowns.update(`buttonPressEvent.${this.message.id}`, this, { user: msInSecond }),
     command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature, aliasOf: undefined },
     disabledList = this.guild.db.config.commands?.[command.aliasOf ?? command.name ?? '']?.disabled ?? {};
 
@@ -28,7 +27,7 @@ module.exports = async function messageComponentHandler(lang) {
   else if (cooldown) err = 'events.interaction.buttonOnCooldown';
 
   if (err) {
-    const embed = new EmbedBuilder({ description: lang(err, inlineCode(cooldown)), color: Colors.Red });
+    const embed = new EmbedBuilder({ description: lang(err, inlineCode(Math.round(cooldown / msInSecond))), color: Colors.Red });
     return this.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   }
 

@@ -8,7 +8,6 @@ const utils = {
   configValidator: require('./configValidator'),
   constants: require('./constants'),
   convertToMedal: require('./convertToMedal'),
-  cooldowns: require('@mephisto5558/command/utils/cooldowns'),
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler'),
   filterEmptyEntries: require('./filterEmptyEntries'),
