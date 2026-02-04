@@ -44,7 +44,7 @@ declare module 'discord.js' {
     /**
      * A promise that resolves to a fetched discord application once
      * {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#clientReady Client#clientReady}
-     * was emitted. */
+     * was emitted. Returns immediately if the client is already ready. */
     awaitReady(this: Client<Ready>): Promise<ClientApplication>;
   }
 
