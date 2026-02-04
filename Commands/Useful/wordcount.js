@@ -2,8 +2,7 @@
 
 const
   { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
-  { msInSecond } = require('#Utils').timeFormatter;
+  { Command, commandTypes } = require('@mephisto5558/command');
 
 /**
  * @param {Client} client
@@ -16,7 +15,7 @@ function getMessageFromReference(client, reference = {}) {
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { user: msInSecond },
+  cooldowns: { user: '1s' },
   dmPermission: true,
   options: [
     {

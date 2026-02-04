@@ -5,7 +5,7 @@ const
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   { Command, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#Utils'),
 
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   memeSubreddits = ['funny', 'jokes', 'comedy', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
@@ -34,7 +34,7 @@ function fetchPost({ children } = {}, filterNSFW = true) {
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   usage: { examples: 'memes hot' },
-  cooldowns: { channel: msInSecond / 10 },
+  cooldowns: { channel: '100ms' },
   dmPermission: true,
   options: [
     {

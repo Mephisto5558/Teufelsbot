@@ -2,7 +2,7 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { timeFormatter: { msInSecond }, constants: { commonHeaders } } = require('#Utils');
+  { constants: { commonHeaders } } = require('#Utils');
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
@@ -10,7 +10,7 @@ module.exports = new Command({
     usage: '["en" | "de"]',
     examples: 'fact en'
   },
-  cooldowns: { channel: msInSecond / 10 },
+  cooldowns: { channel: '100ms' },
   dmPermission: true,
 
   async run(lang) {

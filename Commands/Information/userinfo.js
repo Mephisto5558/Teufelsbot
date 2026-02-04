@@ -7,7 +7,7 @@ const
   } = require('discord.js'),
   { Command, commandTypes, permissionTranslator } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, getAge, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
+  { getTargetMembers, getAge, timeFormatter: { timestamp } } = require('#Utils');
 
 /**
  * @param {GuildMember} member
@@ -25,7 +25,7 @@ function getMemberType(member, lang) {
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   aliases: { [commandTypes.prefix]: ['user-info'] },
-  cooldowns: { user: msInSecond },
+  cooldowns: { user: '1s' },
   options: [{ name: 'target', type: 'User' }],
 
   async run(lang) {

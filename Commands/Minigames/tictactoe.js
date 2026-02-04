@@ -5,7 +5,7 @@
 const
   { Command, commandTypes } = require('@mephisto5558/command'),
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+  { getTargetMembers, timeFormatter: { secsInMinute } } = require('#Utils'),
   { sendChallengeMention } = require('#Utils/prototypeRegisterer'),
 
   againstStatIds = Object.freeze({ win: 'wonAgainst', lose: 'lostAgainst', draw: 'drewAgainst' }),
@@ -43,7 +43,7 @@ async function updateStats(firstID, secondID, type, db) {
 module.exports = new Command({
   types: [commandTypes.slash],
   aliases: { [commandTypes.slash]: ['ttt'], [commandTypes.prefix]: ['ttt'] },
-  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { user: '5s' },
   options: [{ name: 'opponent', type: 'User' }],
 
   async run(lang) {

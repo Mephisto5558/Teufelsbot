@@ -7,7 +7,7 @@ const
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { user: '200ms' },
   ephemeralDefer: true,
   options: [
     {

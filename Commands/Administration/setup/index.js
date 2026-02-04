@@ -1,12 +1,10 @@
-const
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond } } = require('#Utils');
+const { Command, Permissions, commandTypes } = require('@mephisto5558/command');
 
 module.exports = new Command({
   types: [commandTypes.slash],
   aliases: { [commandTypes.slash]: ['config'] },
   permissions: { user: [Permissions.ManageGuild] },
-  cooldowns: { user: msInSecond * 10 },
+  cooldowns: { user: '10s' },
   options: [
     require('./toggle_command'),
     require('./language'),

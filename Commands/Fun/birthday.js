@@ -117,7 +117,7 @@ const birthdayMainFunctions = {
 
 module.exports = new Command({
   types: [commandTypes.slash],
-  cooldowns: { user: msInSecond },
+  cooldowns: { user: '1s' },
   ephemeralDefer: true,
   options: [
     {
