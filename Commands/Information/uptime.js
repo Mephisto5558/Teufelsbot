@@ -1,11 +1,11 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
-  { timeFormatter, msInSecond } = require('#Utils').timeFormatter;
+  { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#Utils');
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { channel: msInSecond / 10 },
+  cooldowns: { channel: '100ms' },
   dmPermission: true,
 
   async run(lang) {
@@ -15,7 +15,7 @@ module.exports = new Command({
       embed = new EmbedBuilder({
         description: lang(
           domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', domain && uptime && !disableWebserver && {
-            time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted,
+            time: timeFormatter(Date.now() - secToMs(process.uptime()), lang).formatted,
             link: hyperlink(lang('online'), domain + (port ? `:${port}` : '') + `/${uptime}`)
           }
         ),

@@ -3,11 +3,11 @@
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
-  { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, toMs: { secToMs } } = require('#Utils');
+  { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { guild: 200, user: secToMs(10) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { guild: '200ms', user: '10s' },
   ephemeralDefer: true,
   options: [
     {

@@ -66,7 +66,7 @@ async function sendModal(lang) {
 module.exports = new Command({
   types: [commandTypes.slash],
   permissions: { user: [Permissions.ManageMessages] },
-  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
+  cooldowns: { user: '5s' },
   noDefer: true,
   options: [
     {

@@ -2,7 +2,7 @@ const
   { Colors, EmbedBuilder } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { commonHeaders }, timeFormatter: { msInSecond }, getConfig, toMs: { hourToMs } } = require('#Utils'),
+  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#Utils'),
   { github: ghConfig = {} } = getConfig(),
 
   CACHE_TIMEOUT = hourToMs(12), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 12h */
@@ -40,7 +40,7 @@ async function getCommits() {
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   aliases: { [commandTypes.prefix]: ['changelogs'] },
-  cooldowns: { channel: msInSecond * 10 },
+  cooldowns: { channel: '10s' },
   dmPermission: true,
   disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',

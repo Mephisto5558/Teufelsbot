@@ -1,13 +1,12 @@
 const
   { Colors, EmbedBuilder } = require('discord.js'),
-  { CommandOption, constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond } } = require('#Utils');
+  { CommandOption, constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'language',
   type: 'Subcommand',
-  cooldowns: { guild: msInSecond * 10 },
+  cooldowns: { guild: '10s' },
   options: [{
     name: 'language',
     type: 'String',

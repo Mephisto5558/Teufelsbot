@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
-  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
     'm_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses',
@@ -40,7 +40,7 @@ function formatStatCount(input, all) {
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   aliases: { [commandTypes.slash]: ['leaderboard'], [commandTypes.prefix]: ['leaderboard'] },
-  cooldowns: { user: msInSecond },
+  cooldowns: { user: '1s' },
   options: [
     {
       name: 'user',

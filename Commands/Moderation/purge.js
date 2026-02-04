@@ -119,7 +119,7 @@ module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   aliases: { [commandTypes.prefix]: ['clear'] },
   permissions: { client: [Permissions.ReadMessageHistory], user: [Permissions.ManageMessages] },
-  cooldowns: { guild: msInSecond },
+  cooldowns: { guild: '1s' },
   ephemeralDefer: true,
   options: [
     {

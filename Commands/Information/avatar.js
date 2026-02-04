@@ -2,11 +2,11 @@ const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
   { Command, commandTypes } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils');
+  { getTargetMembers } = require('#Utils');
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { user: msInSecond },
+  cooldowns: { user: '1s' },
   dmPermission: true,
   options: [
     { name: 'target', type: 'User' },

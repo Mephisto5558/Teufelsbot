@@ -1,12 +1,12 @@
 const
   { userMention } = require('discord.js'),
   { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
-  { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
+  { checkTargetManageable } = require('#Utils');
 
 module.exports = new Command({
   types: [commandTypes.slash],
   permissions: { client: [Permissions.MuteMembers], user: [Permissions.MuteMembers] },
-  cooldowns: { user: msInSecond / 10 },
+  cooldowns: { user: '100ms' },
   options: [
     {
       name: 'target',

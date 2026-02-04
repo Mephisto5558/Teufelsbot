@@ -9,7 +9,7 @@ const
 module.exports = new Command({
   types: [commandTypes.slash],
   permissions: { user: [Permissions.EmbedLinks] },
-  cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { user: '200ms' },
   dmPermission: true,
   ephemeralDefer: true,
   options: [

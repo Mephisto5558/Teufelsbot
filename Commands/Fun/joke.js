@@ -3,7 +3,7 @@ const
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { Command, commandTypes } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
-  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils'),
 
   TIMEOUT = 2500,
   defaultAPIList = [
@@ -84,7 +84,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
   usage: { examples: 'dadjoke' },
-  cooldowns: { channel: msInSecond / 10 },
+  cooldowns: { channel: '100ms' },
   dmPermission: true,
   options: [
     {

@@ -23,7 +23,7 @@ const checkUrl = async url => new Promise((resolve, reject) => {
 module.exports = new Command({
   types: [commandTypes.slash],
   permissions: { client: [Permissions.ManageGuildExpressions], user: [Permissions.ManageGuildExpressions] },
-  cooldowns: { user: msInSecond * 2 },
+  cooldowns: { user: '2s' },
   options: [
     {
       name: 'emoji_or_url',

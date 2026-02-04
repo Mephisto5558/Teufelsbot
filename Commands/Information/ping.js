@@ -8,7 +8,7 @@ const
 
 module.exports = new Command({
   types: [commandTypes.slash, commandTypes.prefix],
-  cooldowns: { channel: secToMs(1) },
+  cooldowns: { channel: '1s' },
   dmPermission: true,
   beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
