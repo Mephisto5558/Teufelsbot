@@ -5,7 +5,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
     PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 
@@ -18,7 +18,7 @@ module.exports = new Command({
   aliases: { [commandTypes.prefix]: ['emoji-info'] },
   options: [{
     name: 'emoji',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

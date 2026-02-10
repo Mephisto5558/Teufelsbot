@@ -2,7 +2,7 @@
 
 const
   { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { embedFieldMaxAmt, suffix } = require('#Utils').constants,
   { findTriggerId, triggerQuery } = require('./_utils');
 
@@ -10,14 +10,14 @@ const
 /** @type {TriggerSubcommand} */
 module.exports = new CommandOption({
   name: 'get',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'query_or_id',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions: triggerQuery
     },
-    { name: 'short', type: 'Boolean' }
+    { name: 'short', type: OptionType.Boolean }
   ],
 
   async run(lang, { oldData, query }) {

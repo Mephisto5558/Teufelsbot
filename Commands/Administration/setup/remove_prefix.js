@@ -1,15 +1,15 @@
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command');
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'remove_prefix',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'prefix',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions() { return this.guild.db.config.prefixes[this.client.botType]?.map(e => e.prefix) ?? []; },
       strictAutocomplete: true,
       required: true

@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage } } = require('#Utils'),
 
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
@@ -10,7 +10,7 @@ module.exports = new Command({
   cooldowns: { channel: '1s' },
   dmPermission: true,
   beta: true,
-  options: [{ name: 'average', type: 'Boolean' }],
+  options: [{ name: 'average', type: OptionType.Boolean }],
 
   async run(lang) {
     const

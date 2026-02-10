@@ -2,7 +2,7 @@
 
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
@@ -12,10 +12,10 @@ module.exports = new Command({
   options: [
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
-    { name: 'member', type: 'User' }
+    { name: 'member', type: OptionType.User }
   ],
 
   async run(lang) {

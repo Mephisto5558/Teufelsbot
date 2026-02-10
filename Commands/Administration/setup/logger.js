@@ -1,6 +1,6 @@
 const
   { Constants, channelLink } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
 
   /** @type {['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
@@ -8,20 +8,20 @@ const
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'logger',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'action',
-      type: 'String',
+      type: OptionType.String,
       required: true,
       choices: ['all', ...loggerActionTypes]
     },
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
-    { name: 'enabled', type: 'Boolean' }
+    { name: 'enabled', type: OptionType.Boolean }
   ],
 
   async run(lang) {

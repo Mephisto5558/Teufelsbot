@@ -2,17 +2,17 @@
 
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
 
 /** @type {TriggerSubcommand} */
 module.exports = new CommandOption({
   name: 'delete',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [{
     name: 'query_or_id',
-    type: 'String',
+    type: OptionType.String,
     autocompleteOptions: triggerQuery
   }],
 

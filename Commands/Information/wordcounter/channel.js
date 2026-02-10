@@ -1,20 +1,20 @@
 const
   { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
   { getTopChannelMembers } = require('./_utils');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'channel',
-  type: 'SubcommandGroup',
+  type: OptionType.SubcommandGroup,
   dmPermission: false,
   options: [{
     name: 'get',
-    type: 'Subcommand',
+    type: OptionType.Subcommand,
     options: [{
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: [ChannelType.GuildText]
     }]
   }],

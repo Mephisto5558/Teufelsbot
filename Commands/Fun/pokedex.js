@@ -4,7 +4,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
-  { Command, capitalize, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, capitalize, commandTypes } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
@@ -85,7 +85,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'pokémon',
-    type: 'String',
+    type: OptionType.String,
     required: true,
     strictAutocomplete: true,
     async autocompleteOptions() {

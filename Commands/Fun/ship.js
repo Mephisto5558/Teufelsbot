@@ -1,6 +1,6 @@
 const
   { createHash } = require('node:crypto'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { maxPercentage } } = require('#Utils'),
 
   hashPartLength = 5,
@@ -41,10 +41,10 @@ module.exports = new Command({
   options: [
     {
       name: 'user1',
-      type: 'User',
+      type: OptionType.User,
       required: true
     },
-    { name: 'user2', type: 'User' }
+    { name: 'user2', type: OptionType.User }
   ],
 
   async run(lang) {

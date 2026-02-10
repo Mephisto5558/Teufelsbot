@@ -2,8 +2,8 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
-  { getTargetChannel, getCommandName, findPaths } = require('#Utils'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { findPaths, getCommandName, getTargetChannel } = require('#Utils'),
   collectorTimeout = 3e4;
 
 module.exports = new Command({
@@ -13,7 +13,7 @@ module.exports = new Command({
   cooldowns: { guild: '10s', user: '10s' },
   options: [{
     name: 'channel',
-    type: 'Channel',
+    type: OptionType.Channel,
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
   }],
 

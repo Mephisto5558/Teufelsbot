@@ -1,5 +1,5 @@
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
 
   /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
@@ -44,37 +44,37 @@ module.exports = new Command({
   options: [
     {
       name: 'day',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 1,
       maxValue: daysInMonthMax
     },
     {
       name: 'month',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 1,
       maxValue: monthsInYear
     },
     {
       name: 'year',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 0,
       maxValue: MAX_YEARS
     },
     {
       name: 'hour',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 0,
       maxValue: hoursInDay - 1
     },
     {
       name: 'minute',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 0,
       maxValue: minutesInHour - 1
     },
     {
       name: 'second',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 0,
       maxValue: secsInHour - 1
     }

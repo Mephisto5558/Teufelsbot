@@ -4,7 +4,7 @@ const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { Command, commandTypes, filename, loadFile } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes, filename, loadFile } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;
@@ -67,7 +67,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'command_name',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
   beta: true,

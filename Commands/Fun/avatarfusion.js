@@ -1,6 +1,6 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
@@ -11,13 +11,13 @@ module.exports = new Command({
   options: [
     {
       name: 'base',
-      type: 'User',
+      type: OptionType.User,
       required: true
     },
-    { name: 'overlay', type: 'User' },
+    { name: 'overlay', type: OptionType.User },
     {
       name: 'avatar_type',
-      type: 'String',
+      type: OptionType.String,
       choices: ['server', 'global']
     }
   ],

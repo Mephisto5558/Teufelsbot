@@ -1,19 +1,19 @@
 const
-  { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { OptionType, inlineCode } = require('discord.js'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   MAX_PREFIXES_PER_GUILD = 2;
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'add_prefix',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'new_prefix',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'case_insensitive', type: 'Boolean' }
+    { name: 'case_insensitive', type: OptionType.Boolean }
   ],
 
   async run(lang) {

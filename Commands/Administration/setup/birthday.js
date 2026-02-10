@@ -1,13 +1,13 @@
 const
   { hyperlink } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'birthday',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   disabled: !!disableWebserver || !website.domain,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 

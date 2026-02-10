@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
 
   currentYear = new Date().getFullYear(),
@@ -122,25 +122,25 @@ module.exports = new Command({
   options: [
     {
       name: 'set',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'day',
-          type: 'Integer',
+          type: OptionType.Integer,
           required: true,
           minValue: 1,
           maxValue: daysInMonthMax
         },
         {
           name: 'month',
-          type: 'Integer',
+          type: OptionType.Integer,
           required: true,
           minValue: 1,
           maxValue: monthsInYear
         },
         {
           name: 'year',
-          type: 'Integer',
+          type: OptionType.Integer,
           required: true,
           minValue: MIN_YEAR,
           maxValue: currentYear
@@ -149,13 +149,13 @@ module.exports = new Command({
     },
     {
       name: 'get',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
-        { name: 'target', type: 'User' },
-        { name: 'do_not_hide', type: 'Boolean' }
+        { name: 'target', type: OptionType.User },
+        { name: 'do_not_hide', type: OptionType.Boolean }
       ]
     },
-    { name: 'remove', type: 'Subcommand' }
+    { name: 'remove', type: OptionType.Subcommand }
   ],
 
   async run(lang) {

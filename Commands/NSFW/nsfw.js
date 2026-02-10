@@ -1,7 +1,7 @@
 const
   { EmbedBuilder } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { commonHeaders } } = require('#Utils'),
 
@@ -14,7 +14,7 @@ module.exports = new Command({
   ephemeralDefer: true,
   options: [{
     name: 'type',
-    type: 'String',
+    type: OptionType.String,
     autocompleteOptions: [
       'hass', 'hmidriff', 'pgif', '4k', 'hentai', 'hneko', 'hkitsune', 'anal', 'hanal',
       'gonewild', 'ass', 'pussy', 'thigh', 'hthigh', 'paizuri', 'tentacle', 'boobs', 'hboobs', 'yaoi'

@@ -1,15 +1,15 @@
 const
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
 
   backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'serverbackup',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [{
     name: 'allowed_to_load',
-    type: 'String',
+    type: OptionType.String,
     required: true,
     autocompleteOptions: [...backup.keys()],
     strictAutocomplete: true

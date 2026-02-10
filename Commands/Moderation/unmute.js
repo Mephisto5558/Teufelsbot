@@ -1,6 +1,6 @@
 const
   { userMention } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { checkTargetManageable } = require('#Utils');
 
 module.exports = new Command({
@@ -10,10 +10,10 @@ module.exports = new Command({
   options: [
     {
       name: 'target',
-      type: 'User',
+      type: OptionType.User,
       required: true
     },
-    { name: 'reason', type: 'String' }
+    { name: 'reason', type: OptionType.String }
   ],
 
   async run(lang) {

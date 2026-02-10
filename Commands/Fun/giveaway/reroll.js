@@ -1,14 +1,14 @@
 /** @import GiveawaySubcommand from './index' */
 
-const { CommandOption } = require('@mephisto5558/command');
+const { CommandOption, OptionType } = require('@mephisto5558/command');
 
 /** @type {GiveawaySubcommand} */
 module.exports = new CommandOption({
   name: 'reroll',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [{
     name: 'id',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

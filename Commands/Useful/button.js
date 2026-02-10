@@ -1,6 +1,6 @@
 const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   {
     DiscordAPIErrorCodes, filterEmptyEntries,
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
@@ -69,37 +69,37 @@ module.exports = new Command({
   options: [
     {
       name: 'json',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [{
         name: 'json',
-        type: 'String',
+        type: OptionType.String,
         required: true
       }]
     },
     {
       name: 'custom',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'style',
-          type: 'Number',
+          type: OptionType.Number,
           choices: Object.values(ButtonStyle).filter(e => typeof e == 'number' && e != ButtonStyle.Premium),
           required: true
         },
-        { name: 'emoji', type: 'String' },
+        { name: 'emoji', type: OptionType.String },
         {
           name: 'label',
-          type: 'String',
+          type: OptionType.String,
           maxLength: buttonLabelMaxLength
         },
         {
           name: 'url',
-          type: 'String',
+          type: OptionType.String,
           maxLength: buttonURLMaxLength
         },
-        { name: 'new_row', type: 'Boolean' },
-        { name: 'content', type: 'String' },
-        { name: 'message_id', type: 'String' }
+        { name: 'new_row', type: OptionType.Boolean },
+        { name: 'content', type: OptionType.String },
+        { name: 'message_id', type: OptionType.String }
       ]
     }
   ],

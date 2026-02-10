@@ -1,24 +1,24 @@
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
   { getTopGuilds } = require('./_utils');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'user',
-  type: 'SubcommandGroup',
+  type: OptionType.SubcommandGroup,
   options: [
     {
       name: 'enable',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [{
         name: 'enabled',
-        type: 'Boolean',
+        type: OptionType.Boolean,
         required: true
       }]
     },
-    { name: 'get', type: 'Subcommand' }
+    { name: 'get', type: OptionType.Subcommand }
   ],
 
   async run(lang) {

@@ -4,50 +4,50 @@
 
 const
   { Constants, bold, roleMention, userMention } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { timeValidator } = require('#Utils');
 
 
 /** @type {GiveawaySubcommand} */
 module.exports = new CommandOption({
   name: 'create',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'prize',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'description',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'duration',
-      type: 'String',
+      type: OptionType.String,
       required: true,
       autocompleteOptions(query) { return timeValidator(query); }
     },
     {
       name: 'winner_count',
-      type: 'Integer',
+      type: OptionType.Integer,
       required: true,
       minValue: 1
     },
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
-    { name: 'reaction', type: 'String' },
-    { name: 'thumbnail', type: 'String' },
-    { name: 'image', type: 'String' },
-    { name: 'exempt_members', type: 'String' },
-    { name: 'required_roles', type: 'String' },
-    { name: 'bonus_entries', type: 'String' },
-    { name: 'embed_color', type: 'String' },
-    { name: 'embed_color_end', type: 'String' }
+    { name: 'reaction', type: OptionType.String },
+    { name: 'thumbnail', type: OptionType.String },
+    { name: 'image', type: OptionType.String },
+    { name: 'exempt_members', type: OptionType.String },
+    { name: 'required_roles', type: OptionType.String },
+    { name: 'bonus_entries', type: OptionType.String },
+    { name: 'embed_color', type: OptionType.String },
+    { name: 'embed_color_end', type: OptionType.String }
   ],
 
   async run(lang, { components, bonusEntries, requiredRoles, disallowedMembers, duration }) {

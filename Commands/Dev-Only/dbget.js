@@ -1,6 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
@@ -10,10 +10,10 @@ module.exports = new Command({
   options: [
     {
       name: 'database',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'key', type: 'String' }
+    { name: 'key', type: OptionType.String }
   ],
   beta: true,
 

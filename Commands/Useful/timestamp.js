@@ -1,6 +1,6 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs }, commandMention } = require('#Utils'),
 
@@ -11,7 +11,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'time',
-    type: 'String',
+    type: OptionType.String,
     autocompleteOptions(query) { return timeValidator(query); },
     strictAutocomplete: true
   }],

@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 
@@ -24,7 +24,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'expression',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

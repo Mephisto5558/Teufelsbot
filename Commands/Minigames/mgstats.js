@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
@@ -44,37 +44,37 @@ module.exports = new Command({
   options: [
     {
       name: 'user',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'game',
-          type: 'String',
+          type: OptionType.String,
           required: true,
           autocompleteOptions() { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
         },
-        { name: 'target', type: 'User' }
+        { name: 'target', type: OptionType.User }
       ]
     },
     {
       name: 'leaderboard',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'game',
-          type: 'String',
+          type: OptionType.String,
           required: true,
           autocompleteOptions() { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
         },
         {
           name: 'sort',
-          type: 'String',
+          type: OptionType.String,
           choices: sortOptions
         },
         {
           name: 'settings',
-          type: 'String',
+          type: OptionType.String,
           choices: ['all_users']
         }
       ]

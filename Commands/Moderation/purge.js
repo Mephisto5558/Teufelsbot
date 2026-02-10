@@ -4,7 +4,7 @@
 
 const
   { Collection, Constants, Message } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   {
     getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }
   } = require('#Utils'),
@@ -124,42 +124,42 @@ module.exports = new Command({
   options: [
     {
       name: 'amount',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 1,
       maxValue: maxAllowedPurgeAmt,
       required: true
     },
     {
       name: 'only_containing',
-      type: 'String',
+      type: OptionType.String,
       choices: ['text', 'mentions', 'server_ads', 'images', 'embeds']
     },
-    { name: 'member', type: 'User' },
+    { name: 'member', type: OptionType.User },
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
-    { name: 'remove_pinned', type: 'Boolean' },
+    { name: 'remove_pinned', type: OptionType.Boolean },
     {
       name: 'caps_percentage',
-      type: 'Number',
+      type: OptionType.Number,
       minValue: 1,
       maxValue: maxPercentage
     },
-    { name: 'contains', type: 'String' },
-    { name: 'does_not_contain', type: 'String' },
-    { name: 'starts_with', type: 'String' },
-    { name: 'not_starts_with', type: 'String' },
-    { name: 'ends_with', type: 'String' },
-    { name: 'not_ends_with', type: 'String' },
+    { name: 'contains', type: OptionType.String },
+    { name: 'does_not_contain', type: OptionType.String },
+    { name: 'starts_with', type: OptionType.String },
+    { name: 'not_starts_with', type: OptionType.String },
+    { name: 'ends_with', type: OptionType.String },
+    { name: 'not_ends_with', type: OptionType.String },
     {
       name: 'user_type',
-      type: 'String',
+      type: OptionType.String,
       choices: ['bot', 'human']
     },
-    { name: 'before_message', type: 'String' },
-    { name: 'after_message', type: 'String' }
+    { name: 'before_message', type: OptionType.String },
+    { name: 'after_message', type: OptionType.String }
   ],
 
   async run(lang) {

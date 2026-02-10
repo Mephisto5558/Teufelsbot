@@ -1,7 +1,7 @@
 /* eslint camelcase: [warn, {allow: [help_]}] */
 
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 module.exports = new Command({
@@ -13,7 +13,7 @@ module.exports = new Command({
   options: [
     {
       name: 'category',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions() {
         return help_getCommandCategories.call(this).map(e => ({
           name: this.client.i18n.__({ locale: 'locale' in this ? this.locale : this.user.localeCode }, `commands.${e}.categoryName`), value: e
@@ -23,7 +23,7 @@ module.exports = new Command({
     },
     {
       name: 'command',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions() { return help_getCommands.call(this).map(e => e.name); },
       strictAutocomplete: true
     }

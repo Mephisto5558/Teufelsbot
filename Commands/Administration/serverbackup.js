@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { timeFormatter: { timestamp }, commandMention } = require('#Utils'),
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
@@ -110,39 +110,39 @@ module.exports = new Command({
   options: [
     {
       name: 'create',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       cooldowns: { guild: '30min' }
     },
     {
       name: 'load',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       cooldowns: { guild: '5min' },
       options: [
         {
           name: 'id',
-          type: 'String',
+          type: OptionType.String,
           autocompleteOptions() {
             return [...this.client.backupSystem.list().filter(hasPerm.bind(this)).keys()];
           }
         },
-        { name: 'no_clear', type: 'Boolean' }
+        { name: 'no_clear', type: OptionType.Boolean }
       ]
     },
     {
       name: 'get',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [{
         name: 'id',
-        type: 'String',
+        type: OptionType.String,
         autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]
     },
     {
       name: 'delete',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [{
         name: 'id',
-        type: 'String',
+        type: OptionType.String,
         required: true,
         autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]

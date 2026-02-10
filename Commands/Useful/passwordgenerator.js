@@ -1,6 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
   DEFAULT_CHARSET = [...String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
@@ -28,16 +28,16 @@ module.exports = new Command({
   options: [
     {
       name: 'length',
-      type: 'Integer',
+      type: OptionType.Integer,
       maxValue: MAX_PASSWORD_LENGTH
     },
     {
       name: 'count',
-      type: 'Integer',
+      type: OptionType.Integer,
       maxValue: MAX_PASSWORDS
     },
-    { name: 'exclude_chars', type: 'String' },
-    { name: 'include_chars', type: 'String' }
+    { name: 'exclude_chars', type: OptionType.String },
+    { name: 'include_chars', type: OptionType.String }
   ],
 
   async run(lang) {

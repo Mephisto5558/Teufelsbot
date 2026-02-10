@@ -1,6 +1,6 @@
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
 
   getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
@@ -14,20 +14,20 @@ const
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'toggle_command',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'command',
-      type: 'String',
+      type: OptionType.String,
       required: true,
       autocompleteOptions() { return getCMDs(this.client); },
       strictAutocomplete: true
     },
-    { name: 'get', type: 'Boolean' },
+    { name: 'get', type: OptionType.Boolean },
     /* eslint-disable @typescript-eslint/no-magic-numbers -- TODO: convert to selectMenu */
-    ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
-    ...Array.from({ length: 6 }, (_, i) => ({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
-    ...Array.from({ length: 6 }, (_, i) => ({ type: 'User', name: `member_${i + 1}` }))
+    ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.Role, name: `role_${i + 1}` })),
+    ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.Channel, name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
+    ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.User, name: `member_${i + 1}` }))
     /* eslint-enable @typescript-eslint/no-magic-numbers */
   ],
 

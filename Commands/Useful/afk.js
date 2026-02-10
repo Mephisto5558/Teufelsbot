@@ -1,6 +1,6 @@
 const
   { ChatInputCommandInteraction } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
@@ -11,20 +11,20 @@ module.exports = new Command({
   options: [
     {
       name: 'set',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'message',
-          type: 'String',
+          type: OptionType.String,
           maxLength: maxAllowedAFKMsgLength
         },
-        { name: 'global', type: 'Boolean' }
+        { name: 'global', type: OptionType.Boolean }
       ]
     },
     {
       name: 'get',
-      type: 'Subcommand',
-      options: [{ name: 'target', type: 'User' }]
+      type: OptionType.Subcommand,
+      options: [{ name: 'target', type: OptionType.User }]
     }
   ],
 

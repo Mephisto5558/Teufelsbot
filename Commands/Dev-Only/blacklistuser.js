@@ -1,6 +1,6 @@
 const
   { inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
@@ -10,7 +10,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'target',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
   beta: true,

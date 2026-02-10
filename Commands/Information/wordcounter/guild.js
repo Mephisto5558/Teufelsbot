@@ -1,20 +1,20 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'guild',
-  type: 'SubcommandGroup',
+  type: OptionType.SubcommandGroup,
   options: [{
     name: 'get',
-    type: 'Subcommand',
+    type: OptionType.Subcommand,
     dmPermission: true,
     options: [{
       name: 'guild_id',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions: function () {
         return this.client.guilds.cache
           .filter(e => e.members.cache.has(this.user.id))
