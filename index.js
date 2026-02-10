@@ -84,7 +84,7 @@ void (async function main() {
   const client = (await Promise.all([
     loginClient.call(newClient, process.env.token),
     ...Object.entries(handlers)
-      .filter(([k]) => !(newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []).includes(k))
+      .filter(([k]) => !['eventHandler', ...newClient.config.disableCommands ? ['commandHandler', 'slashCommandHandler'] : []].includes(k))
       .map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
   ]))[0];
@@ -109,7 +109,7 @@ void (async function main() {
     );
   }
 
-  handlers.eventHandler.call(client);
+  handlers.eventHandler.call(client); // runs after all other handlers to wait for all commands to load before replying to any
   await events.clientReady.call(client); // run due to it not being ran on clientReady, before the handler is loaded
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
