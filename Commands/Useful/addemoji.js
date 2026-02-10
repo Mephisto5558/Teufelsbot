@@ -2,7 +2,7 @@ const
   { CDNRoutes, Colors, EmbedBuilder, ImageFormat, RouteBases, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
 
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
@@ -27,16 +27,16 @@ module.exports = new Command({
   options: [
     {
       name: 'emoji_or_url',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'name',
-      type: 'String',
+      type: OptionType.String,
       minLength: emojiNameMinLength,
       maxLength: emojiNameMaxLength
     },
-    { name: 'limit_to_roles', type: 'String' }
+    { name: 'limit_to_roles', type: OptionType.String }
   ],
 
   async run(lang) {

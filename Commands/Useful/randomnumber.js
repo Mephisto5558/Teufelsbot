@@ -1,7 +1,7 @@
 const
   { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
 
   defaultMaxNum = 100;
 
@@ -12,8 +12,8 @@ module.exports = new Command({
   dmPermission: true,
   ephemeralDefer: true,
   options: [
-    { name: 'minimum', type: 'Integer' },
-    { name: 'maximum', type: 'Integer' }
+    { name: 'minimum', type: OptionType.Integer },
+    { name: 'maximum', type: OptionType.Integer }
   ],
 
   async run(lang) {

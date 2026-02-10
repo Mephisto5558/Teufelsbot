@@ -1,15 +1,15 @@
 const
   { Colors, EmbedBuilder } = require('discord.js'),
-  { CommandOption, constants: { autocompleteOptionsMaxAmt } } = require('@mephisto5558/command');
+  { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType } = require('@mephisto5558/command');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'language',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   cooldowns: { guild: '10s' },
   options: [{
     name: 'language',
-    type: 'String',
+    type: OptionType.String,
     required: true,
     autocompleteOptions(query) {
       return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {

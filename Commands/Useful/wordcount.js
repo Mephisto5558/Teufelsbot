@@ -2,7 +2,7 @@
 
 const
   { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command');
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command');
 
 /**
  * @param {Client} client
@@ -20,10 +20,10 @@ module.exports = new Command({
   options: [
     {
       name: 'message_id',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions() { return [...this.channel.messages.cache.filter(e => e.content).keys()]; }
     },
-    { name: 'message', type: 'String' }
+    { name: 'message', type: OptionType.String }
   ],
 
   async run(lang) {

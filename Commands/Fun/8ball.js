@@ -1,5 +1,5 @@
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { seededHash } = require('#Utils');
 
 module.exports = new Command({
@@ -7,7 +7,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'question',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

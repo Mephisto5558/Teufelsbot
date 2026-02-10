@@ -4,7 +4,7 @@ const
     DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#Utils'),
 
   MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
@@ -71,16 +71,16 @@ module.exports = new Command({
   options: [
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes,
       required: true
     },
     {
       name: 'message_id',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'remove_attachments', type: 'Boolean' }
+    { name: 'remove_attachments', type: OptionType.Boolean }
   ],
 
   async run(lang) {

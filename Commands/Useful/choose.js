@@ -1,5 +1,5 @@
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
 
   LONG_CHOICE_LENGTH = 100;
 
@@ -8,7 +8,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'options',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

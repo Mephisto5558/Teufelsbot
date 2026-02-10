@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { commandMention, timeFormatter: { timestamp } } = require('#Utils');
 
 module.exports = new Command({
@@ -11,12 +11,12 @@ module.exports = new Command({
   options: [
     {
       name: 'scope',
-      type: 'String',
+      type: OptionType.String,
       choices: ['bot', 'guild', 'user']
     },
     {
       name: 'command',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions() { return [...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()].unique(); },
       strictAutocomplete: true
     }

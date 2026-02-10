@@ -1,6 +1,6 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
 
   /** @type {(interaction: Interaction, name: string) => string | undefined} */
@@ -15,42 +15,42 @@ module.exports = new Command({
   options: [
     {
       name: 'custom',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'description',
-          type: 'String',
+          type: OptionType.String,
           required: true
         },
         {
           name: 'content',
-          type: 'String',
+          type: OptionType.String,
           maxLength: constants.messageMaxLength
         },
-        { name: 'title', type: 'String' },
+        { name: 'title', type: OptionType.String },
         {
           name: 'predefined_color',
-          type: 'String',
+          type: OptionType.String,
           autocompleteOptions: Object.entries(Colors).map(e => e[0]),
           strictAutocomplete: true
         },
-        { name: 'custom_color', type: 'String' },
-        { name: 'footer_text', type: 'String' },
-        { name: 'footer_icon', type: 'String' },
-        { name: 'image', type: 'String' },
-        { name: 'thumbnail', type: 'String' },
-        { name: 'timestamp', type: 'Boolean' },
-        { name: 'author_name', type: 'String' },
-        { name: 'author_url', type: 'String' },
-        { name: 'author_icon', type: 'String' }
+        { name: 'custom_color', type: OptionType.String },
+        { name: 'footer_text', type: OptionType.String },
+        { name: 'footer_icon', type: OptionType.String },
+        { name: 'image', type: OptionType.String },
+        { name: 'thumbnail', type: OptionType.String },
+        { name: 'timestamp', type: OptionType.Boolean },
+        { name: 'author_name', type: OptionType.String },
+        { name: 'author_url', type: OptionType.String },
+        { name: 'author_icon', type: OptionType.String }
       ]
     },
     {
       name: 'json',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [{
         name: 'json',
-        type: 'String',
+        type: OptionType.String,
         required: true
       }]
     }

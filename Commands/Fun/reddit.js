@@ -3,7 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#Utils'),
 
@@ -39,21 +39,21 @@ module.exports = new Command({
   options: [
     {
       name: 'meme',
-      type: 'Subcommand',
-      options: [{ name: 'filter_nsfw', type: 'Boolean' }]
+      type: OptionType.Subcommand,
+      options: [{ name: 'filter_nsfw', type: OptionType.Boolean }]
     },
     {
       name: 'subreddit',
-      type: 'Subcommand',
+      type: OptionType.Subcommand,
       options: [
         {
           name: 'subreddit',
-          type: 'String',
+          type: OptionType.String,
           /* eslint-disable-next-line sonarjs/anchor-precedence -- intentional; suggested fix triggers different rule */
           autocompleteOptions(query) { return query.replaceAll(/^r\\|\W/g, ''); }
         },
-        { name: 'type', type: 'String' },
-        { name: 'filter_nsfw', type: 'Boolean' }
+        { name: 'type', type: OptionType.String },
+        { name: 'filter_nsfw', type: OptionType.Boolean }
       ]
     }
   ],

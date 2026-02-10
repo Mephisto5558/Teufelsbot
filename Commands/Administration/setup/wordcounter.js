@@ -1,12 +1,12 @@
-const { CommandOption } = require('@mephisto5558/command');
+const { CommandOption, OptionType } = require('@mephisto5558/command');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'wordcounter',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [{
     name: 'enabled',
-    type: 'Boolean',
+    type: OptionType.Boolean,
     required: true
   }],
 

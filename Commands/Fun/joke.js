@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
   { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils'),
 
@@ -89,19 +89,19 @@ module.exports = new Command({
   options: [
     {
       name: 'api',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions: defaultAPIList.map(e => e.name),
       strictAutocomplete: true
     },
-    { name: 'type', type: 'String' },
+    { name: 'type', type: OptionType.String },
     {
       name: 'blacklist',
-      type: 'String',
+      type: OptionType.String,
       choices: ['nsfw', 'religious', 'political', 'racist', 'sexist', 'explicit']
     },
     {
       name: 'max_length',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 10,
       maxValue: messageMaxLength
     }

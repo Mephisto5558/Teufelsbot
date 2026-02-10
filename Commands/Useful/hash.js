@@ -1,7 +1,7 @@
 const
   { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createHash, getHashes } = require('node:crypto'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
@@ -12,12 +12,12 @@ module.exports = new Command({
   options: [
     {
       name: 'input',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'method',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions: getHashes(),
       strictAutocomplete: true,
       required: true

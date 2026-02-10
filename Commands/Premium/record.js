@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } = require('discord.js'),
   { mkdir } = require('node:fs/promises'),
-  { Command, commandTypes } = require('@mephisto5558/command');
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command');
 
 function isEncryptionAvailable() {
   // https://discord.js.org/docs/packages/voice/main
@@ -26,13 +26,13 @@ module.exports = new Command({
   disabled: !isEncryptionAvailable(),
   disabledReason: 'No encryption library is installed.',
   options: [
-    { name: 'target', type: 'User' },
+    { name: 'target', type: OptionType.User },
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.VoiceBasedChannelTypes
     },
-    { name: 'public', type: 'Boolean' }
+    { name: 'public', type: OptionType.Boolean }
   ],
 
   async run(lang) {

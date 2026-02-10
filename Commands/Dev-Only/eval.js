@@ -2,7 +2,7 @@
 
 const
   { codeBlock } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { minToMs } = require('#Utils').toMs,
 
   paramMap = { __dirname, __filename, exports, module, require },
@@ -28,7 +28,7 @@ module.exports = new Command({
   dmPermission: true,
   options: [{
     name: 'code',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
   beta: true,

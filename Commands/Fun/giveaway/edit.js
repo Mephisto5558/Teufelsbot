@@ -3,37 +3,37 @@
  * @import { GuildMember } from 'discord.js' */
 
 const
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { timeValidator } = require('#Utils');
 
 
 /** @type {GiveawaySubcommand} */
 module.exports = new CommandOption({
   name: 'edit',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'id',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'add_time',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions(query) { return timeValidator(query); },
       strictAutocomplete: true
     },
     {
       name: 'winner_count',
-      type: 'Integer',
+      type: OptionType.Integer,
       minValue: 1
     },
-    { name: 'prize', type: 'String' },
-    { name: 'thumbnail', type: 'String' },
-    { name: 'image', type: 'String' },
-    { name: 'exempt_members', type: 'String' },
-    { name: 'required_roles', type: 'String' },
-    { name: 'bonus_entries', type: 'String' }
+    { name: 'prize', type: OptionType.String },
+    { name: 'thumbnail', type: OptionType.String },
+    { name: 'image', type: OptionType.String },
+    { name: 'exempt_members', type: OptionType.String },
+    { name: 'required_roles', type: OptionType.String },
+    { name: 'bonus_entries', type: OptionType.String }
   ],
 
   async run(lang, { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {

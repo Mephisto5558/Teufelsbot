@@ -1,6 +1,6 @@
 const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers } = require('#Utils');
 
@@ -9,10 +9,10 @@ module.exports = new Command({
   cooldowns: { user: '1s' },
   dmPermission: true,
   options: [
-    { name: 'target', type: 'User' },
+    { name: 'target', type: OptionType.User },
     {
       name: 'size',
-      type: 'Integer',
+      type: OptionType.Integer,
       choices: ALLOWED_SIZES
     }
   ],

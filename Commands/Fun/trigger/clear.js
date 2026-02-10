@@ -2,16 +2,16 @@
 
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command');
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
 
 /** @type {TriggerSubcommand} */
 module.exports = new CommandOption({
   name: 'clear',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [{
     name: 'confirmation',
-    type: 'String',
+    type: OptionType.String,
     required: true
   }],
 

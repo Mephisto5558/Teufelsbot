@@ -2,24 +2,24 @@
 
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
 
 /** @type {TriggerSubcommand} */
 module.exports = new CommandOption({
   name: 'edit',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'query_or_id',
-      type: 'String',
+      type: OptionType.String,
       autocompleteOptions: triggerQuery,
       required: true
     },
-    { name: 'trigger', type: 'String' },
-    { name: 'response', type: 'String' },
-    { name: 'wildcard', type: 'Boolean' }
+    { name: 'trigger', type: OptionType.String },
+    { name: 'response', type: OptionType.String },
+    { name: 'wildcard', type: OptionType.Boolean }
   ],
 
   async run(lang, { oldData, query }) {

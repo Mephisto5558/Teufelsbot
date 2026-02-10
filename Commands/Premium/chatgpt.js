@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { constants: { messageMaxLength } } = require('#Utils'),
   fetchAPI = require('#Utils/componentHandler').chatgpt_fetchAPI;
 
@@ -12,7 +12,7 @@ module.exports = new Command({
   premium: true,
   options: [{
     name: 'message',
-    type: 'String',
+    type: OptionType.String,
     maxLength: messageMaxLength,
     required: true
   }],

@@ -1,26 +1,26 @@
 /** @import TriggerSubcommand from '.' */
 
 const
-  { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command');
+  { OptionType, inlineCode } = require('discord.js'),
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
 
 /** @type {TriggerSubcommand} */
 module.exports = new CommandOption({
   name: 'add',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'trigger',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'response',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'wildcard', type: 'Boolean' }
+    { name: 'wildcard', type: OptionType.Boolean }
   ],
 
   async run(lang, oldData) {

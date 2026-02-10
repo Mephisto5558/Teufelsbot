@@ -1,4 +1,4 @@
-const { Command, Permissions, commandTypes } = require('@mephisto5558/command');
+const { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command');
 
 module.exports = new Command({
   types: [commandTypes.slash],
@@ -6,10 +6,10 @@ module.exports = new Command({
   options: [
     {
       name: 'reason',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'target', type: 'User' }
+    { name: 'target', type: OptionType.User }
   ],
 
   run: require('#Utils/combinedCommands').ban_kick_mute

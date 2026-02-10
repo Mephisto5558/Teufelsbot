@@ -1,6 +1,6 @@
 const
   { Constants } = require('discord.js'),
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { setupMinigameChannel } = require('#Utils/combinedCommands');
 
 module.exports = new Command({
@@ -9,7 +9,7 @@ module.exports = new Command({
   cooldowns: { channel: '1s' },
   options: [{
     name: 'channel',
-    type: 'Channel',
+    type: OptionType.Channel,
     channelTypes: Constants.GuildTextBasedChannelTypes
   }],
 

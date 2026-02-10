@@ -2,7 +2,7 @@
 
 const
   { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
   { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
 module.exports = new Command({
@@ -12,17 +12,17 @@ module.exports = new Command({
   options: [
     {
       name: 'msg',
-      type: 'String',
+      type: OptionType.String,
       maxLength: constants.messageMaxLength,
       required: true
     },
     {
       name: 'channel',
-      type: 'Channel',
+      type: OptionType.Channel,
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
     {
-      name: 'reply_to', type: 'String',
+      name: 'reply_to', type: OptionType.String,
       minLength: constants.snowflakeMinLength,
       maxLength: constants.snowflakeMaxLength
     }

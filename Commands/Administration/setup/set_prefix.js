@@ -1,18 +1,18 @@
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption } = require('@mephisto5558/command');
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
 /** @type {CommandOption<['slash']>} */
 module.exports = new CommandOption({
   name: 'set_prefix',
-  type: 'Subcommand',
+  type: OptionType.Subcommand,
   options: [
     {
       name: 'new_prefix',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
-    { name: 'case_insensitive', type: 'Boolean' }
+    { name: 'case_insensitive', type: OptionType.Boolean }
   ],
 
   async run(lang) {

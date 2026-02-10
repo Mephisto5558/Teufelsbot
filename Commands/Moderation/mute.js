@@ -1,5 +1,5 @@
 const
-  { Command, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
   { timeValidator } = require('#Utils');
 
 module.exports = new Command({
@@ -10,17 +10,17 @@ module.exports = new Command({
   options: [
     {
       name: 'target',
-      type: 'User',
+      type: OptionType.User,
       required: true
     },
     {
       name: 'reason',
-      type: 'String',
+      type: OptionType.String,
       required: true
     },
     {
       name: 'duration',
-      type: 'String',
+      type: OptionType.String,
       required: true,
       autocompleteOptions(query) { return timeValidator(query); },
       strictAutocomplete: true
