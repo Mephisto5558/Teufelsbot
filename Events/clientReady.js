@@ -1,7 +1,7 @@
 /** @import { ClientEvents } from 'discord.js' */
 
 const
-  { ActivityType } = require('discord.js'),
+  { ActivityType, ShardClientUtil } = require('discord.js'),
   guildCreate = require('./guildCreate');
 
 /** @this {ClientEvents['clientReady'][0]} */
@@ -13,7 +13,8 @@ module.exports = async function clientReady() {
 
   await this.guilds.fetch();
   for (const [guildId, guild] of Object.entries(this.db.get('guildSettings'))) {
-    if (!guild.leftAt && !this.guilds.cache.has(guildId))
+    const shardId = ShardClientUtil.shardIdForGuildId(guildId, this.shard.count);
+    if (!guild.leftAt && this.ws.shards.has(shardId) && !this.guilds.cache.has(guildId))
       void this.db.update('guildSettings', `${guildId}.leftAt`, new Date());
   }
 
