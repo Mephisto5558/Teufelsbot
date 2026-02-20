@@ -13,7 +13,7 @@ module.exports = async function clientReady() {
 
   await this.guilds.fetch();
   for (const [guildId, guild] of Object.entries(this.db.get('guildSettings'))) {
-    const shardId = ShardClientUtil.shardIdForGuildId(guildId, this.shard.count);
+    const shardId = this.shard ? ShardClientUtil.shardIdForGuildId(guildId, this.shard.count) : 0;
     if (!guild.leftAt && this.ws.shards.has(shardId) && !this.guilds.cache.has(guildId))
       void this.db.update('guildSettings', `${guildId}.leftAt`, new Date());
   }
