@@ -60,7 +60,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     }
   }
 
-  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime)))
+  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime, 10)))
     setTimeout(() => void msg.delete().catch(() => { /* empty */ }), deleteTime);
 
   return msg;

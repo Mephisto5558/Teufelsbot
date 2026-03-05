@@ -121,7 +121,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
       /* eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- check */
       if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`);
     }
-    else if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandType[option.type];
+    else if (!Number.parseInt(option.type, 10) && option.type != 0) option.type = ApplicationCommandType[option.type];
 
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     option.dmPermission ??= false;
@@ -133,12 +133,12 @@ module.exports = function formatCommand(option, path, id, i18n) {
     option.channelTypes = option.channelTypes.map(e => {
       if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got ${JSON.stringify(e)} (${id})`);
       /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive, we guard against `e` not being in `ChannelType`. */
-      return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
+      return Number.isNaN(Number.parseInt(e, 10)) ? ChannelType[e] : Number.parseInt(e, 10);
     });
   }
 
   if (!(option.type in ApplicationCommandOptionType)) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
-  if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
+  if (!Number.parseInt(option.type, 10) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
 
   if (
     [ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type)

@@ -165,7 +165,7 @@ module.exports = {
 
   async run(lang) {
     const
-      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
+      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0], 10).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
       /** @type {GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),

@@ -21,6 +21,7 @@ declare enum LogLevels {
   error = 4
 }
 
+type LogOptions = { file?: keyof typeof LogLevels; type?: string; prefix?: string };
 /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions */
 interface Log<FILE_LOGGING_ENABLED extends boolean = true> extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
@@ -34,11 +35,11 @@ interface Log<FILE_LOGGING_ENABLED extends boolean = true> extends CallableFunct
   warn(...str: unknown[]): this;
   error(...str: unknown[]): this;
 
-  _logToConsole({ file, type, prefix }?: { file?: keyof typeof LogLevels; type?: string; prefix?: string }, ...args: unknown[]): this;
-  _logToFile({ file, type, prefix }?: { file?: keyof typeof LogLevels | string & {}; type?: string; prefix?: string }, ...args: unknown[]): this;
+  _logToConsole(options?: LogOptions, ...args: unknown[]): this;
+  _logToFile(options?: { file?: keyof typeof LogLevels | string & {}; type?: string; prefix?: string }, ...args: unknown[]): this;
 
   /** @default file='log'; type='Bot'; prefix='<ISODate> <type> | ' */
-  _log({ file, type, prefix }?: { file?: keyof typeof LogLevels; type?: string; prefix?: string }, ...args: unknown[]): this;
+  _log(options?: LogOptions, ...args: unknown[]): this;
 }
 
 declare const LogClass: new<

@@ -24,7 +24,7 @@ module.exports = {
 
       avatarURL = target.displayAvatarURL({
         size: this.options?.getInteger('size')
-          ?? (ALLOWED_SIZES.includes(Number.parseInt(this.args?.at(-1))) ? this.args?.at(-1) : undefined)
+          ?? (ALLOWED_SIZES.includes(Number.parseInt(this.args?.at(-1), 10)) ? this.args?.at(-1) : undefined)
           ?? ALLOWED_SIZES.at(-2) /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
       }),
       averageColor = (await getAverageColor(target.displayAvatarURL())).hex,

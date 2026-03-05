@@ -27,8 +27,8 @@ function manageData(data) {
  * @param {number} all
  * @throws {SyntaxError} If `all` is `NaN` */
 function formatStatCount(input, all) {
-  input = Number.parseInt(input);
-  all = Number.parseInt(all);
+  input = Number.parseInt(input, 10);
+  all = Number.parseInt(all, 10);
 
   if (!input) return inlineCode(0);
   if (Number.isNaN(all)) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);

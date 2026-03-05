@@ -32,7 +32,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
  * @param {lang} lang */
 async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
-  if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
+  if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent, 10))) return;
 
   lang.config.backupPaths[0] = 'commands.minigames.counting.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });

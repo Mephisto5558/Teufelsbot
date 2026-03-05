@@ -61,7 +61,7 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
 /** @type {BackupSystem.Utils['fetchChannelMessages']} */
 async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel = 10) {
   const messages = await channel.messages.fetch({
-    limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel))
+    limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel, 10))
       ? 10
       : maxMessagesPerChannel.limit({ min: 1, max: maxMessagesPerChannelLimit })
   });

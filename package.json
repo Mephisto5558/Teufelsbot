@@ -4,8 +4,8 @@
   "description": "A discord.js v14 bot with Dashboard, multiple language support, a DB and many commands, in active development.",
   "keywords": [
     "discord",
-    "discordjs",
-    "discord-bot"
+    "discord-bot",
+    "discordjs"
   ],
   "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme",
   "bugs": {
@@ -28,7 +28,8 @@
   "main": "index.js",
   "types": "./types/globals.d.ts",
   "scripts": {
-    "eslint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md",
+    "lint": "eslint . --cache --cache-location ./node_modules/.cache/eslint/ >eslint.log",
+    "lint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md",
     "test": "npm run test:file \"./Tests/**/*.mjs\"",
     "test:file": "node --test --stack-trace-limit=1 --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=Tests/lcov.info --test-coverage-exclude=Tests/** --import ./Tests/setup.mjs --"
   },
@@ -57,7 +58,7 @@
   },
   "devDependencies": {
     "@mephisto5558/better-types": "latest",
-    "@mephisto5558/eslint-config": "latest",
+    "@mephisto5558/eslint-config": "^5.0.0-pre.0",
     "@types/express": "5.x",
     "@types/node": "24.x",
     "@types/passport": "1.x"

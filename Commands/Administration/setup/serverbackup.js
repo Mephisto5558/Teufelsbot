@@ -13,7 +13,7 @@ module.exports = {
   }],
 
   async run(lang) {
-    await this.guild.updateDB('serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
+    await this.guild.updateDB('serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true)), 10));
     return this.editReply(lang('success'));
   }
 };

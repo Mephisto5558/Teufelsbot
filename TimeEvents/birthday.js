@@ -20,7 +20,7 @@ function formatBirthday(member, year) {
     .replaceAll('{guild.name}', member.guild.name)
     .replaceAll('{bornyear}', year)
     .replaceAll('{date}', new Date().toLocaleDateString('en'))
-    .replaceAll('{age}', Number.parseInt(year) ? new Date().getFullYear() - year : '{age}')
+    .replaceAll('{age}', Number.parseInt(year, 10) ? new Date().getFullYear() - year : '{age}')
     .replaceAll(/\{age\}\.?/g, ''); // {guilds} gets replaced below
 }
 

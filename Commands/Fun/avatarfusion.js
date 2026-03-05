@@ -1,6 +1,6 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
-  { Canvas, loadImage } = require('skia-canvas'),
+  { Canvas, loadImage } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
   { getTargetMembers, toMs: { secToMs } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 

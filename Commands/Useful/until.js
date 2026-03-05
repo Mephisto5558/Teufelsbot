@@ -13,7 +13,7 @@ const
 function getInteger(name, defaultNum = 0) {
   const
     position = module.exports.options.findIndex(e => e.name == name),
-    num = Number.parseInt(this.args?.[position]);
+    num = Number.parseInt(this.args?.[position], 10);
 
   return this.options?.getInteger(name) ?? (Number.isNaN(num) ? defaultNum : num);
 }

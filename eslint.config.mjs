@@ -1,4 +1,4 @@
-import config, { getModifiedRule, jsGlob, tsGlob } from '@mephisto5558/eslint-config';
+import config, { getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5558/eslint-config';
 
 /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
@@ -16,8 +16,8 @@ export default [
     name: 'templates',
     files: [`Templates/*${tsGlob}`, `Templates/*${jsGlob}`],
     rules: {
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-unused-vars': 'off'
+      [`${pluginNames.typescript}/no-empty-function`]: 'off',
+      [`${pluginNames.typescript}/no-unused-vars`]: 'off'
     }
   },
   {
@@ -50,14 +50,25 @@ export default [
     }
   },
   {
+    name: 'overwrite:casing-overwrites',
+    files: ['./Commands/*/*/*.*', './Handlers/*.*', './Utils/combinedCommands/*.*'],
+    rules: {
+      ...getModifiedRule(config, `${pluginNames.unicorn}/filename-case`, [{
+        cases: {
+          snakeCase: true
+        }
+      }])
+    }
+  },
+  {
     name: 'overwrite:locales/commands',
     files: ['./Locales/*/commands/*.json'],
     rules: {
-      'jsonc/key-name-casing': getModifiedRule(config, 'jsonc/key-name-casing', {
+      ...getModifiedRule(config, `${pluginNames.jsonc}/key-name-casing`, [{
         snake_case: true /* eslint-disable-line camelcase */
-      }),
-      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys',
-        {
+      }]),
+      ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`,
+        [{
           pathPattern: '^$',
           order: [
             'categoryName',
@@ -89,14 +100,14 @@ export default [
             'usage',
             'examples'
           ]
-        })
+        }])
     }
   },
   {
     name: 'overwrite:dashboard-settings',
     files: ['./Website/DashboardSettings/*/_index.json'],
     rules: {
-      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys', {
+      ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`, [{
         pathPattern: '^$',
         order: [
           'id',
@@ -105,18 +116,18 @@ export default [
           'position',
           { order: { type: 'asc' } }
         ]
-      })
+      }])
     }
   },
   {
     name: 'overwrite:Tests',
     files: [`./Tests/**/*${jsGlob}`],
     rules: {
-      'id-length': getModifiedRule(config, 'id-length', {
+      ...getModifiedRule(config, 'id-length', [{
         exceptions: ['t']
-      }),
-      '@typescript-eslint/no-magic-numbers': 'off',
-      'unicorn/no-null': 'off'
+      }]),
+      [`${pluginNames.typescript}/no-magic-numbers`]: 'off',
+      [`${pluginNames.unicorn}/no-null`]: 'off'
     }
   }
 ];

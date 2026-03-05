@@ -18,7 +18,7 @@ module.exports = {
       responseList = lang.array__('responseList');
 
     return this.customReply(responseList[
-      seededHash(input.toLowerCase(), Number.parseInt(this.user.id)
+      seededHash(input.toLowerCase(), Number.parseInt(this.user.id, 10)
       ^ seededHash(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length
     ]);
   }
