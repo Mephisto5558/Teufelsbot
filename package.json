@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@mephisto5558/better-types": "latest",
-    "@mephisto5558/eslint-config": "^5.0.0-pre.0",
+    "@mephisto5558/eslint-config": "^5.0.0-pre.1",
     "@types/express": "5.x",
     "@types/node": "24.x",
     "@types/passport": "1.x"
