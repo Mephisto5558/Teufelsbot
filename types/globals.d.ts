@@ -27,8 +27,9 @@ declare global {
       token: string;
       secret: string;
       dbConnectionStr: string;
-      restartServerURL?: `https://${string}/api/client/servers/${string}/power`;
-      restartServerAPIKey?: string;
+      pterodactylPanelURL?: `http${'s' | ''}://${string}.${string}`;
+      pterodactylServerId?: string;
+      pterodactylServerAPIKey?: string;
     }
   }
 

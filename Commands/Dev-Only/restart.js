@@ -13,8 +13,8 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   beta: true,
-  disabled: !process.env.restartServerURL || !process.env.restartServerAPIKey,
-  disabledReason: 'Missing restartServerURL or restartServerAPIKey in .env',
+  disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactyltServerAPIKey,
+  disabledReason: 'Missing pterodactylPanelURL, pterodactylServerId or pterodactyltServerAPIKey in .env',
 
   async run(lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
@@ -28,12 +28,12 @@ module.exports = {
     msg = await msg[getUpdateFunc(msg)](lang('restarting', this.client.application.getEmoji('loading')));
 
     try {
-      const res = await fetch(process.env.restartServerURL, {
+      const res = await fetch(`${process.env.pterodactylPanelURL}/api/client/servers/${process.env.pterodactylServerId}/power`, {
         method: 'POST',
         headers: {
           // https://pterodactyl-api-docs.netvpx.com/docs/authentication#required-headers
           ...commonHeaders(this.client, true),
-          Authorization: `Bearer ${process.env.restartServerAPIKey}`
+          Authorization: `Bearer ${process.env.pterodactylServerAPIKey}`
         },
         body: JSON.stringify({ signal: 'restart' })
       });
