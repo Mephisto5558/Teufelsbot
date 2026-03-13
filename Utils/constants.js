@@ -29,6 +29,7 @@ module.exports = Object.freeze({
   HTTP_STATUS_CLOUDFLARE_BLOCKED: 522, // // https://community.cloudflare.com/t/community-tip-fixing-error-522-connection-timed-out/42325
   JSON_SPACES: 2,
   maxPercentage: 100,
+  byteConversion: 1024,
   suffix: '...',
 
   /**

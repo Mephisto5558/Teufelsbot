@@ -114,6 +114,12 @@
     "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}",
     "dev": "Developer",
     "embedTitle": "Stats",
+    "graph": {
+      "cpu": "CPU",
+      "disk": "Disk",
+      "network": "Network (since last start)",
+      "ram": "Memory"
+    },
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
     "lastStart": "Last start",

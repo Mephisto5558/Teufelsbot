@@ -117,6 +117,12 @@
     "guild": "Interne Server-ID",
     "guilds": "Server",
     "lastStart": "Letzter Start",
+    "graph": {
+      "cpu": "CPU",
+      "disk": "Festplatte",
+      "network": "Netzwerk (seit letztem Start)",
+      "ram": "RAM"
+    },
     "links": {
       "dashboard": "Dashboard",
       "discord": "Discord",
