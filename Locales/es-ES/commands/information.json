@@ -114,6 +114,12 @@
     "commands": "Comandos: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefijo: {prefix}",
     "dev": "Desarrollador",
     "embedTitle": "Estadísticas",
+    "graph": {
+      "cpu": "CPU",
+      "disk": "Disco",
+      "network": "Red (desde el último inicio)",
+      "ram": "Memoria"
+    },
     "guild": "ID de Gremio Interno",
     "guilds": "Gremios",
     "lastStart": "Último inicio",
