@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case -- abbreviation */
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 
 /**

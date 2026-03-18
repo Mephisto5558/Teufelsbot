@@ -5,7 +5,7 @@ const
     ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
     GuildFeature, GuildVerificationLevel, SnowflakeUtil, StickerType
   } = require('discord.js'),
-  /** @type {BackupSystem.Utils} */ utils = require('./backupSystem_utils'),
+  /** @type {BackupSystem.Utils} */ utils = require('./backupSystemUtils'),
   { secsInMinute } = require('./timeFormatter'),
   /** @type {DiscordAPIErrorCodesT} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 

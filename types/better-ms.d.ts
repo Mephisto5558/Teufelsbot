@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/filename-case -- module name */
+
 declare module 'better-ms' {
   function ms<T extends string | number>(val: T, options: { long: boolean }): (T extends string ? number : string) | undefined;
   function getMilliseconds<T extends string | number>(val: T, options: { long: boolean }): (T extends string ? number : string) | undefined;

@@ -6,7 +6,7 @@ import type Discord from 'discord.js';
 import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from '@types/express';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 

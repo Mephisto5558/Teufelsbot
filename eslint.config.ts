@@ -1,12 +1,5 @@
 import config, { getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5558/eslint-config';
 
-/* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
-config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
-  ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
-
-/**
- * @type {typeof config}
- * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
   {
@@ -47,16 +40,19 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
-    }
-  },
-  {
-    name: 'overwrite:casing-overwrites',
-    files: ['./Commands/*/*/*.*', './Handlers/*.*', './Utils/combinedCommands/*.*'],
+    },
     rules: {
+      ...getModifiedRule(config, 'no-underscore-dangle', [{
+        allow: [
+          '__count__', // Object#count
+          '_log', '_logToConsole', '_logToFile' // Logger
+        ]
+      }]),
       ...getModifiedRule(config, `${pluginNames.unicorn}/filename-case`, [{
-        cases: {
-          snakeCase: true
-        }
+        ignore: [
+          '[^_]+_{1,2}[^_]+', // allow one single or double underscore within the filename
+          '^[A-Z].*' // allow starting with an uppercase letter for class exports
+        ]
       }])
     }
   },
@@ -130,4 +126,4 @@ export default [
       [`${pluginNames.unicorn}/no-null`]: 'off'
     }
   }
-];
+] satisfies typeof config;

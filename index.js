@@ -121,6 +121,7 @@ void (async function main() {
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
+    /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     process.stdin.on('data', async buffer => {
       try {
         const { stdout, stderr } = await shellExec(buffer.toString().trim());
