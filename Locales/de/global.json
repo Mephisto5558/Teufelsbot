@@ -20,11 +20,11 @@
   "true": "Ja",
   "unitAbbreviations": {
     "byte": "Bytes",
+    "gigabyte": "GB",
     "kilobyte": "KB",
     "megabyte": "MB",
-    "gigabyte": "GB",
-    "terrabyte": "TB",
-    "petabyte": "PB"
+    "petabyte": "PB",
+    "terrabyte": "TB"
   },
   "unknown": "Unbekannt",
   "unknownUser": "Unbekannter Nutzer",
