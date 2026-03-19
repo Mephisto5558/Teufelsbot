@@ -126,4 +126,4 @@ export default [
       [`${pluginNames.unicorn}/no-null`]: 'off'
     }
   }
-] satisfies typeof config;
+] as typeof config;
