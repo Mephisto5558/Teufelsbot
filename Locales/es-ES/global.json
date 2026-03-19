@@ -18,6 +18,14 @@
   "none": "ninguna",
   "playAgain": "Jugar de nuevo",
   "true": "Sí",
+  "unitAbbreviations": {
+    "byte": "Bytes",
+    "gigabyte": "GR",
+    "kilobyte": "KB",
+    "megabyte": "Mb",
+    "petabyte": "PB",
+    "terrabyte": "TB"
+  },
   "unknown": "Desconocido",
   "unknownUser": "Usuario desconocido",
   "user": "Usuario"

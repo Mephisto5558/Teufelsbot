@@ -114,6 +114,12 @@
     "commands": "Команды: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Префикс: {prefix}",
     "dev": "Разработчик",
     "embedTitle": "Статистика",
+    "graph": {
+      "cpu": "ЦП",
+      "disk": "Диск",
+      "network": "Сеть (с последнего запуска)",
+      "ram": "Память"
+    },
     "guild": "Внутренний ID Гильдии",
     "guilds": "Гильдии",
     "lastStart": "Последний старт",

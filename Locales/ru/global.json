@@ -18,6 +18,14 @@
   "none": "ничего",
   "playAgain": "Играть снова",
   "true": "Да",
+  "unitAbbreviations": {
+    "byte": "Байт",
+    "gigabyte": "Гб",
+    "kilobyte": "КБ",
+    "megabyte": "МБ",
+    "petabyte": "ПБ",
+    "terrabyte": "ТБ"
+  },
   "unknown": "Неизвестен",
   "unknownUser": "Неизвестный пользователь",
   "user": "Пользователь"
