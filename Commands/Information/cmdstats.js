@@ -17,7 +17,7 @@ module.exports = new Command({
     {
       name: 'command',
       type: OptionType.String,
-      autocompleteOptions() { return [...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()].unique(); },
+      autocompleteOptions() { return this.client.commandManager.commands.keys(); },
       strictAutocomplete: true
     }
   ],
@@ -38,9 +38,7 @@ module.exports = new Command({
     const embed = new EmbedBuilder({ title: lang('embedTitle', target), color: Colors.White });
 
     if (query && query != scope) {
-      let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
-      if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) ?? this.client.prefixCommands.get(command.aliasOf);
-
+      const command = this.client.commandManager.get(query);
       if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
       const total = bold(
@@ -57,9 +55,7 @@ module.exports = new Command({
     else {
       embed.data.description = lang('embedDescriptionMany');
       embed.data.fields = Object.entries(cmdStats)
-        .filter(([k]) => !this.client.config.devOnlyFolders.includes(
-          (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
-        ))
+        .filter(([k]) => !this.client.config.devOnlyFolders.includes(this.client.commandManager.get(k)?.category))
         .map(([k, v]) => [k, {
           total: Object.values(v).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0),
           slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0), createdAt: v.createdAt

@@ -21,7 +21,7 @@ module.exports = new CommandOption({
 
   async run(lang) {
     if (!this.guild.db.wordCounter?.enabled) {
-      const command = this.client.slashCommands.get('setup');
+      const command = this.client.commandManager.get('setup');
       return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));
     }
 

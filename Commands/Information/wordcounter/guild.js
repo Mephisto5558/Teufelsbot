@@ -28,7 +28,7 @@ module.exports = new CommandOption({
     const guild = this.client.guilds.cache.get(this.options.getString('guild_id') ?? this.guild?.id);
     if (!guild) return this.customReply(lang('invalidGuild'));
     if (!guild.db.wordCounter?.enabled) {
-      const command = this.client.slashCommands.get('setup');
+      const command = this.client.commandManager.get('setup');
       return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));
     }
 

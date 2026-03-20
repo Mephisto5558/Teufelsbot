@@ -9,10 +9,10 @@ Error.stackTraceLimit = maxStackTraceLimit;
 const
   { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials, Team } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { getCommands, loaders } = require('@mephisto5558/command'),
+  { getCommands } = require('@mephisto5558/command'),
   {
     GiveawaysManager, configValidator: { configValidationLoop },
-    gitpull, errorHandler, shellExec /* , BackupSystem */
+    commandPermissionCheck, updateCommandStats, gitpull, errorHandler, shellExec /* , BackupSystem */
   } = require('#Utils'),
   events = require('./Events'),
   handlers = require('./Handlers'),
@@ -73,6 +73,19 @@ void (async function main() {
   const newClient = createClient();
   await newClient.loadEnvAndDB();
   await newClient.i18n.init();
+  newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
+    logger: log,
+    doneFn: updateCommandStats,
+    cooldownsManager: newClient.cooldowns,
+    devIds: newClient.config.devIds,
+    devOnlyCategories: new Set(newClient.config.devOnlyFolders),
+    runBetaCommandsOnly: newClient.botType == 'dev',
+    replyOn: {
+      disabled: newClient.config.replyOnDisabledCommand,
+      nonBeta: newClient.config.replyOnNonBetaCommand
+    },
+    customPermissionChecks: commandPermissionCheck
+  });
 
   await syncEmojis.call(newClient);
 
@@ -80,16 +93,14 @@ void (async function main() {
 
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
-  if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
-
-  await Promise.all([
-    ...Object.entries({ ...handlers, ...loaders })
-      .filter(([k]) => !(newClient.config.disableCommands ? Object.keys(loaders) : []).includes(k))
-      .map(async ([,handler]) => handler.call(newClient)),
+  const [client] = await Promise.all([
+    loginClient.call(newClient, process.env.token),
+    ...Object.entries({ ...handlers }).map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
   ]);
 
-  const client = await loginClient.call(newClient, process.env.token);
+  if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');
+  else await newClient.commandManager.loadAll();
 
   if (client.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
@@ -106,7 +117,7 @@ void (async function main() {
       }, errorHandler.bind(client)
     ).init(
       {},
-      { commands: getCommands.call(client, client.i18n.getTranslator({ locale: 'en', undefinedNotFound: true })) },
+      { commands: getCommands.call(client, client.i18n.getTranslator({ locale: 'en', undefinedNotFound: true }), client.commandManager.commands) },
       { votingPath: client.config.website.vote }
     );
   }

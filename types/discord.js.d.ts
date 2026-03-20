@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 
-import type Discord from 'discord.js';
-import type { Command, CooldownsManager } from '@mephisto5558/command';
+import type { CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
-import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
+import type { DB, GetValueByKey } from '@mephisto5558/mongoose-db';
 
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -22,8 +21,7 @@ declare module 'discord-api-types/v10' {
 
 declare module 'discord.js' {
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<Command['name'], Command<['prefix'], boolean>>;
-    slashCommands: Discord.Collection<Command['name'], Command<['slash'], boolean>>;
+    commandManager: CommandManager;
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 

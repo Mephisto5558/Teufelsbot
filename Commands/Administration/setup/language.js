@@ -32,16 +32,14 @@ module.exports = new CommandOption({
       /** @type {lang} */
       newLang = this.client.i18n.getTranslator({
         locale: this.client.i18n.availableLocales.has(language) ? language : lang.defaultConfig.defaultLocale
+      }),
+
+      { name, category } = this.client.commandManager.get(this.commandName) ?? {},
+      embed = new EmbedBuilder({
+        title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
+        description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, newLang('global.languageName')),
+        color: Colors.Green
       });
-
-    let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName) ?? {};
-    if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf) ?? {});
-
-    const embed = new EmbedBuilder({
-      title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
-      description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, newLang('global.languageName')),
-      color: Colors.Green
-    });
 
     await this.guild.updateDB('config.lang', language);
     return this.editReply({ embeds: [embed] });

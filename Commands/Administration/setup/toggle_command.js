@@ -3,11 +3,6 @@ const
   { CommandOption, OptionType } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
 
-  getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
-    .filter(([,e]) => !e.aliasOf)
-    .map(([e]) => e)
-    .unique(),
-
   /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
   types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
@@ -20,7 +15,7 @@ module.exports = new CommandOption({
       name: 'command',
       type: OptionType.String,
       required: true,
-      autocompleteOptions() { return getCMDs(this.client); },
+      autocompleteOptions() { return this.client.commandManager.commands.keys(); },
       strictAutocomplete: true
     },
     { name: 'get', type: OptionType.Boolean },

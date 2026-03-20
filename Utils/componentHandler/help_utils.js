@@ -13,7 +13,7 @@ const
 
 /** @type {help_getCommands} */
 function getCommands() {
-  return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e));
+  return this.client.commandManager.commands.filter(e => !!filterCommands.call(this, e));
 }
 
 /** @type {help_getCommandCategories} */
@@ -25,7 +25,7 @@ function getCommandCategories() { return getCommands.call(this).map(e => e.categ
 function getDefaultOption() {
   if (this instanceof ChatInputCommandInteraction && !this.options.getString('command')) return this.options.getString('category');
   if (this instanceof Message) {
-    if (this.args.length > 1) return (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
+    if (this.args.length > 1) return this.client.commandManager.get(this.args[1])?.category;
     return this.args[0];
   }
   if (
@@ -161,7 +161,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
   ) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
-  const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
+  const command = this.client.commandManager.get(query);
   if (!filterCommands.call(this, command)) {
     const embed = new EmbedBuilder({
       description: lang('one.notFound', inlineCode(query)),

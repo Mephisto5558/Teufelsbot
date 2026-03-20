@@ -14,7 +14,7 @@
     "repoName": "Your repo name",
     "userName": "Your github username"
   },
-  "hideDisabledCommandLog": "Boolean. Hides the info that a disabled command has been loaded to client.prefixCommands/client.slashCommands. Defaults to false",
+  "hideDisabledCommandLog": "Boolean. Hides the info that a disabled command has been loaded to client.commandManager. Defaults to false",
   "hideNonBetaCommandLog": "Boolean. Hides the info that a non-beta slash command has been skipped. Defaults to false",
   "hideOverwriteWarning": "Boolean. Hides the \"Overwriting following variables and functions\" warning, Defaults to false",
   "mailAddress": "Support Mail address. Optional",

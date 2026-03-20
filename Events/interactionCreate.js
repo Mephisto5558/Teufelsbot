@@ -13,8 +13,10 @@ module.exports = async function interactionCreate() {
 
   if (this.isMessageComponent()) return componentHandler.call(this, this.client.i18n.getTranslator({ locale }));
 
-  const command = this.client.slashCommands.get(this.commandName);
-  if (command && this.isAutocomplete()) {
+  const command = this.client.commandManager.get(this.commandName);
+  if (!command) throw new Error('A command is known to discord but not to the local data. This should never happen.');
+
+  if (this.isAutocomplete()) {
     const option = command.findOption(this.focused, this);
     if (!option) throw new Error('A command option is known to discord but not to the local data. This should never happen.');
 
