@@ -179,9 +179,6 @@ export declare function findPaths(
 
 export declare function getAge(date: Date): number;
 
-/** Gets the original command name, not the alias name */
-export declare function getCommandName(this: Client, commandName: string): string;
-
 export declare function getConfig(): Partial<Config>;
 
 /** @default targetOptionName = 'channel' */

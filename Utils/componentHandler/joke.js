@@ -1,7 +1,5 @@
 /** @import { joke } from '.' */
 
-const { commandExecutionWrapper } = require('@mephisto5558/command');
-
 /** @type {joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
@@ -21,5 +19,6 @@ module.exports = async function joke(lang, api, type, blacklist, maxLength) {
 
   await this.update({ components: [] });
 
-  return commandExecutionWrapper.call(this, this.client.slashCommands.get('joke'), 'component', lang);
+  // return commandExecutionWrapper.call(this, this.client.slashCommands.get('joke'), 'component', lang);
+  return this.client.commandManager.get('joke').runWrapper(this, lang.provider, lang.config.locale);
 };

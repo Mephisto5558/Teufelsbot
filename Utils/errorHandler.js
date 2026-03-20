@@ -66,12 +66,11 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
   lang.config.backupPaths[0] = 'others.errorHandler';
 
   const
-    { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', inlineCode(aliasOf
-        ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name
-        : message.commandName ?? lang('global.unknown'))),
+      description: lang('embedDescription', inlineCode(
+        message.commandName ? this.commandManager.get(message.commandName)?.name ?? message.commandName : lang('global.unknown')
+      )),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),

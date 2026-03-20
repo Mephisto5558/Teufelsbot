@@ -8,13 +8,11 @@
  * @import { LogInterface } from '.' */
 
 const
-  {
-    AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Collection, Events, Guild, GuildMember, Message, User
-  } = require('discord.js'),
+  { AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Events, Guild, GuildMember, Message, User } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   { mkdir } = require('node:fs/promises'),
   { join } = require('node:path'),
-  { CooldownsManager } = require('@mephisto5558/command'),
+  { CommandManager, CooldownsManager } = require('@mephisto5558/command'),
   { I18nProvider } = require('@mephisto5558/i18n'),
   { DB } = require('@mephisto5558/mongoose-db'),
   TicTacToe = require('discord-tictactoe'),
@@ -43,7 +41,7 @@ const
       'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
     ],
     discordJs: [
-      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+      'Client#commandManager', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
       'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config', 'Client#prefix',
       'Client#loadEnvAndDB()', 'Client#awaitReady()', 'ClientApplication#getEmoji()',
       'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
@@ -155,8 +153,7 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
 /* Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function
    to prevent recursive JSON stringify'ing DoS'ing the whole node process */
 Object.defineProperties(Client.prototype, {
-  prefixCommands: { value: new Collection() },
-  slashCommands: { value: new Collection() },
+  commandManager: { value: new CommandManager() },
   i18n: {
     value: new I18nProvider({
       notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(process.cwd(), 'Locales'),

@@ -1,7 +1,7 @@
 /** @import TriggerSubcommand from '.' */
 
 const
-  { OptionType, inlineCode } = require('discord.js'),
+  { inlineCode } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command');
 
 

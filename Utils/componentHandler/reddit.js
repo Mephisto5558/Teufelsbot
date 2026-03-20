@@ -1,7 +1,5 @@
 /** @import { reddit } from '.' */
 
-const { commandExecutionWrapper } = require('@mephisto5558/command');
-
 /** @type {reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
   this.options = {
@@ -12,5 +10,6 @@ module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
   };
 
   await this.update({ components: [] });
-  return commandExecutionWrapper.call(this, this.client.slashCommands.get('reddit'), 'component', lang);
+  // return commandExecutionWrapper.call(this, this.client.slashCommands.get('reddit'), 'component', lang);
+  return this.client.commandManager.get('reddit').runWrapper(this, lang.provider, lang.config.locale);
 };

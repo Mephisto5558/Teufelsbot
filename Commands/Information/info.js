@@ -76,20 +76,14 @@ function commandListFilter(cmd) {
 /** @param {Client<true>} client */
 function getCommandCount(client) {
   const
-    commands = new Set([...client.slashCommands.values(), ...client.prefixCommands.values()].filter(commandListFilter.bind(client)).map(e => e.name)),
-    count = {
-      total: commands.size,
-      combined: 0,
-      slash: 0, prefix: 0
-    };
+    commands = new Set(client.commandManager.commands.filter(commandListFilter.bind(client)).keys()),
+    count = client.commandManager.commands.reduce((acc, e) => {
+      if (e.types.includes(commandTypes.slash) && e.types.includes(commandTypes.prefix)) acc.combined++;
+      else if (e.types.includes(commandTypes.slash)) acc.slash++;
+      else if (e.types.includes(commandTypes.prefix)) acc.prefix++;
 
-  for (const command of commands) {
-    if (client.slashCommands.has(command)) {
-      if (client.prefixCommands.has(command)) count.combined++;
-      else count.slash++;
-    }
-    else count.prefix++;
-  }
+      return acc;
+    }, { total: commands.size, combined: 0, slash: 0, prefix: 0 });
 
   return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
 }

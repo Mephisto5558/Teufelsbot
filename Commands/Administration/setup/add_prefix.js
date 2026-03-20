@@ -1,5 +1,5 @@
 const
-  { OptionType, inlineCode } = require('discord.js'),
+  { inlineCode } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
   MAX_PREFIXES_PER_GUILD = 2;
 
