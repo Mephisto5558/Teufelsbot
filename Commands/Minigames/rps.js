@@ -1,11 +1,11 @@
 const
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { getTargetMembers } = require('#Utils'),
   { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
-  aliases: { [commandTypes.prefix]: ['rockpaperscissors'], [commandTypes.slash]: ['rockpaperscissors'] },
+  types: [CommandType.slash, CommandType.prefix],
+  aliases: { [CommandType.prefix]: ['rockpaperscissors'], [CommandType.slash]: ['rockpaperscissors'] },
   cooldowns: { user: '1s' },
   options: [{ name: 'opponent', type: OptionType.User }],
 

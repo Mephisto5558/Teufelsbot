@@ -3,7 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#Utils'),
 
@@ -32,7 +32,7 @@ function fetchPost({ children } = {}, filterNSFW = true) {
 }
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'memes hot' },
   cooldowns: { channel: '100ms' },
   dmPermission: true,

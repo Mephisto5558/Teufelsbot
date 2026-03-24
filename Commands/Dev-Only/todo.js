@@ -1,9 +1,9 @@
 const
   { channelLink, hyperlink } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command');
+  { Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
 
   async run(lang) {
     const { domain, port, todo, vote } = this.client.config.website;

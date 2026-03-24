@@ -2,13 +2,13 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
-  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, CommandType } = require('@mephisto5558/command'),
   { findPaths, getCommandName, getTargetChannel } = require('#Utils'),
   collectorTimeout = 3e4;
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
-  aliases: { [commandTypes.slash]: ['clearchannel'], [commandTypes.prefix]: ['clearchannel'] },
+  types: [CommandType.slash, CommandType.prefix],
+  aliases: { [CommandType.slash]: ['clearchannel'], [CommandType.prefix]: ['clearchannel'] },
   permissions: { client: [Permissions.ManageChannels], user: [Permissions.ManageChannels] },
   cooldowns: { guild: '10s', user: '10s' },
   options: [{

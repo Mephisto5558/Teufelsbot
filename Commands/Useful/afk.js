@@ -1,11 +1,11 @@
 const
   { ChatInputCommandInteraction } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   cooldowns: { user: '5s' },
   dmPermission: true,
   options: [

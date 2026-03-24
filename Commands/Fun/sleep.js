@@ -1,9 +1,9 @@
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   { setAfkPrefix } = require('#Utils').afk;
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
 
   async run(lang) {

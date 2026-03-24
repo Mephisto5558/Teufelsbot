@@ -1,5 +1,5 @@
 const
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   responseList = [
     'c:', 'C:', ':D', 'uwu', 'Wuiiii',
     'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147',
@@ -9,7 +9,7 @@ const
 let addedEmoji = false;
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
 
   async run() {

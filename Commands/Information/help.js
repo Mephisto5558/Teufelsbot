@@ -1,11 +1,11 @@
 /* eslint camelcase: [warn, {allow: [help_]}] */
 
 const
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'fun joke\n{prefix}{cmdName} fun' },
   dmPermission: true,
   ephemeralDefer: true,

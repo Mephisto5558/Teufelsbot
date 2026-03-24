@@ -1,6 +1,6 @@
 const
   { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants,
 
@@ -10,7 +10,7 @@ let restarting = false;
 
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
   beta: true,
   disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactyltServerAPIKey,

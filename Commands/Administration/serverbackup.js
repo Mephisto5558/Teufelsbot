@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
-  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, Permissions, CommandType } = require('@mephisto5558/command'),
   { timeFormatter: { timestamp }, commandMention } = require('#Utils'),
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
@@ -103,7 +103,7 @@ const backupMainFunctions = {
 };
 
 module.exports = new Command({
-  types: [commandTypes.slash],
+  types: [CommandType.slash],
   permissions: { client: [Permissions.Administrator], user: [Permissions.Administrator] },
   disabled: true,
   disabledReason: 'This command is still in development',

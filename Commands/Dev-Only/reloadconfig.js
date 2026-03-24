@@ -1,14 +1,14 @@
 const
   { Team } = require('discord.js'),
   { resolve } = require('node:path'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
   { loadEnv } = require('#Utils/prototypeRegisterer/client__loadEnvAndDB.js'),
 
   filePath = resolve(process.cwd(), 'config.json');
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
   beta: true,
 

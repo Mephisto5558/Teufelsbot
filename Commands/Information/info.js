@@ -14,7 +14,7 @@ const
     ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
     Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
   { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils'),
 
@@ -78,9 +78,9 @@ function getCommandCount(client) {
   const
     commands = new Set(client.commandManager.commands.filter(commandListFilter.bind(client)).keys()),
     count = client.commandManager.commands.reduce((acc, e) => {
-      if (e.types.includes(commandTypes.slash) && e.types.includes(commandTypes.prefix)) acc.combined++;
-      else if (e.types.includes(commandTypes.slash)) acc.slash++;
-      else if (e.types.includes(commandTypes.prefix)) acc.prefix++;
+      if (e.types.includes(CommandType.slash) && e.types.includes(CommandType.prefix)) acc.combined++;
+      else if (e.types.includes(CommandType.slash)) acc.slash++;
+      else if (e.types.includes(CommandType.prefix)) acc.prefix++;
 
       return acc;
     }, { total: commands.size, combined: 0, slash: 0, prefix: 0 });
@@ -250,7 +250,7 @@ async function createResourceGraph(lang) {
 }
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   dmPermission: true,
 
   async run(lang) {

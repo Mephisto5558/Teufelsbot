@@ -2,7 +2,7 @@
 
 const
   { codeBlock } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { minToMs } = require('#Utils').toMs,
 
   paramMap = { __dirname, __filename, exports, module, require },
@@ -24,7 +24,7 @@ const
 const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
   options: [{
     name: 'code',

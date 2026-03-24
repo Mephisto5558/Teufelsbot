@@ -1,7 +1,7 @@
-const { Command, commandTypes } = require('@mephisto5558/command');
+const { Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   dmPermission: true,
   beta: true,
 

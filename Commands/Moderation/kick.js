@@ -1,7 +1,7 @@
-const { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command');
+const { Command, OptionType, Permissions, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.slash],
+  types: [CommandType.slash],
   permissions: { client: [Permissions.KickMembers], user: [Permissions.KickMembers] },
   options: [
     {

@@ -2,16 +2,16 @@
 
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
-  { Command, OptionType, capitalize, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, capitalize, CommandType } = require('@mephisto5558/command'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
   { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#Utils'),
 
   MAX_MSGS = 9;
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'discord' },
-  aliases: { [commandTypes.prefix]: ['wikipedia'] },
+  aliases: { [CommandType.prefix]: ['wikipedia'] },
   cooldowns: { channel: '100ms', user: '200ms' },
   dmPermission: true,
   options: [{ name: 'query', type: OptionType.String }],
