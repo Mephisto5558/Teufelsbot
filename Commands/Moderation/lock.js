@@ -1,9 +1,9 @@
 const
   { Constants } = require('discord.js'),
-  { Command, OptionType, Permissions, commandTypes } = require('@mephisto5558/command');
+  { Command, OptionType, Permissions, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   permissions: { client: [Permissions.ManageRoles], user: [Permissions.ManageRoles] },
   cooldowns: { user: '1s' },
   options: [

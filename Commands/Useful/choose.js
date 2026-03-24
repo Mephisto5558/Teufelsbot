@@ -1,10 +1,10 @@
 const
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
 
   LONG_CHOICE_LENGTH = 100;
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   dmPermission: true,
   options: [{
     name: 'options',

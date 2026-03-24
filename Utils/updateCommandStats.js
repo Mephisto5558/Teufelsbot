@@ -2,7 +2,7 @@
 
 const
   { CommandInteraction } = require('discord.js'),
-  { commandTypes } = require('@mephisto5558/command');
+  { CommandType } = require('@mephisto5558/command');
 
 /** @type {commandDoneFn} */
 module.exports = async function updateCommandStats(command) {
@@ -10,7 +10,7 @@ module.exports = async function updateCommandStats(command) {
     await this.client.db.update('botSettings', `cmdStats.${command.name}.createdAt`, new Date());
 
   if (this.client.botType != 'dev') {
-    const commandType = this instanceof CommandInteraction ? commandTypes.slash : commandTypes.prefix;
+    const commandType = this instanceof CommandInteraction ? CommandType.slash : CommandType.prefix;
 
     await this.client.db.update(
       'botSettings', `cmdStats.${command.name}.${commandType}`,

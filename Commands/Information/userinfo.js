@@ -5,7 +5,7 @@ const
     ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
     ButtonStyle, EmbedBuilder, PermissionFlagsBits, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, OptionType, commandTypes, permissionTranslator } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType, permissionTranslator } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, timeFormatter: { timestamp } } = require('#Utils');
 
@@ -23,8 +23,8 @@ function getMemberType(member, lang) {
 }
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
-  aliases: { [commandTypes.prefix]: ['user-info'] },
+  types: [CommandType.slash, CommandType.prefix],
+  aliases: { [CommandType.prefix]: ['user-info'] },
   cooldowns: { user: '1s' },
   options: [{ name: 'target', type: OptionType.User }],
 

@@ -1,7 +1,7 @@
-const { Command, commandTypes } = require('@mephisto5558/command');
+const { Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.slash],
+  types: [CommandType.slash],
   dmPermission: true,
   options: [
     require('./guild'),

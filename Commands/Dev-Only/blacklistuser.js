@@ -1,12 +1,12 @@
 const
   { inlineCode } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
-  types: [commandTypes.prefix],
+  types: [CommandType.prefix],
   usage: { examples: '12345678901234568' },
-  aliases: { [commandTypes.prefix]: ['blacklist'] },
+  aliases: { [CommandType.prefix]: ['blacklist'] },
   dmPermission: true,
   options: [{
     name: 'target',

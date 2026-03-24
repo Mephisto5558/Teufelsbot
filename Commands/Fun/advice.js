@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants,
 
@@ -10,7 +10,7 @@ const
   })).json();
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   dmPermission: true,
 
   async run(lang) {

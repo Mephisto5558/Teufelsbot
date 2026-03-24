@@ -1,9 +1,9 @@
 const
   { inlineCode } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command');
+  { Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   cooldowns: { user: '1s' },
   beta: true,
 

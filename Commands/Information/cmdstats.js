@@ -1,10 +1,10 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, inlineCode } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { commandMention, timeFormatter: { timestamp } } = require('#Utils');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'user joke' },
   cooldowns: { user: '1s' },
   dmPermission: true,

@@ -2,11 +2,11 @@
 
 const
   { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   cooldowns: { user: '200ms' },
   ephemeralDefer: true,
   options: [

@@ -1,6 +1,6 @@
 const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  { Command, OptionType, commandTypes } = require('@mephisto5558/command'),
+  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
   {
     DiscordAPIErrorCodes, filterEmptyEntries,
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
@@ -63,7 +63,7 @@ async function sendUpdatedMsg(msg, url) {
 }
 
 module.exports = new Command({
-  types: [commandTypes.slash],
+  types: [CommandType.slash],
   cooldowns: { user: '500ms' },
   ephemeralDefer: true,
   options: [

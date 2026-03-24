@@ -8,7 +8,7 @@ const
     ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
     StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode
   } = require('discord.js'),
-  { commandTypes, permissionTranslator } = require('@mephisto5558/command'),
+  { CommandType, permissionTranslator } = require('@mephisto5558/command'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /** @type {help_getCommands} */
@@ -101,7 +101,7 @@ function createInfoFields(lang, cmd = {}) {
   const arr = [];
 
   if ('aliases' in cmd) {
-    for (const commandType of Object.values(commandTypes)) {
+    for (const commandType of Object.values(CommandType)) {
       if (commandType in cmd.aliases && cmd.aliases[commandType].length)
         arr.push({ name: lang(`one.${commandType}Alias`), value: cmd.aliases[commandType].map(inlineCode).join(', '), inline: true });
     }

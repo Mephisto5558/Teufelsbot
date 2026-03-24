@@ -1,10 +1,10 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command, commandTypes } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command'),
   { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#Utils');
 
 module.exports = new Command({
-  types: [commandTypes.slash, commandTypes.prefix],
+  types: [CommandType.slash, CommandType.prefix],
   cooldowns: { channel: '100ms' },
   dmPermission: true,
 
