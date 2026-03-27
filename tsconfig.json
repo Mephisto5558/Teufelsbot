@@ -1,14 +1,7 @@
 {
-  "exclude": [
-    "node_modules"
-  ],
+  "extends": "@mephisto5558/eslint-config/tsconfigs/node/tsconfig.check.json",
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "ESNext",
-    "lib": [
-      "ESNext"
-    ],
+    "rootDir": ".",
     "paths": {
       "#Utils/*": [
         "./Utils/*"
@@ -33,14 +26,6 @@
       ]
     },
     "allowJs": true,
-    "exactOptionalPropertyTypes": true,
-    "libReplacement": true,
-    "noEmit": true,
-    "noImplicitOverride": true,
-    "noUncheckedIndexedAccess": true,
-    "noUncheckedSideEffectImports": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true
+    "types": ["express", "node", "passport"]
   }
 }

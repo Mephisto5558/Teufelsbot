@@ -1,8 +1,5 @@
 /* eslint-disable sonarjs/no-built-in-override */
 
-import type * as __ from '@mephisto5558/better-types'; /* eslint-disable-line import-x/no-namespace -- load in global definitions */
-
-/* eslint-disable-next-line import-x/order */
 import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';

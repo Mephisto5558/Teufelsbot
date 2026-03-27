@@ -140,8 +140,10 @@ export declare class WebServer<Ready extends boolean = boolean> extends LibWebSe
   client: Client<Ready>;
 }
 
-export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<T[K]>> = StrictOmit<T, K> & {
-  [P in K]: Exclude<T[P], GenericFunction> | ((this: This, ...args: Args) => ReturnType<Extract<T[P], GenericFunction>>);
+export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<Extract<T[K], GenericFunction>>> = {
+  [P in keyof T]: P extends K
+    ? ((this: This, ...args: Args) => ReturnType<Extract<T[P], GenericFunction>>) | Exclude<T[P], GenericFunction>
+    : T[P]
 };
 
 type GetReadyState<T> = T extends GenericFunction
