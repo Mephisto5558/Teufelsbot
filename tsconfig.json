@@ -1,7 +1,6 @@
 {
   "extends": "@mephisto5558/eslint-config/tsconfigs/node/tsconfig.check.json",
   "compilerOptions": {
-    "rootDir": ".",
     "paths": {
       "#Utils/*": [
         "./Utils/*"
