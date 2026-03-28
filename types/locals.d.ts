@@ -1,4 +1,4 @@
-import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
+import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
 import type { NextFunction, Request, Response } from 'express';
 
@@ -50,10 +50,6 @@ export declare class WebServer<Ready extends boolean = boolean> extends LibWebSe
   db: DB<Database>;
   client: Client<Ready>;
 }
-
-export type ReplaceMethod<T, K extends keyof T, This, Args extends unknown[] = Parameters<T[K]>> = StrictOmit<T, K> & {
-  [P in K]: Exclude<T[P], GenericFunction> | ((this: This, ...args: Args) => ReturnType<Extract<T[P], GenericFunction>>);
-};
 
 type GetReadyState<T> = T extends GenericFunction
   ? ThisParameterType<T> extends LibWebServer<infer Ready>
