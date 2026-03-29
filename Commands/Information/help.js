@@ -5,7 +5,7 @@ const
   { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'fun joke\n{prefix}{cmdName} fun' },
   dmPermission: true,
   ephemeralDefer: true,

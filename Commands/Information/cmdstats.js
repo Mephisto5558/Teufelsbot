@@ -1,12 +1,12 @@
 const
-  { Colors, EmbedBuilder, TimestampStyles, bold, inlineCode } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { commandMention, timeFormatter: { timestamp } } = require('#Utils');
+  { Colors, EmbedBuilder, TimestampStyles, bold } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, commandMention } = require('@mephisto5558/command'),
+  { timestamp } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'user joke' },
-  cooldowns: { [CooldownType.user]: '1s' },
+  cooldowns: { [CooldownType.User]: '1s' },
   dmPermission: true,
   options: [
     {
@@ -45,7 +45,7 @@ module.exports = new Command({
         Object.values(cmdStats[command.name] ?? {}).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0)
       );
       embed.data.description = lang('embedDescriptionOne', {
-        total, command: 'id' in command ? commandMention(command.name, command.id) : inlineCode(command.name),
+        total, command: command.mention,
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
 

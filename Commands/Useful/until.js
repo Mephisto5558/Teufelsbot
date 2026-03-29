@@ -35,7 +35,7 @@ function getTime(year, month, day, ...args) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
   usage: {
     usage: '[dd] [MM] [yyyy] [hh] [mm] [ss]',

@@ -4,7 +4,7 @@
 
 const
   { Collection, Constants, Message } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permissions } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, PermissionType, Permission } = require('@mephisto5558/command'),
   {
     getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }
   } = require('#Utils'),
@@ -116,10 +116,10 @@ function checkParams(amount, options, exists, lang) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['clear'] },
-  permissions: { client: [Permissions.ReadMessageHistory], user: [Permissions.ManageMessages] },
-  cooldowns: { [CooldownType.guild]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['clear'] },
+  permissions: { [PermissionType.Client]: [Permission.ReadMessageHistory], [PermissionType.User]: [Permission.ManageMessages] },
+  cooldowns: { [CooldownType.Guild]: '1s' },
   ephemeralDefer: true,
   options: [
     {

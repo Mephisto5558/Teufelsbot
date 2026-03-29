@@ -5,12 +5,12 @@ const
   { constants: { commonHeaders } } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: {
     usage: '["en" | "de"]',
     examples: 'fact en'
   },
-  cooldowns: { [CooldownType.channel]: '100ms' },
+  cooldowns: { [CooldownType.Channel]: '100ms' },
   dmPermission: true,
 
   async run(lang) {

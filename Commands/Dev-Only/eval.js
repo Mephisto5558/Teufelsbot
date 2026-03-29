@@ -24,7 +24,7 @@ const
 const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   options: [{
     name: 'code',

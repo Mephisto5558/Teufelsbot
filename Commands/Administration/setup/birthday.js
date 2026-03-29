@@ -1,10 +1,12 @@
+/** @import {CommandType} from '@mephisto5558/command' */
+
 const
   { hyperlink } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 
-/** @type {CommandOption<['slash']>} */
+/** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'birthday',
   type: OptionType.Subcommand,

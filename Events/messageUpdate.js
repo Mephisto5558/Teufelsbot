@@ -2,10 +2,11 @@
 
 const
   {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags,
-    PermissionFlagsBits, channelMention, hyperlink, inlineCode, userMention
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+
   PINK = 0xE62AED;
 
 /**
@@ -24,7 +25,7 @@ function shouldRun(newMsg) {
     && this.embeds.length === newMsg.embeds.length
   ) return;
 
-  if (this.guild.members.me.permissionsIn(setting.channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length)
+  if (this.guild.members.me.permissionsIn(setting.channel).missing([Permission.ViewChannel, Permission.SendMessages]).length)
     return;
 
   return true;

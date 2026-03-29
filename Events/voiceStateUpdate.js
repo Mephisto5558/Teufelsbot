@@ -1,8 +1,10 @@
 /** @import { ClientEvents } from 'discord.js' */
 
 const
-  { EmbedBuilder, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
+  { EmbedBuilder, channelMention, inlineCode, userMention } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
+
   GRAY = 0x36393F;
 
 /**
@@ -22,7 +24,7 @@ module.exports = async function voiceStateUpdate(newState) {
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (
     !channelToSend?.isTextBased() || this.guild.members.me.permissionsIn(channelToSend)
-      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length
+      .missing([Permission.ViewChannel, Permission.SendMessages]).length
   ) return;
 
   const

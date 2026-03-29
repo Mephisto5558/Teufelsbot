@@ -1,10 +1,11 @@
+/** @import {CommandType} from '@mephisto5558/command' */
+
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { commandMention } = require('#Utils'),
+  { CommandOption, OptionType, commandMention } = require('@mephisto5558/command'),
   { getTopGuilds } = require('./_utils');
 
-/** @type {CommandOption<['slash']>} */
+/** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'user',
   type: OptionType.SubcommandGroup,

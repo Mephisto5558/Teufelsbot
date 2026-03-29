@@ -21,9 +21,9 @@ function getCommandCount(client) {
   const
     commands = new Set(client.commandManager.commands.filter(commandListFilter.bind(client)).keys()),
     count = client.commandManager.commands.reduce((acc, e) => {
-      if (e.types.includes(CommandType.slash) && e.types.includes(CommandType.prefix)) acc.combined++;
-      else if (e.types.includes(CommandType.slash)) acc.slash++;
-      else if (e.types.includes(CommandType.prefix)) acc.prefix++;
+      if (e.types.includes(CommandType.Slash) && e.types.includes(CommandType.Prefix)) acc.combined++;
+      else if (e.types.includes(CommandType.Slash)) acc.slash++;
+      else if (e.types.includes(CommandType.Prefix)) acc.prefix++;
 
       return acc;
     }, { total: commands.size, combined: 0, slash: 0, prefix: 0 });
@@ -49,7 +49,7 @@ async function getGitInfo(unixTimestamp) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
 
   async run(lang) {

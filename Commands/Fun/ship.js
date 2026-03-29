@@ -37,7 +37,7 @@ function calculatePercentage(user1Id, user2Id) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   options: [
     {
       name: 'user1',

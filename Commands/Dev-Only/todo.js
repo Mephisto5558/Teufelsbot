@@ -3,7 +3,7 @@ const
   { Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
 
   async run(lang) {
     const { domain, port, todo, vote } = this.client.config.website;

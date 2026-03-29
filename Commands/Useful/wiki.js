@@ -9,10 +9,10 @@ const
   MAX_MSGS = 9;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'discord' },
-  aliases: { [CommandType.prefix]: ['wikipedia'] },
-  cooldowns: { [CooldownType.channel]: '100ms', [CooldownType.user]: '200ms' },
+  aliases: { [CommandType.Prefix]: ['wikipedia'] },
+  cooldowns: { [CooldownType.Channel]: '100ms', [CooldownType.User]: '200ms' },
   dmPermission: true,
   options: [{ name: 'query', type: OptionType.String }],
 

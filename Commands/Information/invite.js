@@ -4,7 +4,7 @@ const
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
   disabled: !!disableWebserver || !website.domain || !website.invite,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',

@@ -9,7 +9,7 @@ const
 let addedEmoji = false;
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
 
   async run() {

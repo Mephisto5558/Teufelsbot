@@ -4,7 +4,7 @@ const
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
   disabled: !!disableWebserver || !website.domain || !website.vote,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain or vote url path in config.json',

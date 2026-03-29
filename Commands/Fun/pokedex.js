@@ -80,7 +80,7 @@ function getGenderRate(genderRate, lang) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'Bulbasaur' },
   dmPermission: true,
   options: [{

@@ -1,10 +1,11 @@
 /** @import { OmitPartialGroupDMChannel, ClientEvents, GuildTextBasedChannel } from 'discord.js' */
 
+
 const
   {
-    ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags,
-    PermissionFlagsBits, bold, channelMention, hyperlink, inlineCode, userMention
+    ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags, bold, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -55,7 +56,7 @@ function shouldRun() {
   if (
     !setting?.enabled || !this.guild.channels.cache.has(setting.channel)
     || this.guild.members.me.permissionsIn(setting.channel)
-      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
+      .missing([Permission.ViewChannel, Permission.SendMessages, Permission.ViewAuditLog]).length
   ) return;
 
   return true;

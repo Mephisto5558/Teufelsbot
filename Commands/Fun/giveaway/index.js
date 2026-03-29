@@ -1,12 +1,12 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
-  { Command, CommandType, CooldownType, Permissions } = require('@mephisto5558/command'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { Command, CommandType, CooldownType, PermissionType, Permission } = require('@mephisto5558/command'),
   { getMilliseconds } = require('better-ms');
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  permissions: { user: [Permissions.ManageMessages] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash],
+  permissions: { [PermissionType.User]: [Permission.ManageMessages] },
+  cooldowns: { [CooldownType.User]: '1s' },
   ephemeralDefer: true,
   options: [
     require('./create'),
@@ -23,7 +23,7 @@ module.exports = new Command({
       const giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
       if (!giveaway || giveaway.ended && ['edit', 'end'].includes(this.options.getSubcommand())) return this.editReply(lang('notFound'));
-      if (giveaway.hostedBy.id != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
+      if (giveaway.hostedBy.id != this.user.id && !this.member.permissions.has(Permission.Administrator))
         return this.editReply(lang('notHost'));
     }
 

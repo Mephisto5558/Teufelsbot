@@ -116,8 +116,8 @@ const birthdayMainFunctions = {
 };
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash],
+  cooldowns: { [CooldownType.User]: '1s' },
   ephemeralDefer: true,
   options: [
     {

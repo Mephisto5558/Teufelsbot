@@ -1,13 +1,13 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType, commandMention } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
-  { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs }, commandMention } = require('#Utils'),
+  { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#Utils'),
 
   MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- range limit */
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
   options: [{
     name: 'time',
@@ -19,8 +19,8 @@ module.exports = new Command({
   async run(lang) {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
     if (!offset) {
-      const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
-      return this.customReply(lang('invalid', helpcmd ? commandMention('help', helpcmd) : '/help'));
+      const helpcmd = this.client.commandManager.get('help');
+      return this.customReply(lang('invalid', helpcmd.mention));
     }
 
     const time = this.createdTimestamp + offset;

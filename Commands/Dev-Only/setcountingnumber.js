@@ -5,8 +5,8 @@ const
 
 
 module.exports = new Command({
-  types: [CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['setcountingnum'] },
+  types: [CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['setcountingnum'] },
 
   async run(lang) {
     const

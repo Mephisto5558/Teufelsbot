@@ -3,8 +3,8 @@ const
   { Command, CommandType, CooldownType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.User]: '1s' },
   beta: true,
 
   async run(lang) {

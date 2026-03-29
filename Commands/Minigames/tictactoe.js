@@ -41,9 +41,9 @@ async function updateStats(firstID, secondID, type, db) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  aliases: { [CommandType.slash]: ['ttt'], [CommandType.prefix]: ['ttt'] },
-  cooldowns: { [CooldownType.user]: '5s' },
+  types: [CommandType.Slash],
+  aliases: { [CommandType.Slash]: ['ttt'], [CommandType.Prefix]: ['ttt'] },
+  cooldowns: { [CooldownType.User]: '5s' },
   options: [{ name: 'opponent', type: OptionType.User }],
 
   async run(lang) {

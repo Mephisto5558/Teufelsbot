@@ -4,7 +4,7 @@ const
   responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
 
   async run() { return this.customReply(responseList.random()); }

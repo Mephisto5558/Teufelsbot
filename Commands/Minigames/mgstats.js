@@ -38,9 +38,9 @@ function formatStatCount(input, all) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.slash]: ['leaderboard'], [CommandType.prefix]: ['leaderboard'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Slash]: ['leaderboard'], [CommandType.Prefix]: ['leaderboard'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   options: [
     {
       name: 'user',

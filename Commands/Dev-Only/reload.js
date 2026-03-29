@@ -3,13 +3,12 @@ const
   { access } = require('node:fs/promises'),
   { resolve } = require('node:path'),
   { Command, CommandType, OptionType, filename } = require('@mephisto5558/command'),
-  { commandMention } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;
 
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   options: [{
     name: 'command_name',
@@ -42,14 +41,14 @@ module.exports = new Command({
 
           if (this.args[1]?.startsWith('Commands/')) {
             const command = commandList.get(filename(filePath).toLowerCase());
-            reloadedArray.push(commandMention(command.name));
+            reloadedArray.push(command.mention);
           }
 
           break;
         }
         case '*': {
           const reloadedCommands = await this.client.commandManager.reloadAll();
-          reloadedArray.push(...reloadedCommands.map(e => commandMention(e.name)));
+          reloadedArray.push(...reloadedCommands.map(e => e.mention));
           break;
         }
         default: {
@@ -57,7 +56,7 @@ module.exports = new Command({
           if (!command) return void msg.edit(lang('invalidCommand'));
 
           await this.client.commandManager.reload(command);
-          reloadedArray.push(commandMention(command.name));
+          reloadedArray.push(command.mention);
         }
       }
     }

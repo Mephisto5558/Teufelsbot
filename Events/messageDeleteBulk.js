@@ -1,8 +1,10 @@
 /** @import { ClientEvents, GuildTextBasedChannel } from 'discord.js' */
 
 const
-  { AuditLogEvent, EmbedBuilder, MessageFlags, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
+  { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { secToMs } = require('#Utils').toMs,
+
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
 
@@ -21,7 +23,7 @@ module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move
   const logChannel = channel.guild.channels.cache.get(setting.channel);
   if (
     !logChannel || logChannel.permissionsFor(channel.guild.members.me)
-      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
+      .missing([Permission.ViewChannel, Permission.SendMessages, Permission.ViewAuditLog]).length
   ) return;
 
   await sleep(secToMs(1)); // makes sure the audit log gets created before trying to fetch it

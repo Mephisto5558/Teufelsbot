@@ -3,7 +3,7 @@ const
   { seededHash } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
   options: [{
     name: 'question',

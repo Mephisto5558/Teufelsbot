@@ -38,9 +38,9 @@ async function getCommits() {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['changelogs'] },
-  cooldowns: { [CooldownType.channel]: '10s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['changelogs'] },
+  cooldowns: { [CooldownType.Channel]: '10s' },
   dmPermission: true,
   disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',

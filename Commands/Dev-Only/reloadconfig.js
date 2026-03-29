@@ -8,7 +8,7 @@ const
   filePath = resolve(process.cwd(), 'config.json');
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   beta: true,
 

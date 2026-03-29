@@ -6,8 +6,8 @@ const
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.guild]: '200ms', [CooldownType.user]: '10s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.Guild]: '200ms', [CooldownType.User]: '10s' },
   ephemeralDefer: true,
   options: [
     {

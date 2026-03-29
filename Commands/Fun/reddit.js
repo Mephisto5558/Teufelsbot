@@ -32,9 +32,9 @@ function fetchPost({ children } = {}, filterNSFW = true) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'memes hot' },
-  cooldowns: { [CooldownType.channel]: '100ms' },
+  cooldowns: { [CooldownType.Channel]: '100ms' },
   dmPermission: true,
   options: [
     {

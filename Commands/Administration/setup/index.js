@@ -1,10 +1,10 @@
-const { Command, CommandType, CooldownType, Permissions } = require('@mephisto5558/command');
+const { Command, CommandType, CooldownType, Permission, PermissionType } = require('@mephisto5558/command');
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  aliases: { [CommandType.slash]: ['config'] },
-  permissions: { user: [Permissions.ManageGuild] },
-  cooldowns: { [CooldownType.user]: '10s' },
+  types: [CommandType.Slash],
+  aliases: { [CommandType.Slash]: ['config'] },
+  permissions: { [PermissionType.User]: [Permission.ManageGuild] },
+  cooldowns: { [CooldownType.User]: '10s' },
   options: [
     require('./toggle_command'),
     require('./language'),

@@ -5,8 +5,8 @@ const
   { getTargetMembers } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.User]: '1s' },
   dmPermission: true,
   options: [
     { name: 'target', type: OptionType.User },

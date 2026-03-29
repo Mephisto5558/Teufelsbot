@@ -9,9 +9,9 @@ const
   ];
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['flip'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['flip'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   dmPermission: true,
 
   async run(lang) {

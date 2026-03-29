@@ -6,8 +6,8 @@ const
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.channel]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.Channel]: '1s' },
   dmPermission: true,
   beta: true,
   options: [{ name: 'average', type: OptionType.Boolean }],

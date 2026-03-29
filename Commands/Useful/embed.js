@@ -1,15 +1,15 @@
 const
-  { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permissions } = require('@mephisto5558/command'),
+  { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, codeBlock } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
 
   /** @type {(interaction: Interaction, name: string) => string | undefined} */
   getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  permissions: { user: [Permissions.EmbedLinks] },
-  cooldowns: { [CooldownType.user]: '200ms' },
+  types: [CommandType.Slash],
+  permissions: { [PermissionType.User]: [Permission.EmbedLinks] },
+  cooldowns: { [CooldownType.User]: '200ms' },
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -83,7 +83,7 @@ module.exports = new Command({
               }
             });
 
-      if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone))
+      if (this.member.permissionsIn(this.channel).has(Permission.MentionEveryone))
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
       const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });

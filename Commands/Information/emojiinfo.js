@@ -2,10 +2,9 @@
 
 const
   {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
-    PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
-  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType, Permission } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 
@@ -13,9 +12,9 @@ const
   emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: ':derp:' },
-  aliases: { [CommandType.prefix]: ['emoji-info'] },
+  aliases: { [CommandType.Prefix]: ['emoji-info'] },
   options: [{
     name: 'emoji',
     type: OptionType.String,
@@ -62,7 +61,7 @@ module.exports = new Command({
         ]
       });
 
-    if ('guild' in emoji && emoji.guild.id == this.guild.id && this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) {
+    if ('guild' in emoji && emoji.guild.id == this.guild.id && this.member.permissions.has(Permission.ManageGuildExpressions)) {
       component.components.push(new ButtonBuilder({
         label: lang('delete'),
         customId: `infoCMDs.${emoji.id}.delete.emojis`,
