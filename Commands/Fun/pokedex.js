@@ -4,7 +4,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
-  { Command, OptionType, capitalize, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType, capitalize } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,

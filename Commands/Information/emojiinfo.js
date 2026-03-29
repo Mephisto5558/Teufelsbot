@@ -5,7 +5,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
     PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 

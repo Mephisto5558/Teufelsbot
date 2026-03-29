@@ -1,13 +1,13 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { user: '2s' },
+  cooldowns: { [CooldownType.user]: '2s' },
   options: [
     {
       name: 'base',

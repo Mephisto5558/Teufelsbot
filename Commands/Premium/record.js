@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } = require('discord.js'),
   { mkdir } = require('node:fs/promises'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command');
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
 
 function isEncryptionAvailable() {
   // https://discord.js.org/docs/packages/voice/main
@@ -22,7 +22,7 @@ else log.warn('Missing encryption library for record Command!');
 
 module.exports = new Command({
   types: [CommandType.slash],
-  cooldowns: { user: '10s' },
+  cooldowns: { [CooldownType.user]: '10s' },
   disabled: !isEncryptionAvailable(),
   disabledReason: 'No encryption library is installed.',
   options: [

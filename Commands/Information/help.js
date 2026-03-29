@@ -1,7 +1,7 @@
 /* eslint camelcase: [warn, {allow: [help_]}] */
 
 const
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 module.exports = new Command({

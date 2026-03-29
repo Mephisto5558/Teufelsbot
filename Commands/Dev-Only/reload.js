@@ -2,7 +2,7 @@ const
   { codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { Command, OptionType, CommandType, filename } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType, filename } = require('@mephisto5558/command'),
   { commandMention } = require('#Utils'),
 
   MAX_COMMANDLIST_LENGTH = 800;

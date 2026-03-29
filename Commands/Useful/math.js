@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 

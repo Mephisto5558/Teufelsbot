@@ -1,5 +1,5 @@
 const
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
 
   /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */

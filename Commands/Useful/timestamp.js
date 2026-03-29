@@ -1,6 +1,6 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs }, commandMention } = require('#Utils'),
 

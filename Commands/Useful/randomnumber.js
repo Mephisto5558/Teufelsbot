@@ -1,7 +1,7 @@
 const
   { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
 
   defaultMaxNum = 100;
 
