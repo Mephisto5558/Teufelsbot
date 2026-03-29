@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
   { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils'),
 
@@ -84,7 +84,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'dadjoke' },
-  cooldowns: { channel: '100ms' },
+  cooldowns: { [CooldownType.channel]: '100ms' },
   dmPermission: true,
   options: [
     {

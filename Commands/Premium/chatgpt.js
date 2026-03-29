@@ -1,13 +1,13 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { constants: { messageMaxLength } } = require('#Utils'),
   fetchAPI = require('#Utils/componentHandler').chatgpt_fetchAPI;
 
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
   aliases: { [CommandType.prefix]: ['gpt'] },
-  cooldowns: { user: '2s' },
+  cooldowns: { [CooldownType.user]: '2s' },
   dmPermission: true,
   premium: true,
   options: [{

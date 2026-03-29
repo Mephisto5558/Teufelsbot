@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
 
   currentYear = new Date().getFullYear(),
@@ -117,7 +117,7 @@ const birthdayMainFunctions = {
 
 module.exports = new Command({
   types: [CommandType.slash],
-  cooldowns: { user: '1s' },
+  cooldowns: { [CooldownType.user]: '1s' },
   ephemeralDefer: true,
   options: [
     {

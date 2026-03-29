@@ -1,6 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
   DEFAULT_CHARSET = [...String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
@@ -22,7 +22,7 @@ const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== las
 
 module.exports = new Command({
   types: [CommandType.slash],
-  cooldowns: { user: '1s' },
+  cooldowns: { [CooldownType.user]: '1s' },
   dmPermission: true,
   ephemeralDefer: true,
   options: [

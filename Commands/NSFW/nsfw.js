@@ -1,7 +1,7 @@
 const
   { EmbedBuilder } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { commonHeaders } } = require('#Utils'),
 
@@ -10,7 +10,7 @@ const
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
   usage: { examples: 'hentai' },
-  cooldowns: { user: '1s' },
+  cooldowns: { [CooldownType.user]: '1s' },
   ephemeralDefer: true,
   options: [{
     name: 'type',

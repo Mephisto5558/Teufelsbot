@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
@@ -40,7 +40,7 @@ function formatStatCount(input, all) {
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
   aliases: { [CommandType.slash]: ['leaderboard'], [CommandType.prefix]: ['leaderboard'] },
-  cooldowns: { user: '1s' },
+  cooldowns: { [CooldownType.user]: '1s' },
   options: [
     {
       name: 'user',

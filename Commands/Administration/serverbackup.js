@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
-  { Command, OptionType, Permissions, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permissions } = require('@mephisto5558/command'),
   { timeFormatter: { timestamp }, commandMention } = require('#Utils'),
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
@@ -111,12 +111,12 @@ module.exports = new Command({
     {
       name: 'create',
       type: OptionType.Subcommand,
-      cooldowns: { guild: '30min' }
+      cooldowns: { [CooldownType.guild]: '30min' }
     },
     {
       name: 'load',
       type: OptionType.Subcommand,
-      cooldowns: { guild: '5min' },
+      cooldowns: { [CooldownType.guild]: '5min' },
       options: [
         {
           name: 'id',

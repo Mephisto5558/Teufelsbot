@@ -2,12 +2,12 @@
 
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { guild: '200ms', user: '10s' },
+  cooldowns: { [CooldownType.guild]: '200ms', [CooldownType.user]: '10s' },
   ephemeralDefer: true,
   options: [
     {

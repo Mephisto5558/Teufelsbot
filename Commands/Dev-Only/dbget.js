@@ -1,6 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({

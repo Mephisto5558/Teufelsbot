@@ -1,5 +1,5 @@
 const
-  { Command, OptionType, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
 
   LONG_CHOICE_LENGTH = 100;
 
