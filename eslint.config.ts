@@ -53,8 +53,8 @@ export default [
       ...getModifiedRule(config, `${pluginNames.jsonc}/key-name-casing`, [{
         snake_case: true /* eslint-disable-line camelcase */
       }]),
-      ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`,
-        [{
+      ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`, [
+        {
           pathPattern: '^$',
           order: [
             'categoryName',
@@ -86,7 +86,8 @@ export default [
             'usage',
             'examples'
           ]
-        }])
+        }
+      ])
     }
   },
   {
