@@ -79,11 +79,11 @@ function getCommandCount(client) {
     commands = new Set(client.commandManager.commands.filter(commandListFilter.bind(client)).keys()),
     count = client.commandManager.commands.reduce((acc, e) => {
       if (e.types.includes(CommandType.Slash) && e.types.includes(CommandType.Prefix)) acc.combined++;
-      else if (e.types.includes(CommandType.Slash)) acc.slash++;
-      else if (e.types.includes(CommandType.Prefix)) acc.prefix++;
+      else if (e.types.includes(CommandType.Slash) || e.types.includes(CommandType.Component)) acc[CommandType.Slash]++;
+      else if (e.types.includes(CommandType.Prefix)) acc[CommandType.Prefix]++;
 
       return acc;
-    }, { total: commands.size, combined: 0, slash: 0, prefix: 0 });
+    }, { total: commands.size, combined: 0, [CommandType.Slash]: 0, [CommandType.Prefix]: 0 });
 
   return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
 }
