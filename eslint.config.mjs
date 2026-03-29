@@ -45,10 +45,10 @@ export default [
     name: 'overwrite:locales/commands',
     files: ['./Locales/*/commands/*.json'],
     rules: {
-      'jsonc/key-name-casing': getModifiedRule(config, 'jsonc/key-name-casing', {
+      ...getModifiedRule(config, 'jsonc/key-name-casing', [{
         snake_case: true /* eslint-disable-line camelcase */
-      }),
-      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys',
+      }]),
+      ...getModifiedRule(config, 'jsonc/sort-keys', [
         {
           pathPattern: '^$',
           order: [
@@ -81,14 +81,15 @@ export default [
             'usage',
             'examples'
           ]
-        })
+        }
+      ])
     }
   },
   {
     name: 'overwrite:dashboard-settings',
     files: ['./Website/DashboardSettings/*/_index.json'],
     rules: {
-      'jsonc/sort-keys': getModifiedRule(config, 'jsonc/sort-keys', {
+      ...getModifiedRule(config, 'jsonc/sort-keys', [{
         pathPattern: '^$',
         order: [
           'id',
@@ -97,16 +98,16 @@ export default [
           'position',
           { order: { type: 'asc' } }
         ]
-      })
+      }])
     }
   },
   {
     name: 'overwrite:Tests',
     files: [`./Tests/**/*${jsGlob}`],
     rules: {
-      'id-length': getModifiedRule(config, 'id-length', {
+      ...getModifiedRule(config, 'id-length', [{
         exceptions: ['t']
-      }),
+      }]),
       '@typescript-eslint/no-magic-numbers': 'off',
       'unicorn/no-null': 'off'
     }
