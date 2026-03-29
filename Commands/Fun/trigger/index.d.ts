@@ -1,7 +1,7 @@
 import type { AutocompleteInteraction } from 'discord.js';
-import type { CommandOption } from '@mephisto5558/command';
+import type { CommandOption, CommandType } from '@mephisto5558/command';
 
-type TriggerSubcommand = CommandOption<['slash'], boolean, {
+type TriggerSubcommand = CommandOption<[CommandType.Slash], boolean, {
   oldData: triggers;
   query: string;
 }>;

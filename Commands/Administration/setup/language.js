@@ -1,12 +1,14 @@
+/** @import {CommandType} from '@mephisto5558/command' */
+
 const
   { Colors, EmbedBuilder } = require('discord.js'),
   { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType, CooldownType } = require('@mephisto5558/command');
 
-/** @type {CommandOption<['slash']>} */
+/** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'language',
   type: OptionType.Subcommand,
-  cooldowns: { [CooldownType.guild]: '10s' },
+  cooldowns: { [CooldownType.Guild]: '10s' },
   options: [{
     name: 'language',
     type: OptionType.String,

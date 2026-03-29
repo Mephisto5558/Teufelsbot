@@ -63,8 +63,8 @@ async function sendUpdatedMsg(msg, url) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  cooldowns: { [CooldownType.user]: '500ms' },
+  types: [CommandType.Slash],
+  cooldowns: { [CooldownType.User]: '500ms' },
   ephemeralDefer: true,
   options: [
     {

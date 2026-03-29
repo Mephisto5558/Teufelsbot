@@ -6,8 +6,8 @@ const
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.user]: '2s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.User]: '2s' },
   options: [
     {
       name: 'base',

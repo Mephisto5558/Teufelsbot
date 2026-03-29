@@ -7,7 +7,7 @@ const
 
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   options: [
     {

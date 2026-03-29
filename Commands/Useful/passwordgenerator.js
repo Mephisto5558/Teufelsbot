@@ -21,8 +21,8 @@ const
 const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash],
+  cooldowns: { [CooldownType.User]: '1s' },
   dmPermission: true,
   ephemeralDefer: true,
   options: [

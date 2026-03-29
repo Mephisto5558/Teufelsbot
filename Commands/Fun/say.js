@@ -1,13 +1,13 @@
 /** @import { GuildTextBasedChannel } from 'discord.js' */
 
 const
-  { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { AllowedMentionsTypes, Constants, Message } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
   { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.user]: '200ms' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.User]: '200ms' },
   ephemeralDefer: true,
   options: [
     {
@@ -39,10 +39,10 @@ module.exports = new Command({
       channel = getTargetChannel(this, { returnSelf: true }),
       replyTo = this.options?.getString('reply_to');
 
-    if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
+    if (!this.member.permissionsIn(channel).has([Permission.ViewChannel, Permission.SendMessages]))
       return this.customReply(lang('noPerm'));
 
-    if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone))
+    if (this.member.permissionsIn(channel).has(Permission.MentionEveryone))
       allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
     const sentMessage = await channel.send({

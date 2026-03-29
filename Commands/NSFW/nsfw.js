@@ -8,9 +8,9 @@ const
   secretChance = 1e4; // 1 in 10_000
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'hentai' },
-  cooldowns: { [CooldownType.user]: '1s' },
+  cooldowns: { [CooldownType.User]: '1s' },
   ephemeralDefer: true,
   options: [{
     name: 'type',

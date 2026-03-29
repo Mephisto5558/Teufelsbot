@@ -3,7 +3,7 @@ const
   { setAfkPrefix } = require('#Utils').afk;
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
 
   async run(lang) {

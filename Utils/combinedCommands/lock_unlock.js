@@ -3,7 +3,8 @@
  * @import { lock_unlock } from '.' */
 
 const
-  { Colors, EmbedBuilder, OverwriteType, PermissionFlagsBits } = require('discord.js'),
+  { Colors, EmbedBuilder, OverwriteType } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   getTargetChannel = require('../getTargetChannel');
 
 /** @type {lock_unlock} */
@@ -31,7 +32,7 @@ module.exports = async function lock_unlock(lang) {
     overwrites = channel.permissionOverwrites.cache.reduce((acc, e) => {
       if (
         (e.type == OverwriteType.Role && roles.get(e.id)?.editable || members.get(e.id).manageable)
-        && !e.deny.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator)
+        && !e.deny.has(Permission.SendMessages) && !e.allow.has(Permission.Administrator)
       ) acc[e.id] = e.type;
 
       return acc;
@@ -39,12 +40,12 @@ module.exports = async function lock_unlock(lang) {
 
     if (
       this.guild.roles.everyone.editable
-      && channel.permissionsFor(this.guild.roles.everyone.id)?.has(PermissionFlagsBits.SendMessages)
+      && channel.permissionsFor(this.guild.roles.everyone.id)?.has(Permission.SendMessages)
     ) overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
   }
   else {
     overwrites = Object.fromEntries(Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(([k, v]) => {
-      if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return false;
+      if (channel.permissionOverwrites.cache.get(k)?.allow.has(Permission.SendMessages)) return false;
       if (v == OverwriteType.Role) return roles.get(k).position - this.guild.members.me.roles.highest.position < 0;
       return members.get(k).manageable;
     }));
@@ -54,7 +55,7 @@ module.exports = async function lock_unlock(lang) {
 
   for (const [id, type] of Object.entries(overwrites)) {
     await channel.permissionOverwrites.edit(id,
-      { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
+      { [Permission.SendMessages]: this.commandName == 'lock' },
       { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
   }
 

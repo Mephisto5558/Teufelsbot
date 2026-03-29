@@ -6,9 +6,9 @@ const
   defaultMaxNum = 100;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: '1 10' },
-  aliases: { [CommandType.prefix]: ['random-number'] },
+  aliases: { [CommandType.Prefix]: ['random-number'] },
   dmPermission: true,
   ephemeralDefer: true,
   options: [

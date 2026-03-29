@@ -10,7 +10,7 @@ const
   })).json();
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   dmPermission: true,
 
   async run(lang) {

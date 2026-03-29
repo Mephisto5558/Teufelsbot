@@ -4,7 +4,7 @@ const
   { constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash],
+  types: [CommandType.Slash],
   usage: { examples: 'database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>' },
   dmPermission: true,
   options: [

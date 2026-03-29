@@ -2,10 +2,9 @@
 
 const
   {
-    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
-    ButtonStyle, EmbedBuilder, PermissionFlagsBits, TimestampStyles, hyperlink, inlineCode
+    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, permissionTranslator } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission, permissionTranslator } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, timeFormatter: { timestamp } } = require('#Utils');
 
@@ -15,17 +14,17 @@ const
 function getMemberType(member, lang) {
   let type = member.user.bot ? 'Bot, ' : '';
   if (member.guild.ownerId == member.id) type += lang('guildOwner');
-  else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += lang('guildAdmin');
-  else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += lang('guildMod');
+  else if (member.permissions.has(Permission.Administrator)) type += lang('guildAdmin');
+  else if (member.permissions.has(Permission.ModerateMembers)) type += lang('guildMod');
   else type += lang('guildMember');
 
   return type;
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['user-info'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['user-info'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   options: [{ name: 'target', type: OptionType.User }],
 
   async run(lang) {
@@ -100,7 +99,7 @@ module.exports = new Command({
       },
       {
         name: lang('perms'), inline: false,
-        value: `${member.permissions.has(PermissionFlagsBits.Administrator)
+        value: `${member.permissions.has(Permission.Administrator)
           ? inlineCode(lang('admin'))
           : permissionTranslator(member.permissions.toArray(), lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
         } (${member.permissions.toArray().length})`
@@ -118,7 +117,7 @@ module.exports = new Command({
     if (member.bannable && (this.member.roles.highest.position > member.roles.highest.position || this.user.id == this.guild.ownerId)) {
       const component = new ActionRowBuilder();
 
-      if (this.member.permissions.has(PermissionFlagsBits.KickMembers)) {
+      if (this.member.permissions.has(Permission.KickMembers)) {
         component.components.push(new ButtonBuilder({
           label: lang('kickMember'),
           customId: `infoCMDs.${member.id}.kick.members`,
@@ -126,7 +125,7 @@ module.exports = new Command({
         }));
       }
 
-      if (this.member.permissions.has(PermissionFlagsBits.BanMembers)) {
+      if (this.member.permissions.has(Permission.BanMembers)) {
         component.components.push(new ButtonBuilder({
           label: lang('banMember'),
           customId: `infoCMDs.${member.id}.ban.members`,

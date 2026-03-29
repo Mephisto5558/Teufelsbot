@@ -4,9 +4,9 @@ const
   { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['rockpaperscissors'], [CommandType.slash]: ['rockpaperscissors'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['rockpaperscissors'], [CommandType.Slash]: ['rockpaperscissors'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   options: [{ name: 'opponent', type: OptionType.User }],
 
   async run(lang) {

@@ -2,7 +2,6 @@ const utils = {
   afk: require('./afk'),
   BackupSystem: require('./backupSystem'),
   checkTargetManageable: require('./checkTargetManageable'),
-  commandMention: require('./commandMention'),
   commandPermissionCheck: require('./commandPermissionCheck'),
   componentHandler: require('./componentHandler'),
   configValidator: require('./configValidator'),

@@ -4,8 +4,8 @@ const
   { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.channel]: '100ms' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.Channel]: '100ms' },
   dmPermission: true,
 
   async run(lang) {

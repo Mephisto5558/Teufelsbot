@@ -2,9 +2,9 @@
 
 const
   {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,
-    PermissionFlagsBits, TextChannel, channelMention, inlineCode, userMention
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, TextChannel, channelMention, inlineCode, userMention
   } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { embedFieldValueMaxLength } = require('./constants'),
   GREY = 0x36393F;
 
@@ -16,7 +16,7 @@ module.exports = async function logSayCommandUse(member, lang) {
   const channel = this.guild.channels.cache.get(setting.channel);
   if (
     !(channel instanceof TextChannel) || this.guild.members.me.permissionsIn(channel)
-      .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length
+      .missing([Permission.SendMessages, Permission.EmbedLinks]).length
   ) return;
 
   lang.config.backupPaths[0] = 'events.logger.sayCommandUsed';

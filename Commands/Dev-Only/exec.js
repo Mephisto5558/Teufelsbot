@@ -4,7 +4,7 @@ const
   { shellExec } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   options: [{
     name: 'command',

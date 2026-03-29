@@ -1,7 +1,8 @@
 /** @import { afk } from '.' */
 
 const
-  { PermissionFlagsBits, TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
+  { TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { memberNameMaxLength, messageMaxLength } = require('./constants'),
   { timeFormatter, timestamp } = require('./timeFormatter'),
 
@@ -78,8 +79,8 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
 
   if ('customReply' in this) return this.customReply(msg);
   if (
-    this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages)
-    && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages)
+    this.channel?.permissionsFor(this.member.id).has(Permission.SendMessages)
+    && this.channel.permissionsFor(this.client.user.id).has(Permission.SendMessages)
   ) return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
 };
 
@@ -120,5 +121,6 @@ async function unsetAfkPrefix(member, prefix = nicknamePrefix) {
   await member.setNickname(member.nickname.slice(prefix.length));
   return false;
 }
+
 module.exports.setAfkPrefix = setAfkPrefix;
 module.exports.unsetAfkPrefix = unsetAfkPrefix;

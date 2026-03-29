@@ -2,9 +2,9 @@
 
 const
   {
-    ActionRowBuilder, Colors, ComponentType, EmbedBuilder, PermissionFlagsBits,
-    TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
+    ActionRowBuilder, Colors, ComponentType, EmbedBuilder, TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
   } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   { daysInMonthMin, secsInDay, timestamp } = require('../timeFormatter'),
@@ -53,7 +53,7 @@ module.exports = async function ban_kick_mute(lang) {
     if (target.id == this.client.user.id) return this.editReply('1984');
 
     let err = checkTargetManageable.call(this, target);
-    if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
+    if (!err && target.permissions.has(Permission.Administrator)) err = 'cantPunishAdmin';
     if (err) {
       resEmbed.data.description += `${lang('error', { err: lang(err), user: bold(target.user.tag) })}\n`;
       return this.editReply({ embeds: [resEmbed] });

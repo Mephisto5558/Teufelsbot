@@ -3,10 +3,11 @@
  * @import { record_startRecording, record_recordControls } from '.' */
 
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, PermissionFlagsBits, channelMention, userMention } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, channelMention, userMention } = require('discord.js'),
   { createWriteStream } = require('node:fs'),
   { access, mkdir, unlink } = require('node:fs/promises'),
   { EndBehaviorType, VoiceConnectionStatus, entersState, getVoiceConnection, joinVoiceChannel } = require('@discordjs/voice'),
+  { Permission } = require('@mephisto5558/command'),
   /** @type {string?} */ ffmpegPath = require('ffmpeg-static'),
   { Decoder } = require('prism-media').opus,
   shellExec = require('../shellExec');
@@ -26,7 +27,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   if (!voiceChannel) return this.editReply(lang('needVoiceChannel'));
 
   if (this.guild.members.me.voice.serverDeaf) {
-    if (this.guild.members.me.permissionsIn(voiceChannel).missing(PermissionFlagsBits.DeafenMembers).length) {
+    if (this.guild.members.me.permissionsIn(voiceChannel).missing(Permission.DeafenMembers).length) {
       embed.data.description = lang('deaf');
       return this.message.edit({ embeds: [embed], components: [] });
     }

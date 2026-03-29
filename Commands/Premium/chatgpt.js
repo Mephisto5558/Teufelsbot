@@ -5,9 +5,9 @@ const
   fetchAPI = require('#Utils/componentHandler').chatgpt_fetchAPI;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['gpt'] },
-  cooldowns: { [CooldownType.user]: '2s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['gpt'] },
+  cooldowns: { [CooldownType.User]: '2s' },
   dmPermission: true,
   premium: true,
   options: [{

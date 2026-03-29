@@ -1,3 +1,5 @@
+/** @import {CommandType} from '@mephisto5558/command' */
+
 const
   { Constants, channelLink } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
@@ -5,7 +7,7 @@ const
   /** @type {['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
-/** @type {CommandOption<['slash']>} */
+/** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'logger',
   type: OptionType.Subcommand,

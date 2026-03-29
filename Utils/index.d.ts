@@ -145,11 +145,6 @@ export declare function checkTargetManageable(
   member: GuildMember
 ): string | undefined;
 
-/** Formats an application command name and id into a command mention. */
-export declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
-  name: CommandName, id: CommandId
-): `</${CommandName}:${CommandId}>`;
-
 export const commandPermissionCheck: customPermissionChecksFn;
 
 export declare function componentHandler(

@@ -11,9 +11,9 @@
 
 const
   {
-    ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags, ModalBuilder,
-    PermissionFlagsBits, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
+    ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
   } = require('discord.js'),
+  { Permission } = require('@mephisto5558/command'),
   checkTargetManageable = require('../checkTargetManageable'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants'),
@@ -29,7 +29,7 @@ const
   manageFunctions = {
     /** @type {ManagerFn<GuildMember>} */
     async members(embed, mode, member, lang) {
-      if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
+      if (!this.member.permissions.has(mode == 'kick' ? Permission.KickMembers : Permission.BanMembers))
         return this.reply({ embeds: [getNoPermEmbed(embed, lang)], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, member);
       if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], flags: MessageFlags.Ephemeral });
@@ -108,9 +108,9 @@ const
               throw err;
             }
 
-            if (!guildMember.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+            if (!guildMember.permissions.has(Permission.ManageGuildExpressions))
               return this.customReply({ embeds: [getNoPermEmbed(embed, lang)] });
-            if (!guild.members.me.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+            if (!guild.members.me.permissions.has(Permission.ManageGuildExpressions))
               return this.customReply({ embeds: [embed.setDescription(lang('noPerm'))] });
             if (guild.emojis.cache.has(emoji.id))
               return this.editReply({ embeds: [embed.setDescription(lang('commands.useful.addemoji.isGuildEmoji'))] });
@@ -124,7 +124,7 @@ const
           return this.editReply(lang('add.success'));
 
         case 'delete':
-          if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+          if (!this.member.permissions.has(Permission.ManageGuildExpressions))
             return this.editReply({ embeds: [getNoPermEmbed(embed, lang)] });
           if (!emoji.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
@@ -139,7 +139,7 @@ const
 
       if (
         role.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId
-        || !this.member.permissions.has(PermissionFlagsBits.ManageRoles)
+        || !this.member.permissions.has(Permission.ManageRoles)
       ) return this.editReply({ embeds: [getNoPermEmbed(embed, lang)] });
 
       if (!role.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });

@@ -1,12 +1,13 @@
+/** @import {CommandType} from '@mephisto5558/command' */
+
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { commandMention } = require('#Utils'),
+  { CommandOption, OptionType, commandMention } = require('@mephisto5558/command'),
 
   /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
   types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
-/** @type {CommandOption<['slash']>} */
+/** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'toggle_command',
   type: OptionType.Subcommand,

@@ -5,8 +5,8 @@ const
   maxAllowedAFKMsgLength = 1000;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  cooldowns: { [CooldownType.user]: '5s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  cooldowns: { [CooldownType.User]: '5s' },
   dmPermission: true,
   options: [
     {

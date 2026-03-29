@@ -82,9 +82,9 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
 }
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
+  types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'dadjoke' },
-  cooldowns: { [CooldownType.channel]: '100ms' },
+  cooldowns: { [CooldownType.Channel]: '100ms' },
   dmPermission: true,
   options: [
     {

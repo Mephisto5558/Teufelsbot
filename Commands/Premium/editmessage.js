@@ -4,7 +4,7 @@ const
     DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permissions } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, PermissionType, Permission } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#Utils'),
 
   MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
@@ -64,9 +64,9 @@ async function sendModal(lang) {
 }
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  permissions: { user: [Permissions.ManageMessages] },
-  cooldowns: { [CooldownType.user]: '5s' },
+  types: [CommandType.Slash],
+  permissions: { [PermissionType.User]: [Permission.ManageMessages] },
+  cooldowns: { [CooldownType.User]: '5s' },
   noDefer: true,
   options: [
     {

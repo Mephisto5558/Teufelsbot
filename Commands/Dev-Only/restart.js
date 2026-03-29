@@ -10,7 +10,7 @@ let restarting = false;
 
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   dmPermission: true,
   beta: true,
   disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactyltServerAPIKey,

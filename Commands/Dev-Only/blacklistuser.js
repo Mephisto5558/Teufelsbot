@@ -4,9 +4,9 @@ const
   { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
 
 module.exports = new Command({
-  types: [CommandType.prefix],
+  types: [CommandType.Prefix],
   usage: { examples: '12345678901234568' },
-  aliases: { [CommandType.prefix]: ['blacklist'] },
+  aliases: { [CommandType.Prefix]: ['blacklist'] },
   dmPermission: true,
   options: [{
     name: 'target',

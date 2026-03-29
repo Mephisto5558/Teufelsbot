@@ -1,9 +1,9 @@
 /** @import { backupId } from '#types/db' */
 
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permissions } = require('@mephisto5558/command'),
-  { timeFormatter: { timestamp }, commandMention } = require('#Utils'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, commandMention } = require('@mephisto5558/command'),
+  { timestamp } = require('#Utils').timeFormatter,
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
   BYTES_IN_KILOBYTE = 1024;
@@ -40,7 +40,7 @@ const backupMainFunctions = {
         save: true, saveImages: true, backupMembers: true,
         metadata: [
           this.user.id, this.guild.ownerId, [this.user.id, this.guild.ownerId],
-          [...this.guild.members.cache.filter(e => e.permissions.has(PermissionFlagsBits.Administrator)).keys()]
+          [...this.guild.members.cache.filter(e => e.permissions.has(Permission.Administrator)).keys()]
         ], statusObj
       });
 
@@ -103,20 +103,20 @@ const backupMainFunctions = {
 };
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  permissions: { client: [Permissions.Administrator], user: [Permissions.Administrator] },
+  types: [CommandType.Slash],
+  permissions: { [PermissionType.Client]: [Permission.Administrator], [PermissionType.User]: [Permission.Administrator] },
   disabled: true,
   disabledReason: 'This command is still in development',
   options: [
     {
       name: 'create',
       type: OptionType.Subcommand,
-      cooldowns: { [CooldownType.guild]: '30min' }
+      cooldowns: { [CooldownType.Guild]: '30min' }
     },
     {
       name: 'load',
       type: OptionType.Subcommand,
-      cooldowns: { [CooldownType.guild]: '5min' },
+      cooldowns: { [CooldownType.Guild]: '5min' },
       options: [
         {
           name: 'id',

@@ -1,17 +1,16 @@
 const
   {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder,
-    ImageFormat, PermissionFlagsBits, RouteBases, hyperlink, inlineCode
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat, RouteBases, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, permissionTranslator } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission, permissionTranslator } = require('@mephisto5558/command'),
   { getTargetRole, timeFormatter: { timestamp } } = require('#Utils'),
 
   ROLE_DISPLAY_THRESHOLD = 16;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['role-info'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['role-info'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   options: [{ name: 'role', type: OptionType.Role }],
 
   async run(lang) {
@@ -37,7 +36,7 @@ module.exports = new Command({
       embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
 
     embed.data.fields.push({ name: lang('permissions'), inline: false });
-    if (role.permissions.has(PermissionFlagsBits.Administrator))
+    if (role.permissions.has(Permission.Administrator))
       embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
     else {
       const
@@ -57,7 +56,7 @@ module.exports = new Command({
     else if (role.colors.primaryColor)
       embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.slice(1)}/${role.hexColor.slice(1)}.png` };
 
-    const components = this.member.permissions.has(PermissionFlagsBits.ManageRoles) && role.editable
+    const components = this.member.permissions.has(Permission.ManageRoles) && role.editable
       && (this.member.roles.highest.position > role.position || this.user.id == this.guild.ownerId)
       ? [new ActionRowBuilder({
           components: [new ButtonBuilder({

@@ -7,9 +7,9 @@ const
   { timestamp } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
-  types: [CommandType.slash, CommandType.prefix],
-  aliases: { [CommandType.prefix]: ['server-info', 'guildinfo', 'guild-info'] },
-  cooldowns: { [CooldownType.user]: '1s' },
+  types: [CommandType.Slash, CommandType.Prefix],
+  aliases: { [CommandType.Prefix]: ['server-info', 'guildinfo', 'guild-info'] },
+  cooldowns: { [CooldownType.User]: '1s' },
   options: [{
     name: 'guild_id_or_invite',
     type: OptionType.String,

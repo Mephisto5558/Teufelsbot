@@ -21,8 +21,8 @@ if (isEncryptionAvailable()) void mkdir('./VoiceRecords/raw', { recursive: true 
 else log.warn('Missing encryption library for record Command!');
 
 module.exports = new Command({
-  types: [CommandType.slash],
-  cooldowns: { [CooldownType.user]: '10s' },
+  types: [CommandType.Slash],
+  cooldowns: { [CooldownType.User]: '10s' },
   disabled: !isEncryptionAvailable(),
   disabledReason: 'No encryption library is installed.',
   options: [
