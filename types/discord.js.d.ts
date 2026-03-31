@@ -63,7 +63,7 @@ declare module 'discord.js' {
     /** Alias for {@link Message.author} */
     user: Message['author'];
 
-    /** This does not exist on Messages and is only for better typing of {@link Command} here */
+    /** This does not exist on Messages and is only for better typing of Command here */
     /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist */
     options: void;
 

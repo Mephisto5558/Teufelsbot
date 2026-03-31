@@ -34,7 +34,7 @@ module.exports = new CommandOption({
       { roles = [], channels = [], users = [] } = commandData,
       count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
-    if (!getCMDs(this.client).includes(command)) return this.editReply(lang('notFound'));
+    if (!this.client.commandManager.get(command)) return this.editReply(lang('notFound'));
 
     if (this.options.getBoolean('get')) {
       /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */

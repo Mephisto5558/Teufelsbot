@@ -139,6 +139,22 @@ declare module '@mephisto5558/mongoose-db' {
   }
 }
 
+declare module '@mephisto5558/command' {
+  interface CommandClient<Ready extends boolean = boolean> extends Discord.Client<Ready> {}
+
+  interface ChatInputCommandInteraction<C, DM, Options> extends Discord.ChatInputCommandInteraction {}
+  interface Message<C, DM> extends Discord.Message {}
+  interface AutocompleteInteraction<C, DM> extends Discord.AutocompleteInteraction {}
+  interface MessageComponentInteraction<C, DM> extends Discord.MessageComponentInteraction {}
+
+  // Inherit custom prototype properties
+  interface ChatInputCommandInteraction<C, DM, Options> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
+  interface Message<C, DM> extends OptionalInteractionProperties<DM extends false ? true : boolean> {}
+  interface AutocompleteInteraction<C, DM> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
+  interface MessageComponentInteraction<C, DM> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
+}
+
+
 // #endregion
 declare module 'express-session' {
   interface SessionData {
