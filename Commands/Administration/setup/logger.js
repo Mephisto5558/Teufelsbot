@@ -4,8 +4,8 @@ const
   { Constants, channelLink } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
 
-  /** @type {['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
-  loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
+  /** @type {['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
+  loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
 /** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({
@@ -16,7 +16,7 @@ module.exports = new CommandOption({
       name: 'action',
       type: OptionType.String,
       required: true,
-      choices: ['all', ...loggerActionTypes]
+      choices: loggerActionTypes
     },
     {
       name: 'channel',
@@ -38,7 +38,8 @@ module.exports = new CommandOption({
     if (!channel) return this.editReply(lang('noChannel'));
     if (action == 'all') {
       if (enabled == undefined) return this.editReply(lang('noEnabled'));
-      for (const actionType of loggerActionTypes) await this.guild.updateDB(`config.logger.${actionType}`, { channel, enabled });
+      for (const actionType of loggerActionTypes)
+        if (actionType != 'all') await this.guild.updateDB(`config.logger.${actionType}`, { channel, enabled });
     }
 
     await this.guild.updateDB(`config.logger.${action}`, { channel, enabled });
