@@ -1,7 +1,7 @@
 const
   { bold, channelLink } = require('discord.js'),
   { Command, CommandType } = require('@mephisto5558/command'),
-  { getCommandName, getTargetChannel } = require('#Utils');
+  { getTargetChannel } = require('#Utils');
 
 
 module.exports = new Command({
@@ -17,7 +17,7 @@ module.exports = new Command({
     if (Number.isNaN(number)) return this.reply(lang('invalidNumber'));
 
     await this.guild.updateDB(`channelMinigames.counting.${channel}`, {
-      lastNumber: number, lastAuthor: getCommandName.call(this.client, this.commandName)
+      lastNumber: number, lastAuthor: this.client.commandManager.get(this.commandName)
     });
     return this.reply(lang('success', { channel: channelLink(channel), number: bold(number) }));
   }

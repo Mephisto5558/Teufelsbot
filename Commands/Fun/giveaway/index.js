@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { Command, CommandType, CooldownType, PermissionType, Permission } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, Permission, PermissionType } = require('@mephisto5558/command'),
   { getMilliseconds } = require('better-ms');
 
 module.exports = new Command({

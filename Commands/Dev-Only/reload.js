@@ -2,7 +2,7 @@ const
   { codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { Command, CommandType, OptionType, filename } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType, getFilename } = require('@mephisto5558/command'),
 
   MAX_COMMANDLIST_LENGTH = 800;
 
@@ -40,7 +40,7 @@ module.exports = new Command({
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
-            const command = commandList.get(filename(filePath).toLowerCase());
+            const command = commandList.get(getFilename(filePath).toLowerCase());
             reloadedArray.push(command.mention);
           }
 
