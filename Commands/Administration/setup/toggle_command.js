@@ -22,7 +22,10 @@ module.exports = new CommandOption({
     { name: 'get', type: OptionType.Boolean },
     /* eslint-disable @typescript-eslint/no-magic-numbers -- TODO: convert to selectMenu */
     ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.Role, name: `role_${i + 1}` })),
-    ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.Channel, name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
+    ...Array.from({ length: 6 }, (_, i) => ({
+      type: OptionType.Channel, name: `channel_${i + 1}`,
+      channelTypes: Constants.GuildTextBasedChannelTypes
+    })),
     ...Array.from({ length: 6 }, (_, i) => ({ type: OptionType.User, name: `member_${i + 1}` }))
     /* eslint-enable @typescript-eslint/no-magic-numbers */
   ],

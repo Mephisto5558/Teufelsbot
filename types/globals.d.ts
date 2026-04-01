@@ -74,12 +74,12 @@ declare global {
 
   // #region discord.js globals
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
-  type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
-  type Interaction<inGuild extends boolean = boolean> = inGuild extends true
+  type Message<InGuild extends boolean = boolean> = Discord.Message<InGuild>;
+  type Interaction<InGuild extends boolean = boolean> = InGuild extends true
     ? GuildInteraction : GuildInteraction | DMInteraction;
 
-  type PartialMessage<inGuild extends boolean = boolean> = Discord.PartialMessage & (
-    inGuild extends true ? {
+  type PartialMessage<InGuild extends boolean = boolean> = Discord.PartialMessage & (
+    InGuild extends true ? {
       guild: Message<true>['guild'];
       guildId: Message<true>['guildId'];
       inGuild(): true;
@@ -87,8 +87,11 @@ declare global {
   );
 
   // used to not get `any` on Message property when the object is Message | Interaction
-  type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
-  type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
+  type DiffProps<T, U> = { readonly [K in keyof StrictOmit<T, keyof U>]?: undefined; };
+  type OptionalInteractionProperties<InGuild extends boolean = boolean>
+    = DiffProps<Discord.ChatInputCommandInteraction<InGuild extends false ? 'cached' : CacheType>, Message<InGuild>>;
+  type OptionalMessageProperties<InGuild extends boolean = boolean>
+    = DiffProps<Message<InGuild>, Discord.ChatInputCommandInteraction<InGuild extends false ? 'cached' : CacheType>>;
 
   /** interface for an interaction in a guild. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
@@ -146,18 +149,23 @@ declare module '@mephisto5558/mongoose-db' {
 }
 
 declare module '@mephisto5558/command' {
-  interface CommandClient<Ready extends boolean = boolean> extends Discord.Client<Ready> {}
+  /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type -- extending to get modified properties */
 
-  interface ChatInputCommandInteraction<C, DM, Options> extends Discord.ChatInputCommandInteraction {}
-  interface Message<C, DM> extends Discord.Message {}
-  interface AutocompleteInteraction<C, DM> extends Discord.AutocompleteInteraction {}
-  interface MessageComponentInteraction<C, DM> extends Discord.MessageComponentInteraction {}
+  interface ChatInputCommandInteraction<DM extends boolean = boolean, Options extends readonly unknown[] = []>
+    extends OptionalMessageProperties<DM extends false ? true : DM extends true ? false : boolean>,
+    Discord.ChatInputCommandInteraction<DM extends false ? 'cached' : CacheType> {}
 
-  // Inherit custom prototype properties
-  interface ChatInputCommandInteraction<C, DM, Options> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
-  interface Message<C, DM> extends OptionalInteractionProperties<DM extends false ? true : boolean> {}
-  interface AutocompleteInteraction<C, DM> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
-  interface MessageComponentInteraction<C, DM> extends OptionalMessageProperties<DM extends false ? true : boolean> {}
+  interface Message<DM extends boolean = boolean>
+    extends OptionalInteractionProperties<DM extends false ? true : DM extends true ? false : boolean>,
+    Discord.Message<DM extends false ? true : boolean> {}
+
+  interface AutocompleteInteraction<DM extends boolean = boolean>
+    extends Discord.AutocompleteInteraction<DM extends false ? 'cached' : CacheType> {}
+
+  interface MessageComponentInteraction<DM extends boolean = boolean>
+    extends Discord.MessageComponentInteraction<DM extends false ? 'cached' : CacheType> {}
+
+  /* eslint-enable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type */
 }
 
 

@@ -18,7 +18,7 @@ module.exports = new CommandOption({
   }],
 
   async run(lang) {
-    await this.guild.updateDB('serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
+    await this.guild.updateDB('serverbackup.allowedToLoad', backup.get(this.options.getString('allowed_to_load', true)));
     return this.editReply(lang('success'));
   }
 });
