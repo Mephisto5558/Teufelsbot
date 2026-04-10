@@ -104,7 +104,7 @@ void (async function main() {
 
   if (client.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
-    /* eslint-disable-next-line require-atomic-updates */
+    /* eslint-disable-next-line require-atomic-updates -- webServer will not exist */
     client.webServer = await new WebServer(
       client, client.db,
       { secret: process.env.secret, dbdLicense: process.env.dbdLicense },

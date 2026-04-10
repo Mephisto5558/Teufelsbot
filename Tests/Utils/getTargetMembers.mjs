@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 /** @import { CommandInteractionOptionResolver } from 'discord.js' */
 
 
@@ -44,7 +42,10 @@ await test('getTargetMembers', { concurrency: true }, async t => {
         inGuild: () => isInGuild,
 
         /** @type {Partial<CommandInteractionOptionResolver>} */
-        options: { getMember: () => {}, getUser: () => {} },
+        options: {
+          getMember: () => { throw new Error('Not implemented'); },
+          getUser: () => { throw new Error('Not implemented'); }
+        },
         mentions: {
           members: new Collection(),
           users: new Collection()

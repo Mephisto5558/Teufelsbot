@@ -9,8 +9,8 @@ export type botSettings = {
     name: string;
     type: ActivityType;
   };
-  cmdStats: cmdStats & Record<string, {
-    /** Is only missing for very old commands that no longer exist. */
+  cmdStats: cmdStats & Record<keyof cmdStats, {
+    /** Is only missing for very old commands that no longer exist. */ // TODO: add an arbitrary date for these
     createdAt?: Date;
   }>;
   blacklist?: userId[];

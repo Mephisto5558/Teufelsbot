@@ -1,6 +1,6 @@
 const
   { Constants } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, PermissionType, Permission } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   { setupMinigameChannel } = require('#Utils/combinedCommands');
 
 module.exports = new Command({

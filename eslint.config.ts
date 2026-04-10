@@ -51,7 +51,7 @@ export default [
     files: ['./Locales/*/commands/*.json'],
     rules: {
       ...getModifiedRule(config, `${pluginNames.jsonc}/key-name-casing`, [{
-        snake_case: true /* eslint-disable-line camelcase */
+        snake_case: true /* eslint-disable-line camelcase -- snake_case is not camelCase */
       }]),
       ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`, [
         {

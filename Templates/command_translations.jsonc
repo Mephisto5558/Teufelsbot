@@ -1,5 +1,4 @@
-/* eslint-disable jsonc/key-name-casing */
-// replace all values enclosed with <> with the actual names.
+/* eslint-disable jsonc/key-name-casing -- Replace all values enclosed with <> with the actual names. */
 {
   "<commandName>": {
     "description": "",

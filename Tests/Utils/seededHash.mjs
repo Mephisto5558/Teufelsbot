@@ -31,7 +31,7 @@ await topLvlTest('seededHash', { concurrency: true }, async t => Promise.allSett
       generatedHashes = new Set();
 
     for (let i = 0; i < testIterations; i++) {
-      /* eslint-disable sonarjs/pseudo-random */
+      /* eslint-disable sonarjs/pseudo-random -- this is fine for testing code */
       // Generate random string with random length
       const
         randomString = Array.from(

@@ -22,7 +22,8 @@ declare enum LogLevels {
 }
 
 type LogOptions = { file?: keyof typeof LogLevels; type?: string; prefix?: string };
-/* eslint-disable-next-line @typescript-eslint/consistent-type-definitions */
+
+/* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- this cannot be done with a type */
 interface Log<FILE_LOGGING_ENABLED extends boolean = true> extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
   logLevel: keyof typeof LogLevels;

@@ -1,4 +1,4 @@
-/* eslint-disable id-length */
+/* eslint-disable id-length -- The naming of these test object properties is irrelevant. */
 
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';

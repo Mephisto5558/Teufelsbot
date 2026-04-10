@@ -8,5 +8,5 @@ module.exports = {
   name: 'Leave Channel',
   description: 'Select the channel to send the leave message to',
   type() { return this.formTypes.channelsSelect(false, Constants.GuildTextBasedChannelTypes); },
-  position: 3 /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  position: 3 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- position */
 };

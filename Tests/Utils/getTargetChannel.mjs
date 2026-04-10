@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
-/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+/** @import { CommandInteractionOptionResolver, MessageMentions } from 'discord.js' */
 
 
 import { Collection } from 'discord.js';
@@ -13,7 +11,6 @@ import getTargetChannel from '#Utils/getTargetChannel.js';
 await test('getTargetChannel', { concurrency: true }, async t => {
   const
     mockChannel1 = { id: 'channel1', name: 'Channel-One' },
-    /* eslint-disable-next-line sonarjs/no-duplicate-string */
     mockChannel2 = { id: 'channel2', name: 'Channel-Two' },
     mockInteractionChannel = { id: 'interactionChannel', name: 'Interaction-Channel' },
 
@@ -26,11 +23,13 @@ await test('getTargetChannel', { concurrency: true }, async t => {
 
       return {
         /** @type {Partial<CommandInteractionOptionResolver>} */
-        options: { getChannel: () => {} },
+        options: {
+          getChannel: () => { throw new Error('Not implemented'); }
+        },
+        /** @type {Partial<MessageMentions>} */
         mentions: {
           channels: {
-          /** @type {Collection['first']} */
-            first: () => {}
+            first: () => { throw new Error('Not implemented'); }
           }
         },
         guild: { channels: { cache } },
@@ -76,8 +75,8 @@ await test('getTargetChannel', { concurrency: true }, async t => {
 
     t.test('should return a channel from content by name', () => {
       const mockInteraction = createMockInteraction();
-      mockInteraction.content = 'Channel-Two';
-      mockInteraction.args = ['Channel-Two'];
+      mockInteraction.content = mockChannel2.name;
+      mockInteraction.args = [mockChannel2.name];
 
       const result = getTargetChannel(mockInteraction);
       assert.strictEqual(result, mockChannel2);
@@ -94,8 +93,8 @@ await test('getTargetChannel', { concurrency: true }, async t => {
 
     t.test('should return a channel from args by name', () => {
       const mockInteraction = createMockInteraction();
-      mockInteraction.content = 'Channel-Two';
-      mockInteraction.args = ['Channel-Two'];
+      mockInteraction.content = mockChannel2.name;
+      mockInteraction.args = [mockChannel2.name];
 
       const result = getTargetChannel(mockInteraction);
       assert.strictEqual(result, mockChannel2);

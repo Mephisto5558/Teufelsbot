@@ -3,7 +3,7 @@ const
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers } = require('#Utils'),
-  IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 512 */
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
@@ -51,7 +51,7 @@ module.exports = new Command({
       canvas = new Canvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
 
-    ctx.globalAlpha = 0.5; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+    ctx.globalAlpha = 0.5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- makes the images look-through */
     ctx.drawImage(baseAvatar, 0, 0);
     ctx.drawImage(overlayAvatar, 0, 0, baseAvatar.width, baseAvatar.height);
 

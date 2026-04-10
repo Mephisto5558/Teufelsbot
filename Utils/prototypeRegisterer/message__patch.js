@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
-/* eslint no-underscore-dangle: [warn, {allow: [_patch]}] */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch]}] -- overwriting that one */
 
 /** @import { _patch } from '.' */
 

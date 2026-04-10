@@ -1,8 +1,9 @@
-/* eslint camelcase: [warn, {allow: [help_]}] */
-
 const
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
+  {
+    help_allQuery: allQuery, help_categoryQuery: categoryQuery, help_commandQuery: commandQuery,
+    help_getCommandCategories: getCommandCategories, help_getCommands: getCommands
+  } = require('#Utils/componentHandler');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
@@ -15,7 +16,7 @@ module.exports = new Command({
       name: 'category',
       type: OptionType.String,
       autocompleteOptions() {
-        return help_getCommandCategories.call(this).map(e => ({
+        return getCommandCategories.call(this).map(e => ({
           name: this.client.i18n.__({ locale: 'locale' in this ? this.locale : this.user.localeCode }, `commands.${e}.categoryName`), value: e
         }));
       },
@@ -24,20 +25,20 @@ module.exports = new Command({
     {
       name: 'command',
       type: OptionType.String,
-      autocompleteOptions() { return help_getCommands.call(this).map(e => e.name); },
+      autocompleteOptions() { return getCommands.call(this).map(e => e.name); },
       strictAutocomplete: true
     }
   ],
 
   async run(lang) {
     const
-      categoryQuery = (
+      category = (
         this.options?.getString('category') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'category'))
       )?.toLowerCase(),
-      commandQuery = (this.options?.getString('command') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'command')))?.toLowerCase();
+      command = (this.options?.getString('command') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'command')))?.toLowerCase();
 
-    if (commandQuery) return help_commandQuery.call(this, lang, commandQuery);
-    if (categoryQuery) return help_categoryQuery.call(this, lang, categoryQuery);
-    return help_allQuery.call(this, lang);
+    if (command) return commandQuery.call(this, lang, command);
+    if (category) return categoryQuery.call(this, lang, category);
+    return allQuery.call(this, lang);
   }
 });

@@ -6,6 +6,8 @@ const
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
 
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
+
+  /* eslint-disable-next-line security/detect-non-literal-regexp -- this is safe */
   urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
 /** @type {(url: string) => Promise<boolean>} */

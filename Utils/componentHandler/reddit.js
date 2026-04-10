@@ -10,6 +10,7 @@ module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
   };
 
   await this.update({ components: [] });
-  // return commandExecutionWrapper.call(this, this.client.slashCommands.get('reddit'), 'component', lang);
+  
+  // Todo: mark this as component command invocation
   return this.client.commandManager.get('reddit').runWrapper(this, lang.provider, lang.config.locale);
 };

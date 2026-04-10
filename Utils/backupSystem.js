@@ -11,14 +11,8 @@ const
 
 class BackupSystem {
   /**
-   * @param {Client['db']} db
-   * @param {object} options
-   * @param {string | undefined} options.dbName
-   * @param {number | undefined} options.maxGuildBackups
-   * @param {number | undefined} options.maxMessagesPerChannel
-   * @param {boolean | undefined} options.saveImages
-   * @param {boolean | undefined} options.clearGuildBeforeRestore
-   */
+   * @param {BackupSystem.BackupSystem['db']} db
+   * @param {BackupSystem.Options} options */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
 

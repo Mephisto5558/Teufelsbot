@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
-/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+/** @import { CommandInteractionOptionResolver, MessageMentions } from 'discord.js' */
 
 
 import { Collection } from 'discord.js';
@@ -24,11 +22,11 @@ await test('getTargetRole', { concurrency: true }, async t => {
 
       return {
         /** @type {Partial<CommandInteractionOptionResolver>} */
-        options: { getRole: () => {} },
+        options: { getRole: () => { throw new Error('Not implemented'); } },
+        /** @type {Partial<MessageMentions>} */
         mentions: {
           roles: {
-            /** @type {Collection['first']} */
-            first: () => {}
+            first: () => { throw new Error('Not implemented'); }
           }
         },
         guild: { roles: { cache } },

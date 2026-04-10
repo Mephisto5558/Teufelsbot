@@ -14,7 +14,7 @@ const
 
 /** @type {help_getCommands} */
 function getCommands() {
-  return this.client.commandManager.commands.filter(e => !!filterCommands.call(this, e));
+  return this.client.commandManager.commands.filter(e => filterCommands.call(this, e));
 }
 
 /** @type {help_getCommandCategories} */
@@ -137,9 +137,9 @@ function createInfoFields(lang, cmd = {}) {
   }
 
   const
-    usage = (cmd.usageLocalizations[lang.config.locale ?? '']?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', this.guild.prefixes[0].prefix),
-    examples = (cmd.usageLocalizations[lang.config.locale ?? '']?.examples ?? cmd.usage.examples)
-      ?.replaceAll('{prefix}', this.guild.prefixes[0].prefix);
+    usageData = lang.config.locale ? cmd.usageLocalizations[lang.config.locale] ?? cmd.usage : cmd.usage,
+    usage = usageData.usage?.replaceAll('{prefix}', this.guild.prefixes[0].prefix),
+    examples = usageData.examples?.replaceAll('{prefix}', this.guild.prefixes[0].prefix);
 
   if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
   if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });

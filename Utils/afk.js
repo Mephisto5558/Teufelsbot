@@ -41,8 +41,8 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
 };
 
 /**
+ * `@this` here due to TS not understanding typeguards with generics
  * @type {afk['setAfkStatus']}
- * @description `@this` is here due to TS not understanding typeguards with generics
  * @this {ThisParameterType<afk['setAfkStatus']>} */
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const

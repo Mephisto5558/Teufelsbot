@@ -1,5 +1,5 @@
-/* eslint-disable no-extend-native */
-/* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
+/* eslint-disable no-extend-native -- these get overwritten in this file */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] -- special properties */
 
 /**
  * @import { DB as DBT } from '@mephisto5558/mongoose-db'

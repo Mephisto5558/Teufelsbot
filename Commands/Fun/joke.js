@@ -1,3 +1,5 @@
+/** @typedef {{ type?: string, joke?: string, setup?: string, delivery?: string }} Joke */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
@@ -50,8 +52,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     }).then(async e => {
       if (!e.ok) throw new Error(await e.text());
 
-      /* eslint-disable-next-line @stylistic/max-len */
-      /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string } | { status: string, code: number, message: string } | undefined} */
+      /** @type {Joke | { status: string, code: number, message: string } | undefined} */
       const json = await e.json().catch(() => { /* empty */ });
 
       if (json && 'code' in json) throw new FetchError(json.message, undefined, json);

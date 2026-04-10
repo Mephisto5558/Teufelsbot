@@ -54,8 +54,8 @@ async function getEvolutions(pokemon) {
     /** @type {(chain: PokeAPI.Chain) => string[]} */
     getEvolutionNames = chain => [chain.species.name, ...chain.evolves_to.flatMap(getEvolutionNames)],
 
-    /** @type {PokeAPI.PokemonSpecies} *//* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-    species = await pokedex.getResource(pokemon.species.url);
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is correct in the case of giving it a species url */
+    /** @type {PokeAPI.PokemonSpecies} */ species = await pokedex.getResource(pokemon.species.url);
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access -- will always be a chain */
   return getEvolutionNames((await pokedex.getResource(species.evolution_chain.url)).chain);
@@ -109,8 +109,8 @@ module.exports = new Command({
         ? `${Number.parseFloat((pokemon.weight * HG_TO_G).toFixed(2))}g`
         : `${Number.parseFloat((pokemon.weight * HG_TO_KG).toFixed(2))}kg`,
 
-      /** @type {PokeAPI.Generation} *//* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-      generationRes = await pokedex.getResource(species.generation.url),
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is correct in the case of giving it a generation url */
+      /** @type {PokeAPI.Generation} */ generationRes = await pokedex.getResource(species.generation.url),
       embed = new EmbedBuilder({
         thumbnail: { url: pokemon.sprites.other.showdown.front_default },
         color: Colors.Blurple,

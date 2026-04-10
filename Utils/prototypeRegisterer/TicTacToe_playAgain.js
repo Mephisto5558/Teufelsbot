@@ -1,4 +1,4 @@
-/* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] */
+/* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] -- this trick needs to be used here */
 
 /**
  * @import { ActionRow, ButtonComponent, ButtonInteraction } from 'discord.js'
@@ -9,7 +9,7 @@ const
   sleep = require('../sleep'),
   { minToMs, secToMs } = require('../toMs'),
 
-  BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
 /** @type {sendChallengeMentionT} */
 async function sendChallengeMention(msg, userId, lang) {
@@ -23,7 +23,7 @@ async function sendChallengeMention(msg, userId, lang) {
 
   const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
 
-  await sleep(secToMs(5)); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  await sleep(secToMs(5)); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 

@@ -1,4 +1,5 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
+
 const
   { allQuery, categoryQuery, commandQuery, getCommandCategories, getCommands } = require('./help_utils'),
   { recordControls, startRecording } = require('./record_manage'),

@@ -30,7 +30,7 @@ export declare namespace afk {
   function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
   function sendAfkMessages(this: Message): Promise<Message | undefined>;
 
-  /* eslint-disable jsdoc/informative-docs */
+  /* eslint-disable jsdoc/informative-docs -- wants to remove the default value infos */
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
    * @default prefix='[AFK] ' */
@@ -285,7 +285,7 @@ declare namespace TFormatter {
     time: DateResolvable, code?: T
   ): T extends undefined ? `<t:${number}>` : `<t:${number}:${T}>`;
 
-  /* eslint-disable @typescript-eslint/no-magic-numbers */
+  /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
   const
     msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
     daysInWeek: 7, daysInMonthMin: 28, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,

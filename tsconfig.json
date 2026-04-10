@@ -24,6 +24,7 @@
         "./types/database/*.d.ts"
       ]
     },
+    "libReplacement": true,
     "allowJs": true,
     "types": ["express", "node", "passport"]
   }

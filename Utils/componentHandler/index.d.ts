@@ -1,4 +1,5 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
+
 import type {
   ActionRow, BaseInteraction, ButtonComponent, ButtonInteraction, Collection, EmbedBuilder, GuildMember,
   InteractionResponse, StringSelectMenuComponent, StringSelectMenuInteraction

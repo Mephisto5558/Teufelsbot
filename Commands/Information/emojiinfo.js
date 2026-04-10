@@ -8,7 +8,7 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
 
-  /* eslint-disable-next-line unicorn/prefer-string-raw -- this can be improved using RegExp.escape in Node24 */
+  /* eslint-disable-next-line unicorn/prefer-string-raw, security/detect-non-literal-regexp -- this can be improved using RegExp.escape in Node24 */
   emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
 module.exports = new Command({

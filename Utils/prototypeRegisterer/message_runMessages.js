@@ -5,7 +5,7 @@ const
   { removeAfkStatus, sendAfkMessages } = require('../afk'),
   { secToMs } = require('../toMs'),
 
-  MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   WORDCOUNT_MIN_CHARS = 3;
 
 /** @this {Message<true>} */
