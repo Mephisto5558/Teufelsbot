@@ -1,6 +1,6 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, CommandType, OptionType, commandMention } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#Utils'),
 
@@ -20,7 +20,7 @@ module.exports = new Command({
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
     if (!offset) {
       const helpcmd = this.client.commandManager.get('help');
-      return this.customReply(lang('invalid', helpcmd.mention));
+      return this.customReply(lang('invalid', helpcmd.mention()));
     }
 
     const time = this.createdTimestamp + offset;

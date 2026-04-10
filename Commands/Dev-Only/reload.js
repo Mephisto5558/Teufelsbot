@@ -41,14 +41,14 @@ module.exports = new Command({
 
           if (this.args[1]?.startsWith('Commands/')) {
             const command = commandList.get(getFilename(filePath).toLowerCase());
-            reloadedArray.push(command.mention);
+            reloadedArray.push(command.mention());
           }
 
           break;
         }
         case '*': {
           const reloadedCommands = await this.client.commandManager.reloadAll();
-          reloadedArray.push(...reloadedCommands.map(e => e.mention));
+          reloadedArray.push(...reloadedCommands.map(e => e.mention()));
           break;
         }
         default: {
@@ -56,7 +56,7 @@ module.exports = new Command({
           if (!command) return void msg.edit(lang('invalidCommand'));
 
           await this.client.commandManager.reload(command);
-          reloadedArray.push(command.mention);
+          reloadedArray.push(command.mention());
         }
       }
     }

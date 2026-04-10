@@ -2,7 +2,7 @@
 
 const
   { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption, OptionType, commandMention } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { getTopChannelMembers } = require('./_utils');
 
 /** @type {CommandOption<[CommandType.Slash]>} */
@@ -21,10 +21,8 @@ module.exports = new CommandOption({
   }],
 
   async run(lang) {
-    if (!this.guild.db.wordCounter?.enabled) {
-      const command = this.client.commandManager.get('setup');
-      return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));
-    }
+    if (!this.guild.db.wordCounter?.enabled)
+      return this.customReply(lang('notEnabled', this.client.commandManager.get('setup').mention(this.command.name)));
 
     const
       channel = this.options.getChannel('channel', false, [ChannelType.GuildText]) ?? this.channel,
