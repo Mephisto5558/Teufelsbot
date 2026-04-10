@@ -2,7 +2,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, commandMention } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   { timestamp } = require('#Utils').timeFormatter,
   { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
 
@@ -45,7 +45,7 @@ const backupMainFunctions = {
       });
 
     return this.editReply({
-      embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))]
+      embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: this.client.commandManager.get(this.commandName).mention() }))]
     });
   },
 

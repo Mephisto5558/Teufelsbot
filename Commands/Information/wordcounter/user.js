@@ -2,7 +2,7 @@
 
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption, OptionType, commandMention } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
   { getTopGuilds } = require('./_utils');
 
 /** @type {CommandOption<[CommandType.Slash]>} */
@@ -36,9 +36,9 @@ module.exports = new CommandOption({
     }
 
     if (!this.user.db.wordCounter?.enabled) {
-      return this.customReply(lang(
-        'notEnabledUser', commandMention(`${this.command.name} ${this.options.getSubcommandGroup()} enable`, this.command.id)
-      ));
+      return this.customReply(
+        lang('notEnabledUser', this.client.commandManager.get(this.command.name).mention(this.options.getSubcommandGroup(), 'enable'))
+      );
     }
 
     const

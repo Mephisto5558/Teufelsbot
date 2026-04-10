@@ -2,7 +2,7 @@
 
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
-  { CommandOption, OptionType, commandMention } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command'),
 
   /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
   types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
@@ -32,6 +32,7 @@ module.exports = new CommandOption({
 
   async run(lang) {
     const
+      setupCommand = this.client.commandManager.get(this.commandName),
       command = this.options.getString('command', true),
       commandData = this.guild.db.config.commands?.[command]?.disabled ?? {},
       { roles = [], channels = [], users = [] } = commandData,
@@ -71,7 +72,7 @@ module.exports = new CommandOption({
     if (users.includes('*')) {
       return this.editReply(lang('isDisabled', {
         command: inlineCode(command),
-        commandMention: commandMention(`${this.commandName} toggle_command`, this.command.id)
+        commandMention: setupCommand.mention('toggle_command')
       }));
     }
 
@@ -92,7 +93,7 @@ module.exports = new CommandOption({
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle', command),
-      description: lang('embedDescription', commandMention(`${this.commandName} toggle_command`, this.command.id)),
+      description: lang('embedDescription', setupCommand.mention('toggle_command')),
       fields: Object.entries(count).filter(([, v]) => Object.values(v).some(Boolean))
         .map(([k, v]) => ({
           name: lang(`embed.${k}`),

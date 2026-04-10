@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, bold } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, commandMention } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { timestamp } = require('#Utils').timeFormatter;
 
 module.exports = new Command({
@@ -45,7 +45,7 @@ module.exports = new Command({
         Object.values(cmdStats[command.name] ?? {}).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0)
       );
       embed.data.description = lang('embedDescriptionOne', {
-        total, command: command.mention,
+        total, command: command.mention(),
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
 
@@ -64,8 +64,8 @@ module.exports = new Command({
         .slice(0, 10)
         .map((/** @type {[string, { total: string, slash: string, prefix: string, createdAt: Date | undefined }]} */ [k, v]) => {
           const
-            id = this.client.application.commands.cache.find(e => e.name == k)?.id,
-            field = { name: id ? commandMention(k, id) : `/${k}`, value: lang('embedFieldValue', { ...v, total: bold(v.total) }), inline: true };
+            command = this.client.commandManager.get(k),
+            field = { name: command?.mention() ?? `/${k}`, value: lang('embedFieldValue', { ...v, total: bold(v.total) }), inline: true };
 
           if (v.createdAt) field.value += `\n${lang('createdAtMany', timestamp(v.createdAt, TimestampStyles.ShortDate))}`;
           return field;
