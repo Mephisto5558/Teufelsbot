@@ -8,7 +8,8 @@ const
     ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
     StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode
   } = require('discord.js'),
-  { CommandType, permissionTranslator } = require('@mephisto5558/command'),
+  { CommandType, PermissionType } = require('@mephisto5558/command'),
+  permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /** @type {help_getCommands} */
@@ -107,16 +108,16 @@ function createInfoFields(lang, cmd = {}) {
     }
   }
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
-  if (cmd.permissions?.client?.length) {
+  if (cmd.permissions[PermissionType.Client].length) {
     arr.push({
       name: lang('one.botPerms'), inline: false,
-      value: permissionTranslator(cmd.permissions.client, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
+      value: permissionTranslator(cmd.permissions[PermissionType.Client], lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
     });
   }
-  if (cmd.permissions?.user?.length) {
+  if (cmd.permissions[PermissionType.User].length) {
     arr.push({
       name: lang('one.userPerms'), inline: true,
-      value: permissionTranslator(cmd.permissions.user, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
+      value: permissionTranslator(cmd.permissions[PermissionType.User], lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
     });
   }
 

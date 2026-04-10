@@ -20,6 +20,7 @@ const utils = {
   gitpull: require('./gitpull'),
   GiveawaysManager: require('./giveawaysManager'),
   logSayCommandUse: require('./logSayCommandUse'),
+  permissionTranslator: require('./permissionTranslator'),
   seededHash: require('./seededHash'),
   shellExec: require('./shellExec'),
   prototypeRegisterer: require('./prototypeRegisterer'),
