@@ -1,4 +1,4 @@
-/* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
+/* eslint camelcase: [error, { allow: [ban_kick_mute] }] -- This casing is used to better display the commandName. */
 
 /**
  * @import { GuildMember, GuildEmoji, Guild, Role } from 'discord.js'
@@ -19,7 +19,7 @@ const
   { secToMs } = require('../toMs'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
 
-  MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
   /** @type {(embed: EmbedBuilder, lang: lang) => EmbedBuilder} */
   getNoPermEmbed = (embed, lang) => embed.setDescription(lang('global.noPermUser')),

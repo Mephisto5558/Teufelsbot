@@ -14,9 +14,9 @@ module.exports = function timeValidator(timeStr) {
 
   for (const char of timeStr) {
     if (char == '-' || char == '+') numberBuffer += char;
-    else if (Number.isNaN(Number.parseInt(char)))
-      unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(previousChar)) ? unitBuffer + char : char;
-    else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(previousChar))) numberBuffer += char;
+    else if (Number.isNaN(Number.parseInt(char, 10)))
+      unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(previousChar, 10)) ? unitBuffer + char : char;
+    else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(previousChar, 10))) numberBuffer += char;
     else if (validItems.includes(unitBuffer)) {
       numberBuffer += unitBuffer + char;
       unitBuffer = '';

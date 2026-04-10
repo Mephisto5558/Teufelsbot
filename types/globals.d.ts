@@ -1,8 +1,5 @@
-/* eslint-disable sonarjs/no-built-in-override */
+/* eslint-disable sonarjs/no-built-in-override -- specifically done here */
 
-import type * as __ from '@mephisto5558/better-types'; /* eslint-disable-line import-x/no-namespace -- load in global definitions */
-
-/* eslint-disable-next-line import-x/order */
 import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
@@ -13,7 +10,7 @@ import type DBStructure from './database';
 // #region global
 declare global {
   // #region Buildins
-  /* eslint-disable @typescript-eslint/consistent-type-definitions */
+  /* eslint-disable @typescript-eslint/consistent-type-definitions -- overwriting buildins */
   namespace NodeJS {
     interface ProcessEnv {
       environment: 'main' | 'dev' | string & {};
@@ -177,8 +174,8 @@ declare module 'express-session' {
 }
 
 declare module 'wikijs' {
-  // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code
-  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
+  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    -- intentional. `Page` in wikijs is defined as something that is not correct. All `Page`s are `RawPage`s in code */
   interface Page extends RawPage {}
 }
 
@@ -190,3 +187,5 @@ declare module 'moment' {
     ? { years: number; months: number; days: number; hours: number; minutes: number; seconds: number; firstDateWasLater: boolean }
     : string;
 }
+
+/* eslint-enable @typescript-eslint/consistent-type-definitions */

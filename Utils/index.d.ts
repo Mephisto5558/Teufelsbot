@@ -30,7 +30,7 @@ export declare namespace afk {
   function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
   function sendAfkMessages(this: Message): Promise<Message | undefined>;
 
-  /* eslint-disable jsdoc/informative-docs */
+  /* eslint-disable jsdoc/informative-docs -- wants to remove the default value infos */
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
    * @default prefix='[AFK] ' */
@@ -180,18 +180,18 @@ export declare function getConfig(): Partial<Config>;
 /** @default targetOptionName = 'channel' */
 export declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  options?: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
 export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  options: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 export declare function __getTargetUser<T extends boolean>(
   interaction: Interaction | Message,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  options: { targetOptionName: string; returnSelf?: T },
   seenList: Map<Snowflake, GuildMember | User>
 ): MaybeWithUndefined<User, T>;
 
@@ -216,7 +216,7 @@ export declare function getTargetMembers<
 /** @default targetOptionName = 'target' */
 export declare function getTargetRole<T extends boolean>(
   interaction: GuildInteraction | Message<true>,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  options?: { targetOptionName?: string; returnSelf?: T }
 ): MaybeWithUndefined<Role, T>;
 
 export declare function gitpull(): Promise<Error | { message: 'OK' }>;
@@ -286,7 +286,7 @@ declare namespace TFormatter {
     time: DateResolvable, code?: T
   ): T extends undefined ? `<t:${number}>` : `<t:${number}:${T}>`;
 
-  /* eslint-disable @typescript-eslint/no-magic-numbers */
+  /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
   const
     msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
     daysInWeek: 7, daysInMonthMin: 28, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,

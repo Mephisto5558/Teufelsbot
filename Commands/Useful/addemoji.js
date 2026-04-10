@@ -6,6 +6,8 @@ const
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
 
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
+
+  /* eslint-disable-next-line security/detect-non-literal-regexp -- this is safe */
   urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
 /** @type {(url: string) => Promise<boolean>} */
@@ -15,7 +17,7 @@ const checkUrl = async url => new Promise((resolve, reject) => {
     .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
-    .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
+    .on('timeout', () => void req.destroy({ name: 'AbortError', message: 'Request timed out' }))
     .on('error', err => reject(err))
     .end();
 });

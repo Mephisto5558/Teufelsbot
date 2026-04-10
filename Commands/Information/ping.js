@@ -3,7 +3,7 @@ const
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage } } = require('#Utils'),
 
-  embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

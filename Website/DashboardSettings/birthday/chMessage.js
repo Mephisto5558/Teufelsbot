@@ -6,5 +6,5 @@ module.exports = {
   name: 'Announcement Message',
   description: "The message to send on the user's birthday",
   type: 'embedBuilder',
-  position: 3 /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+  position: 3 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- position */
 };

@@ -23,7 +23,7 @@
         "./Utils/prototypeRegisterer/*"
       ],
       "#types/*": [
-        "./types/*.d.ts",
+        "./types/*.d.ts"
       ],
       "#types/db": [
         "./types/database/index.d.ts"
@@ -32,9 +32,9 @@
         "./types/database/*.d.ts"
       ]
     },
+    "libReplacement": true,
     "allowJs": true,
     "exactOptionalPropertyTypes": true,
-    "libReplacement": true,
     "noEmit": true,
     "noImplicitOverride": true,
     "noUncheckedIndexedAccess": true,

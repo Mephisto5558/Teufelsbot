@@ -7,6 +7,7 @@ const
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
+
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
   TWENTY_SEC = 2e4;
@@ -33,7 +34,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
  * @param {lang} lang */
 async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
-  if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
+  if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent, 10))) return;
 
   lang.config.backupPaths[0] = 'commands.minigames.counting.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });

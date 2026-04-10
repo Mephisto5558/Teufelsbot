@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/** @import { GuildMember, User } from 'discord.js' */
+
 
 import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
@@ -39,7 +40,13 @@ await test('getTargetMembers', { concurrency: true }, async t => {
 
       return {
         inGuild: () => isInGuild,
-        options: { getMember: () => {}, getUser: () => {} },
+        options: {
+          /** @type {(...args: unknown[]) => Partial<GuildMember> | null} */
+          getMember: () => { throw new Error('Not implemented'); },
+
+          /** @type {(...args: unknown[]) => Partial<User> | null} */
+          getUser: () => { throw new Error('Not implemented'); }
+        },
         mentions: {
           members: new Collection(),
           users: new Collection()

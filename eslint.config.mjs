@@ -1,6 +1,6 @@
 import config, { getModifiedRule, jsGlob, tsGlob } from '@mephisto5558/eslint-config';
 
-/* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive */
 config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
   ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
 
@@ -46,7 +46,7 @@ export default [
     files: ['./Locales/*/commands/*.json'],
     rules: {
       ...getModifiedRule(config, 'jsonc/key-name-casing', [{
-        snake_case: true /* eslint-disable-line camelcase */
+        snake_case: true /* eslint-disable-line camelcase -- snake_case is not camelCase */
       }]),
       ...getModifiedRule(config, 'jsonc/sort-keys', [
         {

@@ -1,6 +1,6 @@
 /**
- * @this {string & StringConstructor}
  * 'this' is always an object, never a primitive.
+ * @this {string & StringConstructor}
  * @param {Client<boolean>} client */
 module.exports = function debug(client) {
   if (this.includes('Sending a heartbeat.') || this.includes('Heartbeat acknowledged')) return;

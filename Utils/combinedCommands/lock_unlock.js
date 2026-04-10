@@ -10,13 +10,13 @@ const
 /** @type {lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function lock_unlock(lang) {
-  this.args?.shift();
+  if ('args' in this) this.args?.shift();
 
   const
     msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
     /** @type {BaseGuildTextChannel} */ channel = getTargetChannel(this, { returnSelf: true }),
     /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- string can be empty */
-    reason = (this.options?.getString('reason') ?? this.args?.join(' ')) || lang('noReason'),
+    reason = ('options' in this && this.options ? this.options.getString('reason') : this.args?.join(' ')) || lang('noReason'),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),

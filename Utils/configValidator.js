@@ -35,7 +35,7 @@ const
 
 /** @type {configValidator.configValidationLoop} */
 function configValidationLoop(obj = require(configPath), checkObj = validConfig, allowNull = true) {
-  /* eslint-disable valid-typeof */
+  /* eslint-disable valid-typeof -- this logic is dynamic */
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
       log.warn(`Unknown key or subkey "${key}" in config.json.`);

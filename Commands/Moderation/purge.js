@@ -4,7 +4,7 @@
 
 const
   { Collection, Constants, Message } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, PermissionType, Permission } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   {
     getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }
   } = require('#Utils'),
@@ -13,6 +13,7 @@ const
   maxAllowedPurgeAmt = 1000,
   bulkDeleteSleepTime = 2000,
 
+  /* eslint-disable-next-line security/detect-non-literal-regexp -- this is safe */
   adRegex = new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
@@ -164,7 +165,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
+      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0], 10).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
       /** @type {GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),

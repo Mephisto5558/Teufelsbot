@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
+/** @import { Role } from 'discord.js' */
+
 
 import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
@@ -20,12 +21,20 @@ await test('getTargetRole', { concurrency: true }, async t => {
       ]);
 
       return {
-        options: { getRole: () => {} },
-        mentions: { roles: { first: () => {} } },
-        guild: { roles: { cache } },
-        member: { roles: { highest: mockHighestRole } },
-        content: '',
-        args: []
+        options: {
+          /** @type {(...args: unknown[]) => Partial<Role> | null} */
+          getRole: () => { throw new Error('Not implemented'); }
+        },
+        mentions: {
+          roles: {
+            /** @type {() => Partial<Role> | null} */
+            first: () => { throw new Error('Not implemented'); }
+          },
+          guild: { roles: { cache } },
+          member: { roles: { highest: mockHighestRole } },
+          content: '',
+          args: []
+        }
       };
     };
 

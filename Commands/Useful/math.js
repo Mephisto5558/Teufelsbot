@@ -11,7 +11,9 @@ const
     '⁶': '^6', '⁷': '^7',
     '⁸': '^8', '⁹': '^9'
   },
-  parseSpecialChars = /** @param {string} str */ str => str
+
+  /** @type {(str: string) => string} */
+  parseSpecialChars = str => str
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')

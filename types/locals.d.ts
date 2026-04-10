@@ -1,6 +1,6 @@
 import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
-import type { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from '@types/express';
 
 type Config = {
   /** Will always include the application owner (or application team owner if existing) id */

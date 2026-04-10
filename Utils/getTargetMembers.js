@@ -16,6 +16,7 @@ const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
 
 /** @type {__getTargetUser} */
 function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) {
+  /** @type {User | undefined} */
   let target = interaction.options?.getUser(targetOptionName)
     ?? interaction.mentions?.users.at(seenList.size)
     ?? interaction.mentions?.users.first();
