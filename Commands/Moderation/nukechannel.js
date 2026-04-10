@@ -3,7 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { findPaths, getCommandName, getTargetChannel } = require('#Utils'),
+  { findPaths, getTargetChannel } = require('#Utils'),
   collectorTimeout = 3e4;
 
 module.exports = new Command({
@@ -19,7 +19,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      commandName = getCommandName.call(this.client, this.commandName),
+      commandName = this.client.commandManager.get(this.commandName).name,
 
       /** @type {Exclude<GuildTextBasedChannel, AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),

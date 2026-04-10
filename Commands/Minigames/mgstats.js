@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
+  { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [
     'm_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses',
@@ -140,7 +140,7 @@ module.exports = new Command({
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
-        customId: `${getCommandName.call(this.client, this.commandName)}.${game}.sort.${settings}`,
+        customId: `${this.client.commandManager.get(this.commandName).name}.${game}.sort.${settings}`,
         options: sortOptions.map(value => ({
           value, label: lang(`options.leaderboard.options.sort.choices.${value}`),
           default: value == (sort ? `${sort}_${mode}` : 'm_wins')
