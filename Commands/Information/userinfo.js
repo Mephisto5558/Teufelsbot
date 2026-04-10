@@ -4,9 +4,9 @@ const
   {
     ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, permissionTranslator } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, getAge, timeFormatter: { timestamp } } = require('#Utils');
+  { getTargetMembers, getAge, timeFormatter: { timestamp }, permissionTranslator } = require('#Utils');
 
 /**
  * @param {GuildMember} member

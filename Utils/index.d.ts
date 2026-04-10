@@ -6,6 +6,7 @@ import type {
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
+import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
@@ -238,6 +239,10 @@ export declare function logSayCommandUse(
   this: Message<true>,
   member: GuildMember, lang: lang
 ): Promise<Message<true> | undefined>;
+
+export declare function permissionTranslator<T extends string | string[] | bigint | bigint[] | undefined>(
+  perms?: T, locale?: Locale, i18n: I18nProvider
+): T extends undefined ? [] : T extends unknown[] ? string[] : string;
 
 /** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
 export declare function seededHash(str: string, seed?: number): number;
