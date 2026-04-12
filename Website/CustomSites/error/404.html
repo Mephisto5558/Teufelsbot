@@ -1,49 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang='en'>
 
 <head>
-  <meta charset="utf-8">
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
   <title>404 | Not Found</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="all"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" media="all"
-    href="https://mephisto5558.github.io/Website-Assets/min/css/404.css">
-  <link rel="apple-touch-icon" sizes="144x144"
-    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon144x144.png">
-  <link rel="apple-touch-icon" sizes="114x114"
-    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon114x114.png">
-  <link rel="apple-touch-icon" sizes="72x72"
-    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon72x72.png" />
-  <link rel="apple-touch-icon" href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon57x57.png" />
-  <link rel="shortcut icon" href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon.png" />
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900">
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' media='all'>
+  <link rel='stylesheet' href='https://mephisto5558.github.io/Website-Assets/min/css/404.css' media='all'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900'>
+  <style>
+    body {
+      overflow: hidden;
+    }
+  </style>
+
+  <meta name='description' content='The page you are looking for was moved, removed, renamed or might never existed.'>
+  <link rel='apple-touch-icon' href='https://mephisto5558.github.io/Website-Assets/img/favicons/favicon144x144.png'
+    sizes='144x144'>
+  <link rel='apple-touch-icon' href='https://mephisto5558.github.io/Website-Assets/img/favicons/favicon114x114.png'
+    sizes='114x114'>
+  <link rel='apple-touch-icon' href='https://mephisto5558.github.io/Website-Assets/img/favicons/favicon72x72.png'
+    sizes='72x72'>
+  <link rel='apple-touch-icon' href='https://mephisto5558.github.io/Website-Assets/img/favicons/favicon57x57.png'>
+  <link rel='shortcut icon' href='https://mephisto5558.github.io/Website-Assets/img/favicons/favicon.png'>
 </head>
 
-<body style="overflow:hidden">
-  <div id="wrapper">
-    <div class="container">
-      <div class="switcher">
-        <input id="sw" type="checkbox" class="switcher-value">
-        <label for="sw" class="sw_btn"></label>
-        <div class="bg"></div>
-        <div class="text">Turn <span class="text-l">off</span><span class="text-d">on</span><br />the light</div>
+<body>
+  <div id='wrapper'>
+    <div class='container'>
+      <div class='switcher'>
+        <label for='sw' class='sw_btn' aria-labelledby='sw-text'></label>
+        <input id='sw' class='switcher-value' type='checkbox'>
+        <div class='bg'></div>
+        <div id='sw-text' class='text'>Turn <span class='text-l'>off</span><span class='text-d'>on</span><br>the light</div>
       </div>
 
-      <div id="dark" class="row text-center">
-        <div class="info">
-          <img src="https://mephisto5558.github.io/Website-Assets/img/404-dark.png" alt="404 Error" />
+      <div id='dark' class='row text-center'>
+        <div class='info'>
+          <img src='https://mephisto5558.github.io/Website-Assets/img/404-dark.png' alt='404 Error' height='361' width='623'>
         </div>
       </div>
 
-      <div id="light" class="row text-center">
-        <div class="info">
-          <img src="https://mephisto5558.github.io/Website-Assets/img/404-light.gif" alt="404 Error" />
-          <p>The page you are looking for was moved, removed,<br />
+      <div id='light' class='row text-center'>
+        <div class='info'>
+          <img src='https://mephisto5558.github.io/Website-Assets/img/404-light.gif' alt='404 Error' height='475' width='696'>
+          <p>The page you are looking for was moved, removed,<br>
             renamed or might never existed.</p>
-          <a href="/manage" class="btn btn">Go Home</a>
-          <a href="https://github.com/Mephisto5558/Teufelsbot/issues/new" class="btn btn">Report a bug</a>
+          <a class='btn' href='/manage'>Go Home</a>
+          <a class='btn' href='https://github.com/Mephisto5558/Teufelsbot/issues/new'>Report a bug</a>
         </div>
       </div>
     </div>
