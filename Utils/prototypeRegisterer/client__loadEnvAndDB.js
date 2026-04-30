@@ -1,8 +1,9 @@
 const
   { readFile } = require('node:fs/promises'),
   { parseEnv } = require('node:util'),
-  { DB } = require('@mephisto5558/mongoose-db'),
+  { DB } = require('@mephisto5558/mongoose-db');
 
+const
   defaultValueLoggingMaxJSONLength = 100,
   requiredEnv = [
     'environment',

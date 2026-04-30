@@ -3,7 +3,9 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { Command, CommandType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond, timestamp }, shellExec } = require('#Utils'),
+  { timeFormatter: { msInSecond, timestamp }, shellExec } = require('#Utils');
+
+const
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
   /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */

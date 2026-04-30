@@ -2,10 +2,10 @@
 
 const
   { Constants, channelLink } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
-  /** @type {['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
-  loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
+/** @type {['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
+const loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
 /** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({

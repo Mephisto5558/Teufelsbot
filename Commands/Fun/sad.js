@@ -1,7 +1,6 @@
-const
-  { Command, CommandType } = require('@mephisto5558/command'),
+const { Command, CommandType } = require('@mephisto5558/command');
 
-  responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
+const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
 
 module.exports = new Command({
   types: [CommandType.Prefix],

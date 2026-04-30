@@ -1,6 +1,8 @@
 const
   { SnowflakeUtil } = require('discord.js'),
-  { writeFile } = require('node:fs/promises'),
+  { writeFile } = require('node:fs/promises');
+
+const
 
   /** @returns {number} Unix timestamp */
   getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1),

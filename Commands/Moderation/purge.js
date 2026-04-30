@@ -7,8 +7,9 @@ const
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   {
     getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }
-  } = require('#Utils'),
+  } = require('#Utils');
 
+const
   maxMsgsToFetch = 100,
   maxAllowedPurgeAmt = 1000,
   bulkDeleteSleepTime = 2000,

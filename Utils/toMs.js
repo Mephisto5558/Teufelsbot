@@ -1,8 +1,8 @@
 /** @import { toMs } from '.' */
 
-const
-  { daysInYear, hoursInDay, minutesInHour, msInSecond, secsInMinute } = require('./timeFormatter'),
+const { daysInYear, hoursInDay, minutesInHour, msInSecond, secsInMinute } = require('./timeFormatter');
 
+const
   /** @type {toMs['secToMs']} */ secToMs = secs => secs * msInSecond,
   /** @type {toMs['minToMs']} */ minToMs = mins => secToMs(mins * secsInMinute),
   /** @type {toMs['hourToMs']} */ hourToMs = hours => minToMs(hours * minutesInHour),

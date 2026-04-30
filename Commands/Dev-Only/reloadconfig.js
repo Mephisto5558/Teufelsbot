@@ -3,9 +3,9 @@ const
   { resolve } = require('node:path'),
   { Command, CommandType } = require('@mephisto5558/command'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
-  { loadEnv } = require('#Utils/prototypeRegisterer/client__loadEnvAndDB.js'),
+  { loadEnv } = require('#Utils/prototypeRegisterer/client__loadEnvAndDB.js');
 
-  filePath = resolve(process.cwd(), 'config.json');
+const filePath = resolve(process.cwd(), 'config.json');
 
 module.exports = new Command({
   types: [CommandType.Prefix],

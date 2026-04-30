@@ -1,3 +1,4 @@
+/* eslint-disable-next-line n/no-unpublished-import -- this is a dev file */
 import config, { getModifiedRule, jsGlob, tsGlob } from '@mephisto5558/eslint-config';
 
 /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive */
@@ -109,7 +110,8 @@ export default [
         exceptions: ['t']
       }]),
       '@typescript-eslint/no-magic-numbers': 'off',
-      'unicorn/no-null': 'off'
+      'unicorn/no-null': 'off',
+      'n/no-top-level-await': 'off'
     }
   }
 ];

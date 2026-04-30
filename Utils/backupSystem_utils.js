@@ -8,9 +8,9 @@ const
     DiscordAPIError, ForumChannel, GuildFeature, OverwriteType
   } = require('discord.js'),
   fetch = require('node-fetch').default,
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
-  maxMessagesPerChannelLimit = 100;
+const maxMessagesPerChannelLimit = 100;
 
 /** @type {BackupSystem.Utils['fetchToBase64']} */
 async function fetchToBase64(url) {

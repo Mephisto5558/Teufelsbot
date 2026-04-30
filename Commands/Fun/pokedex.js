@@ -8,9 +8,9 @@ const
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
-  { maxPercentage } = require('#Utils').constants,
+  { maxPercentage } = require('#Utils').constants;
 
-
+const
   DM_TO_CM = 10,
   DM_TO_M = .1,
   HG_TO_G = 100, // Hectogram

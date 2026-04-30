@@ -5,8 +5,9 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, TextChannel, channelMention, inlineCode, userMention
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { embedFieldValueMaxLength } = require('./constants'),
-  GREY = 0x36393F;
+  { embedFieldValueMaxLength } = require('./constants');
+
+const GREY = 0x36393F;
 
 /** @type {logSayCommandUse} */
 module.exports = async function logSayCommandUse(member, lang) {

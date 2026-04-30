@@ -3,8 +3,9 @@
 const
   { bold } = require('discord.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk'),
-  { secToMs } = require('../toMs'),
+  { secToMs } = require('../toMs');
 
+const
   MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   WORDCOUNT_MIN_CHARS = 3;
 

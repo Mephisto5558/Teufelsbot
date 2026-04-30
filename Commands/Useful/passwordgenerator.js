@@ -1,7 +1,8 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
 
+const
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
   DEFAULT_CHARSET = [...String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
@@ -9,16 +10,15 @@ const
   MAX_PASSWORDS = 500,
   MAX_MESSAGE_LENGTH = 1740,
   MAX_DISPLAYED_CHARSET_LEN = 100,
-  suffix = '...';
+  suffix = '...',
 
-/**
- * Helper function to prevent `eslint/no-loop-func`.
- *
- * Filters the last selected entry out and selects a random list entry.
- * RNG defined in Utils/prototypeRegisterer.js.
- * @param {string[]} charset
- * @param {string?} lastRandomChar */
-const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
+  /**
+   * Helper function to prevent `eslint/no-loop-func`.
+   *
+   * Filters the last selected entry out and selects a random list entry.
+   * RNG defined in Utils/prototypeRegisterer.js.
+   * @type {(charset: string[], lastRandomChar?: string) => string} */
+  getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
 module.exports = new Command({
   types: [CommandType.Slash],

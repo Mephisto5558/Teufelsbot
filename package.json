@@ -4,8 +4,8 @@
   "description": "A discord.js v14 bot with Dashboard, multiple language support, a DB and many commands, in active development.",
   "keywords": [
     "discord",
-    "discordjs",
-    "discord-bot"
+    "discord-bot",
+    "discordjs"
   ],
   "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme",
   "bugs": {
@@ -69,5 +69,12 @@
   },
   "engines": {
     "node": ">=22.12.0"
+  },
+   "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error",
+      "version": ">=24.0.0"
+    }
   }
 }

@@ -2,8 +2,9 @@
 
 const
   { inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  MAX_PREFIXES_PER_GUILD = 2;
+  { CommandOption, OptionType } = require('@mephisto5558/command');
+
+const MAX_PREFIXES_PER_GUILD = 2;
 
 /** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({

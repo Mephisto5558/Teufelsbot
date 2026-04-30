@@ -5,10 +5,11 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, inlineCode, userMention } = require('discord.js'),
   sendChallenge = require('./rps_sendChallenge'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-  emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
-  winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
+const
+  emojis = Object.freeze({ rock: '✊', paper: '🤚', scissors: '✌️' }),
+  winningAgainst = Object.freeze({ rock: 'scissors', paper: 'rock', scissors: 'paper' });
 
 /**
  * @this {ButtonInteraction<'cached'>}

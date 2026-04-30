@@ -1,7 +1,9 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  mathjs = require('mathjs'),
+  mathjs = require('mathjs');
+
+const
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
 
   /** @type {Record<string, string>} hurts to annotate it this way but not really having a choice due to `@typescript-eslint/no-unsafe-return` */

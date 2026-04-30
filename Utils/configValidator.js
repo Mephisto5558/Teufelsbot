@@ -1,7 +1,8 @@
 /** @import { configValidator } from '.' */
 
+const { writeFileSync } = require('node:fs');
+
 const
-  { writeFileSync } = require('node:fs'),
   configPath = require('node:path').resolve(process.cwd(), 'config.json'),
   validConfig = Object.freeze({
     devIds: 'object', // set<string>
@@ -65,6 +66,7 @@ function setDefaultConfig() {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
     log.warn('Missing config.json. This file is required to run the bot.');
 
+    /* eslint-disable-next-line n/no-sync -- needs to be sync */
     writeFileSync(configPath, '{}');
     config = {};
 

@@ -1,10 +1,10 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, codeBlock } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils'),
+  { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils');
 
-  /** @type {(interaction: Interaction, name: string) => string | undefined} */
-  getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
+/** @type {(interaction: Interaction, name: string) => string | undefined} */
+const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
 module.exports = new Command({
   types: [CommandType.Slash],
