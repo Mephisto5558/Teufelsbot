@@ -1,8 +1,9 @@
 const
   { createHash } = require('node:crypto'),
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { maxPercentage } } = require('#Utils'),
+  { getTargetMembers, constants: { maxPercentage } } = require('#Utils');
 
+const
   hashPartLength = 5,
   botIds = new Set(['964315306015211560', '948978571802710047']),
   botDevShip = 80,

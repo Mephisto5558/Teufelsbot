@@ -2,7 +2,9 @@ const
   { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
-  { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
+  { mgStats_formatTop: formatTop } = require('#Utils/componentHandler');
+
+const
   sortOptions = [
     'm_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses',
     'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'

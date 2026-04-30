@@ -3,8 +3,9 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { findPaths, getTargetChannel } = require('#Utils'),
-  collectorTimeout = 3e4;
+  { findPaths, getTargetChannel } = require('#Utils');
+
+const collectorTimeout = 3e4;
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

@@ -1,9 +1,9 @@
 const
   { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
-  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, OptionType } = require('@mephisto5558/command');
 
-  defaultMaxNum = 100;
+const defaultMaxNum = 100;
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

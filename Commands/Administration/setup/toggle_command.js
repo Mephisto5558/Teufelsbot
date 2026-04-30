@@ -2,10 +2,10 @@
 
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
+  { CommandOption, OptionType } = require('@mephisto5558/command');
 
-  /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
-  types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
+/** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
+const types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
 /** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({

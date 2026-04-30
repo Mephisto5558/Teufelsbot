@@ -60,6 +60,7 @@ module.exports = {
   async onTick() {
     const now = new Date();
 
+    /* eslint-disable-next-line n/no-sync -- false positive: this is not even a method. */
     if (this?.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
 
     log('Started emoji sync').debug('Started emoji sync');

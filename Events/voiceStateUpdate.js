@@ -3,9 +3,9 @@
 const
   { EmbedBuilder, channelMention, inlineCode, userMention } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
+  { removeAfkStatus, setAfkStatus } = require('#Utils').afk;
 
-  GRAY = 0x36393F;
+const GRAY = 0x36393F;
 
 /**
  * @this {ClientEvents['voiceStateUpdate'][0]}

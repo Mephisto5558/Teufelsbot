@@ -6,7 +6,7 @@
 const { Constants, userMention } = require('discord.js');
 
 /** @type {Message['_patch']} */
-/* eslint-disable-next-line custom/unbound-method */
+/* eslint-disable-next-line custom/unbound-method -- safely used here */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
 /** @type {_patch} */

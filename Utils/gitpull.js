@@ -1,11 +1,10 @@
 /** @import { gitpull } from '.' */
 
-const
-  shellExec = require('./shellExec'),
+const shellExec = require('./shellExec');
 
-  origin = shellExec('git status')
-    .catch(() => { /** empty */ })
-    .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
+const origin = shellExec('git status')
+  .catch(() => { /** empty */ })
+  .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
 
 /** @type {gitpull} */
 module.exports = async function gitpull() {

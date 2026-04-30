@@ -16,8 +16,9 @@ const
   } = require('discord.js'),
   { Command, CommandType } = require('@mephisto5558/command'),
   { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
-  { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils'),
+  { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils');
 
+const
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
   /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */

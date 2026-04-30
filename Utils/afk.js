@@ -4,8 +4,9 @@ const
   { TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
   { memberNameMaxLength, messageMaxLength } = require('./constants'),
-  { timeFormatter, timestamp } = require('./timeFormatter'),
+  { timeFormatter, timestamp } = require('./timeFormatter');
 
+const
   nicknamePrefix = '[AFK] ',
   nicknameRegex = /^[AFK] /;
 

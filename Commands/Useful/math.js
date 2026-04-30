@@ -1,8 +1,9 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  mathjs = require('mathjs'),
+  mathjs = require('mathjs');
 
+const
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
   superscripts = Object.freeze({
     '²': '^2', '³': '^3',

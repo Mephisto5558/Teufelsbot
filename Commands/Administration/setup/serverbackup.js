@@ -1,9 +1,8 @@
 /** @import {CommandType} from '@mephisto5558/command' */
 
-const
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
+const { CommandOption, OptionType } = require('@mephisto5558/command');
 
-  backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
+const backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
 /** @type {CommandOption<[CommandType.Slash]>} */
 module.exports = new CommandOption({

@@ -3,24 +3,25 @@ const
   http = require('node:http'),
   https = require('node:https'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
 
+const
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
 
   /* eslint-disable-next-line security/detect-non-literal-regexp -- this is safe */
-  urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
+  urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i'),
 
-/** @type {(url: string) => Promise<boolean>} */
-const checkUrl = async url => new Promise((resolve, reject) => {
-  const req = (url.startsWith('https') ? https : http)
-  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */
-    .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
+  /** @type {(url: string) => Promise<boolean>} */
+  checkUrl = async url => new Promise((resolve, reject) => {
+    const req = (url.startsWith('https') ? https : http)
+    /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */
+      .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
 
-  req
-    .on('timeout', () => void req.destroy({ name: 'AbortError', message: 'Request timed out' }))
-    .on('error', err => reject(err))
-    .end();
-});
+    req
+      .on('timeout', () => void req.destroy({ name: 'AbortError', message: 'Request timed out' }))
+      .on('error', err => reject(err))
+      .end();
+  });
 
 module.exports = new Command({
   types: [CommandType.Slash],

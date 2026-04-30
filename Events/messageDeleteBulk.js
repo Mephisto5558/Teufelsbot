@@ -3,8 +3,9 @@
 const
   { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { toMs: { secToMs }, sleep } = require('#Utils'),
+  { toMs: { secToMs }, sleep } = require('#Utils');
 
+const
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
 

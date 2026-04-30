@@ -18,8 +18,9 @@ const
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants'),
   { secToMs } = require('../toMs'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
+const
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
   /** @type {(embed: EmbedBuilder, lang: lang) => EmbedBuilder} */

@@ -4,9 +4,9 @@ const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, capitalize } = require('@mephisto5558/command'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
-  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#Utils'),
+  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#Utils');
 
-  MAX_MSGS = 9;
+const MAX_MSGS = 9;
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

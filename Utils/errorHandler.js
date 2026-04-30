@@ -9,9 +9,9 @@ const
   fetch = require('node-fetch').default,
   { JSON_SPACES, commonHeaders } = require('./constants'),
   { msInSecond, secsInMinute } = require('./timeFormatter'),
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
-  cwd = process.cwd();
+const cwd = process.cwd();
 
 /** @type {errorHandler} */
 /* eslint-disable-next-line unicorn/no-useless-undefined, @typescript-eslint/no-useless-default-assignment

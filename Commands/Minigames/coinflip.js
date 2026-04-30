@@ -1,8 +1,8 @@
 const
   { randomInt } = require('node:crypto'),
-  { Command, CommandType } = require('@mephisto5558/command'),
+  { Command, CommandType } = require('@mephisto5558/command');
 
-  SIDE_CHANCE = 3000; // 1 in 3000
+const SIDE_CHANCE = 3000; // 1 in 3000
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

@@ -2,12 +2,12 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
   { Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { commonHeaders } = require('#Utils').constants,
+  { commonHeaders } = require('#Utils').constants;
 
-  /** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
-  fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
-    headers: commonHeaders(client)
-  })).json();
+/** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
+const fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
+  headers: commonHeaders(client)
+})).json();
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

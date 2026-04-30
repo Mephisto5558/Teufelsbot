@@ -5,9 +5,9 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  { embedFieldValueMaxLength, suffix } = require('#Utils').constants;
 
-  PINK = 0xE62AED;
+const PINK = 0xE62AED;
 
 /**
  * @this {ClientEvents['messageUpdate'][0]}

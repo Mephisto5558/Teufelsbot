@@ -7,9 +7,9 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   sleep = require('../sleep'),
-  { minToMs, secToMs } = require('../toMs'),
+  { minToMs, secToMs } = require('../toMs');
 
-  BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
+const BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
 /** @type {sendChallengeMentionT} */
 async function sendChallengeMention(msg, userId, lang) {

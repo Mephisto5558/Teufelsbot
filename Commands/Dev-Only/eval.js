@@ -3,8 +3,9 @@
 const
   { codeBlock } = require('discord.js'),
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { minToMs } = require('#Utils').toMs,
+  { minToMs } = require('#Utils').toMs;
 
+const
   paramMap = { __dirname, __filename, exports, module, require },
   vars = [...Object.keys(paramMap), 'lang'],
   params = Object.values(paramMap),
@@ -16,12 +17,10 @@ const
   /** @type {BoundFunction} */
   BoundFunction = Function.bind(undefined, ...vars),
 
-  TIMEOUT_MS = minToMs(10);
+  TIMEOUT_MS = minToMs(10),
 
-/**
- * @param {number} ms
- * @returns {Promise<string>} */
-const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
+  /** @type {(ms: number) => Promise<string>} */
+  timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 module.exports = new Command({
   types: [CommandType.Prefix],

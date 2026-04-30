@@ -4,6 +4,8 @@ import type {} from './discord.js';
 
 import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
+
+/* eslint-disable-next-line n/no-unpublished-import -- this is a typing file and not in a package. */
 import type { NextFunction, Request, Response } from '@types/express';
 
 type Config = {

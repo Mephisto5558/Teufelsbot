@@ -1,8 +1,8 @@
 /** @import { rps_sendChallenge } from '.' */
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } = require('discord.js'),
-  BLUE = 0x2980B9;
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } = require('discord.js');
+
+const BLUE = 0x2980B9;
 
 /** @type {rps_sendChallenge} */
 module.exports = async function sendRPSChallenge(lang, initiator, opponent) {

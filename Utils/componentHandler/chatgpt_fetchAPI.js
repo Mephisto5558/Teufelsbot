@@ -4,8 +4,9 @@ const
   { ButtonInteraction, ChatInputCommandInteraction, cleanContent } = require('discord.js'),
   { getCommands } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { JSON_SPACES, commonHeaders } = require('../constants'),
+  { JSON_SPACES, commonHeaders } = require('../constants');
 
+const
   DEFAULT_MODEL = 'gpt-oss-20b',
   RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'],
   AI_MESSAGE_CONTEXT = 50,

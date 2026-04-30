@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
+/* eslint-disable @typescript-eslint/consistent-type-definitions -- matching discord.js's usage */
 
 import type {
   AutocompleteFocusedOption, BaseInteraction, Guild, InteractionReplyOptions, Message, MessageEditOptions,

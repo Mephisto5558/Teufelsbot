@@ -1,8 +1,9 @@
 const
   { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
+  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils');
 
+const
   currentYear = new Date().getFullYear(),
   MIN_YEAR = 1900;
 

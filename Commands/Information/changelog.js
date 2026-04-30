@@ -2,9 +2,10 @@ const
   { Colors, EmbedBuilder } = require('discord.js'),
   { Command, CommandType, CooldownType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#Utils'),
-  { github: ghConfig = {} } = getConfig(),
+  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#Utils');
 
+const
+  { github: ghConfig = {} } = getConfig(),
   CACHE_TIMEOUT = hourToMs(12), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 12h */
   MAX_COMMIT_LENGTH = 100,
   suffix = '...';

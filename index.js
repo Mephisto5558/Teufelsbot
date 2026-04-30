@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 console.time('Initializing time');
 console.info('Starting...');
 
@@ -17,36 +15,36 @@ const
   events = require('./Events'),
   handlers = require('./Handlers'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
-  { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
+  { onTick: syncEmojis } = require('./TimeEvents').syncEmojis;
 
-  createClient = /** @returns {Client<false>} */ () => new Client({
-    shards: 'auto',
-    failIfNotExists: false,
-    allowedMentions: {
-      parse: [
-        AllowedMentionsTypes.User,
-        AllowedMentionsTypes.Role
-      ]
-    },
-    intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.GuildMessageReactions,
-      GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.GuildPresences,
-      GatewayIntentBits.MessageContent,
-      GatewayIntentBits.DirectMessages
-    ],
-    partials: [
-      Partials.Channel,
-      Partials.Message,
-      Partials.Reaction
-    ],
-    presence: {
-      activities: [{ name: 'Starting...', type: ActivityType.Custom }]
-    }
-  });
+const createClient = /** @returns {Client<false>} */ () => new Client({
+  shards: 'auto',
+  failIfNotExists: false,
+  allowedMentions: {
+    parse: [
+      AllowedMentionsTypes.User,
+      AllowedMentionsTypes.Role
+    ]
+  },
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildPresences,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.DirectMessages
+  ],
+  partials: [
+    Partials.Channel,
+    Partials.Message,
+    Partials.Reaction
+  ],
+  presence: {
+    activities: [{ name: 'Starting...', type: ActivityType.Custom }]
+  }
+});
 
 /**
  * @this {Client<false>}
@@ -64,8 +62,8 @@ console.time('Starting time');
 
 void (async function main() {
   if ((await gitpull()).message.includes('Could not resolve host')) {
-    log.error('It seems like the bot does not have internet access.');
-    process.exit(1);
+    process.exitCode = 1;
+    return console.error('It seems like the bot does not have internet access.');
   }
 
   configValidationLoop();

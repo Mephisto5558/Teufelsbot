@@ -71,7 +71,7 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "devEngines": {
+   "devEngines": {
     "runtime": {
       "name": "node",
       "onFail": "error",

@@ -1,3 +1,4 @@
+/* eslint-disable-next-line n/no-unpublished-import -- this is a dev file */
 import config, { getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5558/eslint-config';
 
 export default [
@@ -114,7 +115,8 @@ export default [
         exceptions: ['t']
       }]),
       [`${pluginNames.typescript}/no-magic-numbers`]: 'off',
-      [`${pluginNames.unicorn}/no-null`]: 'off'
+      [`${pluginNames.unicorn}/no-null`]: 'off',
+      [`${pluginNames.node}/no-top-level-await`]: 'off'
     }
   }
 ] as typeof config;

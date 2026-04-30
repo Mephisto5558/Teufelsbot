@@ -5,8 +5,9 @@ const
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
-  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils'),
+  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils');
 
+const
   TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
