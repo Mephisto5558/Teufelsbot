@@ -200,18 +200,16 @@ export declare function __getTargetUser<T extends boolean>(
  * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
   I extends Interaction | Message,
-  O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
->(interaction: I, options: O): {
-  -readonly [K in keyof O]: (I extends GuildInteraction | Message<true> ? GuildMember : User)
-    | (O[K]['returnSelf'] extends true ? never : undefined)
-};
-
-export declare function getTargetMembers<
-  I extends Interaction | Message,
-  O extends { targetOptionName?: string; returnSelf?: boolean } | undefined
->(
-  interaction: I, options?: O
-): (I extends GuildInteraction | Message<true> ? GuildMember : User) | (O extends { returnSelf: true } ? never : undefined);
+  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
+    | { targetOptionName?: string; returnSelf?: boolean }
+>(interaction: I, options?: O):
+O extends readonly unknown[]
+  ? {
+      [K in keyof O]: (I extends GuildInteraction | Message<true> ? GuildMember : User)
+        | (O[K] extends { returnSelf: true } ? never : undefined)
+    }
+  : (I extends GuildInteraction | Message<true> ? GuildMember : User)
+    | (O extends { returnSelf: true } ? never : undefined);
 
 /** @default targetOptionName = 'target' */
 export declare function getTargetRole<T extends boolean>(

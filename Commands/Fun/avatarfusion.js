@@ -1,6 +1,7 @@
 const
   { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  /* eslint-disable-next-line import-x/no-unresolved -- false positive */
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers } = require('#Utils');
 
@@ -26,7 +27,8 @@ module.exports = new Command({
   async run(lang) {
     const
       isGuild = (this.options?.getString('avatar_type') ?? 'server') == 'server',
-      [base, overlay] = getTargetMembers(this, [{ targetOptionName: 'base' }, { targetOptionName: 'overlay', returnSelf: true }]);
+      [base, overlay] = getTargetMembers(this, [{ targetOptionName: 'base' }, { targetOptionName: 'overlay', returnSelf: true }]),
+      baseUser = isGuild && 'user' in base ? base.user : base;
 
     if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));
 
@@ -40,14 +42,14 @@ module.exports = new Command({
       embed.data.image = {
         url: isGuild
           ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE })
-          : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE })
+          : baseUser.avatarURL({ forceStatic: true, size: IMAGE_SIZE })
       };
       return this.customReply({ embeds: [embed] });
     }
 
     const
       msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading', this.client.application.getEmoji('loading')))] }),
-      baseAvatar = await loadImage((isGuild ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
+      baseAvatar = await loadImage(baseUser.displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
       overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
       canvas = new Canvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
