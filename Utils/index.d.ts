@@ -200,14 +200,11 @@ export declare function __getTargetUser<T extends boolean = false>(
  * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
   I extends Interaction | Message,
-  O extends readonly (
-    { targetOptionName?: string; returnSelf?: boolean } | { targetOptionName?: string; returnSelf?: boolean }[]
-  ) | undefined = undefined,
+  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[] | { targetOptionName?: string; returnSelf?: boolean },
   MemberType = I extends GuildInteraction | Message<true> ? GuildMember : User
->(
-  interaction: I, options?: O
-): O extends readonly unknown[]
-  ? { -readonly [K in keyof O]: MaybeWithUndefined<MemberType, O[K] extends { returnSelf: true } ? true : false> }
+>(interaction: I, options?: O):
+O extends readonly unknown[]
+  ? { [K in keyof O]: MaybeWithUndefined<MemberType, O[K] extends { returnSelf: true } ? true : false> }
   : MaybeWithUndefined<MemberType, O extends { returnSelf: true } ? true : false>;
 
 /** @default targetOptionName = 'target' */

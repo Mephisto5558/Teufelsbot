@@ -17,9 +17,9 @@ const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
 /** @type {__getTargetUser} */
 function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) {
   /** @type {User | undefined} */
-  let target = interaction.options?.getUser(targetOptionName)
-    ?? interaction.mentions?.users.at(seenList.size)
-    ?? interaction.mentions?.users.first();
+  let target = 'options' in interaction
+    ? interaction.options.getUser(targetOptionName)
+    : interaction.mentions.users.at(seenList.size) ?? interaction.mentions.users.first();
 
   if (interaction.content) {
     const botMention = userMention(interaction.client.user.id);
@@ -43,8 +43,9 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
     @typescript-eslint/no-unnecessary-condition -- ts bug */
 
     /** @type {GuildMember | undefined} */
-    let target = interaction.options?.getMember(targetOptionName)
-      ?? interaction.mentions?.members.at(seenList.size) ?? interaction.mentions?.members.first();
+    let target = 'options' in interaction
+      ? interaction.options.getMember(targetOptionName)
+      : interaction.mentions?.members.at(seenList.size) ?? interaction.mentions?.members.first();
 
     if (interaction.content) {
       const botMention = userMention(interaction.client.user.id);
@@ -68,8 +69,9 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
 
 /** @type {getTargetMembersT} */
 module.exports = function getTargetMembers(interaction, targetSettings) {
-  /** @type {NonNullable<Exclude<Parameters<getTargetMembersT>[1], Array>>[]} */
   const
+
+    /** @type {NonNullable<Exclude<Parameters<getTargetMembersT>[1], ReadonlyArray>>[] | undefined} */
     settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings ?? {}],
 
     /** @type {ReturnType<__getTargetMember>[]} */
