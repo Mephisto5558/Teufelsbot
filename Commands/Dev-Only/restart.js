@@ -13,8 +13,8 @@ module.exports = new Command({
   types: [CommandType.Prefix],
   dmPermission: true,
   beta: true,
-  disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactyltServerAPIKey,
-  disabledReason: 'Missing pterodactylPanelURL, pterodactylServerId or pterodactyltServerAPIKey in .env',
+  disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactylServerAPIKey,
+  disabledReason: 'Missing pterodactylPanelURL, pterodactylServerId or pterodactylServerAPIKey in .env',
 
   async run(lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
