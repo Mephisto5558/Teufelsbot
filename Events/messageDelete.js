@@ -66,7 +66,7 @@ function shouldRun() {
 
 /** @this {ClientEvents['messageDelete'][0]} */
 module.exports = async function messageDelete() {
-  if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
+  if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   const lang = this.client.i18n.getTranslator({
     locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['commands.minigames.counting.userDeletedMsg']

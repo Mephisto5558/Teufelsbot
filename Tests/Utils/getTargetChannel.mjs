@@ -26,6 +26,7 @@ await test('getTargetChannel', { concurrency: true }, async t => {
         options: {
           getChannel: () => { throw new Error('Not implemented'); }
         },
+
         /** @type {Partial<MessageMentions>} */
         mentions: {
           channels: {

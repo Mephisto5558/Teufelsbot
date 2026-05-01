@@ -64,6 +64,7 @@ declare global {
   type Database = DBStructure.Database;
 
   type lang<UNF extends boolean = false, L extends Locale | undefined = Locale> = Translator<UNF, L>;
+
   // #endregion
 
   // #region discord.js globals

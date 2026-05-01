@@ -23,6 +23,7 @@ await test('getTargetRole', { concurrency: true }, async t => {
       return {
         /** @type {Partial<CommandInteractionOptionResolver>} */
         options: { getRole: () => { throw new Error('Not implemented'); } },
+
         /** @type {Partial<MessageMentions>} */
         mentions: {
           roles: {

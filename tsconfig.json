@@ -24,8 +24,11 @@
         "./types/database/*.d.ts"
       ]
     },
-    "libReplacement": true,
     "allowJs": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
     "types": ["express", "node", "passport"]
   }
 }

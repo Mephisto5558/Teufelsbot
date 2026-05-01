@@ -15,7 +15,6 @@ const cwd = process.cwd();
 
 /** @type {errorHandler} */
 /* eslint-disable-next-line unicorn/no-useless-undefined, @typescript-eslint/no-useless-default-assignment
- , @typescript-eslint/no-useless-default-assignment
   -- lang is optional and has no default value. */
 module.exports = async function errorHandler(err, context = [this], lang = undefined) {
   const

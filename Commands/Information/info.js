@@ -2,7 +2,7 @@
  * @import { ApplicationEmoji } from 'discord.js'
  * @import { Locale } from '@mephisto5558/i18n' */
 
-/* eslint-disable @stylistic/max-len */
+/* eslint-disable @stylistic/max-len -- this cannot be cleanly fixed */
 /**
  * @typedef {{ memory_bytes: number, memory_limit_bytes?: number, cpu_absolute: number, disk_bytes: number, network_rx_bytes: number, network_tx_bytes: number, uptime: number }} Resources
  * @typedef {{ memory: number, swap: number, disk: number, io: number, cpu: number, threads: number | null, oom_disabled: boolean }} Limits
@@ -24,8 +24,8 @@ const
   /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link }),
 
-  graphLayout = {
-    /* eslint-disable @typescript-eslint/no-magic-numbers */
+  graphLayout = Object.freeze({
+    /* eslint-disable @typescript-eslint/no-magic-numbers -- constants */
     fontName: 'sans-serif',
     width: 1500,
     height: 800,
@@ -37,7 +37,7 @@ const
     startY: 200,
     shadowBlur: 15,
     textMargin: 20,
-    colors: {
+    colors: Object.freeze({
       background: '#23272A',
       title: '#FFFFFF',
       label: '#BBBBBB',
@@ -49,9 +49,9 @@ const
       network: '#2C2F33',
       netRx: '#33A0E4',
       netTx: '#F04747'
-    }
+    })
     /* eslint-enable @typescript-eslint/no-magic-numbers */
-  };
+  });
 
 
 /**

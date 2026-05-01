@@ -93,6 +93,7 @@ void (async function main() {
 
   const [client] = await Promise.all([
     loginClient.call(newClient, process.env.token),
+    /* eslint-disable-next-line @typescript-eslint/require-await -- some handlers are async */
     ...Object.entries({ ...handlers }).map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
   ]);

@@ -200,7 +200,8 @@ export declare function __getTargetUser<T extends boolean = false>(
  * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
   I extends Interaction | Message,
-  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[] | { targetOptionName?: string; returnSelf?: boolean },
+  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
+    | { targetOptionName?: string; returnSelf?: boolean } = { targetOptionName?: string; returnSelf?: boolean },
   MemberType = I extends GuildInteraction | Message<true> ? GuildMember : User
 >(interaction: I, options?: O):
 O extends readonly unknown[]

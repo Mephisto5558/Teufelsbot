@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions -- matching discord.js's usage */
 
 import type {
-  AutocompleteFocusedOption, BaseInteraction, Guild, InteractionReplyOptions, Message, MessageEditOptions,
-  MessageMentionOptions, MessagePayload, User
+  AutocompleteFocusedOption, BaseInteraction, ClientApplication, Guild, InteractionReplyOptions, Message,
+  MessageEditOptions, MessageMentionOptions, MessagePayload, User
 } from 'discord.js';
 import type { CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
@@ -30,23 +30,22 @@ export interface CustomClient<Ready extends boolean = boolean> {
 
   /** The config from {@link ./config.json}. */
   config: locals.Config;
-  loadEnvAndDB(this: StrictOmit<CustomClient<Ready>, 'db'>): Promise<void>;
+  loadEnvAndDB(this: StrictOmit<Client<Ready>, 'db'>): Promise<void>;
 
   /**
    * A promise that resolves to a fetched discord application once
    * {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#clientReady Client#clientReady}
    * was emitted. Returns immediately if the client is already ready. */
-  awaitReady(this: CustomClient<Ready>): Promise<CustomClientApplication>;
+  awaitReady(this: Client<Ready>): Promise<ClientApplication>;
 }
 
 export interface CustomClientApplication {
   client: Client;
 
   /** Get an application Emoji's mention by it's name. Requires the ApplicationEmojiManager's cache to be populated. */
-  getEmoji<NAME extends string>(this: CustomClientApplication, emoji: NAME): `<a:${NAME}:${Snowflake}>` | `<${NAME}:${Snowflake}>` | undefined;
+  getEmoji<NAME extends string>(this: ClientApplication, emoji: NAME): `<a:${NAME}:${Snowflake}>` | `<${NAME}:${Snowflake}>` | undefined;
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- consistency with `@mephisto5558/command` */
 export interface CustomMessage<InGuild extends boolean = boolean> {
   client: Client;
 
@@ -68,7 +67,7 @@ export interface CustomMessage<InGuild extends boolean = boolean> {
   commandName: Lowercase<string> | null;
 
   /** Alias for {@link Message.author} */
-  user: Message['author'];
+  user: Message<InGuild>['author'];
 
 
   /**
@@ -91,7 +90,7 @@ export interface CustomMessage<InGuild extends boolean = boolean> {
 export interface CustomPartialMessage<InGuild extends boolean = boolean> {
   client: Client;
 
-  user: PartialMessage['author'];
+  user: PartialMessage<InGuild>['author'];
   inGuild(): InGuild;
 }
 

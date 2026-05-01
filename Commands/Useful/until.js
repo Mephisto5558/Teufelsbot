@@ -14,11 +14,12 @@ const
  * @param {number?} defaultNum
  * @returns {number} */
 function getInteger(name, defaultNum = 0) {
-  const
-    position = module.exports.options.findIndex(e => e.name == name),
-    num = Number.parseInt(this.args?.[position], 10);
+  const position = module.exports.options.findIndex(e => e.name == name);
 
-  return this.options?.getInteger(name) ?? (Number.isNaN(num) ? defaultNum : num);
+  let num = Number.parseInt(this.args?.[position], 10);
+  if ('options' in this) num = this.options.getInteger(name) ?? num;
+
+  return Number.isNaN(num) ? defaultNum : num;
 }
 
 /**

@@ -106,7 +106,7 @@ module.exports = new Command({
     });
 
     if (type == 'user') {
-      embed.data.title = lang('embedTitle', { user: inlineCode(target.user.displayName), game });
+      embed.data.title = lang('embedTitle', { user: inlineCode(('user' in target ? target.user : target).displayName), game });
 
       const targetData = data[target.id];
       if (targetData?.games > 0) {
