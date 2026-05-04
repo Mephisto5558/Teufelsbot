@@ -16,6 +16,9 @@ module.exports = async function messageComponentHandler(lang) {
     command = this.client.commandManager.get(feature) ?? { name: feature },
     disabledList = this.guild.db.config.commands?.[command.name ?? '']?.disabled ?? {};
 
+  /* eslint-disable-next-line unicorn/no-null -- consistency with discord.js */
+  this.commandName = command.name ?? null;
+
   let err;
   if (disabledList.users?.includes(this.user.id)) err = 'notAllowed.user';
   else if (disabledList.channels?.includes(this.channel.id)) err = 'notAllowed.channel';

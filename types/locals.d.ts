@@ -64,13 +64,14 @@ type GetReadyState<T> = T extends GenericFunction
   : never;
 
 // Modifying the `this` type and params
-export type customPage<RunReqBody = unknown, RunResBody = unknown> = ReplaceMethod<
-  LibCustomPage, 'run', WebServer<GetReadyState<LibCustomPage['run']>>, [
+export type customPage<RunReqBody = unknown, RunResBody = unknown> = {
+  [K in keyof LibCustomPage]: K extends 'run' ? (
+    this: WebServer<true>,
     res: Response<RunResBody | undefined>,
     req: Request<undefined, undefined, RunReqBody | undefined>,
     next: NextFunction
-  ]
->;
+  ) => Promise<unknown> : LibCustomPage[K];
+} & {};
 
 // Modifying the `this` type
 export type dashboardSetting = ReplaceMethod<

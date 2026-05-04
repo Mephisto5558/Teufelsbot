@@ -122,6 +122,10 @@ export interface CustomAutocompleteInteraction<Cached extends CacheType = CacheT
   get focused(): AutocompleteFocusedOption;
 }
 
+export interface CustomMessageComponentInteraction<Cached extends CacheType = CacheType> extends CustomBaseInteraction<Cached> {
+  commandName: string;
+}
+
 export interface CustomUser {
   client: Client;
 
@@ -195,6 +199,7 @@ declare module 'discord.js' {
   interface PartialMessage<InGuild extends boolean = boolean> extends CustomPartialMessage<InGuild> {}
   interface BaseInteraction<Cached extends CacheType = CacheType> extends CustomBaseInteraction<Cached> {}
   interface AutocompleteInteraction<Cached extends CacheType = CacheType> extends CustomAutocompleteInteraction<Cached> {}
+  interface MessageComponentInteraction<Cached extends CacheType = CacheType> extends CustomMessageComponentInteraction<Cached> {}
   interface User extends CustomUser {}
   interface GuildMember extends CustomGuildMember {}
   interface Guild extends CustomGuild {}

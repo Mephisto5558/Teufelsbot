@@ -20,7 +20,7 @@ const
  * @param {string | Record<string, string>} descriptionData */
 async function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
-    author: { name: this.user?.username, iconURL: this.member?.displayAvatarURL() },
+    author: { name: this.user.username, iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
     description: lang('embedDescription', descriptionData),
     color: Colors.Red,
@@ -86,7 +86,7 @@ module.exports = async function messageDelete() {
     /** @type {GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
     logChannel = this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel),
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
-      .find(e => (e.target.id == this.user?.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
+      .find(e => (e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
@@ -96,24 +96,23 @@ module.exports = async function messageDelete() {
       }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: true },
-        { name: lang('messageDelete.content'), value: '', inline: false }
+        { name: lang('messageDelete.content'), value: '', inline: false },
+        { name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true }
       ],
       timestamp: Date.now(),
       color: PURPLE
     }),
-    field = embed.data.fields.at(-1);
+    contentField = embed.data.fields[1];
 
-  if (this.originalContent) field.value += `${this.originalContent}\n`;
-  if (this.attachments.size) field.value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
-  if (this.embeds.length) field.value += lang('embeds', this.embeds.length) + '\n';
-  if (this.components.length) field.value += lang('messageDelete.components', this.components.length);
+  if (this.originalContent) contentField.value += `${this.originalContent}\n`;
+  if (this.attachments.size) contentField.value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
+  if (this.embeds.length) contentField.value += lang('embeds', this.embeds.length) + '\n';
+  if (this.components.length) contentField.value += lang('messageDelete.components', this.components.length);
 
-  if (!field.value) field.value += lang('unknownContent');
-  else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
+  if (!contentField.value) contentField.value += lang('unknownContent');
+  else if (contentField.value.length > embedFieldValueMaxLength)
+    contentField.value = contentField.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  // we don't get the user if the message is not cached
-  if (this.user)
-    embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 

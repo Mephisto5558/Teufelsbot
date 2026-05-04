@@ -3,20 +3,26 @@
  * @import { lock_unlock } from '.' */
 
 const
-  { Colors, EmbedBuilder, OverwriteType } = require('discord.js'),
+  { Colors, EmbedBuilder, Message, OverwriteType } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
   getTargetChannel = require('../getTargetChannel');
 
 /** @type {lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function lock_unlock(lang) {
-  if ('args' in this) this.args?.shift();
+  let reason;
+  if (this.isChatInputCommand?.()) reason = this.options.getString('reason');
+  else if (this instanceof Message) {
+    this.args.shift();
+    reason = this.args.join(' ');
+  }
+
+  /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- string may be empty */
+  reason ||= lang('noReason');
 
   const
     msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
     /** @type {BaseGuildTextChannel} */ channel = getTargetChannel(this, { returnSelf: true }),
-    /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- string can be empty */
-    reason = ('options' in this && this.options ? this.options.getString('reason') : this.args?.join(' ')) || lang('noReason'),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),
