@@ -1,8 +1,8 @@
-const { Command, CommandType } = require('@mephisto5558/command');
+const { Command, CommandType, DMPermType } = require('@mephisto5558/command');
 
 module.exports = new Command({
   types: [CommandType.Slash],
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   options: [
     require('./guild'),
     require('./channel'),

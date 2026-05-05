@@ -1,6 +1,6 @@
 const
   { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, codeBlock } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, DMPermType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
   { constants, filterEmptyEntries, logSayCommandUse } = require('#Utils');
 
 /** @type {(interaction: Interaction, name: string) => string | undefined} */
@@ -10,7 +10,7 @@ module.exports = new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.User]: [Permission.EmbedLinks] },
   cooldowns: { [CooldownType.User]: '200ms' },
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   ephemeralDefer: true,
   options: [
     {

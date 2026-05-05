@@ -2,7 +2,7 @@
 
 const
   { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
+  { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command');
 
 /**
  * @param {Client} client
@@ -16,7 +16,7 @@ function getMessageFromReference(client, reference = {}) {
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '1s' },
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   options: [
     {
       name: 'message_id',

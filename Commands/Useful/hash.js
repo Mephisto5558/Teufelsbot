@@ -1,13 +1,13 @@
 const
   { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createHash, getHashes } = require('node:crypto'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command'),
   { constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '1s' },
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   ephemeralDefer: true,
   options: [
     {

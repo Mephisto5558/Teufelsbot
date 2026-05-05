@@ -2,7 +2,7 @@
 
 const
   { codeBlock } = require('discord.js'),
-  { Command, CommandType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
   { minToMs } = require('#Utils').toMs;
 
 const
@@ -24,7 +24,7 @@ const
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   options: [{
     name: 'code',
     type: OptionType.String,

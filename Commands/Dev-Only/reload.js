@@ -2,14 +2,14 @@ const
   { codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { Command, CommandType, OptionType, getFilename } = require('@mephisto5558/command');
+  { Command, CommandType, DMPermType, OptionType, getFilename } = require('@mephisto5558/command');
 
 const MAX_COMMANDLIST_LENGTH = 800;
 
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   options: [{
     name: 'command_name',
     type: OptionType.String,

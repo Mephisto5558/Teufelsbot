@@ -1,12 +1,12 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command, CommandType } = require('@mephisto5558/command');
+  { Command, CommandType, DMPermType } = require('@mephisto5558/command');
 
 const { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   disabled: !!disableWebserver || !website.domain || !website.vote,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain or vote url path in config.json',
 

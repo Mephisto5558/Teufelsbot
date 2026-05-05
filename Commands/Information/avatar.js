@@ -1,13 +1,13 @@
 const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '1s' },
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   options: [
     { name: 'target', type: OptionType.User },
     {

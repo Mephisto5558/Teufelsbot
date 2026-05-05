@@ -1,6 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
+  { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command');
 
 const
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
@@ -23,7 +23,7 @@ const
 module.exports = new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '1s' },
-  dmPermission: true,
+  dmPermission: DMPermType.CanBeDM,
   ephemeralDefer: true,
   options: [
     {
