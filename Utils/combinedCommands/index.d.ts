@@ -3,14 +3,8 @@
 import type { Command, CommandType } from '@mephisto5558/command';
 
 type SlashCommand = Command<[CommandType.Slash]>['run'];
-type mixedCommand = Command<CommandType[]>['run'];
+type MixedCommand = Command<CommandType[]>['run'];
 
-export declare function ban_kick_mute(
-  this: ThisParameterType<NonNullable<SlashCommand>>, ...args: Parameters<NonNullable<SlashCommand>>
-): ReturnType<NonNullable<SlashCommand>>;
-export declare function lock_unlock(
-  this: ThisParameterType<NonNullable<mixedCommand>>, ...args: Parameters<NonNullable<mixedCommand>>
-): ReturnType<NonNullable<mixedCommand>>;
-export declare function setupMinigameChannel(
-  this: ThisParameterType<NonNullable<mixedCommand>>, ...args: Parameters<NonNullable<mixedCommand>>
-): ReturnType<NonNullable<mixedCommand>>;
+export declare const ban_kick_mute: SlashCommand;
+export declare const lock_unlock: MixedCommand;
+export declare const setupMinigameChannel: MixedCommand;

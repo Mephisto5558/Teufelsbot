@@ -32,10 +32,9 @@ module.exports = new CommandOption({
       channel = (
         this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes)
         ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel) ?? this.channel
-      )?.id,
+      ).id,
       enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action]?.enabled);
 
-    if (!channel) return this.editReply(lang('noChannel'));
     if (action == 'all') {
       if (enabled == undefined) return this.editReply(lang('noEnabled'));
       for (const actionType of loggerActionTypes)

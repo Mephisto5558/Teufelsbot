@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions -- matching discord.js's usage */
 
 import type {
-  AutocompleteFocusedOption, BaseInteraction, ClientApplication, Guild, InteractionReplyOptions, Message,
-  MessageEditOptions, MessageMentionOptions, MessagePayload, User
+  AutocompleteFocusedOption, BaseInteraction, CacheType, ClientApplication, Guild, InteractionReplyOptions,
+  Message, MessageEditOptions, MessageMentionOptions, MessagePayload, User
 } from 'discord.js';
 import type { CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';

@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/no-built-in-override -- specifically done here */
 
 import type Discord from 'discord.js';
+import type { DMPermType, DMPermTypeToCaching, DMPermTypeToInGuild } from '@mephisto5558/command';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
@@ -83,31 +84,35 @@ declare global {
 
   // used to not get `any` on Message property when the object is Message | Interaction
   type DiffProps<T, U> = { readonly [K in keyof StrictOmit<T, keyof U>]?: undefined; };
-  type OptionalInteractionProperties<InGuild extends boolean = boolean>
-    = DiffProps<Discord.ChatInputCommandInteraction<InGuild extends false ? 'cached' : CacheType>, Message<InGuild>>;
-  type OptionalMessageProperties<InGuild extends boolean = boolean>
-    = DiffProps<Message<InGuild>, Discord.ChatInputCommandInteraction<InGuild extends false ? 'cached' : CacheType>>;
+  type OptionalInteractionProperties<DM extends DMPermType> = DiffProps<
+    Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]>, Message<DMPermTypeToInGuild[DM]>
+  >;
+  type OptionalMessageProperties<DM extends DMPermType> = DiffProps<
+    Message<DMPermTypeToInGuild[DM]>, Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]>
+  >;
 
   /** interface for an interaction in a guild. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
-  interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
-    channel: Discord.GuildTextBasedChannel | undefined;
+  interface GuildInteraction
+    extends Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DMPermType.NeverDM]>, OptionalMessageProperties<DMPermType.NeverDM> {
+    readonly channel: Discord.GuildTextBasedChannel | undefined;
   }
 
   /** interface for an interaction in a direct message. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
-  interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
+  interface DMInteraction
+    extends Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DMPermType.OnlyDM]>, OptionalMessageProperties<DMPermType.OnlyDM> {
     inGuild(): false;
     inRawGuild(): false;
     inCachedGuild(): false;
-    guild: null;
-    guildId: null;
-    guildLocale: null;
-    commandGuildId: null;
-    member: null;
-    memberPermissions: null;
+    readonly guild: null;
+    readonly guildId: null;
+    readonly guildLocale: null;
+    readonly commandGuildId: null;
+    readonly member: null;
+    readonly memberPermissions: null;
 
-    channel: Discord.DMChannel;
+    readonly channel: Discord.DMChannel;
   }
 
   // #endregion
@@ -146,19 +151,17 @@ declare module '@mephisto5558/mongoose-db' {
 declare module '@mephisto5558/command' {
   /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type -- extending to get modified properties */
 
-  interface ChatInputCommandInteraction<DM extends boolean = boolean, Options extends readonly unknown[] = []>
-    extends OptionalMessageProperties<DM extends false ? true : DM extends true ? false : boolean>,
-    Discord.ChatInputCommandInteraction<DM extends false ? 'cached' : CacheType> {}
+  interface ChatInputCommandInteraction<DM extends DMPermType = DMPermType.CanBeDM, Options extends readonly unknown[] = []>
+    extends OptionalMessageProperties<DM>, Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]> {}
 
-  interface Message<DM extends boolean = boolean>
-    extends OptionalInteractionProperties<DM extends false ? true : DM extends true ? false : boolean>,
-    Discord.Message<DM extends false ? true : boolean> {}
+  interface Message<DM extends DMPermType = DMPermType.CanBeDM>
+    extends OptionalInteractionProperties<DM>, Discord.Message<DMPermTypeToInGuild[DM]> {}
 
-  interface AutocompleteInteraction<DM extends boolean = boolean>
-    extends Discord.AutocompleteInteraction<DM extends false ? 'cached' : CacheType> {}
+  interface AutocompleteInteraction<DM extends DMPermType = DMPermType.CanBeDM>
+    extends Discord.AutocompleteInteraction<DMPermTypeToCaching[DM]> {}
 
-  interface MessageComponentInteraction<DM extends boolean = boolean>
-    extends Discord.MessageComponentInteraction<DM extends false ? 'cached' : CacheType> {}
+  interface MessageComponentInteraction<DM extends DMPermType = DMPermType.CanBeDM>
+    extends Discord.MessageComponentInteraction<DMPermTypeToCaching[DM]> {}
 
   /* eslint-enable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type */
 }

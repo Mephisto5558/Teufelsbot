@@ -9,10 +9,10 @@ const
 module.exports = new CommandOption({
   name: 'guild',
   type: OptionType.SubcommandGroup,
+  dmPermission: DMPermType.CanBeDM,
   options: [{
     name: 'get',
     type: OptionType.Subcommand,
-    dmPermission: DMPermType.CanBeDM,
     options: [{
       name: 'guild_id',
       type: OptionType.String,
