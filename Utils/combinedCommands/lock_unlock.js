@@ -4,12 +4,11 @@
 
 const
   { Colors, EmbedBuilder, Message, OverwriteType } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  getTargetChannel = require('../getTargetChannel');
+  { OptionType, Permission } = require('@mephisto5558/command');
 
 /** @type {lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
-module.exports = async function lock_unlock(lang) {
+module.exports = async function lock_unlock(lang, { command }) {
   let reason;
   if (this.isChatInputCommand?.()) reason = this.options.getString('reason');
   else if (this instanceof Message) {
@@ -22,7 +21,7 @@ module.exports = async function lock_unlock(lang) {
 
   const
     msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
-    /** @type {BaseGuildTextChannel} */ channel = getTargetChannel(this, { returnSelf: true }),
+    channel = command.findOptions({ type: OptionType.Channel }).getChannel(this, true),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),

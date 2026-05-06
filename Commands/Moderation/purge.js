@@ -5,9 +5,7 @@
 const
   { Collection, Constants, Message } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  {
-    getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep
-  } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } = require('#Utils');
 
 const
   maxMsgsToFetch = 100,
@@ -164,12 +162,10 @@ module.exports = new Command({
     { name: 'after_message', type: OptionType.String }
   ],
 
-  async run(lang) {
+  async run(lang, { command }) {
     const
       amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0], 10).limit({ min: 0, max: maxAllowedPurgeAmt }),
-
-      /** @type {GuildTextBasedChannel} */
-      channel = getTargetChannel(this, { returnSelf: true }),
+      channel = command.findOption({ type: OptionType.Channel }).getChannel(this, true),
 
       /** @type {purge.shouldDeleteMsgOptions} */
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);

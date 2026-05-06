@@ -5,10 +5,10 @@
 
 const
   { Colors, EmbedBuilder, channelMention } = require('discord.js'),
-  getTargetChannel = require('../getTargetChannel');
+  { OptionType } = require('@mephisto5558/command');
 
 /** @type {setupMinigameChannel} */
-module.exports = async function setupMinigameChannel(lang) {
+module.exports = async function setupMinigameChannel(lang, { command }) {
   const
 
     /** @type {keyof NonNullable<guildSettings[Snowflake]['channelMinigames']>} */
@@ -16,7 +16,7 @@ module.exports = async function setupMinigameChannel(lang) {
     gameData = this.guild.db.channelMinigames?.[game] ?? {},
 
     /** @type {GuildTextBasedChannel} */
-    channel = getTargetChannel(this, { returnSelf: true });
+    channel = command.findOption({ type: OptionType.Channel }).getChannel(this, true);
 
   if (gameData[channel.id]) {
     await this.guild.deleteDB(`channelMinigames.${game}.${channel.id}`);

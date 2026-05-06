@@ -183,12 +183,6 @@ type MemberType<I, const T> = I extends ChatInputCommandInteraction<DMPermType.O
   : GuildMember;
 type ShouldReturnSelf<const T> = T extends { returnSelf: true } ? true : false;
 
-/** @default targetOptionName = 'channel' */
-export declare function getTargetChannel<I extends Interaction | Message, T extends boolean = false>(
-  interaction: I,
-  options?: { targetOptionName?: string; returnSelf?: T }
-): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
-
 export declare function __getTargetMember<
   I extends ChatInputCommandInteraction | Message, const O extends MemberParam = undefined
 >(interaction: I, options: O, seenList: Map<Snowflake, MemberType<I, O>>): MaybeWithUndefined<MemberType<I, O>, ShouldReturnSelf<O>>;

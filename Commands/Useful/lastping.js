@@ -3,7 +3,7 @@
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength } } = require('#Utils');
+  { getTargetMembers, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
@@ -18,10 +18,10 @@ module.exports = new Command({
     { name: 'member', type: OptionType.User }
   ],
 
-  async run(lang) {
+  async run(lang, { command }) {
     const
       target = getTargetMembers(this, [{ targetOptionName: 'member' }]),
-      /** @type {GuildTextBasedChannel | undefined} */ channel = getTargetChannel(this);
+      channel = command.findOption({ type: OptionType.Channel }).getChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

@@ -14,7 +14,6 @@ const utils = {
   findPaths: require('./findPaths'),
   getAge: require('./getAge'),
   getConfig: require('./getConfig'),
-  getTargetChannel: require('./getTargetChannel'),
   getTargetMembers: require('./getTargetMembers'),
   getTargetRole: require('./getTargetRole'),
   gitpull: require('./gitpull'),

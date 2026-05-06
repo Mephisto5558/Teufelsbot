@@ -3,7 +3,7 @@
 const
   { AllowedMentionsTypes, Constants, Message } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
-  { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
+  { constants, logSayCommandUse } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
@@ -22,21 +22,20 @@ module.exports = new Command({
       channelTypes: Constants.GuildTextBasedChannelTypes
     },
     {
-      name: 'reply_to', type: OptionType.String,
+      name: 'reply_to',
+      type: OptionType.String,
       minLength: constants.snowflakeMinLength,
       maxLength: constants.snowflakeMaxLength
     }
   ],
 
-  async run(lang) {
+  async run(lang, { command }) {
     const
 
       /** @type {string} */
       msg = this.options?.getString('msg', true) ?? this.content,
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
-
-      /** @type {GuildTextBasedChannel} */
-      channel = getTargetChannel(this, { returnSelf: true }),
+      channel = command.findOption({ type: OptionType.Channel }).getChannel(this, true),
       replyTo = this.options?.getString('reply_to');
 
     if (!this.member.permissionsIn(channel).has([Permission.ViewChannel, Permission.SendMessages]))

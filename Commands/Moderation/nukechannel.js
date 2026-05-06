@@ -3,7 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { findPaths, getTargetChannel } = require('#Utils');
+  { findPaths } = require('#Utils');
 
 const collectorTimeout = 3e4;
 
@@ -18,12 +18,10 @@ module.exports = new Command({
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
   }],
 
-  async run(lang) {
+  async run(lang, { command }) {
     const
       commandName = this.client.commandManager.get(this.commandName).name,
-
-      /** @type {Exclude<GuildTextBasedChannel, AnyThreadChannel>} */
-      channel = getTargetChannel(this, { returnSelf: true }),
+      channel = command.findOption().getChannel(this, true),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),
         description: lang('confirmEmbedDescription', channelMention(channel.id)),
