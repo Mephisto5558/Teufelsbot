@@ -107,7 +107,7 @@ await test('getTargetMembers', { concurrency: true }, async t => {
 
     t.test('should return self if returnSelf is true and no target is found', () => {
       const mockInteraction = createMockInteraction();
-      assert.strictEqual(getTargetMembers(mockInteraction, { returnSelf: true }), mockInteractionMember);
+      assert.strictEqual(getTargetMembers(mockInteraction, [{ returnSelf: true }]), mockInteractionMember);
     }),
 
     t.test('should return undefined if no target is found', () => {

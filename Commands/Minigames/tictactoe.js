@@ -49,7 +49,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      gameTarget = getTargetMembers(this, { targetOptionName: 'opponent' })?.id,
+      gameTarget = getTargetMembers(this, [{ targetOptionName: 'opponent' }])?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: secsInMinute,

@@ -20,7 +20,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      target = getTargetMembers(this, { targetOptionName: 'member' }),
+      target = getTargetMembers(this, [{ targetOptionName: 'member' }]),
       /** @type {GuildTextBasedChannel | undefined} */ channel = getTargetChannel(this);
 
     if (target) {

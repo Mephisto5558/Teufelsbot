@@ -16,7 +16,7 @@ module.exports = new Command({
   beta: true,
 
   async run(lang) {
-    const target = getTargetMembers(this)?.id;
+    const target = getTargetMembers(this, [{ returnUser: true }])?.id;
     if (!target) return this.reply(lang('global.unknownUser'));
 
     if (this.args[0] == 'off') {

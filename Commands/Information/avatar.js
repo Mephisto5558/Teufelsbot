@@ -1,5 +1,5 @@
 const
-  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
+  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } = require('discord.js'),
   { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers } = require('#Utils');
@@ -19,8 +19,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      target = getTargetMembers(this, { returnSelf: true }),
-
+      target = getTargetMembers(this, [{ returnSelf: true }]),
       avatarURL = target.displayAvatarURL({
         size: this.options?.getInteger('size')
           ?? (ALLOWED_SIZES.includes(Number.parseInt(this.args?.at(-1), 10)) ? this.args?.at(-1) : undefined)
@@ -28,7 +27,7 @@ module.exports = new Command({
       }),
       averageColor = (await getAverageColor(target.displayAvatarURL())).hex,
       embed = new EmbedBuilder({
-        description: bold(lang('embedDescription', (target instanceof GuildMember ? target.user : target).username)),
+        description: bold(lang('embedDescription', target.user.username)),
         image: { url: avatarURL },
         fields: [{
           name: lang('averageColor'), inline: true,

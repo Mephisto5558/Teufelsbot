@@ -1,11 +1,10 @@
 import type {
-  APIAllowedMentions, AnyThreadChannel, BaseGuildTextChannel,
-  CategoryChannel, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
-  GuildMember, GuildTextBasedChannel, Message, MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User,
-  VoiceState, Webhook, WebhookType
+  APIAllowedMentions, AnyThreadChannel, BaseGuildTextChannel, CategoryChannel, Collection, DateResolvable,
+  Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, MessageComponentInteraction,
+  Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
+import type { ChatInputCommandInteraction, DMPermType, Message, commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
 import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
@@ -21,9 +20,9 @@ export declare namespace afk {
     nicknamePrefix: string,
     nicknameRegex: RegExp;
 
-  function getAfkStatus(this: Interaction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
-  function listAfkStatuses(this: GuildInteraction | Message<true>, lang: lang): Promise<Message>;
-  function setAfkStatus<T extends Interaction | Message | VoiceState>(
+  function getAfkStatus(this: ChatInputCommandInteraction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
+  function listAfkStatuses(this: ChatInputCommandInteraction<DMPermType.NeverDM> | Message<DMPermType.NeverDM>, lang: lang): Promise<Message>;
+  function setAfkStatus<T extends ChatInputCommandInteraction | Message | VoiceState>(
     this: T, lang: T extends VoiceState ? undefined : lang, global?: boolean, message?: string
   ): Promise<T extends VoiceState ? undefined : Message>;
 
@@ -142,7 +141,7 @@ export declare namespace BackupSystem {
 
 /** @returns the error message id to use with i18n. */
 export declare function checkTargetManageable(
-  this: Interaction | Message,
+  this: ChatInputCommandInteraction | Message,
   member: GuildMember
 ): string | undefined;
 
@@ -177,42 +176,43 @@ export declare function getAge(date: Date): number;
 
 export declare function getConfig(): Partial<Config>;
 
+type Param = { targetOptionName?: string; returnSelf?: boolean };
+type MemberParam = Param & { returnUser?: boolean };
+type MemberType<I, const T> = I extends ChatInputCommandInteraction<DMPermType.OnlyDM> | Message<DMPermType.OnlyDM>
+  ? User : T extends { returnUser: true } ? GuildMember | User
+  : GuildMember;
+type ShouldReturnSelf<const T> = T extends { returnSelf: true } ? true : false;
+
 /** @default targetOptionName = 'channel' */
 export declare function getTargetChannel<I extends Interaction | Message, T extends boolean = false>(
   interaction: I,
   options?: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-export declare function __getTargetMember<I extends Interaction | Message, T extends boolean = false>(
-  interaction: I,
-  options: { targetOptionName: string; returnSelf?: T },
-  seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
-): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
+export declare function __getTargetMember<
+  I extends ChatInputCommandInteraction | Message, const O extends MemberParam = undefined
+>(interaction: I, options: O, seenList: Map<Snowflake, MemberType<I, O>>): MaybeWithUndefined<MemberType<I, O>, ShouldReturnSelf<O>>;
 
-export declare function __getTargetUser<T extends boolean = false>(
-  interaction: Interaction | Message,
-  options: { targetOptionName: string; returnSelf?: T },
-  seenList: Map<Snowflake, GuildMember | User>
-): MaybeWithUndefined<User, T>;
+export declare function __getTargetUser<
+  I extends ChatInputCommandInteraction | Message, const O extends MemberParam = undefined
+>(interaction: I, options: O, seenList: Map<Snowflake, MemberType<I, O>>): MaybeWithUndefined<User, ShouldReturnSelf<O>>;
 
 /**
  * Can only return duplicates if `returnSelf` is true for any option.
+ * Can only return Users if `returnUser` is true for the option.
  * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
-  I extends Interaction | Message,
-  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
-    | { targetOptionName?: string; returnSelf?: boolean } = { targetOptionName?: string; returnSelf?: boolean },
-  MemberType = I extends GuildInteraction | Message<true> ? GuildMember : User
->(interaction: I, options?: O):
-O extends readonly unknown[]
-  ? { [K in keyof O]: MaybeWithUndefined<MemberType, O[K] extends { returnSelf: true } ? true : false> }
-  : MaybeWithUndefined<MemberType, O extends { returnSelf: true } ? true : false>;
+  I extends ChatInputCommandInteraction | Message, const O extends readonly MemberParam[] = [MemberParam]
+>(interaction: I, options?: O): O['length'] extends 1
+  ? MaybeWithUndefined<MemberType<I, O[0]>, ShouldReturnSelf<O[0]>>
+  : { [K in keyof O]: MaybeWithUndefined<MemberType<I, O[K]>, ShouldReturnSelf<O[K]>> };
 
 /** @default targetOptionName = 'target' */
-export declare function getTargetRole<T extends boolean = false>(
-  interaction: GuildInteraction | Message<true>,
-  options?: { targetOptionName?: string; returnSelf?: T }
-): MaybeWithUndefined<Role, T>;
+export declare function getTargetRole<
+  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- consistency with other getTargetXyz functions */
+  I extends ChatInputCommandInteraction<DMPermType.NeverDM> | Message<DMPermType.NeverDM>,
+  const O extends Param = undefined
+>(interaction: I, options?: O): MaybeWithUndefined<Role, ShouldReturnSelf<O>>;
 
 export declare function gitpull(): Promise<Error | { message: 'OK' }>;
 
@@ -231,9 +231,9 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
 }
 
 export declare function logSayCommandUse(
-  this: Message<true>,
+  this: Message<DMPermType.NeverDM>,
   member: GuildMember, lang: lang
-): Promise<Message<true> | undefined>;
+): Promise<Message<DMPermType.NeverDM> | undefined>;
 
 export declare function permissionTranslator<T extends string | string[] | bigint | bigint[] | undefined>(
   perms?: T, locale?: Locale, i18n: I18nProvider

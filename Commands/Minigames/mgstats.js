@@ -88,7 +88,7 @@ module.exports = new Command({
 
     const
       type = this.options?.getSubcommand() ?? 'user',
-      target = getTargetMembers(this, { returnSelf: true }),
+      target = getTargetMembers(this, [{ returnSelf: true }]),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
       [game, data] = Object.entries(leaderboards)
@@ -106,7 +106,7 @@ module.exports = new Command({
     });
 
     if (type == 'user') {
-      embed.data.title = lang('embedTitle', { user: inlineCode(('user' in target ? target.user : target).displayName), game });
+      embed.data.title = lang('embedTitle', { user: inlineCode(target.user.displayName), game });
 
       const targetData = data[target.id];
       if (targetData?.games > 0) {

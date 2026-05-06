@@ -29,7 +29,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      member = getTargetMembers(this, { returnSelf: true }),
+      member = getTargetMembers(this, [{ returnSelf: true }]),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state),
       type = getMemberType(member, lang);

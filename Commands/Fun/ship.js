@@ -49,7 +49,10 @@ module.exports = new Command({
   ],
 
   async run(lang) {
-    const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
+    const [user1, user2] = getTargetMembers(this, [
+      { targetOptionName: 'user1', returnUser: true },
+      { targetOptionName: 'user2', returnUser: true, returnSelf: true }
+    ]);
 
     if (!user1) return this.customReply(lang('global.unknownUser'));
     return this.customReply(`${user1.displayName} :heart: ${user2.displayName}: ${calculatePercentage.call(this, user1.id, user2.id)}%`);

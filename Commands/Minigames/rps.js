@@ -10,6 +10,6 @@ module.exports = new Command({
   options: [{ name: 'opponent', type: OptionType.User }],
 
   async run(lang) {
-    return sendChallenge.call(this, lang, this.member, getTargetMembers(this, { targetOptionName: 'opponent' }));
+    return sendChallenge.call(this, lang, this.member, getTargetMembers(this, [{ targetOptionName: 'opponent' }]));
   }
 });
