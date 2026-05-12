@@ -1,0 +1,22 @@
+# Automatically synced by `template-sync` workflow.
+
+name: "Template Sync"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  update-templates:
+    uses: "Mephisto5558/Mephisto5558/.github/workflows/template-sync.yml@main"
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.SYNC_APP_PRIVATE_KEY }}
+    with:
+      mappings: |
+        gitignore/js.gitignore:.gitignore
+
+        dependabot.yml:.github/dependabot.yml
+
+        workflows/eslint.yml:.github/workflows/eslint.yml
+        workflows/njsscan.yml:.github/workflows/njsscan.yml
