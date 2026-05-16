@@ -1,11 +1,18 @@
 # Automatically synced by `template-sync` workflow.
 
 # === CUSTOM START ===
+/config.json
+/VoiceRecords
+/Commands/Dev-Only/test.*
+/Website/CustomSites/tw
 # === CUSTOM END ===
 
 ### Additions ###
 # diff files
 *.diff
+
+# .vscode dir
+.vscode/
 
 # Created by https://www.toptal.com/developers/gitignore/api/node
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
@@ -88,10 +95,10 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+# additions
+.env.*
+!.env.example
+!.env.template
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
