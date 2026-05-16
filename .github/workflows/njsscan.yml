@@ -1,6 +1,9 @@
-name: njsscan
+# Automatically synced by `template-sync` workflow.
+
+name: "njsscan"
 
 on:
+  workflow_dispatch:
   push:
     branches: ["**"]
   pull_request:
@@ -9,10 +12,10 @@ on:
     - cron: "0 0 1 * *"
 
 permissions:
-  contents: read
-  security-events: write
-  actions: read
+  contents: "read"
+  security-events: "write"
+  actions: "read"
   
 jobs:
   call-njsscan-workflow:
-    uses: Mephisto5558/Mephisto5558/.github/workflows/njsscan.yml@main
+    uses: "Mephisto5558/Mephisto5558/.github/workflows/njsscan.yml@main"
