@@ -116,7 +116,11 @@ void (async function main() {
       }, errorHandler.bind(client)
     ).init(
       {},
-      { commands: getCommands.call(client, client.i18n.getTranslator({ locale: 'en', undefinedNotFound: true }), client.commandManager.commands) },
+      { 
+        commands: getCommands.call(
+          client, client.i18n.getTranslator({ locale: 'en', undefinedNotFound: true }),
+          client.commandManager.commands.map(e => e.command))
+      },
       { votingPath: client.config.website.vote }
     );
   }

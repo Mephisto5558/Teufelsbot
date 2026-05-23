@@ -77,8 +77,8 @@ function commandListFilter(cmd) {
 /** @param {Client<true>} client */
 function getCommandCount(client) {
   const
-    commands = new Set(client.commandManager.commands.filter(commandListFilter.bind(client)).keys()),
-    count = client.commandManager.commands.reduce((acc, e) => {
+    commands = new Set(client.commandManager.commands.filter(e => commandListFilter.call(client, e.command)).keys()),
+    count = client.commandManager.commands.reduce((acc, { command: e }) => {
       if (e.types.includes(CommandType.Slash) && e.types.includes(CommandType.Prefix)) acc.combined++;
       else if (e.types.includes(CommandType.Slash) || e.types.includes(CommandType.Component)) acc[CommandType.Slash]++;
       else if (e.types.includes(CommandType.Prefix)) acc[CommandType.Prefix]++;

@@ -14,7 +14,7 @@ const
 
 /** @type {help_getCommands} */
 function getCommands() {
-  return this.client.commandManager.commands.filter(e => filterCommands.call(this, e));
+  return this.client.commandManager.commands.filter(e => filterCommands.call(this, e.command));
 }
 
 /** @type {help_getCommandCategories} */
