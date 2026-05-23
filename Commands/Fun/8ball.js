@@ -1,10 +1,10 @@
 const
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { seededHash } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'question',
     type: OptionType.String,

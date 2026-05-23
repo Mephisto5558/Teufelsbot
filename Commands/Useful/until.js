@@ -1,5 +1,5 @@
 const
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter;
 
 const
@@ -39,7 +39,7 @@ function getTime(year, month, day, ...args) {
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   usage: {
     usage: '[dd] [MM] [yyyy] [hh] [mm] [ss]',
     examples: '3 3 2022 7 35 2 (= 2025-03-03 07:35:02)'

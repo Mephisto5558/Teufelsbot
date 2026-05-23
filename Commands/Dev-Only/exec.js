@@ -1,11 +1,11 @@
 const
   { codeBlock } = require('discord.js'),
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { shellExec } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'command',
     type: OptionType.String,

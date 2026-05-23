@@ -4,7 +4,7 @@ import type {
   Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { ChatInputCommandInteraction, DMPermType, Message, commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
+import type { ChatInputCommandInteraction, ContextType, Message, commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
 import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
@@ -21,7 +21,7 @@ export declare namespace afk {
     nicknameRegex: RegExp;
 
   function getAfkStatus(this: ChatInputCommandInteraction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
-  function listAfkStatuses(this: ChatInputCommandInteraction<DMPermType.NeverDM> | Message<DMPermType.NeverDM>, lang: lang): Promise<Message>;
+  function listAfkStatuses(this: ChatInputCommandInteraction<[ContextType.Guild]> | Message<[ContextType.Guild]>, lang: lang): Promise<Message>;
   function setAfkStatus<T extends ChatInputCommandInteraction | Message | VoiceState>(
     this: T, lang: T extends VoiceState ? undefined : lang, global?: boolean, message?: string
   ): Promise<T extends VoiceState ? undefined : Message>;
@@ -178,7 +178,7 @@ export declare function getConfig(): Partial<Config>;
 
 type Param = { targetOptionName?: string; returnSelf?: boolean };
 type MemberParam = Param & { returnUser?: boolean };
-type MemberType<I, const T> = I extends ChatInputCommandInteraction<DMPermType.OnlyDM> | Message<DMPermType.OnlyDM>
+type MemberType<I, const T> = I extends ChatInputCommandInteraction<[ContextType.BotDM]> | Message<[ContextType.BotDM]>
   ? User : T extends { returnUser: true } ? GuildMember | User
   : GuildMember;
 type ShouldReturnSelf<const T> = T extends { returnSelf: true } ? true : false;
@@ -204,7 +204,7 @@ export declare function getTargetMembers<
 /** @default targetOptionName = 'target' */
 export declare function getTargetRole<
   /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- consistency with other getTargetXyz functions */
-  I extends ChatInputCommandInteraction<DMPermType.NeverDM> | Message<DMPermType.NeverDM>,
+  I extends ChatInputCommandInteraction<[ContextType.Guild]> | Message<[ContextType.Guild]>,
   const O extends Param = undefined
 >(interaction: I, options?: O): MaybeWithUndefined<Role, ShouldReturnSelf<O>>;
 
@@ -225,9 +225,9 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
 }
 
 export declare function logSayCommandUse(
-  this: Message<DMPermType.NeverDM>,
+  this: Message<[ContextType.Guild]>,
   member: GuildMember, lang: lang
-): Promise<Message<DMPermType.NeverDM> | undefined>;
+): Promise<Message<[ContextType.Guild]> | undefined>;
 
 export declare function permissionTranslator<T extends string | string[] | bigint | bigint[] | undefined>(
   perms?: T, locale?: Locale, i18n: I18nProvider

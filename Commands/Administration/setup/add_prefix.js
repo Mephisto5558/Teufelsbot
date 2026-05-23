@@ -6,7 +6,7 @@ const
 
 const MAX_PREFIXES_PER_GUILD = 2;
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'add_prefix',
   type: OptionType.Subcommand,

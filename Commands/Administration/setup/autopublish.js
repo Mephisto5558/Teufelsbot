@@ -2,7 +2,7 @@
 
 const { CommandOption, OptionType } = require('@mephisto5558/command');
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'autopublish',
   type: OptionType.Subcommand,

@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-built-in-override -- specifically done here */
 
 import type Discord from 'discord.js';
-import type { DMPermType, DMPermTypeToCaching, DMPermTypeToInGuild } from '@mephisto5558/command';
+import type { AllContexts, ContextToCaching, ContextToInGuild, ContextType } from '@mephisto5558/command';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
@@ -84,24 +84,24 @@ declare global {
 
   // used to not get `any` on Message property when the object is Message | Interaction
   type DiffProps<T, U> = { readonly [K in keyof StrictOmit<T, keyof U>]?: undefined; };
-  type OptionalInteractionProperties<DM extends DMPermType> = DiffProps<
-    Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]>, Message<DMPermTypeToInGuild[DM]>
+  type OptionalInteractionProperties<CTX extends AllContexts> = DiffProps<
+    Discord.ChatInputCommandInteraction<ContextToCaching<CTX>>, Message<ContextToInGuild<CTX>>
   >;
-  type OptionalMessageProperties<DM extends DMPermType> = DiffProps<
-    Message<DMPermTypeToInGuild[DM]>, Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]>
+  type OptionalMessageProperties<CTX extends AllContexts> = DiffProps<
+    Message<ContextToInGuild<CTX>>, Discord.ChatInputCommandInteraction<ContextToCaching<CTX>>
   >;
 
   /** interface for an interaction in a guild. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface GuildInteraction
-    extends Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DMPermType.NeverDM]>, OptionalMessageProperties<DMPermType.NeverDM> {
+    extends Discord.ChatInputCommandInteraction<ContextToCaching<[ContextType.Guild]>>, OptionalMessageProperties<[ContextType.Guild]> {
     readonly channel: Discord.GuildTextBasedChannel | undefined;
   }
 
   /** interface for an interaction in a direct message. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface DMInteraction
-    extends Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DMPermType.OnlyDM]>, OptionalMessageProperties<DMPermType.OnlyDM> {
+    extends Discord.ChatInputCommandInteraction<ContextToCaching<[ContextType.BotDM]>>, OptionalMessageProperties<[ContextType.BotDM]> {
     inGuild(): false;
     inRawGuild(): false;
     inCachedGuild(): false;
@@ -151,17 +151,17 @@ declare module '@mephisto5558/mongoose-db' {
 declare module '@mephisto5558/command' {
   /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type -- extending to get modified properties */
 
-  interface ChatInputCommandInteraction<DM extends DMPermType = DMPermType.CanBeDM, Options extends readonly unknown[] = []>
-    extends OptionalMessageProperties<DM>, Discord.ChatInputCommandInteraction<DMPermTypeToCaching[DM]> {}
+  interface ChatInputCommandInteraction<CTX extends AllContexts = AllContexts, Options extends readonly unknown[] = []>
+    extends OptionalMessageProperties<CTX>, Discord.ChatInputCommandInteraction<ContextToCaching<CTX>> {}
 
-  interface Message<DM extends DMPermType = DMPermType.CanBeDM>
-    extends OptionalInteractionProperties<DM>, Discord.Message<DMPermTypeToInGuild[DM]> {}
+  interface Message<CTX extends AllContexts = AllContexts>
+    extends OptionalInteractionProperties<CTX>, Discord.Message<ContextToInGuild<CTX>> {}
 
-  interface AutocompleteInteraction<DM extends DMPermType = DMPermType.CanBeDM>
-    extends Discord.AutocompleteInteraction<DMPermTypeToCaching[DM]> {}
+  interface AutocompleteInteraction<CTX extends AllContexts = AllContexts>
+    extends Discord.AutocompleteInteraction<ContextToCaching<CTX>> {}
 
-  interface MessageComponentInteraction<DM extends DMPermType = DMPermType.CanBeDM>
-    extends Discord.MessageComponentInteraction<DMPermTypeToCaching[DM]> {}
+  interface MessageComponentInteraction<CTX extends AllContexts = AllContexts>
+    extends Discord.MessageComponentInteraction<ContextToCaching<CTX>> {}
 
   /* eslint-enable @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-object-type */
 }

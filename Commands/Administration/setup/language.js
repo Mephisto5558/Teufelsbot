@@ -4,7 +4,7 @@ const
   { Colors, EmbedBuilder } = require('discord.js'),
   { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType, CooldownType } = require('@mephisto5558/command');
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'language',
   type: OptionType.Subcommand,

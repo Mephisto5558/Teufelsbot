@@ -1,6 +1,6 @@
 const
   { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
-  { Command, CommandType, DMPermType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants;
 
@@ -11,7 +11,7 @@ let restarting = false;
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   beta: true,
   disabled: !process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactylServerAPIKey,
   disabledReason: 'Missing pterodactylPanelURL, pterodactylServerId or pterodactylServerAPIKey in .env',

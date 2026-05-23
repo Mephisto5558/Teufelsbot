@@ -3,7 +3,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { Command, CommandType, CooldownType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#Utils');
 
@@ -36,7 +36,7 @@ module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'memes hot' },
   cooldowns: { [CooldownType.Channel]: '100ms' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [
     {
       name: 'meme',

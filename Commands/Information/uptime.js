@@ -1,12 +1,12 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command, CommandType, CooldownType, DMPermType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
   { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#Utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.Channel]: '100ms' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
 
   async run(lang) {
     const

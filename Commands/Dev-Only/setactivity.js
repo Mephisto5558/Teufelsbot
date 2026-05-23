@@ -1,6 +1,6 @@
 const
   { ActivityType, inlineCode } = require('discord.js'),
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command');
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command');
 
 /** @type {Record<Lowercase<keyof typeof ActivityType>, ActivityType>} */
 const ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
@@ -8,7 +8,7 @@ const ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [
     {
       name: 'type',

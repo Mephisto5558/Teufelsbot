@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command, CommandType, CooldownType, DMPermType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { constants: { commonHeaders } } = require('#Utils');
 
@@ -11,7 +11,7 @@ module.exports = new Command({
     examples: 'fact en'
   },
   cooldowns: { [CooldownType.Channel]: '100ms' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
 
   async run(lang) {
     const

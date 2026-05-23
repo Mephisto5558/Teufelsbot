@@ -4,7 +4,7 @@ const { CommandOption, OptionType } = require('@mephisto5558/command');
 
 const backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'serverbackup',
   type: OptionType.Subcommand,

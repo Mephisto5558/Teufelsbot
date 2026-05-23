@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   mathjs = require('mathjs');
 
 const
@@ -23,7 +23,7 @@ const
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: '1+1' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'expression',
     type: OptionType.String,

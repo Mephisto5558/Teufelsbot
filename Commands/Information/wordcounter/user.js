@@ -5,7 +5,7 @@ const
   { CommandOption, OptionType } = require('@mephisto5558/command'),
   { getTopGuilds } = require('./_utils');
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'user',
   type: OptionType.SubcommandGroup,

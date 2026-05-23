@@ -7,7 +7,7 @@ const
 /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
 const types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'toggle_command',
   type: OptionType.Subcommand,

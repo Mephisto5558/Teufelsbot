@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
-  { Command, CommandType, DMPermType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants;
 
@@ -11,7 +11,7 @@ const fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
 
   async run(lang) {
     const

@@ -1,8 +1,8 @@
-const { Command, CommandType, DMPermType } = require('@mephisto5558/command');
+const { AllContexts, Command, CommandType } = require('@mephisto5558/command');
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   beta: true,
 
   async run(lang) {

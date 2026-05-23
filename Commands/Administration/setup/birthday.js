@@ -7,7 +7,7 @@ const
 const { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'birthday',
   type: OptionType.Subcommand,

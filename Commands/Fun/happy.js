@@ -1,4 +1,4 @@
-const { Command, CommandType, DMPermType } = require('@mephisto5558/command');
+const { AllContexts, Command, CommandType } = require('@mephisto5558/command');
 
 const responseList = [
   'c:', 'C:', ':D', 'uwu', 'Wuiiii',
@@ -10,7 +10,7 @@ let addedEmoji = false;
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
 
   async run() {
     if (!addedEmoji) {

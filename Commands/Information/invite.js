@@ -1,12 +1,12 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-  { Command, CommandType, DMPermType } = require('@mephisto5558/command');
+  { AllContexts, Command, CommandType } = require('@mephisto5558/command');
 
 const { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   disabled: !!disableWebserver || !website.domain || !website.invite,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
 

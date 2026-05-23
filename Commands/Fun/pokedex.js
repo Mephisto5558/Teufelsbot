@@ -4,7 +4,7 @@
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
-  { Command, CommandType, DMPermType, OptionType, capitalize } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType, capitalize } = require('@mephisto5558/command'),
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
@@ -82,7 +82,7 @@ function getGenderRate(genderRate, lang) {
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'Bulbasaur' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'pokémon',
     type: OptionType.String,

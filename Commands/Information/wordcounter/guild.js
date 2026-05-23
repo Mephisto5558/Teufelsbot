@@ -2,14 +2,14 @@
 
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, CommandOption, OptionType } = require('@mephisto5558/command'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
-/** @type {CommandOption<[CommandType.Slash]>} */
+/** @type {CommandOption<readonly [CommandType.Slash]>} */
 module.exports = new CommandOption({
   name: 'guild',
   type: OptionType.SubcommandGroup,
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'get',
     type: OptionType.Subcommand,

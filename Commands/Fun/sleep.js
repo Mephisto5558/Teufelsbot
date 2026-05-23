@@ -1,10 +1,10 @@
 const
-  { Command, CommandType, DMPermType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   { setAfkPrefix } = require('#Utils').afk;
 
 module.exports = new Command({
   types: [CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
 
   async run(lang) {
     void setAfkPrefix(this.member);

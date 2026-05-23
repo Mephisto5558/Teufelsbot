@@ -1,6 +1,6 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#Utils');
 
@@ -8,7 +8,7 @@ const MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   options: [{
     name: 'time',
     type: OptionType.String,

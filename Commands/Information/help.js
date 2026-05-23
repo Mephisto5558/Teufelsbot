@@ -1,5 +1,5 @@
 const
-  { Command, CommandType, DMPermType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   {
     help_allQuery: allQuery, help_categoryQuery: categoryQuery, help_commandQuery: commandQuery,
     help_getCommandCategories: getCommandCategories, help_getCommands: getCommands
@@ -8,7 +8,7 @@ const
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'fun joke\n{prefix}{cmdName} fun' },
-  dmPermission: DMPermType.CanBeDM,
+  contexts: AllContexts,
   ephemeralDefer: true,
   beta: true,
   options: [
