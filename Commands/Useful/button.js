@@ -11,7 +11,7 @@ const
  * @param {Snowflake} msgId
  * @param {lang} lang */
 async function getEditableMessage(msgId, lang) {
-  let msg;
+  let /** @type {Message<true>} */ msg;
 
   try { msg = await this.channel.messages.fetch(msgId); }
   catch (err) {

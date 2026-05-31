@@ -26,8 +26,6 @@ module.exports = new Command({
     const
       scope = this.options?.getString('scope') ?? this.args?.[0]?.toLowerCase() ?? 'bot',
       query = (this.options?.getString('command') ?? this.args?.[this.args.length == 1 ? 0 : 1])?.toLowerCase(),
-
-      /** @type {Database['botSettings']['cmdStats']} */
       cmdStats = (scope == 'guild' || scope == 'user' ? this[scope].db.cmdStats : this.client.settings.cmdStats) ?? {};
 
     let target;
@@ -42,7 +40,8 @@ module.exports = new Command({
       if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
       const total = bold(
-        Object.values(cmdStats[command.name] ?? {}).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0)
+        Object.values(cmdStats[command.name] ?? {})
+          .reduce((/** @type {number} */ acc, /** @type {number} */ e) => typeof e == 'number' ? acc + e : acc, 0)
       );
       embed.data.description = lang('embedDescriptionOne', {
         total, command: command.mention(),

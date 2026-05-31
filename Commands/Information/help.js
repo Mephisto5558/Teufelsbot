@@ -30,13 +30,13 @@ module.exports = new Command({
     }
   ],
 
-  async run(lang, _, commandConfig) {
+  async run(lang, { command }) {
     const
-      category = (this.options?.getString('category') ?? this.args?.at(commandConfig.options.findIndex(e => e.name == 'category')))?.toLowerCase(),
-      command = (this.options?.getString('command') ?? this.args?.at(commandConfig.options.findIndex(e => e.name == 'command')))?.toLowerCase();
+      categoryName = (this.options?.getString('category') ?? this.args?.at(command.options.findIndex(e => e.name == 'category')))?.toLowerCase(),
+      commandName = (this.options?.getString('command') ?? this.args?.at(command.options.findIndex(e => e.name == 'command')))?.toLowerCase();
 
-    if (command) return commandQuery.call(this, lang, command);
-    if (category) return categoryQuery.call(this, lang, category);
+    if (commandName) return commandQuery.call(this, lang, commandName);
+    if (categoryName) return categoryQuery.call(this, lang, categoryName);
     return allQuery.call(this, lang);
   }
 });

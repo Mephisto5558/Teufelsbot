@@ -1,10 +1,16 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 
-import type { Command, CommandType } from '@mephisto5558/command';
+import type { CommandInitialized as Command, CommandType, ContextType, OptionType } from '@mephisto5558/command';
 
-type SlashCommand = Command<[CommandType.Slash]>['run'];
-type MixedCommand = Command<CommandType[]>['run'];
+type SetupMinigameChannelOptions = readonly [Readonly<{
+  type: OptionType.Channel;
+  required: true;
+}>];
 
-export declare const ban_kick_mute: SlashCommand;
-export declare const lock_unlock: MixedCommand;
-export declare const setupMinigameChannel: MixedCommand;
+
+export declare const ban_kick_mute: Command<readonly [CommandType.Slash]>['run'];
+export declare const lock_unlock: Command<readonly CommandType[]>['run'];
+export declare const setupMinigameChannel: Command<
+  readonly CommandType[], readonly [ContextType.Guild],
+  SetupMinigameChannelOptions
+>['run'];

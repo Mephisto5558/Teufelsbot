@@ -14,8 +14,6 @@ module.exports = async function setupMinigameChannel(lang, { command }) {
     /** @type {keyof NonNullable<guildSettings[Snowflake]['channelMinigames']>} */
     game = this.commandName,
     gameData = this.guild.db.channelMinigames?.[game] ?? {},
-
-    /** @type {GuildTextBasedChannel} */
     channel = command.findOption({ type: OptionType.Channel }).getChannel(this, true);
 
   if (gameData[channel.id]) {

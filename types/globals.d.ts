@@ -102,7 +102,6 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface DMInteraction
     extends Discord.ChatInputCommandInteraction<ContextToCaching<[ContextType.BotDM]>>, OptionalMessageProperties<[ContextType.BotDM]> {
-    inGuild(): false;
     inRawGuild(): false;
     inCachedGuild(): false;
     readonly guild: null;

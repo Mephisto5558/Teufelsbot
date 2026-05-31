@@ -1,10 +1,11 @@
 import type { OverwriteType, messageLink } from 'discord.js';
+import type { Database } from '@mephisto5558/command';
 import type { GiveawayData } from 'discord-giveaways';
 
 import type { botSettings } from './botSettings';
-import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, roleId, userId } from './common';
+import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, userId } from './common';
 
-export type guildSettings = Record<guildId, {
+export type guildSettings = Database['guildSettings'] & Record<guildId, {
   position: number;
 
   /** The date on which the bot left the guild. Is not set if the bot is in the guild. */
@@ -17,13 +18,6 @@ export type guildSettings = Record<guildId, {
       enabled: boolean;
     } | undefined>;
     autopublish?: boolean;
-    commands?: Record<string, {
-      disabled: {
-        users?: (userId | '*')[];
-        channels?: (channelId | '*')[];
-        roles?: (roleId | '*')[];
-      };
-    }>;
   };
   giveaway?: {
     reaction?: string;

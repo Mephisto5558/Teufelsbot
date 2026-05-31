@@ -1,10 +1,10 @@
-/** @import { Command, commandDoneFn } from '@mephisto5558/command' */
+/** @import { AllContexts, CommandInitialized as Command, commandDoneFn } from '@mephisto5558/command' */
 
 const
   { CommandInteraction } = require('discord.js'),
   { CommandType } = require('@mephisto5558/command');
 
-/** @type {commandDoneFn<Command<CommandType[], boolean>>} */
+/** @type {commandDoneFn<Command<CommandType[], AllContexts>>} */
 module.exports = async function updateCommandStats(command) {
   if (!this.client.settings.cmdStats[command.name]?.createdAt)
     await this.client.db.update('botSettings', `cmdStats.${command.name}.createdAt`, new Date());

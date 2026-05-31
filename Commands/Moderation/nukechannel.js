@@ -1,4 +1,4 @@
-/** @import { GuildTextBasedChannel, AnyThreadChannel } from 'discord.js' */
+/** @import { GuildTextBasedChannelTypes, ThreadChannelType } from 'discord.js' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
@@ -15,13 +15,20 @@ module.exports = new Command({
   options: [{
     name: 'channel',
     type: OptionType.Channel,
+
+    /** @type {Exclude<GuildTextBasedChannelTypes, ThreadChannelType>[]} */
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
   }],
 
   async run(lang, { command }) {
     const
       commandName = this.client.commandManager.get(this.commandName).name,
-      channel = command.findOption().getChannel(this, true),
+      channel = command.findOption().getChannel(this, true);
+
+    if (!('clone' in channel))
+      return this.customReply(lang('unsupportedChannelType'));
+
+    const
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),
         description: lang('confirmEmbedDescription', channelMention(channel.id)),

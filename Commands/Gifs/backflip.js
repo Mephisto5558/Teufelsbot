@@ -17,7 +17,7 @@ module.exports = new Command({
   async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', this.member?.displayName ?? this.user.displayName),
+      description: lang('embedDescription', (this.member && 'displayName' in this.member ? this.member : this.user).displayName),
       image: { url: `${RouteBases.cdn}/attachments/1137786275701727343/${images.random()}` },
       color: Colors.White
     });

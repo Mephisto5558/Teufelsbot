@@ -1,5 +1,6 @@
 /**
  * @import { ApplicationEmoji } from 'discord.js'
+ * @import { CommandInitialized } from '@mephisto5558/command'
  * @import { Locale } from '@mephisto5558/i18n' */
 
 /* eslint-disable @stylistic/max-len -- this cannot be cleanly fixed */
@@ -69,7 +70,7 @@ function formatBytes(bytes, lang) {
 
 /**
  * @this {Client<true>}
- * @param {Command} cmd */
+ * @param {CommandInitialized} cmd */
 function commandListFilter(cmd) {
   return !cmd.aliasOf && !this.config.devOnlyFolders.includes(cmd.category) && !cmd.disabled;
 }

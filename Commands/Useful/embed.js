@@ -83,7 +83,7 @@ module.exports = new Command({
               }
             });
 
-      if (this.member.permissionsIn(this.channel).has(Permission.MentionEveryone))
+      if (this.member?.permissionsIn(this.channel).has(Permission.MentionEveryone))
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
       const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });

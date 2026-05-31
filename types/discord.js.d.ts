@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions -- matching discord.js's usage */
 
 import type {
-  AutocompleteFocusedOption, BaseInteraction, CacheType, ClientApplication, Guild, InteractionReplyOptions,
-  Message, MessageEditOptions, MessageMentionOptions, MessagePayload, User
+  AutocompleteFocusedOption, CacheType, InteractionReplyOptions, MessageEditOptions, MessageMentionOptions, MessagePayload
 } from 'discord.js';
-import type { CommandManager, CooldownsManager } from '@mephisto5558/command';
+import type { CommandInitialized as Command, CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { DB, GetValueByKey } from '@mephisto5558/mongoose-db';
 
@@ -40,15 +39,11 @@ export interface CustomClient<Ready extends boolean = boolean> {
 }
 
 export interface CustomClientApplication {
-  client: Client;
-
   /** Get an application Emoji's mention by it's name. Requires the ApplicationEmojiManager's cache to be populated. */
   getEmoji<NAME extends string>(this: ClientApplication, emoji: NAME): `<a:${NAME}:${Snowflake}>` | `<${NAME}:${Snowflake}>` | undefined;
 }
 
 export interface CustomMessage<InGuild extends boolean = boolean> {
-  client: Client;
-
   /**
    * The original content of the message. This is a custom property set in 'prototypeRegisterer.js'.
    *
@@ -64,7 +59,7 @@ export interface CustomMessage<InGuild extends boolean = boolean> {
   /**
    * The first word of the {@link Message.originalContent original content}.
    * `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'. */
-  commandName: Lowercase<string> | null;
+  commandName: Command['name'] | null;
 
   /** Alias for {@link Message.author} */
   user: Message<InGuild>['author'];
@@ -78,7 +73,6 @@ export interface CustomMessage<InGuild extends boolean = boolean> {
    * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
    * @param deleteTime Number in Milliseconds */
   customReply(
-    this: Message,
     options: string | MessagePayload | MessageEditOptions,
     deleteTime?: number,
     allowedMentions?: MessageMentionOptions | { repliedUser: false }
@@ -88,16 +82,12 @@ export interface CustomMessage<InGuild extends boolean = boolean> {
 }
 
 export interface CustomPartialMessage<InGuild extends boolean = boolean> {
-  client: Client;
-
   user: PartialMessage<InGuild>['author'];
   inGuild(): InGuild;
 }
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars -- consistency with `@mephisto5558/command` */
 export interface CustomBaseInteraction<Cached extends CacheType = CacheType> {
-  client: Client;
-
   /**
    * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
    * and if that also doesn't work, send the message without repling to a specific message/interaction.
@@ -106,7 +96,6 @@ export interface CustomBaseInteraction<Cached extends CacheType = CacheType> {
    * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
    * @param deleteTime Number in Milliseconds */
   customReply(
-    this: BaseInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
     deleteTime?: number,
     allowedMentions?: MessageMentionOptions | { repliedUser: false }
@@ -122,13 +111,11 @@ export interface CustomAutocompleteInteraction<Cached extends CacheType = CacheT
   get focused(): AutocompleteFocusedOption;
 }
 
-export interface CustomMessageComponentInteraction<Cached extends CacheType = CacheType> extends CustomBaseInteraction<Cached> {
-  commandName: string;
+export interface CustomMessageComponentInteraction<Cached extends CacheType = CacheType> extends MessageComponentInteraction<Cached> {
+  commandName: Command['name'];
 }
 
 export interface CustomUser {
-  client: Client;
-
   /**
    * ```js
    * this.client.db.get('userSettings', this.id) ?? {}
@@ -152,8 +139,6 @@ export interface CustomUser {
 }
 
 export interface CustomGuildMember {
-  client: Client;
-
   /** Searches the guildSettings DB recursively for all data of this member across all guilds. */
   get db(): Record<string, unknown> | undefined;
 
@@ -165,8 +150,6 @@ export interface CustomGuildMember {
 }
 
 export interface CustomGuild {
-  client: Client;
-
   /**
    * ```js
    * this.client.db.get('guildSettings', this.id) ?? {}

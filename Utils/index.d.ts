@@ -1,10 +1,10 @@
 import type {
-  APIAllowedMentions, AnyThreadChannel, BaseGuildTextChannel, CategoryChannel, Collection, DateResolvable,
-  Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, MessageComponentInteraction,
+  APIAllowedMentions, AnyThreadChannel, BaseGuildTextChannel, CategoryChannel, ChatInputCommandInteraction, Collection,
+  DateResolvable, Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, Message, MessageComponentInteraction,
   Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { ChatInputCommandInteraction, ContextType, Message, commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
+import type { ContextType, commandDoneFn, customPermissionChecksFn } from '@mephisto5558/command';
 import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';

@@ -109,7 +109,8 @@
     "confirmEmbedDescription": "Are you sure you want to nuke {channel}?\n**This action is irreversible!**",
     "confirmEmbedTitle": "Nuke Channel",
     "embedFooterText": "Nuked by {user}",
-    "successEmbedDescription": ":radioactive: Channel Nuked!"
+    "successEmbedDescription": ":radioactive: Channel Nuked!",
+    "unsupportedChannelType": "The selected channel's type cannot be nuked."
   },
   "purge": {
     "description": "removes a specific amount of messages",

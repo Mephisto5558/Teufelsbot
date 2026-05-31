@@ -30,6 +30,7 @@
   "scripts": {
     "lint": "eslint . --cache --cache-location ./node_modules/.cache/eslint/ >eslint.log",
     "lint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md",
+    "lint:no-cache": "npm run lint -- --no-cache",
     "test": "npm run test:file \"./Tests/**/*.mjs\"",
     "test:file": "node --test --stack-trace-limit=1 --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=Tests/lcov.info --test-coverage-exclude=Tests/** --import ./Tests/setup.mjs --"
   },
@@ -44,7 +45,7 @@
     "cron": "^4.3.3",
     "discord-giveaways": "^6.0.1",
     "discord-tictactoe": "^4.2.1",
-    "discord.js": "^14.23.2",
+    "discord.js": "^14.26.4",
     "fast-average-color-node": "^3.1.0",
     "ffmpeg-static": "^5.2.0",
     "mathjs": "^15.0.0",
