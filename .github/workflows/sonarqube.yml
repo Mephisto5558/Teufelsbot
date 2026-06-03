@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
         with:
           # Disabling shallow clones is recommended for improving the relevancy of reporting
           fetch-depth: 0
