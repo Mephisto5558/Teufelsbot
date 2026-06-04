@@ -21,7 +21,7 @@ module.exports = async function lock_unlock(lang, { command }) {
 
   const
     msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
-    channel = command.findOptions({ type: OptionType.Channel }).getChannel(this, true),
+    channel = command.findOption({ type: OptionType.Channel }).getChannel(this, true),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),

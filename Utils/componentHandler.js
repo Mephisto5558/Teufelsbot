@@ -1,7 +1,8 @@
 /** @import { componentHandler } from '.' */
 
 const
-  { Colors, EmbedBuilder, MessageFlags, Role, inlineCode } = require('discord.js'),
+  { Colors, EmbedBuilder, MessageFlags, inlineCode } = require('discord.js'),
+  commandPermissionCheck = require('./commandPermissionCheck'),
   /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
   errorHandler = require('./errorHandler'),
   { msInSecond } = require('./timeFormatter');
@@ -13,20 +14,14 @@ module.exports = async function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = this.client.cooldowns.update(`buttonPressEvent.${this.message.id}`, this, { user: msInSecond }),
-    command = this.client.commandManager.get(feature) ?? { name: feature },
-    disabledList = this.guild.db.config.commands?.[command.name ?? '']?.disabled ?? {};
+    command = this.client.commandManager.get(feature) ?? { name: feature?.toLowerCase() };
 
   /* eslint-disable-next-line unicorn/no-null -- consistency with discord.js */
   this.commandName = command.name ?? null;
 
-  let err;
-  if (disabledList.users?.includes(this.user.id)) err = 'notAllowed.user';
-  else if (disabledList.channels?.includes(this.channel.id)) err = 'notAllowed.channel';
-  else if (
-    disabledList.roles && this.member && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles)
-      .some(e => disabledList.roles.includes(e instanceof Role ? e.id : e))
-  ) err = 'notAllowed.role';
-  else if (command.category == 'nsfw' && !this.channel.nsfw) err = 'nsfw';
+  let err = commandPermissionCheck.call(command, this, this.user);
+
+  if (Array.isArray(err)) err = err[0];
   else if (cooldown) err = 'events.interaction.buttonOnCooldown';
 
   if (err) {

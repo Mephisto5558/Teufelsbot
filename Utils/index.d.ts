@@ -141,7 +141,7 @@ export declare namespace BackupSystem {
 
 /** @returns the error message id to use with i18n. */
 export declare function checkTargetManageable(
-  this: ChatInputCommandInteraction | Message,
+  this: ChatInputCommandInteraction<'cached'> | Message<true>,
   member: GuildMember
 ): string | undefined;
 
@@ -204,7 +204,7 @@ export declare function getTargetMembers<
 /** @default targetOptionName = 'target' */
 export declare function getTargetRole<
   /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- consistency with other getTargetXyz functions */
-  I extends ChatInputCommandInteraction<[ContextType.Guild]> | Message<[ContextType.Guild]>,
+  I extends ChatInputCommandInteraction<'cached'> | Message<true>,
   const O extends Param = undefined
 >(interaction: I, options?: O): MaybeWithUndefined<Role, ShouldReturnSelf<O>>;
 
@@ -225,9 +225,9 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
 }
 
 export declare function logSayCommandUse(
-  this: Message<[ContextType.Guild]>,
+  this: Message<true>,
   member: GuildMember, lang: lang
-): Promise<Message<[ContextType.Guild]> | undefined>;
+): Promise<Message<true> | undefined>;
 
 export declare function permissionTranslator<T extends string | string[] | bigint | bigint[] | undefined>(
   perms?: T, locale?: Locale, i18n: I18nProvider

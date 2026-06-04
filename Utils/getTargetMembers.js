@@ -21,7 +21,7 @@ function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) 
     ? interaction.options.getUser(targetOptionName)
     : interaction.mentions.users.at(seenList.size) ?? interaction.mentions.users.first();
 
-  if (interaction.content) {
+  if ('content' in interaction) {
     const botMention = userMention(interaction.client.user.id);
     if (
       target?.id == interaction.client.user.id
@@ -44,7 +44,7 @@ function getTargetMember(interaction, { targetOptionName, returnSelf, returnUser
       ? interaction.options.getMember(targetOptionName)
       : interaction.mentions.members?.at(seenList.size) ?? interaction.mentions.members?.first();
 
-    if (interaction.content) {
+    if ('content' in interaction) {
       const botMention = userMention(interaction.client.user.id);
 
       if (

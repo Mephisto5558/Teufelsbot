@@ -47,7 +47,7 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
  * @this {ThisParameterType<afk['setAfkStatus']>} */
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const
-    user = this.member?.user ?? this.user,
+    user = 'user' in this ? this.user : this.member?.user,
     createdAt = 'createdAt' in this ? this.createdAt : new Date();
   message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- message can be an empty string */
 

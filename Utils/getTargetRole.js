@@ -3,8 +3,8 @@
 /** @type {getTargetRole} */
 module.exports = function getTargetRole(interaction, { targetOptionName = 'target', returnSelf } = {}) {
   let target = 'options' in interaction ? interaction.options.getRole(targetOptionName) : interaction.mentions.roles.first();
-  if (!target && interaction.content)
+  if (!target && 'content' in interaction)
     target = interaction.guild.roles.cache.find(e => [e.id, e.name].some(e => [...interaction.args, interaction.content].includes(e)));
   if (target) return target;
-  if (returnSelf) return interaction.member.roles.highest;
+  if (returnSelf) return interaction.member?.roles.highest;
 };
