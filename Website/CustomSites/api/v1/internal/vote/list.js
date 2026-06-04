@@ -1,8 +1,8 @@
-/** @import { customPage } from '#types/locals' */
+/** @import { CustomPage } from '#types/locals' */
 
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 
-/** @type {customPage} */
+/** @type {CustomPage} */
 module.exports = {
   async run(res, req) {
     const reply = await this.voteSystem.getMany(

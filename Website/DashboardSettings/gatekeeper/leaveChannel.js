@@ -1,12 +1,12 @@
-/** @import { dashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '#types/locals' */
 
 const { Constants } = require('discord.js');
 
-/** @type {dashboardSetting} */
+/** @type {DashboardSetting} */
 module.exports = {
   id: 'leaveChannel',
   name: 'Leave Channel',
   description: 'Select the channel to send the leave message to',
   type() { return this.formTypes.channelsSelect(false, Constants.GuildTextBasedChannelTypes); },
-  position: 3 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- position */
+  position: 3
 };

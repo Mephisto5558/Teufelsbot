@@ -1,6 +1,6 @@
-/** @import { dashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '#types/locals' */
 
-/** @type {dashboardSetting} */
+/** @type {DashboardSetting} */
 module.exports = {
   id: 'lang',
   name: 'Language',

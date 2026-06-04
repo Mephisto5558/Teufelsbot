@@ -1,11 +1,11 @@
-/** @import { customPage } from '#types/locals' */
+/** @import { CustomPage } from '#types/locals' */
 
 const
   { HTTP_STATUS_OK, HTTP_STATUS_INTERNAL_SERVER_ERROR } = require('node:http2').constants,
   { gitpull } = require('#Utils');
 
 
-/** @type {customPage} */
+/** @type {CustomPage} */
 module.exports = {
   run: async res => res.sendStatus((await gitpull()).message == 'OK' ? HTTP_STATUS_OK : HTTP_STATUS_INTERNAL_SERVER_ERROR)
 };

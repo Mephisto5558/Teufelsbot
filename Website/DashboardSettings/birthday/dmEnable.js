@@ -1,10 +1,10 @@
-/** @import { dashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '#types/locals' */
 
-/** @type {dashboardSetting} */
+/** @type {DashboardSetting} */
 module.exports = {
   id: 'dmEnable',
   name: 'Enable dm messages',
   description: 'DM the member on their birthday with a custom message',
   type: 'switch',
-  position: 4 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- position */
+  position: 4
 };

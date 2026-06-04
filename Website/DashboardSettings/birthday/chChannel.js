@@ -1,8 +1,8 @@
-/** @import { dashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '#types/locals' */
 
 const { Constants } = require('discord.js');
 
-/** @type {dashboardSetting} */
+/** @type {DashboardSetting} */
 module.exports = {
   id: 'chChannel',
   name: 'Channel',

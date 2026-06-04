@@ -1,10 +1,10 @@
-/** @import { dashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '#types/locals' */
 
-/** @type {dashboardSetting} */
+/** @type {DashboardSetting} */
 module.exports = {
   id: 'dmMsg',
   name: 'DM Message',
   description: 'The message the member will get, if enabled',
   type: 'embedBuilder',
-  position: 5 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- position */
+  position: 5
 };

@@ -2,7 +2,7 @@
  -- fixes typing issues with WebServer.client */
 import type {} from './discord.js';
 
-import type { WebServer as LibWebServer, customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
+import type { CustomPage as LibCustomPage, DashboardSetting as LibDashboardSetting, WebServer as LibWebServer } from '@mephisto5558/bot-website';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
 
 /* eslint-disable-next-line n/no-unpublished-import -- this is a typing file and not in a package. */
@@ -64,19 +64,18 @@ type GetReadyState<T> = T extends GenericFunction
   : never;
 
 // Modifying the `this` type and params
-export type customPage<RunReqBody = unknown, RunResBody = unknown> = {
-  [K in keyof LibCustomPage]: K extends 'run' ? (
-    this: WebServer<true>,
-    res: Response<RunResBody | undefined>,
-    req: Request<undefined, undefined, RunReqBody | undefined>,
-    next: NextFunction
-  ) => Promise<unknown> : LibCustomPage[K];
-} & {};
+export type CustomPage<RunReqBody = unknown, RunResBody = unknown> = {
+  [K in keyof LibCustomPage]: K extends 'run'
+    ? (
+        this: WebServer<true>,
+        res: Response<RunResBody | undefined>,
+        req: Request<undefined, undefined, RunReqBody | undefined>,
+        next: NextFunction
+      ) => Promise<unknown>
+    : LibCustomPage[K];
+};
 
 // Modifying the `this` type
-export type dashboardSetting = ReplaceMethod<
-  ReplaceMethod<
-    ReplaceMethod<LibDashboardSetting, 'set', WebServer<GetReadyState<LibDashboardSetting['set']>>>,
-    'get', WebServer<GetReadyState<LibDashboardSetting['get']>>
-  >, 'type', WebServer<GetReadyState<LibDashboardSetting['type']>>
->;
+type DashboardSetting = ReplaceMethods<LibDashboardSetting, {
+  [K in 'set' | 'get' | 'type']: WebServer<GetReadyState<LibDashboardSetting[K]>>
+}>;

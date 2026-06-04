@@ -1,6 +1,6 @@
-/** @import { customPage } from '#types/locals' */
+/** @import { CustomPage } from '#types/locals' */
 
-/** @type {customPage} */
+/** @type {CustomPage} */
 module.exports = {
   title: 'Dev ToDo List',
 

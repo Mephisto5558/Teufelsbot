@@ -93,6 +93,15 @@ export default [
   },
   {
     name: 'overwrite:dashboard-settings',
+    files: [`./Website/DashboardSettings/**/*${jsGlob}`, `./Website/DashboardSettings/**/*${tsGlob}`],
+    rules: {
+      ...getModifiedRule(config, `${pluginNames.typescript}/no-magic-numbers`, [{
+        detectObjects: false // allow `position` filed
+      }])
+    }
+  },
+  {
+    name: 'overwrite:dashboard-settings-index',
     files: ['./Website/DashboardSettings/*/_index.json'],
     rules: {
       ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`, [{
