@@ -5,7 +5,7 @@ const
     ActionRowBuilder, Colors, ComponentType, EmbedBuilder, TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { getMilliseconds } = require('better-ms'),
+  { toMS } = require('type-better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   { daysInMonthMin, secsInDay, timestamp } = require('../timeFormatter'),
   { dayToMs, minToMs } = require('../toMs'),
@@ -28,8 +28,8 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDurationMs = getMilliseconds(muteDuration)?.limit({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
-    if (!muteDurationMs || typeof muteDurationMs == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
+    muteDurationMs = toMS(muteDuration).limit({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
+    if (!muteDurationMs) return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs += Date.now();
     muteDuration = timestamp(muteDurationMs);

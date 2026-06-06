@@ -71,19 +71,6 @@ void (async function main() {
   const newClient = createClient();
   await newClient.loadEnvAndDB();
   await newClient.i18n.init();
-  newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
-    logger: log,
-    doneFn: updateCommandStats,
-    cooldownsManager: newClient.cooldowns,
-    devIds: newClient.config.devIds,
-    devOnlyCategories: new Set(newClient.config.devOnlyFolders),
-    runBetaCommandsOnly: newClient.botType == 'dev',
-    replyOn: {
-      disabled: newClient.config.replyOnDisabledCommand,
-      nonBeta: newClient.config.replyOnNonBetaCommand
-    },
-    customPermissionChecks: commandPermissionCheck
-  });
 
   await syncEmojis.call(newClient);
 
@@ -95,7 +82,20 @@ void (async function main() {
     loginClient.call(newClient, process.env.token),
     /* eslint-disable-next-line @typescript-eslint/require-await -- some handlers are async */
     ...Object.entries({ ...handlers }).map(async ([,handler]) => handler.call(newClient)),
-    newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
+    newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id)),
+    newClient.awaitReady().then(() => newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
+      logger: log,
+      doneFn: updateCommandStats,
+      cooldownsManager: newClient.cooldowns,
+      devIds: newClient.config.devIds,
+      devOnlyCategories: new Set(newClient.config.devOnlyFolders),
+      runBetaCommandsOnly: newClient.botType == 'dev',
+      replyOn: {
+        disabled: newClient.config.replyOnDisabledCommand,
+        nonBeta: newClient.config.replyOnNonBetaCommand
+      },
+      customPermissionChecks: commandPermissionCheck
+    }))
   ]);
 
   if (newClient.config.disableCommands) log('Command handling is disabled by config.json.');

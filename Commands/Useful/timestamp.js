@@ -1,7 +1,7 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { Duration } = require('better-ms'),
+  { toMS } = require('type-better-ms'),
   { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#Utils');
 
 const MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- range limit */
@@ -17,7 +17,7 @@ module.exports = new Command({
   }],
 
   async run(lang) {
-    const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
+    const offset = toMS(this.options?.getString('time') ?? this.args?.[0] ?? '1ms');
     if (!offset) {
       const helpcmd = this.client.commandManager.get('help');
       return this.customReply(lang('invalid', helpcmd.mention()));

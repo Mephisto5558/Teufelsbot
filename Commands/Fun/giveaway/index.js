@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { Command, CommandType, CooldownType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { getMilliseconds } = require('better-ms');
+  { toMS } = require('type-better-ms');
 
 module.exports = new Command({
   types: [CommandType.Slash],
@@ -42,8 +42,8 @@ module.exports = new Command({
 
     let duration;
     if (durationUnformatted) {
-      duration = getMilliseconds(durationUnformatted);
-      if (duration == undefined) return this.editReply(lang('invalidTime'));
+      duration = toMS(durationUnformatted);
+      if (!duration) return this.editReply(lang('invalidTime'));
     }
 
     return { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId };
