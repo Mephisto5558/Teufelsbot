@@ -3,15 +3,15 @@
  * @import { lock_unlock } from '.' */
 
 const
-  { Colors, EmbedBuilder, Message, OverwriteType } = require('discord.js'),
-  { OptionType, Permission } = require('@mephisto5558/command');
+  { Colors, EmbedBuilder, OverwriteType } = require('discord.js'),
+  { OptionType, Permission, isMessage } = require('@mephisto5558/command');
 
 /** @type {lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function lock_unlock(lang, { command }) {
   let reason;
   if (this.isChatInputCommand?.()) reason = this.options.getString('reason');
-  else if (this instanceof Message) {
+  else if (isMessage(this)) {
     this.args.shift();
     reason = this.args.join(' ');
   }

@@ -1,6 +1,5 @@
 const
-  { ChatInputCommandInteraction } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } = require('@mephisto5558/command'),
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#Utils');
 
 const maxAllowedAFKMsgLength = 1000;
@@ -30,7 +29,7 @@ module.exports = new Command({
   ],
 
   async run(lang) {
-    if (this instanceof ChatInputCommandInteraction && this.options.getSubcommand() == 'get') {
+    if (isSlash(this) && this.options.getSubcommand() == 'get') {
       const target = this.inGuild() ? this.options.getMember('target') : this.options.getUser('target') ?? this.user;
       if (target) return getAfkStatus.call(this, target, lang);
 

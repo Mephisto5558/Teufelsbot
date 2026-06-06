@@ -1,6 +1,6 @@
 /** @import { AllContexts, CommandInitialized, CommandType, commandDoneFn } from '@mephisto5558/command' */
 
-const { Command } = require('@mephisto5558/command');
+const { resolveCommandType } = require('@mephisto5558/command');
 
 /** @type {commandDoneFn<CommandInitialized<CommandType[], AllContexts>>} */
 module.exports = async function updateCommandStats(command) {
@@ -8,7 +8,7 @@ module.exports = async function updateCommandStats(command) {
     await this.client.db.update('botSettings', `cmdStats.${command.name}.createdAt`, new Date());
 
   if (this.client.botType != 'dev') {
-    const commandType = Command.resolveCommandType(this);
+    const commandType = resolveCommandType(this);
 
     await this.client.db.update(
       'botSettings', `cmdStats.${command.name}.${commandType}`,

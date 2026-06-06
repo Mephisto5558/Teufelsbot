@@ -1,8 +1,9 @@
+/** @import { ButtonInteraction } from 'discord.js' */
 /** @import { chatgpt_fetchAPI } from '.' */
 
 const
-  { ButtonInteraction, ChatInputCommandInteraction, cleanContent } = require('discord.js'),
-  { getCommands } = require('@mephisto5558/command'),
+  { cleanContent } = require('discord.js'),
+  { getCommands, isComponent, isSlash } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
   { JSON_SPACES, commonHeaders } = require('../constants');
 
@@ -83,8 +84,8 @@ const createContext = async (interaction, prompt) => [
 /** @type {chatgpt_fetchAPI} */
 module.exports = async function fetchAPI(lang, model = DEFAULT_MODEL, deep = false) {
   let prompt;
-  if (this instanceof ButtonInteraction) prompt = (await this.message.fetchReference()).content;
-  else if (this instanceof ChatInputCommandInteraction) prompt = this.options.getString('message', true);
+  if (isComponent(this) && this.isButton()) prompt = (await this.message.fetchReference()).content;
+  else if (isSlash(this)) prompt = this.options.getString('message', true);
   else prompt = this.content;
   const messages = await createContext(this, prompt),
 

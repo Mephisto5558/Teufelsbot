@@ -3,8 +3,8 @@
  * @import purge from './purge' */
 
 const
-  { Collection, Constants, Message } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
+  { Collection, Constants } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, isMessage } = require('@mephisto5558/command'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } = require('#Utils');
 
 const
@@ -170,7 +170,7 @@ module.exports = new Command({
       /** @type {purge.shouldDeleteMsgOptions} */
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    if (this instanceof Message) {
+    if (isMessage(this)) {
       try { await this.delete(); }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;

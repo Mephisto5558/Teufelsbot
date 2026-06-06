@@ -1,6 +1,6 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { AllContexts, Command, CommandType, CooldownType, OptionType, isMessage } = require('@mephisto5558/command'),
   { constants: { messageMaxLength } } = require('#Utils'),
   fetchAPI = require('#Utils/componentHandler').chatgpt_fetchAPI;
 
@@ -18,7 +18,7 @@ module.exports = new Command({
   }],
 
   async run(lang) {
-    if (this instanceof Message && 'sendTyping' in this.channel) void this.channel.sendTyping();
+    if (isMessage(this) && 'sendTyping' in this.channel) void this.channel.sendTyping();
 
     const
       [content, model] = await fetchAPI.call(this, lang),

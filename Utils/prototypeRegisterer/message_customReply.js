@@ -1,7 +1,8 @@
 /** @import { customReply } from '.' */
 
 const
-  { AttachmentBuilder, BaseInteraction, DiscordAPIError, Message } = require('discord.js'),
+  { AttachmentBuilder, BaseInteraction, DiscordAPIError } = require('discord.js'),
+  { isMessage } = require('@mephisto5558/command'),
   { messageMaxLength } = require('../constants'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
@@ -52,7 +53,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
       }
     }
   }
-  else if (this instanceof Message) {
+  else if (isMessage(this)) {
     try { msg = await (this.editable ? this.edit(options) : this.reply(options)); }
     catch (err) {
       handleError(err);

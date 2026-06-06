@@ -1,6 +1,6 @@
 const
-  { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
+  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, isMessage } = require('@mephisto5558/command'),
   { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler');
 
@@ -84,7 +84,7 @@ module.exports = new Command({
   ],
 
   async run(lang) {
-    if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
+    if (isMessage(this) && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
     const
       type = this.options?.getSubcommand() ?? 'user',

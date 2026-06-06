@@ -1,8 +1,8 @@
 /** @import { GuildTextBasedChannel } from 'discord.js' */
 
 const
-  { AllowedMentionsTypes, Constants, Message } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
+  { AllowedMentionsTypes, Constants } = require('discord.js'),
+  { Command, CommandType, CooldownType, OptionType, Permission, isMessage } = require('@mephisto5558/command'),
   { constants, logSayCommandUse } = require('#Utils');
 
 module.exports = new Command({
@@ -48,7 +48,7 @@ module.exports = new Command({
       allowedMentions, content: msg.replaceAll('/n', '\n'),
       reply: { messageReference: replyTo, failIfNotExists: false }
     });
-    await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));
+    await (isMessage(this) ? this.react('👍') : this.customReply(lang('global.messageSent')));
 
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }

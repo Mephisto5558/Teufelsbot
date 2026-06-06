@@ -1,14 +1,11 @@
 /**
- * @import { SelectMenuInteraction } from 'discord.js'
+ * @import { SelectMenuInteraction, StringSelectMenuInteraction } from 'discord.js'
  * @import { AllContexts, CommandInitialized as Command, CommandType } from '@mephisto5558/command'
  * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from '.' */
 
 const
-  {
-    ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
-    StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode
-  } = require('discord.js'),
-  { CommandType, PermissionType } = require('@mephisto5558/command'),
+  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuComponent, codeBlock, inlineCode } = require('discord.js'),
+  { CommandType, PermissionType, isComponent, isMessage, isSlash } = require('@mephisto5558/command'),
   permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
@@ -24,13 +21,13 @@ function getCommandCategories() { return getCommands.call(this).map(e => e.categ
  * @this {Interaction | Message | SelectMenuInteraction}
  * @returns {string | undefined} */
 function getDefaultOption() {
-  if (this instanceof ChatInputCommandInteraction && !this.options.getString('command')) return this.options.getString('category');
-  if (this instanceof Message) {
+  if (isSlash(this) && !this.options.getString('command')) return this.options.getString('category');
+  if (isMessage(this)) {
     if (this.args.length > 1) return this.client.commandManager.get(this.args[1])?.category;
     return this.args[0];
   }
   if (
-    this instanceof StringSelectMenuInteraction && this.message.components[0]
+    isComponent(this) && this.isStringSelectMenu() && this.message.components[0]
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
   ) return this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
 }
@@ -44,7 +41,7 @@ function createCategoryComponent(lang, commandCategories) {
   const defaultOption = getDefaultOption.call(this);
 
   if (
-    this instanceof StringSelectMenuInteraction && this.message.components[0]
+    isComponent(this) && this.isStringSelectMenu() && this.message.components[0]
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
   ) {
     if (defaultOption) {
@@ -74,10 +71,10 @@ function createCategoryComponent(lang, commandCategories) {
  * @param {string} category */
 function createCommandsComponent(lang, category) {
   let defaultOption;
-  if (this instanceof ChatInputCommandInteraction) defaultOption = this.options.getString('command');
-  else if (this instanceof Message) defaultOption = this.args[1];
+  if (isSlash(this)) defaultOption = this.options.getString('command');
+  else if (isMessage(this)) defaultOption = this.args[1];
   else if (
-    this instanceof StringSelectMenuInteraction && this.message.components[1]
+    isComponent(this) && this.isStringSelectMenu() && this.message.components[1]
     && 'components' in this.message.components[1] && this.message.components[1].components[0] instanceof StringSelectMenuComponent
   ) defaultOption = this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value;
 
@@ -158,7 +155,7 @@ function filterCommands(cmd) {
 /** @type {help_commandQuery} */
 module.exports.commandQuery = async function commandQuery(lang, query) {
   if (
-    this instanceof StringSelectMenuInteraction && !this.values.length
+    isComponent(this) && this.isStringSelectMenu() && !this.values.length
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
   ) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
@@ -200,7 +197,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
 module.exports.categoryQuery = async function categoryQuery(lang, query) {
   if (!query) {
     if (
-      this instanceof StringSelectMenuInteraction
+      isComponent(this) && this.isStringSelectMenu()
       && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
     ) delete this.message.components[0].components[0].data.options.find(e => e.default)?.default;
 

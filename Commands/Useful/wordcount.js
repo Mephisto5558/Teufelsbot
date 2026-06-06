@@ -1,8 +1,8 @@
 /** @import { MessageReference, GuildTextBasedChannel } from 'discord.js' */
 
 const
-  { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
+  { SnowflakeUtil, bold } = require('discord.js'),
+  { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } = require('@mephisto5558/command');
 
 /**
  * @param {Client} client
@@ -41,7 +41,7 @@ module.exports = new Command({
 
     const match = msg.content.match(/[\p{P}\p{Z}]+/gu);
 
-    if (msgId && this instanceof ChatInputCommandInteraction) void this.deleteReply();
+    if (msgId && isSlash(this)) void this.deleteReply();
     return this.channel.send({
       content: lang('words', bold(match ? match.length + 1 : 0)),
       reply: { messageReference: msgId }
