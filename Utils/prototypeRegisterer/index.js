@@ -1,4 +1,5 @@
 /* eslint-disable no-extend-native -- these get overwritten in this file */
+/* eslint-disable @eslint-community/eslint-comments/no-use -- special properties */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] -- special properties */
 
 /**

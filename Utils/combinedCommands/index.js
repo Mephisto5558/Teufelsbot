@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-community/eslint-comments/no-use -- This casing is used to better display the commandName. */
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 module.exports = {
   ban_kick_mute: require('./ban_kick_mute'),

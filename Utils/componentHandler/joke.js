@@ -18,7 +18,5 @@ module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   };
 
   await this.update({ components: [] });
-
-  // Todo: mark this as component command invocation
   return this.client.commandManager.get('joke').runWrapper(this, lang.provider, lang.config.locale);
 };

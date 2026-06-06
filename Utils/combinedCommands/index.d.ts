@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-community/eslint-comments/no-use -- This casing is used to better display the commandName. */
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 
 import type { CommandInitialized as Command, CommandType, ContextType, OptionType } from '@mephisto5558/command';

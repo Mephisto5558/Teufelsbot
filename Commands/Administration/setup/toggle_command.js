@@ -33,9 +33,9 @@ module.exports = new CommandOption({
   async run(lang) {
     const
       setupCommand = this.client.commandManager.get(this.commandName),
-      command = this.options.getString('command', true),
-      commandData = this.guild.db.config.commands?.[command]?.disabled ?? {},
-      { roles = [], channels = [], users = [] } = commandData,
+      command = this.options.getString('command', true).toLowerCase(),
+      commandData = this.guild.db.config.commands?.[command]?.disabled,
+      { roles = [], channels = [], users = [] } = commandData ?? {},
       count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
     if (!this.client.commandManager.get(command)) return this.editReply(lang('notFound'));
@@ -80,13 +80,13 @@ module.exports = new CommandOption({
       const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
 
       for (const id of ids) {
-        if (commandData[type]?.includes(id)) {
+        if (commandData?.[type].includes(id)) {
           commandData[type] = commandData[type].filter(e => e !== id);
           count.enabled[type]++;
           continue;
         }
 
-        commandData[type] = [...commandData[type] ?? [], id];
+        commandData[type] = [...commandData?.[type] ?? [], id];
         count.disabled[type]++;
       }
     }

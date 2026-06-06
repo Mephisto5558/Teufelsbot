@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/filename-case -- abbreviation */
+/* eslint-disable @eslint-community/eslint-comments/no-use -- This casing is used to better display the commandName. */
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] -- This casing is used to better display the commandName. */
 
 /**

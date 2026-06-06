@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-community/eslint-comments/no-use -- this trick needs to be used here */
 /* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] -- this trick needs to be used here */
 
 /**
