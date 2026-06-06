@@ -48,7 +48,7 @@ module.exports = new Command({
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
 
-      if (cmdStats[command.name]?.createdAt)
+      if (!cmdStats[command.name]?.createdAt.getTime()) // filter out old commands with unknown creation date
         embed.data.description += `\n${lang('createdAtOne', timestamp(cmdStats[command.name].createdAt, TimestampStyles.ShortDate))}`;
     }
     else {
@@ -56,17 +56,20 @@ module.exports = new Command({
       embed.data.fields = Object.entries(cmdStats)
         .filter(([k]) => !this.client.config.devOnlyFolders.includes(this.client.commandManager.get(k)?.category))
         .map(([k, v]) => [k, {
-          total: Object.values(v).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0),
-          slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0), createdAt: v.createdAt
+          total: bold(Object.values(v).reduce((/** @type {number} */ acc, e) => typeof e == 'number' ? acc + e : acc, 0)),
+          ...Object.fromEntries(Object.values(CommandType).map(e => [e, bold(v[e] ?? 0)])),
+          createdAt: v.createdAt
         }])
         .toSorted(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
-        .map((/** @type {[string, { total: string, slash: string, prefix: string, createdAt: Date | undefined }]} */ [k, v]) => {
+        .map(([k, v]) => {
+          if (typeof k != 'string' || typeof v != 'object') throw new TypeError('Unexpected typeguard triggered');
+
           const
             command = this.client.commandManager.get(k),
-            field = { name: command?.mention() ?? `/${k}`, value: lang('embedFieldValue', { ...v, total: bold(v.total) }), inline: true };
+            field = { name: command?.mention() ?? `/${k}`, value: lang('embedFieldValue', v), inline: true };
 
-          if (v.createdAt) field.value += `\n${lang('createdAtMany', timestamp(v.createdAt, TimestampStyles.ShortDate))}`;
+          if (v.createdAt.getTime()) field.value += `\n${lang('createdAtMany', timestamp(v.createdAt, TimestampStyles.ShortDate))}`;
           return field;
         });
     }

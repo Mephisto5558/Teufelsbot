@@ -1,6 +1,6 @@
 /**
  * @import { SelectMenuInteraction, StringSelectMenuInteraction } from 'discord.js'
- * @import { AllContexts, CommandInitialized as Command, CommandType } from '@mephisto5558/command'
+ * @import { AllContexts, CommandInitialized as Command, CommandType, CommandManagerMember } from '@mephisto5558/command'
  * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from '.' */
 
 const
@@ -11,7 +11,7 @@ const
 
 /** @type {help_getCommands} */
 function getCommands() {
-  return this.client.commandManager.commands.filter(e => filterCommands.call(this, e.command));
+  return this.client.commandManager.commands.map(e => e.command).filter(filterCommands.bind(this));
 }
 
 /** @type {help_getCommandCategories} */
@@ -146,9 +146,9 @@ function createInfoFields(lang, cmd = {}) {
 
 /**
  * @this {Interaction | Message}
- * @param {Command<CommandType[], AllContexts> | undefined} cmd */
+ * @param {CommandManagerMember} cmd */
 function filterCommands(cmd) {
-  return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
+  return !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
     && (!this.client.config.devOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
 }
 

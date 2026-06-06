@@ -83,7 +83,7 @@ void (async function main() {
     /* eslint-disable-next-line @typescript-eslint/require-await -- some handlers are async */
     ...Object.entries({ ...handlers }).map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id)),
-    newClient.awaitReady().then(() => newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
+    newClient.awaitReady().then(async () => newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
       logger: log,
       doneFn: updateCommandStats,
       cooldownsManager: newClient.cooldowns,
@@ -94,7 +94,8 @@ void (async function main() {
         disabled: newClient.config.replyOnDisabledCommand,
         nonBeta: newClient.config.replyOnNonBetaCommand
       },
-      customPermissionChecks: commandPermissionCheck
+      customPermissionChecks: commandPermissionCheck,
+      messagePrefixesArePreRemoved: true
     }))
   ]);
 
@@ -126,7 +127,6 @@ void (async function main() {
     );
   }
 
-  handlers.eventHandler.call(client); // runs after all other handlers to wait for all commands to load before replying to any
   await events.clientReady.call(client); // run due to it not being ran on clientReady, before the handler is loaded
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);

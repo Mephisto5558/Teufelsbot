@@ -127,6 +127,11 @@
       "usage": "[number (default 0)] [channel]",
       "examples": "7 #counting-channel"
     },
+    "options": {
+      "channel": {
+        "description": "The channel which's counting number you want to set"
+      }
+    },
     "invalidChannel": "The provided channel is not a counting-channel!",
     "invalidNumber": "The provided number is invalid!",
     "success": "Counting for {channel} has been set to {number}."

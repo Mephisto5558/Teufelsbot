@@ -4,7 +4,7 @@ const
   { appendFile } = require('node:fs/promises'),
   { join } = require('node:path');
 
-const logLevels = {
+const logLevels = Object.freeze({
   /* eslint-disable @typescript-eslint/no-magic-numbers -- this is like an enum */
   debug: 0,
   log: 1,
@@ -12,7 +12,7 @@ const logLevels = {
   warn: 3,
   error: 4
   /* eslint-enable @typescript-eslint/no-magic-numbers */
-};
+});
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {
