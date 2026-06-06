@@ -1,6 +1,7 @@
 {
   "categoryName": "Administration",
   "categoryDescription": "Befehle zum Managen des Servers oder Konfigurieren des Bots",
+  "$schema": "../../_schemata/commands.jsonc",
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",
     "options": {

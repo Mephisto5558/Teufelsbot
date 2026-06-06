@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Minijuegos para jugar con otros miembros",
+  "$schema": "../../_schemata/commands.jsonc",
   "coinflip": {
     "description": "¡Invierte una moneda!",
     "response": [

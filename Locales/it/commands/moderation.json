@@ -1,6 +1,7 @@
 {
   "categoryName": "Moderazione",
   "categoryDescription": "Comandi per moderare la gilda",
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "bandisce un membro dalla gilda",
     "options": {

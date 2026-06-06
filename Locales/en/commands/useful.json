@@ -1,6 +1,7 @@
 {
   "categoryName": "Useful",
   "categoryDescription": "Useful commands",
+  "$schema": "../../_schemata/commands.jsonc",
   "addemoji": {
     "description": "adds an emoji to this guild",
     "options": {
@@ -352,7 +353,9 @@
   },
   "wordcount": {
     "description": "Count the words a message has",
-    "usage": "[message id]",
+    "usage": {
+      "usage": "[message id]"
+    },
     "options": {
       "message": {
         "description": "The text that should be counted. Alternative to the \"message\" option."

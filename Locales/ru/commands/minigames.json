@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Игры для игры с другими участниками",
+  "$schema": "../../_schemata/commands.jsonc",
   "coinflip": {
     "description": "Повернуть монету!",
     "response": [

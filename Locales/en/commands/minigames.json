@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Minigames to play with alone or with other members",
+  "$schema": "../../_schemata/commands.jsonc",
   "clickcounter": {
     "description": "How often can your guild click this button?",
     "buttonLabel": "Click me!",

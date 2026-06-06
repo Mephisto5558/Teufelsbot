@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Minigames zum allein oder mit anderen Mitgliedern Spielen",
+  "$schema": "../../_schemata/commands.jsonc",
   "clickcounter": {
     "description": "Wie oft kann dein Server den Button drücken?",
     "buttonLabel": "Klick mich!",

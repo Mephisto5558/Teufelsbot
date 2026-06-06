@@ -1,6 +1,7 @@
 {
   "categoryName": "Útil",
   "categoryDescription": "Comandos útiles",
+  "$schema": "../../_schemata/commands.jsonc",
   "addemoji": {
     "description": "añade un emoji a este gremio",
     "options": {

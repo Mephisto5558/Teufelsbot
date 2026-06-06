@@ -1,6 +1,7 @@
 {
   "categoryName": "Dev-Only",
   "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
+  "$schema": "../../_schemata/commands.jsonc",
   "blacklistuser": {
     "description": "(Ent)blockt einen User vom Benutzen des Bots",
     "usage": {

@@ -1,6 +1,7 @@
 {
   "categoryName": "Dev-Only",
   "categoryDescription": "Commands that should be available only to a dev",
+  "$schema": "../../_schemata/commands.jsonc",
   "blacklistuser": {
     "description": "(Un)blocks a user from using the bot",
     "usage": {

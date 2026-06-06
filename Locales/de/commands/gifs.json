@@ -1,6 +1,7 @@
 {
   "categoryName": "GIFs",
   "categoryDescription": "Befehle, die GIFs versenden",
+  "$schema": "../../_schemata/commands.jsonc",
   "backflip": {
     "description": "Mache einen Backflip!",
     "embedDescription": "{user} macht einen Backflip!",

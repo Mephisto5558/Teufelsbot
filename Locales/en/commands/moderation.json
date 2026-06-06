@@ -1,6 +1,7 @@
 {
   "categoryName": "Moderation",
-  "categoryDescription": "Commands to moderate the guild",
+  "categoryDescription": "Commands to moderate the guild",  
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "bans one or multiple member(s) from the guild",
     "options": {

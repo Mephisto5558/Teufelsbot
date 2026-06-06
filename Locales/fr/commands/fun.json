@@ -1,6 +1,7 @@
 {
   "categoryName": "Amusement",
   "categoryDescription": "Des commandes amusantes",
+  "$schema": "../../_schemata/commands.jsonc",
   "8ball": {
     "description": "Posez-moi une question.",
     "options": {

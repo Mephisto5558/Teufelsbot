@@ -1,6 +1,7 @@
 {
   "categoryName": "Unterhaltung",
   "categoryDescription": "Verschiedene Spaß-Befehle",
+  "$schema": "../../_schemata/commands.jsonc",
   "8ball": {
     "description": "Stell mir eine Frage.",
     "options": {
@@ -377,7 +378,9 @@
   },
   "ship": {
     "description": "Berechnet die Prozentzahl der Zuneigung zweier Nutzer.",
-    "usage": "<Nutzer> [Nutzer]",
+    "usage": {
+      "usage": "<Nutzer> [Nutzer]"
+    },
     "options": {
       "user1": {
         "description": "Wen möchtest du shippen?"

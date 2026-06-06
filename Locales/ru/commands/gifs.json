@@ -1,6 +1,7 @@
 {
   "categoryName": "GIF",
   "categoryDescription": "Команды, отправляющие GIF",
+  "$schema": "../../_schemata/commands.jsonc",
   "backflip": {
     "description": "Сделайте задний плав!",
     "embedDescription": "{user} делает фоп!",

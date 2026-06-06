@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Mini-jeux à jouer avec d'autres membres",
+  "$schema": "../../_schemata/commands.jsonc",
   "coinflip": {
     "description": "Retourner une pièce!",
     "response": [

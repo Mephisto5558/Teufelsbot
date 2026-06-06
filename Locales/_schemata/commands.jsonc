@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "$ref": "../../node_modules/@mephisto5558/command/translationSchema.jsonc"
+}

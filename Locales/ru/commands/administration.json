@@ -1,6 +1,7 @@
 {
   "categoryName": "Администрация",
   "categoryDescription": "Команды, используемые для управления гильдией или настройки бота",
+  "$schema": "../../_schemata/commands.jsonc",
   "serverbackup": {
     "description": "Управление резервными копиями вашего сервера.",
     "options": {

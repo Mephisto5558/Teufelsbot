@@ -1,6 +1,7 @@
 {
   "categoryName": "Utile",
   "categoryDescription": "Comandi utili",
+  "$schema": "../../_schemata/commands.jsonc",
   "addemoji": {
     "description": "aggiunge un'emoji a questa gilda",
     "options": {

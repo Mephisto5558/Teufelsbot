@@ -1,6 +1,7 @@
 {
   "categoryName": "Administration",
   "categoryDescription": "Commandes utilisées pour gérer la guilde ou configurer le bot",
+  "$schema": "../../_schemata/commands.jsonc",
   "serverbackup": {
     "description": "Gérer les sauvegardes de votre serveur.",
     "options": {

@@ -1,6 +1,7 @@
 {
   "categoryName": "Premium",
   "categoryDescription": "Comandi che (saranno) richiedono un abbonamento premium",
+  "$schema": "../../_schemata/commands.jsonc",
   "chatgpt": {
     "description": "Parla con ChatGPT! ChatGPT conosce gli ultimi 50 messaggi in questo canale.",
     "usage": {

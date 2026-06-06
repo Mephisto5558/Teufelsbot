@@ -1,6 +1,7 @@
 {
   "categoryName": "Moderation",
   "categoryDescription": "Befehle zur Servermoderation",
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {

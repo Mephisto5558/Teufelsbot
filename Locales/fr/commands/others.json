@@ -1,6 +1,7 @@
 {
   "categoryName": "Autres",
   "categoryDescription": "Commandes sans catégorie spécifique",
+  "$schema": "../../_schemata/commands.jsonc",
   "changelog": {
     "description": "Obtenir le dernier changelog.",
     "embedTitle": "Historique des modifications",

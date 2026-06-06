@@ -1,6 +1,7 @@
 {
   "categoryName": "Полезно",
   "categoryDescription": "Полезные команды",
+  "$schema": "../../_schemata/commands.jsonc",
   "addemoji": {
     "description": "добавляет эмодзи в гильдию",
     "options": {

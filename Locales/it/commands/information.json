@@ -1,6 +1,7 @@
 {
   "categoryName": "Informazioni",
   "categoryDescription": "Comandi informativi",
+  "$schema": "../../_schemata/commands.jsonc",
   "avatar": {
     "description": "mostra l'avatar dell'utente",
     "options": {

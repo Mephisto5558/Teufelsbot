@@ -1,5 +1,7 @@
 project_id: '563189'
-preserve_hierarchy: 1
+preserve_hierarchy: true
 files:
   - source: /Locales/en/**/*.json
     translation: /Locales/%two_letters_code%/**/%original_file_name%
+    ignore:
+      - /Locales/_schemata/**/*

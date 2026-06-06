@@ -1,6 +1,7 @@
 {
   "categoryName": "Премиум",
   "categoryDescription": "Команды, которым (будет) требуется премиум членство",
+  "$schema": "../../_schemata/commands.jsonc",
   "chatgpt": {
     "description": "Поговорите с ChatGPT!",
     "options": {

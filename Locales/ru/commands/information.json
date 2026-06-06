@@ -1,6 +1,7 @@
 {
   "categoryName": "Информация",
   "categoryDescription": "Информационные команды",
+  "$schema": "../../_schemata/commands.jsonc",
   "avatar": {
     "description": "показывает аватар пользователя",
     "options": {

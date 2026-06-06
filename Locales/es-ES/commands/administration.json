@@ -1,6 +1,7 @@
 {
   "categoryName": "Administración",
   "categoryDescription": "Comandos usados para administrar el gremio o configurar el bot",
+  "$schema": "../../_schemata/commands.jsonc",
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {

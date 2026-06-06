@@ -1,6 +1,7 @@
 {
   "categoryName": "Только владелец",
   "categoryDescription": "Команды, которые должны быть доступны только разработчикам",
+  "$schema": "../../_schemata/commands.jsonc",
   "blacklistuser": {
     "description": "блокирует пользователя от использования бота",
     "notFound": "Запись для этого id не найдена.",

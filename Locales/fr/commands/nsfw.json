@@ -1,6 +1,7 @@
 {
   "categoryName": "NSFW",
   "categoryDescription": "Commandes NSFW",
+  "$schema": "../../_schemata/commands.jsonc",
   "nsfw": {
     "description": "Obtenir une image NSFW",
     "usage": {

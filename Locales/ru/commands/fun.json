@@ -1,6 +1,7 @@
 {
   "categoryName": "Веселье",
   "categoryDescription": "Некоторые забавные команды",
+  "$schema": "../../_schemata/commands.jsonc",
   "8ball": {
     "description": "Задайте мне вопрос.",
     "options": {

@@ -1,6 +1,7 @@
 {
   "categoryName": "Minigames",
   "categoryDescription": "Minigiochi per giocare con da soli o con altri membri",
+  "$schema": "../../_schemata/commands.jsonc",
   "clickcounter": {
     "description": "Quanto spesso la tua gilda può fare clic su questo pulsante?",
     "buttonLabel": "Clicca me!",

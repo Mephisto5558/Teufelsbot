@@ -1,6 +1,7 @@
 {
   "categoryName": "Solo Proprietario",
   "categoryDescription": "Comandi che dovrebbero essere disponibili solo per un dev",
+  "$schema": "../../_schemata/commands.jsonc",
   "blacklistuser": {
     "description": "(Un)blocca un utente dall'uso del bot",
     "usage": {

@@ -1,6 +1,7 @@
 {
   "categoryName": "Модерирование",
   "categoryDescription": "Команды модерирования гильдии",
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "запрещает участника гильдии",
     "options": {

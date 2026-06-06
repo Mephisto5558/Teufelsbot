@@ -1,6 +1,7 @@
 {
   "categoryName": "Utile",
   "categoryDescription": "Commandes utiles",
+  "$schema": "../../_schemata/commands.jsonc",
   "addemoji": {
     "description": "ajoute un emoji à cette guilde",
     "options": {

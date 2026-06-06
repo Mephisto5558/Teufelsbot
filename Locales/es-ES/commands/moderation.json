@@ -1,6 +1,7 @@
 {
   "categoryName": "Moderación",
   "categoryDescription": "Comandos para moderar el gremio",
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "prohíbe a un miembro de la guild",
     "options": {

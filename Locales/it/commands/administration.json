@@ -1,6 +1,7 @@
 {
   "categoryName": "Amministrazione",
   "categoryDescription": "Comandi usati per gestire la gilda o configurare il bot",
+  "$schema": "../../_schemata/commands.jsonc",
   "serverbackup": {
     "description": "Gestisci i backup del server.",
     "options": {

@@ -1,6 +1,7 @@
 {
   "categoryName": "Modération",
   "categoryDescription": "Commandes de modérer la guilde",
+  "$schema": "../../_schemata/commands.jsonc",
   "ban": {
     "description": "Bannir un ou plusieurs membres de la guilde",
     "options": {
