@@ -81,6 +81,11 @@
     }
   },
   "allowScripts": {
-    "skia-canvas@3.0.8": true
+    "bufferutil@4.1.0": true,
+    "ffmpeg-static@5.3.0": true,
+    "sharp@0.34.5": true,
+    "skia-canvas@3.0.8": true,
+    "sqlite3@5.1.7": true,
+    "zlib-sync@0.1.10": true
   }
 }
