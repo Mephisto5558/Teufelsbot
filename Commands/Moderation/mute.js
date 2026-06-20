@@ -22,7 +22,7 @@ module.exports = new Command({
       name: 'duration',
       type: OptionType.String,
       required: true,
-      autocompleteOptions(query) { return timeValidator(query); },
+      autocompleteOptions: timeValidator,
       strictAutocomplete: true
     }
   ],

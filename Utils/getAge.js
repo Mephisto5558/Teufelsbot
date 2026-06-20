@@ -1,11 +1,6 @@
 /** @import { getAge } from '.' */
 
 /** @type {getAge} */
-module.exports = function getAge(date) {
-  const
-    now = new Date(),
-    age = now.getFullYear() - date.getFullYear(),
-    month = now.getMonth() - date.getMonth();
-
-  return month < 0 || (month == 0 && now.getDate() < date.getDate()) ? age - 1 : age;
+module.exports = function getAge(birthday) {
+  return birthday.until(Temporal.Now.plainDateISO(), { largestUnit: 'years' }).years;
 };

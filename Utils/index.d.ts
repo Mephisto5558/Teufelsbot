@@ -60,7 +60,7 @@ export declare namespace BackupSystem {
 
   type Utils = {
     fetchToBase64<T extends string | undefined>(url?: T): Promise<T extends undefined ? undefined : string>;
-    loadFromBase64<T extends string | undefined>(base64Str?: T): T extends undefined ? undefined : Buffer;
+    loadFromBase64<T extends string | undefined>(base64Str?: T): T extends undefined ? undefined : Buffer<ArrayBuffer>;
 
     fetchCategoryChildren(
       category: CategoryChannel, saveImages: boolean, maxMessagesPerChannel: number
@@ -95,8 +95,6 @@ export declare namespace BackupSystem {
 
   /* eslint-disable-next-line @typescript-eslint/no-shadow -- false positive */
   class BackupSystem {
-    constructor(db: DB<Database>, options?: Options);
-
     db: DB<Database>;
 
     /** Note: This can also be any other string, just called "backups" for DB typing. */
@@ -107,6 +105,8 @@ export declare namespace BackupSystem {
       saveImages: boolean;
       clearGuildBeforeRestore: boolean;
     };
+
+    constructor(db: DB<Database>, options?: Options);
 
     get(backupId: Snowflake, guildId?: Snowflake): Backup | undefined;
 
@@ -172,7 +172,7 @@ export declare function findPaths(
   obj: Record<string, unknown>, targetKey: string, keys?: string[], values?: string[], currKey?: string
 ): { keys: string[]; values: string[] };
 
-export declare function getAge(date: Date): number;
+export declare function getAge(birthday: Temporal.PlainDate): number;
 
 export declare function getConfig(): Partial<Config>;
 
@@ -213,15 +213,13 @@ export declare function gitpull(): Promise<Error | { message: 'OK' }>;
 export { GiveawaysManagerWithOwnDatabase as GiveawaysManager };
 declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
 declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
-  // @ts-expect-error discord-giveaways is not typed correctly in that case.
-  protected getAllGiveaways(): GiveawayData[];
-
   protected saveGiveaway: saveGiveawayMethod;
   protected editGiveaway: saveGiveawayMethod;
 
-  protected deleteGiveaway(
-    messageId: Snowflake
-  ): Promise<boolean>;
+  protected deleteGiveaway(messageId: Snowflake): Promise<boolean>;
+
+  // @ts-expect-error discord-giveaways is not typed correctly in that case.
+  protected getAllGiveaways(): GiveawayData[];
 }
 
 export declare function logSayCommandUse(
@@ -265,7 +263,7 @@ export declare namespace configValidator {
 export { TFormatter as timeFormatter };
 declare namespace TFormatter {
   /** @param ms the time value in milliseconds since midnight, January 1, 1970 UTC. */
-  function timeFormatter<T extends lang | undefined>(ms: number | Date, lang?: T): {
+  function timeFormatter<T extends lang | undefined>(ms: number, lang?: T): {
     total: number; negative: boolean;
     formatted: T extends undefined
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`

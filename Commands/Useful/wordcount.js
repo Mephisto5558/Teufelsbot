@@ -21,7 +21,7 @@ module.exports = new Command({
     {
       name: 'message_id',
       type: OptionType.String,
-      autocompleteOptions() { return [...this.channel.messages.cache.filter(e => e.content).keys()]; }
+      autocompleteOptions() { return this.channel.messages.cache.filter(e => e.content).keys().toArray(); }
     },
     { name: 'message', type: OptionType.String }
   ],

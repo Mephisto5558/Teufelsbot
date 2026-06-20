@@ -11,8 +11,8 @@ const PINK = 0xE62AED;
 
 /**
  * @this {ClientEvents['messageUpdate'][0]}
- * @param {ClientEvents['messageUpdate'][1]} newMsg */
-function shouldRun(newMsg) {
+ * @param {ClientEvents['messageUpdate'][1]} updatedMsg */
+function shouldRun(updatedMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
     this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
@@ -21,8 +21,8 @@ function shouldRun(newMsg) {
   ) return;
 
   if (
-    this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size
-    && this.embeds.length === newMsg.embeds.length
+    this.originalContent === updatedMsg.originalContent && this.attachments.size === updatedMsg.attachments.size
+    && this.embeds.length === updatedMsg.embeds.length
   ) return;
 
   if (this.guild.members.me.permissionsIn(setting.channel).missing([Permission.ViewChannel, Permission.SendMessages]).length)
@@ -33,9 +33,9 @@ function shouldRun(newMsg) {
 
 /**
  * @this {ClientEvents['messageUpdate'][0]}
- * @param {ClientEvents['messageUpdate'][1]} newMsg */
-module.exports = async function messageUpdate(newMsg) {
-  if (!shouldRun.call(this, newMsg)) return;
+ * @param {ClientEvents['messageUpdate'][1]} updatedMsg */
+module.exports = async function messageUpdate(updatedMsg) {
+  if (!shouldRun.call(this, updatedMsg)) return;
 
   const
 
@@ -45,16 +45,16 @@ module.exports = async function messageUpdate(newMsg) {
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['events.logger.messageUpdate']
     }),
     embed = new EmbedBuilder({
-      author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
+      author: { name: updatedMsg.user.tag, iconURL: updatedMsg.user.displayAvatarURL() },
       description: lang('embedDescription', {
-        executor: userMention(newMsg.user.id),
-        channel: 'name' in newMsg.channel ? newMsg.channel.name : newMsg.channelId
+        executor: userMention(updatedMsg.user.id),
+        channel: 'name' in updatedMsg.channel ? updatedMsg.channel.name : updatedMsg.channelId
       }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
         { name: lang('newContent'), value: '', inline: false },
-        { name: lang('author'), value: `${newMsg.user.tag} (${inlineCode(newMsg.user.id)})`, inline: false }
+        { name: lang('author'), value: `${updatedMsg.user.tag} (${inlineCode(updatedMsg.user.id)})`, inline: false }
       ],
       timestamp: Date.now(),
       color: PINK
@@ -62,19 +62,19 @@ module.exports = async function messageUpdate(newMsg) {
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({
         label: lang('messageLink'),
-        url: newMsg.url,
+        url: updatedMsg.url,
         style: ButtonStyle.Link
       })]
     });
 
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
-  if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
+  if (updatedMsg.originalContent) embed.data.fields[2].value += `${updatedMsg.originalContent}\n`;
 
   if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
-  if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
+  if (updatedMsg.attachments.size) embed.data.fields[2].value += updatedMsg.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
 
   if (this.embeds.length) embed.data.fields[1].value += lang('events.logger.embeds', this.embeds.length);
-  if (newMsg.embeds.length) embed.data.fields[2].value += lang('events.logger.embeds', newMsg.embeds.length);
+  if (updatedMsg.embeds.length) embed.data.fields[2].value += lang('events.logger.embeds', updatedMsg.embeds.length);
 
   if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('global.unknown');
   if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('global.unknown');

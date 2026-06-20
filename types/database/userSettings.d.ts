@@ -7,9 +7,9 @@ export type userSettings = Record<userId, {
   localeCode?: Locale;
   afkMessage?: {
     message: string;
-    createdAt: Date;
+    createdAt: Temporal.Instant;
   };
-  birthday?: Date;
+  birthday?: Temporal.PlainDate;
   lastVoted?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['lastVoted'];
   featureRequestAutoApprove?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['featureRequestAutoApprove'];
   lastFeatureRequested?: number;
@@ -17,7 +17,7 @@ export type userSettings = Record<userId, {
   cmdStats?: cmdStats;
   wordCounter?: {
     enabled: boolean;
-    enabledAt?: Date;
+    enabledAt?: Temporal.Instant;
     sum: number;
     guilds: Record<guildId, {
       sum: number;
@@ -26,6 +26,6 @@ export type userSettings = Record<userId, {
   };
   pageViews?: Record<string, {
     count: number;
-    lastVisited: Date;
+    lastVisited: Temporal.Instant;
   }>;
 }>;

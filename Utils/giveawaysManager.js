@@ -15,7 +15,7 @@ module.exports = class GiveawaysManagerWithOwnDatabase extends GiveawaysManager 
   }
 
   /** @type {GiveawaysManagerT['editGiveaway']} */
-  editGiveaway = async (...args) => this.saveGiveaway(...args);
+  async editGiveaway(...args) { return this.saveGiveaway(...args); }
 
   /** @type {GiveawaysManagerT['deleteGiveaway']} */
   async deleteGiveaway(messageId) {

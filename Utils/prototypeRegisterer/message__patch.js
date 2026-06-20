@@ -29,6 +29,8 @@ module.exports = function _patch(data, ...rest) {
       )?.length ?? 0;
 
     this.args = data.content.slice(prefixLength).trim().split(/\s+/);
+
+    /* eslint-disable-next-line unicorn/no-array-front-mutation -- cleanest solution */
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
 
     if (prefixLength) isCommand = true;

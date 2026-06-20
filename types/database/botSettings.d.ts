@@ -12,11 +12,11 @@ export type botSettings = Database['botSettings'] & {
   };
   blacklist?: userId[];
   timeEvents: {
-    lastFileClear?: Date;
-    lastBirthdayCheck?: Date;
-    lastDBCleanup?: Date;
-    lastEmojiSync?: Date;
-    lastVotingReminder?: Date;
+    lastFileClear?: Temporal.PlainDate;
+    lastBirthdayCheck?: Temporal.PlainDate;
+    lastDBCleanup?: Temporal.PlainDate;
+    lastEmojiSync?: Temporal.PlainDate;
+    lastVotingReminder?: Temporal.PlainDate;
   };
   defaultGuild: {
     config: {

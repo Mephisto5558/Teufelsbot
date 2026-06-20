@@ -35,7 +35,7 @@ module.exports = async function serverbackup(lang, _mode, id, option, clearGuild
   const statusObj = createProxy.call(this, embed, lang, this.client.application.getEmoji('loading'));
   try {
     const backup = await this.client.backupSystem.load(id, this.guild, {
-      statusObj, reason: lang('global.modReason', { command: `${this.customId.split('.')[0]} load`, user: this.user.tag }),
+      statusObj, reason: lang('global.modReason', { command: `${this.customId.split('.', 1)[0]} load`, user: this.user.tag }),
       clearGuildBeforeRestore: clearGuildBeforeRestore == 'true'
     });
 

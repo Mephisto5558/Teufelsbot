@@ -32,7 +32,7 @@ module.exports = new Command({
 
     if (this.client.webServer) {
       const requests = (await this.client.webServer.voteSystem.fetchAll()).reduce((acc, e) => {
-        if (!e.pending && e.id.split('_')[0] == target) acc.push({ ...e, pending: true });
+        if (!e.pending && e.id.split('_', 1)[0] == target) acc.push({ ...e, pending: true });
         return acc;
       }, []);
 

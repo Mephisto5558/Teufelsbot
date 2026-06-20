@@ -120,8 +120,8 @@ module.exports = new Command({
               e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)
             ).flavor_text
             .replaceAll('\f', '\n') // See https://github.com/veekun/pokedex/issues/218#issuecomment-339841781
-            .replaceAll('\u00AD\n', '')
-            .replaceAll('\u00AD', '')
+            .replaceAll('\u{AD}\n', '')
+            .replaceAll('\u{AD}', '')
             .replaceAll(' -\n', ' - ')
             .replaceAll('-\n', '-')
             .replaceAll('\n', ' ')

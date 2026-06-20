@@ -8,8 +8,8 @@ import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, userId }
 export type guildSettings = Database['guildSettings'] & Record<guildId, {
   position: number;
 
-  /** The date on which the bot left the guild. Is not set if the bot is in the guild. */
-  leftAt?: Date;
+  /** The timestamp on which the bot left the guild. Is not set if the bot is in the guild. */
+  leftAt?: Temporal.Instant;
   config: {
     lang?: botSettings['defaultGuild']['config']['lang'];
     prefixes?: Record<string, prefixes>;
@@ -28,7 +28,7 @@ export type guildSettings = Database['guildSettings'] & Record<guildId, {
   };
   afkMessages?: Record<userId, {
     message: string;
-    createdAt: Date;
+    createdAt: Temporal.Instant;
   }>;
   triggers?: Record<`${number}`, {
     trigger: string;
@@ -67,7 +67,7 @@ export type guildSettings = Database['guildSettings'] & Record<guildId, {
     url: ReturnType<typeof messageLink<channelId, messageId, guildId>>;
     author: userId;
     channel: channelId;
-    createdAt: Date;
+    createdAt: Temporal.Instant;
   }>;
   birthday?: {
     enable?: boolean;
@@ -123,7 +123,7 @@ export type guildSettings = Database['guildSettings'] & Record<guildId, {
   cmdStats?: cmdStats;
   wordCounter?: {
     enabled: boolean;
-    enabledAt?: Date;
+    enabledAt?: Temporal.Instant;
     sum: number;
     channels: Record<channelId, number>;
     members: Record<userId, {

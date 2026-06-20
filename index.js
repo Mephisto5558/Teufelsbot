@@ -82,7 +82,7 @@ void (async function main() {
     loginClient.call(newClient, process.env.token),
     /* eslint-disable-next-line @typescript-eslint/require-await -- some handlers are async */
     ...Object.entries({ ...handlers }).map(async ([,handler]) => handler.call(newClient)),
-    newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id)),
+    newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner : app).owner?.id)),
     newClient.awaitReady().then(async () => newClient.commandManager.init('./Commands', newClient, newClient.i18n, {
       logger: log,
       doneFn: updateCommandStats,

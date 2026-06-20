@@ -1,18 +1,16 @@
-const
-  { access, mkdir, readdir, stat, unlink } = require('node:fs/promises'),
-  { secsInWeek, msInSecond } = require('#Utils').timeFormatter;
+const { access, mkdir, readdir, stat, unlink } = require('node:fs/promises');
 
 /** @param {string} path */
 async function deleteOld(path) {
   try { await access(path); }
   catch { return mkdir(path); }
 
-  const time = new Date(Date.now() - secsInWeek * msInSecond * 2).getTime();
+  const thresholdMs = Temporal.Now.instant().subtract({ weeks: 2 }).epochMilliseconds;
   for (const file of await readdir(path, { withFileTypes: true })) {
     const pathStr = `${path}/${file.name}`;
 
     if (file.isDirectory()) void deleteOld(pathStr);
-    else if (time > (await stat(pathStr)).mtimeMs) {
+    else if (thresholdMs > (await stat(pathStr)).mtimeMs) {
       log.debug(`deleting ${pathStr}`);
       void unlink(pathStr);
     }
@@ -25,9 +23,9 @@ module.exports = {
 
   /** @this {Client} */
   async onTick() {
-    const now = new Date();
+    const now = Temporal.Now.plainDateISO();
 
-    if (this.settings.timeEvents.lastFileClear?.toDateString() == now.toDateString()) return void log('Already ran file deletion today');
+    if (this.settings.timeEvents.lastFileClear?.equals(now)) return void log('Already ran file deletion today');
     log('Started file deletion');
 
     void deleteOld('./VoiceRecords');

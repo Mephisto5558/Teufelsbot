@@ -19,8 +19,8 @@ function formatBirthday(member, year) {
     .replaceAll('{guild.memberCount}', member.guild.memberCount)
     .replaceAll('{guild.name}', member.guild.name)
     .replaceAll('{bornyear}', year)
-    .replaceAll('{date}', new Date().toLocaleDateString('en'))
-    .replaceAll('{age}', Number.parseInt(year, 10) ? new Date().getFullYear() - year : '{age}')
+    .replaceAll('{date}', Temporal.Now.plainDateISO().toLocaleString())
+    .replaceAll('{age}', Number.parseInt(year, 10) ? Temporal.Now.plainDateISO().year - year : '{age}')
     .replaceAll(/\{age\}\.?/g, ''); // {guilds} gets replaced below
 }
 
@@ -54,7 +54,8 @@ async function getChannel(settings, guild) {
 
     const owner = await guild.fetchOwner();
     void owner.send(this.i18n.__({ locale: owner.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name))).catch(() => {
-      if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+      if (err.code == DiscordAPIErrorCodes.CannotSendMessagesToThisUser) return;
+      throw err;
     });
   }
 }
@@ -65,12 +66,9 @@ module.exports = {
 
   /** @this {Client} */
   async onTick() {
-    const
-      now = new Date(),
-      nowMonth = now.getMonth(),
-      nowDate = now.getDate();
+    const now = Temporal.Now.plainDateISO();
 
-    if (this.settings.timeEvents.lastBirthdayCheck?.toDateString() == now.toDateString()) return void log('Already ran birthday check today');
+    if (this.settings.timeEvents.lastBirthdayCheck?.equals(now)) return void log('Already ran birthday check today');
     log('Started birthday check');
 
     await this.guilds.fetch();
@@ -79,7 +77,7 @@ module.exports = {
       if (!settings?.enable || !settings.ch?.channel && !settings.dm?.enable) continue;
 
       const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((/** @type {Record<Snowflake, number>} */ acc, [id, e]) => {
-        if (e.birthday?.getMonth() == nowMonth && e.birthday.getDate() == nowDate) acc[id] = e.birthday.getFullYear();
+        if (e.birthday?.month == now.month && e.birthday.day == now.day) acc[id] = e.birthday.year;
         return acc;
       }, {});
 

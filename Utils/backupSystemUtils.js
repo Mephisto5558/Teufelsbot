@@ -14,18 +14,18 @@ const maxMessagesPerChannelLimit = 100;
 
 /** @type {BackupSystem.Utils['fetchToBase64']} */
 async function fetchToBase64(url) {
-  if (url) return (await fetch(url)).arrayBuffer().then(e => Buffer.from(e).toString('base64'));
+  return url ? (await (await fetch(url)).bytes()).toBase64() : undefined;
 }
 
 /** @type {BackupSystem.Utils['loadFromBase64']} */
 function loadFromBase64(base64Str) {
-  if (base64Str) return Buffer.from(base64Str, 'base64');
+  if (!base64Str) return;
+  return Buffer.from(Uint8Array.fromBase64(base64Str).buffer);
 }
 
 /** @type {BackupSystem.Utils['fetchCategoryChildren']} */
 async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel) {
   return Promise.all(category.children.cache
-    /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
     .sort((a, b) => a.position - b.position)
     .map(async child => {
       if (Constants.TextBasedChannelTypes.includes(child.type) && !Constants.ThreadChannelTypes.includes(child.type))
@@ -103,7 +103,10 @@ async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
     autoArchiveDuration: e.autoArchiveDuration,
     locked: e.locked,
     rateLimitPerUser: e.rateLimitPerUser,
-    messages: await fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; })
+    messages: await fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => {
+      if (err instanceof DiscordAPIError) return;
+      throw err;
+    })
   }));
 }
 
@@ -125,7 +128,8 @@ async function fetchTextChannelData(channel, saveImages, maxMessagesPerChannel) 
     topic: channel.topic,
     permissions: fetchChannelPermissions(channel),
     messages: await fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => {
-      if (!(err instanceof DiscordAPIError)) throw err;
+      if (err instanceof DiscordAPIError) return;
+      throw err;
     }),
     threads: await fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
   };

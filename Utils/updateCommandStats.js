@@ -5,7 +5,7 @@ const { resolveCommandType } = require('@mephisto5558/command');
 /** @type {commandDoneFn<CommandInitialized<CommandType[], AllContexts>>} */
 module.exports = async function updateCommandStats(command) {
   if (!this.client.settings.cmdStats[command.name]?.createdAt)
-    await this.client.db.update('botSettings', `cmdStats.${command.name}.createdAt`, new Date());
+    await this.client.db.update('botSettings', `cmdStats.${command.name}.createdAt`, Temporal.Now.instant());
 
   if (this.client.botType != 'dev') {
     const commandType = resolveCommandType(this);

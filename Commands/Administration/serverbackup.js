@@ -10,23 +10,23 @@ const BYTES_IN_KILOBYTE = 1024;
 
 /** @param {Database['backups'][backupId]} backup */
 function getData(backup) {
-  if (backup.__count__) {
-    return {
-      createdAt: timestamp(backup.createdAt),
-      size: (() => {
-        const size = Buffer.byteLength(JSON.stringify(backup));
-        return size > BYTES_IN_KILOBYTE ? `${(size / BYTES_IN_KILOBYTE).toFixed(2)}KB` : `${size}B`;
-      })(),
-      members: backup.members?.length ?? 0,
-      channels: (
-        backup.channels.categories.length + backup.channels.others.length
-        + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)
-      ) || 0,
-      roles: backup.roles.length,
-      emojis: backup.emojis.length,
-      stickers: backup.stickers.length
-    };
-  }
+  if (!backup.__count__) return;
+
+  return {
+    createdAt: timestamp(backup.createdAt),
+    size: (() => {
+      const size = Buffer.byteLength(JSON.stringify(backup));
+      return size > BYTES_IN_KILOBYTE ? `${(size / BYTES_IN_KILOBYTE).toFixed(2)}KB` : `${size}B`;
+    })(),
+    members: backup.members?.length ?? 0,
+    channels: (
+      backup.channels.categories.length + backup.channels.others.length
+      + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)
+    ) || 0,
+    roles: backup.roles.length,
+    emojis: backup.emojis.length,
+    stickers: backup.stickers.length
+  };
 }
 
 /** @type {Record<string, (this: GuildInteraction, lang: lang, embed: EmbedBuilder, id?: backupId) => Promise<Message>>} */
@@ -40,7 +40,7 @@ const backupMainFunctions = {
         save: true, saveImages: true, backupMembers: true,
         metadata: [
           this.user.id, this.guild.ownerId, [this.user.id, this.guild.ownerId],
-          [...this.guild.members.cache.filter(e => e.permissions.has(Permission.Administrator)).keys()]
+          this.guild.members.cache.filter(e => e.permissions.has(Permission.Administrator)).keys().toArray()
         ], statusObj
       });
 
@@ -92,8 +92,7 @@ const backupMainFunctions = {
     }
 
     embed.data.fields = this.client.backupSystem.list(this.guild.id)
-      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
-      .sort((a, b) => b.createdAt - a.createdAt)
+      .sort((a, b) => Temporal.Instant.compare(b.createdAt, a.createdAt))
       .first(10)
       .map(e => ({ name: e.id, value: lang('infos', getData(e)) }));
 
@@ -122,7 +121,8 @@ module.exports = new Command({
           name: 'id',
           type: OptionType.String,
           autocompleteOptions() {
-            return [...this.client.backupSystem.list().filter(hasPerm.bind(this)).keys()];
+            return this.client.backupSystem.list().filter(hasPerm.bind(this)).keys()
+              .toArray();
           }
         },
         { name: 'no_clear', type: OptionType.Boolean }
@@ -134,7 +134,7 @@ module.exports = new Command({
       options: [{
         name: 'id',
         type: OptionType.String,
-        autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
+        autocompleteOptions() { return this.client.backupSystem.list(this.guild.id).keys().toArray(); }
       }]
     },
     {
@@ -144,7 +144,7 @@ module.exports = new Command({
         name: 'id',
         type: OptionType.String,
         required: true,
-        autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
+        autocompleteOptions() { return this.client.backupSystem.list(this.guild.id).keys().toArray(); }
       }]
     }
   ], beta: true,

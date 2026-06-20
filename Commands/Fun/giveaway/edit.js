@@ -20,7 +20,7 @@ module.exports = new CommandOption({
     {
       name: 'add_time',
       type: OptionType.String,
-      autocompleteOptions(query) { return timeValidator(query); },
+      autocompleteOptions: timeValidator,
       strictAutocomplete: true
     },
     {

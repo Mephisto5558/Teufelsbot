@@ -9,17 +9,17 @@ const GRAY = 0x36393F;
 
 /**
  * @this {ClientEvents['voiceStateUpdate'][0]}
- * @param {ClientEvents['voiceStateUpdate'][1]} newState */
-module.exports = async function voiceStateUpdate(newState) {
+ * @param {ClientEvents['voiceStateUpdate'][1]} updatedState */
+module.exports = async function voiceStateUpdate(updatedState) {
   if (this.client.botType == 'dev') return;
 
   if (this.guild.afkChannel) {
-    if (newState.channel?.id != this.guild.afkChannel.id) void removeAfkStatus.call(newState);
-    else if (newState.channel.id == this.guild.afkChannel.id) void setAfkStatus.call(newState);
+    if (updatedState.channel?.id != this.guild.afkChannel.id) void removeAfkStatus.call(updatedState);
+    else if (updatedState.channel.id == this.guild.afkChannel.id) void setAfkStatus.call(updatedState);
   }
 
   const setting = this.guild.db.config.logger?.voiceChannelActivity;
-  if (!setting?.enabled || this.channelId == newState.channelId) return;
+  if (!setting?.enabled || this.channelId == updatedState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (
@@ -29,7 +29,7 @@ module.exports = async function voiceStateUpdate(newState) {
 
   const
     embed = new EmbedBuilder({
-      author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
+      author: { name: updatedState.member.user.tag, iconURL: updatedState.member.displayAvatarURL() },
       timestamp: Date.now(),
       color: GRAY
     }),
@@ -39,22 +39,22 @@ module.exports = async function voiceStateUpdate(newState) {
     oldChannelField = () => (
       { name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }
     ),
-    newChannelField = () => (
-      { name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (${inlineCode(newState.channel.id)})`, inline: false }
+    updatedChannelField = () => (
+      { name: lang('newChannel'), value: `${channelMention(updatedState.channel.id)} (${inlineCode(updatedState.channel.id)})`, inline: false }
     );
 
   if (!this.channel?.id) {
-    embed.data.description = lang('embedDescriptionJoin', { executor: userMention(newState.member.id), newChannel: newState.channel.name });
-    embed.data.fields = [newChannelField()];
+    embed.data.description = lang('embedDescriptionJoin', { executor: userMention(updatedState.member.id), newChannel: updatedState.channel.name });
+    embed.data.fields = [updatedChannelField()];
   }
-  else if (newState.channelId) {
+  else if (updatedState.channelId) {
     embed.data.description = lang('embedDescriptionMove', {
-      executor: userMention(newState.member.id), oldChannel: this.channel.name, newChannel: newState.channel.name
+      executor: userMention(updatedState.member.id), oldChannel: this.channel.name, newChannel: updatedState.channel.name
     });
-    embed.data.fields = [oldChannelField(), newChannelField()];
+    embed.data.fields = [oldChannelField(), updatedChannelField()];
   }
   else {
-    embed.data.description = lang('embedDescriptionLeave', { executor: userMention(newState.member.id), oldChannel: this.channel.name });
+    embed.data.description = lang('embedDescriptionLeave', { executor: userMention(updatedState.member.id), oldChannel: this.channel.name });
     embed.data.fields = [oldChannelField()];
   }
 

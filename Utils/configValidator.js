@@ -48,10 +48,10 @@ function configValidationLoop(obj = require(configPath), checkObj = validConfig,
     const expectedType = checkObj[key];
     if (typeof expectedType === 'string' && typeof value !== expectedType)
       throw new Error(`Invalid type for key or subkey ${key} in config.json: Expected ${expectedType}, got ${typeof value}`);
-    else if (Array.isArray(expectedType) && !(Array.isArray(value) && value.every(v => typeof v === expectedType[0])))
+    if (Array.isArray(expectedType) && !(Array.isArray(value) && value.every(v => typeof v === expectedType[0])))
       throw new Error(`Invalid type for key or subkey ${key} in config.json: Expected Array of ${expectedType[0]}, got ${typeof value}`);
 
-    if (typeof value == 'object') return configValidationLoop(value, checkObj[key]);
+    if (typeof value == 'object') configValidationLoop(value, checkObj[key]);
   }
 
   /* eslint-enable valid-typeof */

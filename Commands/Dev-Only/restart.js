@@ -4,9 +4,9 @@ const
   fetch = require('node-fetch').default,
   { commonHeaders } = require('#Utils').constants;
 
-const getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply');
-
-let restarting = false;
+const
+  getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply'),
+  state = { restarting: false };
 
 
 module.exports = new Command({
@@ -17,9 +17,9 @@ module.exports = new Command({
   disabledReason: 'Missing pterodactylPanelURL, pterodactylServerId or pterodactylServerAPIKey in .env',
 
   async run(lang) {
-    if (restarting) return this.reply(lang('alreadyRestarting', restarting));
+    if (state.restarting) return this.reply(lang('alreadyRestarting', state.restarting));
 
-    restarting = true;
+    state.restarting = true;
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
 
     /* eslint-disable-next-line @typescript-eslint/no-this-alias -- This assignment is for mutability, not for context preservation. */
@@ -42,7 +42,7 @@ module.exports = new Command({
       if (res.status != HTTP_STATUS_NO_CONTENT) throw new Error(res.text());
     }
     catch (err) {
-      restarting = false; /* eslint-disable-line require-atomic-updates -- Not an issue */
+      state.restarting = false; /* eslint-disable-line require-atomic-updates -- Not an issue */
 
       log.error('Restarting Error: ', err);
       return msg.content == lang('restartingError') ? undefined : msg[getUpdateFunc(msg)](lang('restartingError'));

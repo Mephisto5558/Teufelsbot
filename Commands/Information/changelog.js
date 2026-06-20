@@ -8,11 +8,10 @@ const
   { github: ghConfig = {} } = getConfig(),
   CACHE_TIMEOUT = hourToMs(12), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 12h */
   MAX_COMMIT_LENGTH = 100,
-  suffix = '...';
+  suffix = '...',
 
-
-/** @type {string[] | undefined} */
-let commitsCache;
+  /** @type {{ commitsCache?: string[] }} */
+  state = {};
 
 /**
  * @this {Client}
@@ -48,7 +47,7 @@ module.exports = new Command({
 
   async run(lang) {
     const
-      changelog = commitsCache ?? await getCommits.call(this.client),
+      changelog = state.commitsCache ?? await getCommits.call(this.client),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         url: `${this.client.config.github.repo}/commits`,
@@ -56,10 +55,10 @@ module.exports = new Command({
         color: Colors.White
       });
 
-    if (!commitsCache) {
-      commitsCache = changelog;
+    if (!state.commitsCache) {
+      state.commitsCache = changelog;
       setTimeout(() => {
-        commitsCache = undefined;
+        delete state.commitsCache;
       }, CACHE_TIMEOUT);
     }
 

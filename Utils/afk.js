@@ -48,7 +48,7 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const
     user = 'user' in this ? this.user : this.member?.user,
-    createdAt = 'createdAt' in this ? this.createdAt : new Date();
+    createdAt = 'createdTimestamp' in this ? Temporal.Instant.fromEpochMilliseconds(this.createdTimestamp) : Temporal.Now.instant();
   message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- message can be an empty string */
 
   await (global || !this.guild
@@ -76,7 +76,10 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
 
   const
     lang = this.client.i18n.getTranslator({ locale: this.guild.localeCode }),
-    msg = lang('events.message.afkEnd', { timestamp: timestamp(createdAt), formattedTime: timeFormatter(createdAt, lang).formatted, message });
+    msg = lang('events.message.afkEnd', {
+      timestamp: timestamp(createdAt),
+      formattedTime: timeFormatter(createdAt.epochMilliseconds, lang).formatted, message
+    });
 
   if ('customReply' in this) return this.customReply(msg);
   if (

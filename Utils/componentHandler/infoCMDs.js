@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case -- abbreviation */
 /* eslint-disable @eslint-community/eslint-comments/no-use -- This casing is used to better display the commandName. */
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] -- This casing is used to better display the commandName. */
 
@@ -53,7 +52,8 @@ const
 
       void this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => {
-        if (!(err instanceof DiscordAPIError)) throw err;
+        if (err instanceof DiscordAPIError) return;
+        throw err;
       });
       if (!submit) return;
 
@@ -174,6 +174,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
   return this.message.edit({ components: this.message.components }).catch(err => {
-    if (!(err instanceof DiscordAPIError) || err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
+    if (err instanceof DiscordAPIError || err.code == DiscordAPIErrorCodes.UnknownMessage) return;
+    throw err;
   });
 };

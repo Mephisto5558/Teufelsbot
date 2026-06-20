@@ -16,8 +16,8 @@ module.exports = {
 <code>{guild.membercount}</code> - The guild member count - <code>23</code><br>
 <code>{guild.name}</code> - The guild name - <code>Peter's Egirl paradise</code><br>
 <code>{bornyear}</code> - The year the user was born - <code>${exampleYear}</code><br>
-<code>{date}</code> - The current date - <code>${new Date().toLocaleDateString('en')}</code><br>
-<code>{age}</code> - The new age of the user - <code>${new Date().getFullYear() - exampleYear}</code><br></p>`,
+<code>{date}</code> - The current date - <code>${Temporal.Now.plainDateTimeISO().toLocaleString('en')}</code><br>
+<code>{age}</code> - The new age of the user - <code>${Temporal.Now.plainDateISO().year - exampleYear}</code><br></p>`,
   type: 'spacer',
   position: 1
 };

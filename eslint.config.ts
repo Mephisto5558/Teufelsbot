@@ -44,7 +44,9 @@ export default [
           '[^_]+_{1,2}[^_]+', // allow one single or double underscore within the filename
           '^[A-Z].*' // allow starting with an uppercase letter for class exports
         ]
-      }])
+      }]),
+      [`${pluginNames.unicorn}/prefer-module`]: 'off',
+      [`${pluginNames.unicorn}/prefer-top-level-await`]: 'off'
     }
   },
   {

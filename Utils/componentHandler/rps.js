@@ -88,7 +88,7 @@ async function endGame(choices, initiator, opponent, lang) {
   await this.guild.deleteDB(`minigames.rps.${this.message.id}`);
   if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[choices.player1]);
   else {
-    const winner = winningAgainst[choices.player1] == choices.player2 ? initiator.id : opponent.id;
+    const winner = (winningAgainst[choices.player1] == choices.player2 ? initiator : opponent).id;
 
     this.message.embeds[0].data.description = lang('end.win', {
       winner: userMention(winner), winEmoji: emojis[initiator.id == winner ? choices.player1 : choices.player2],

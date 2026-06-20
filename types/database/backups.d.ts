@@ -47,8 +47,8 @@ export type backups = Record<backupId, {
   id: backupId;
   metadata: [userId | userId[]];
 
-  /** Backup creation date */
-  createdAt: Date;
+  /** Backup creation timestamp */
+  createdAt: Temporal.Instant;
   name: string;
   guildId: guildId;
   locale: string;

@@ -3,6 +3,7 @@
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
+  { timeFormatter: { msInSecond } } = require('#Utils'),
   { getTopGuilds } = require('./_utils');
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
@@ -29,7 +30,7 @@ module.exports = new CommandOption({
       const enabled = this.options.getBoolean('enabled', true);
       await (this.user.db.wordCounter
         ? this.user.updateDB('wordCounter.enabled', enabled)
-        : this.user.updateDB('wordCounter', { enabled, enabledAt: enabled ? undefined : new Date(), sum: 0, guilds: {} })
+        : this.user.updateDB('wordCounter', { enabled, enabledAt: enabled ? undefined : Temporal.Now.instant(), sum: 0, guilds: {} })
       );
 
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
@@ -46,7 +47,7 @@ module.exports = new CommandOption({
         title: lang('embedTitle', this.member.displayName),
         thumbnail: { url: this.user.displayAvatarURL() },
         description: lang('embedDescription', {
-          enabledAt: time(this.user.db.wordCounter.enabledAt, TimestampStyles.ShortDateShortTime),
+          enabledAt: time(Math.floor(this.user.db.wordCounter.enabledAt.epochMilliseconds / msInSecond), TimestampStyles.ShortDateShortTime),
           amount: bold(this.user.db.wordCounter.sum)
         }),
         color: Colors.Blurple

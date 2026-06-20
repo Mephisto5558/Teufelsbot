@@ -46,16 +46,19 @@ async function sendUpdatedMsg(msg, url) {
       ? JSON.parse(custom)
       : {
           style: this.options.getNumber('style', true),
-          label: label ?? (emoji ? undefined : '\u200E'), emoji, url // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
+          label: label ?? (emoji ? undefined : '\u{200E}'), emoji, url // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
         }),
     components = msg?.components ? [...msg.components] : [],
     lastComponent = components.at(-1);
 
   if (button.data.style != ButtonStyle.Link) button.setCustomId(`buttonCommandButton_${Date.now()}`);
   if (
-    !msg?.components.length || this.options.getBoolean('new_row')
-    || !(lastComponent instanceof ActionRow) || !lastComponent.components.push(button)
-  ) components.push(new ActionRowBuilder({ components: [button] }));
+    !components.length || this.options.getBoolean('new_row')
+    || !(lastComponent instanceof ActionRow) || lastComponent.components.length >= messageActionRowMaxAmt
+  )
+    components.push(new ActionRowBuilder({ components: [button] }));
+  else
+    lastComponent.components.push(button);
 
   await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
 

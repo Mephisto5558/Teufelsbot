@@ -26,7 +26,7 @@ module.exports = new Command({
     const
       scope = this.options?.getString('scope') ?? this.args?.[0]?.toLowerCase() ?? 'bot',
       query = (this.options?.getString('command') ?? this.args?.[this.args.length == 1 ? 0 : 1])?.toLowerCase(),
-      cmdStats = (scope == 'guild' || scope == 'user' ? this[scope].db.cmdStats : this.client.settings.cmdStats) ?? {};
+      cmdStats = (scope == 'guild' || scope == 'user' ? this[scope].db : this.client.settings).cmdStats ?? {};
 
     let target;
     if (scope == 'guild') target = this.guild.name;

@@ -28,7 +28,10 @@ module.exports = new Command({
     }
 
     const
-      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replaceAll(/\D/g, '')]: e.split(':')[1] })),
+      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => {
+        const [k, v] = e.split(':', 2);
+        return { [k.replaceAll(/\D/g, '')]: v };
+      }),
       requiredRoles = this.options.getString('required_roles')?.replaceAll(/\D/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replaceAll(/\D/g, '').split(' '),
       components = [new ActionRowBuilder({

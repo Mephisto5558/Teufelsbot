@@ -44,7 +44,7 @@ function shouldDeleteMsg(msg, options) {
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
       || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage
         >= options.caps_percentage)
-      || !msg.content && !msg.embeds.some(e => !!e.description),
+      || !msg.content && msg.embeds.every(e => !e.description),
     bool = msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
@@ -83,7 +83,6 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
     const messages = await channel.messages.fetch(options);
     if (!messages.size) break;
 
-    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array */
     collection = collection.concat(messages);
     lastId = messages.at(-1)?.id;
     options.limit = Math.min(limit - collection.size, maxMsgsToFetch);
@@ -99,7 +98,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
  * @param {boolean} exists
  * @param {lang} lang */
 function checkParams(amount, options, exists, lang) {
-  if (!amount) return void this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
+  if (!amount) return void this.customReply(lang(Number.isNaN(amount) ? 'invalidNumber' : 'noNumber'));
   if (options.before_message && options.after_message) return void this.customReply(lang('beforeAndAfter'));
 
   if (

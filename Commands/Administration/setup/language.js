@@ -1,4 +1,4 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+/** @import { CommandType } from '@mephisto5558/command' */
 
 const
   { Colors, EmbedBuilder } = require('discord.js'),
@@ -14,7 +14,7 @@ module.exports = new CommandOption({
     type: OptionType.String,
     required: true,
     autocompleteOptions(query) {
-      return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {
+      return this.client.i18n.availableLocales.keys().reduce((acc, locale) => {
         if (acc.length > autocompleteOptionsMaxAmt) return acc;
 
         const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
@@ -32,14 +32,14 @@ module.exports = new CommandOption({
       language = this.options.getString('language', true),
 
       /** @type {lang} */
-      newLang = this.client.i18n.getTranslator({
+      setLang = this.client.i18n.getTranslator({
         locale: this.client.i18n.availableLocales.has(language) ? language : lang.defaultConfig.defaultLocale
       }),
 
       { name, category } = this.client.commandManager.get(this.commandName) ?? {},
       embed = new EmbedBuilder({
-        title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
-        description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, newLang('global.languageName')),
+        title: setLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
+        description: setLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, setLang('global.languageName')),
         color: Colors.Green
       });
 

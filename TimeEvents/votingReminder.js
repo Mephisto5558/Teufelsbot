@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
-  { msInSecond, secsInWeek } = require('#Utils').timeFormatter;
+  { daysInWeek } = require('#Utils').timeFormatter;
 
 module.exports = {
   time: '00 00 00 * * 1',
@@ -8,13 +8,12 @@ module.exports = {
 
   /** @this {Client} */
   async onTick() {
-    const now = new Date();
+    const now = Temporal.Now.plainDateISO();
 
     if (!this.config.website.domain) return void log.warn('Voting reminder did not run due to no domain being configured in config.json');
-    if (this.settings.timeEvents.lastVotingReminder?.toDateString() == now.toDateString()) return void log('Already sent voting reminders this week');
+    if (this.settings.timeEvents.lastVotingReminder?.equals(now)) return void log('Already sent voting reminders this week');
 
     const
-      today = new Date().setHours(0, 0, 0),
       lang = this.i18n.getTranslator({ backupPaths: ['others.timeEvents.votingReminder'] }),
       embed = new EmbedBuilder({ color: Colors.White }),
       component = new ActionRowBuilder({
@@ -32,7 +31,8 @@ module.exports = {
         ]
       }),
       users = Object.entries(this.db.get('userSettings'))
-        .filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
+        .filter(([, e]) => !e.votingReminderDisabled && e.lastVoted.toZonedDateTimeISO('UTC')
+          .until(Temporal.Now.zonedDateTimeISO('UTC'), { largestUnit: 'days' }).days < daysInWeek * 2);
 
     log('Started sending voting reminders').debug('Started sending voting reminders');
 

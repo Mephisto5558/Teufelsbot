@@ -17,9 +17,9 @@ module.exports = new Command({
     const
 
       /** @type {{ text: string, source: string, source_url: string }} */
-      data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.config.locale}`, {
+      data = await (await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.config.locale}`, {
         headers: commonHeaders(this.client)
-      }).then(async e => e.json()),
+      })).json(),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: `${data.text}\n\nSource: ${hyperlink(data.source, data.source_url)}`,

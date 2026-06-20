@@ -290,7 +290,7 @@ Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
    * @this {unknown & { buttonLabels: [string, string, string] }}
    * @param {unknown[]} args */
   value: function createButton(...args) {
-    this.buttonLabels[0] = '\u200B'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+    this.buttonLabels[0] = '\u{200B}'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
 
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     -- the library does not provide types */

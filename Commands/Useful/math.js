@@ -17,7 +17,7 @@ const
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
-    .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, /** @param {keyof superscripts} e */ e => superscripts[e])
+    .replaceAll(/[\u{B2}\u{B3}\u{2074}-\u{2079}]/gu, /** @param {keyof superscripts} e */ e => superscripts[e])
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
 module.exports = new Command({

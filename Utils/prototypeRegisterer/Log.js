@@ -25,12 +25,11 @@ module.exports = class Log extends Function {
     /* eslint-disable no-multi-assign -- this just makes more sense. */
     /* Setting it to `this` is required for top-level calls,
        Setting it to `bound` is required for chained calls. */
-    this.date = bound.date = new Date().toISOString().split('T')[0];
     this.logLevel = bound.logLevel = logLevel;
     if (logFilesDir) this.logFilesDir = bound.logFilesDir = logFilesDir;
     /* eslint-enable no-multi-assign */
 
-    /* eslint-disable-next-line no-constructor-return -- That return is required for the code to work. */
+    /* eslint-disable-next-line no-constructor-return -- This return is required to make the instance callable. */
     return bound;
   }
 
@@ -41,7 +40,7 @@ module.exports = class Log extends Function {
   /** @type {LogInterface['error']} */ error(...str) { return this._log({ file: 'error' }, ...str); }
 
   /** @type {LogInterface['_logToConsole']} */
-  _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
+  _logToConsole({ file = 'log', type = 'Bot', prefix = `${Temporal.Now.instant().toString()} ${type} | ` } = {}, ...str) {
     const log = console[file];
 
     if (!str.length) log('\n');
@@ -51,13 +50,17 @@ module.exports = class Log extends Function {
   }
 
   /** @type {LogInterface['_logToFile']} */
-  _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
-    if (this.logFilesDir) void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
+  _logToFile({ file = 'log', type = 'Bot', prefix = `${Temporal.Now.instant().toString()} ${type} | ` } = {}, ...str) {
+    if (this.logFilesDir) {
+      const filename = `${Temporal.Now.plainDateISO().toString()}_${file}.log`;
+      void appendFile(join(this.logFilesDir, filename), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
+    }
+
     return this;
   }
 
   /** @type {LogInterface['_log']} */
-  _log({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
+  _log({ file = 'log', type = 'Bot', prefix = `${Temporal.Now.instant().toString()} ${type} | ` } = {}, ...str) {
     this._logToConsole({ file, type, prefix }, ...str);
     this._logToFile({ file, type, prefix }, ...str);
 

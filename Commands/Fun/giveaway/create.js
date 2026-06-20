@@ -27,7 +27,7 @@ module.exports = new CommandOption({
       name: 'duration',
       type: OptionType.String,
       required: true,
-      autocompleteOptions(query) { return timeValidator(query); }
+      autocompleteOptions: timeValidator
     },
     {
       name: 'winner_count',

@@ -33,7 +33,7 @@ module.exports = new Command({
       });
 
     if (role.members.size.inRange(0, ROLE_DISPLAY_THRESHOLD))
-      embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
+      embed.data.fields.push({ name: lang('members'), value: role.members.values().toArray().join(', '), inline: false });
 
     embed.data.fields.push({ name: lang('permissions'), inline: false });
     if (role.permissions.has(Permission.Administrator))

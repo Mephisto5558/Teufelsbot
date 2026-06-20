@@ -2,11 +2,7 @@ const
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter;
 
-const
-
-  /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
-  DATE_START = 1900,
-  MAX_YEARS = 2e5;
+const MAX_YEARS = 2e5;
 
 /**
  * @this {Message | Interaction}
@@ -20,21 +16,6 @@ function getInteger(name, defaultNum = 0) {
   if ('options' in this) num = this.options.getInteger(name) ?? num;
 
   return Number.isNaN(num) ? defaultNum : num;
-}
-
-/**
- * @param {number} year
- * @param {number} month
- * @param {number} day
- * @param {number[]} args */
-function getTime(year, month, day, ...args) {
-  const
-    allowedYearStart = -1, // "-1" to include "0"
-    allowedYearEnd = 101;
-
-  return year.inRange(allowedYearStart, allowedYearEnd)
-    ? new Date(year - DATE_START, month, day, ...args).setFullYear(year)
-    : new Date(year, month, day, ...args).getTime();
 }
 
 module.exports = new Command({
@@ -85,14 +66,15 @@ module.exports = new Command({
 
   async run(lang) {
     const
+      now = Temporal.Now.zonedDateTimeISO('UTC'),
       getInt = getInteger.bind(this),
-      day = getInt('day'),
-      month = getInt('month', 1) - 1,
-      year = getInt('year'),
+      year = getInt('year', now.year),
+      month = getInt('month', now.month),
+      day = getInt('day', now.day),
       hour = getInt('hour'),
       minute = getInt('minute'),
       second = getInt('second'),
-      ms = day || month || year ? getTime(year, month, day, hour, minute, second) : new Date().setHours(hour, minute, second),
+      ms = Temporal.ZonedDateTime.from({ timeZone: 'UTC', year, month, day, hour, minute, second }).round('second').epochMilliseconds,
       { formatted, negative } = timeFormatter(ms, lang);
 
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));

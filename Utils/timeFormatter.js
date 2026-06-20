@@ -1,8 +1,5 @@
 /** @import { timeFormatter as timeFormatterT } from '.' */
 
-const moment = require('moment');
-void require('moment-precise-range-plugin');
-
 const
   msInSecond = 1000,
   secsInMinute = 60,
@@ -18,40 +15,37 @@ const
   secsInDay = secsInHour * hoursInDay,
   secsInWeek = secsInDay * daysInWeek,
   secsInMonth = secsInDay * daysInMonthAvg,
-  secsInYear = secsInDay * daysInYear,
-  YEAR_STR_LENGTH = 4,
-  DATETIME_STR_LENGTH = 2;
+  secsInYear = secsInDay * daysInYear;
 
 /** @type {timeFormatterT['timeFormatter']} */
 function timeFormatter(ms, lang) {
-  const { years, months, days, hours, minutes, seconds, firstDateWasLater: negative } = moment.preciseDiff(moment(), moment(ms), true);
+  const
+    now = Temporal.Now.instant(),
+    target = Temporal.Instant.fromEpochMilliseconds(ms),
+    targetUtc = target.toZonedDateTimeISO('UTC'),
+    duration = now.toZonedDateTimeISO('UTC').until(targetUtc, { largestUnit: 'years', smallestUnit: 'seconds' }).abs();
 
   let id = 'others.timeFormatter.';
   if (lang) {
-    if (years) id += 'ymdhms';
-    else if (months) id += 'mdhms';
-    else if (days) id += 'dhms';
-    else if (hours) id += 'hms';
-    else id += minutes ? 'ms' : 's';
+    id += Object.entries({ years: 'ymdhms', months: 'mdhms', days: 'dhms', hours: 'hms', minutes: 'ms' })
+      .find(([unit]) => duration[unit] > 0)?.[1] ?? 's';
   }
 
   return {
-    negative, total: ms,
-    formatted: lang?.(id, { years, months, days, hours, minutes, seconds })
-      ?? years.toString().padStart(YEAR_STR_LENGTH, '0')
-      + '-' + [months, days].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join('-')
-      + ', ' + [hours, minutes, seconds].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join(':')
+    negative: Temporal.Instant.compare(now, target) > 0,
+    total: ms,
+    formatted: lang?.(id, duration) ?? targetUtc.toPlainDateTime().toString({ fractionalDigits: 0 }).replace('T', ', ')
   };
 }
 
 /** @type {timeFormatterT['timestamp']} */
 function timestamp(time, code) {
-  const date = Math.round(new Date(time).getTime() / msInSecond);
-  return code ? `<t:${date}:${code}>` : `<t:${date}>`;
+  const seconds = Math.round(time.epochMilliseconds / msInSecond);
+  return code ? `<t:${seconds}:${code}>` : `<t:${seconds}>`;
 }
 
 module.exports = {
   msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthMin, daysInMonthAvg, daysInMonthMax,
-  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear, YEAR_STR_LENGTH, DATETIME_STR_LENGTH,
+  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear,
   timeFormatter, timestamp
 };

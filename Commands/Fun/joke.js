@@ -50,20 +50,19 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     const res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
       headers: commonHeaders(this),
       signal: timeoutSignal.signal
-    }).then(async e => {
-      if (!e.ok) throw new Error(await e.text());
-
-      /** @type {Joke | { status: string, code: number, message: string } | undefined} */
-      const json = await e.json().catch(() => { /* empty */ });
-
-      if (json && 'code' in json) throw new FetchError(json.message, undefined, json);
-      return json;
     });
 
+    if (!res.ok) throw new Error(await res.text());
+
+    /** @type {Joke | { status: string, code: number, message: string } | undefined} */
+    const json = await res.json().catch(() => { /* empty */ });
+
+    if (json && 'code' in json) throw new FetchError(json.message, undefined, json);
+
     switch (api.name) {
-      case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;
-      case 'humorAPI': response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke; break;
-      default: response = res.joke; break;
+      case 'jokeAPI': response = json.type == 'twopart' ? `${json.setup}\n\n||${json.delivery}||` : json.joke; break;
+      case 'humorAPI': response = json.joke?.includes('Q: ') ? json.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : json.joke; break;
+      default: response = json.joke; break;
     }
   }
   catch (rawErr) {

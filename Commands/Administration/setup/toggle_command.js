@@ -32,13 +32,12 @@ module.exports = new CommandOption({
 
   async run(lang) {
     const
-      setupCommand = this.client.commandManager.get(this.commandName),
       command = this.options.getString('command', true).toLowerCase(),
+      setupCommand = this.client.commandManager.get(this.commandName),
       commandData = this.guild.db.config.commands?.[command]?.disabled,
       { roles = [], channels = [], users = [] } = commandData ?? {},
       count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
-    if (!this.client.commandManager.get(command)) return this.editReply(lang('notFound'));
 
     if (this.options.getBoolean('get')) {
       /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
@@ -49,8 +48,11 @@ module.exports = new CommandOption({
           value: v.includes('*')
             ? lang('list.all')
             : v.map(/** @param {Snowflake} e */ e => {
-                if (k == 'roles') return roleMention(e);
-                return k == 'channels' ? channelMention(e) : userMention(e);
+                let fn = userMention;
+                if (k == 'roles') fn = roleMention;
+                else if (k == 'channels') fn = channelMention;
+
+                return fn(e);
               }).join(', '),
           inline: false
         })),

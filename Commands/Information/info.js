@@ -22,7 +22,7 @@ const
 const
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
-  /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */
+  /** @type {(label: string, url: string, emoji?: ApplicationEmoji) => ButtonBuilder} */
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link }),
 
   graphLayout = Object.freeze({
@@ -52,7 +52,10 @@ const
       netTx: '#F04747'
     })
     /* eslint-enable @typescript-eslint/no-magic-numbers */
-  });
+  }),
+
+  /** @type {{ lastServerInfo?: ServerInfo }} */
+  state = {};
 
 
 /**
@@ -107,12 +110,9 @@ async function getGitInfo(unixTimestamp) {
   return { shortHash, commitURL, branch, ts };
 }
 
-/** @type {ServerInfo | undefined} */
-let lastServerInfo;
-
 /** @this {Client<true>} */
 async function fetchServerInfo() {
-  if (lastServerInfo && lastServerInfo.fetchedAt > Date.now() - minToMs(1)) return lastServerInfo;
+  if (state.lastServerInfo && state.lastServerInfo.fetchedAt > Date.now() - minToMs(1)) return state.lastServerInfo;
   if (!process.env.pterodactylPanelURL || !process.env.pterodactylServerId || !process.env.pterodactylServerAPIKey)
     return;
 
@@ -123,22 +123,22 @@ async function fetchServerInfo() {
     /** @type {[{ attributes: { resources: Resources } } | { errors: unknown[] }, { attributes?: { limits: Limits } } | { errors: unknown[] }]} */
     [resResources, resDetails] = await Promise.all([
       fetch(`${basePath}/resources`, { headers: authHeaders }).then(async e => e.json()),
-      lastServerInfo?.limits ? Promise.resolve({}) : fetch(basePath, { headers: authHeaders }).then(async e => e.json())
+      state.lastServerInfo?.limits ? Promise.resolve({}) : fetch(basePath, { headers: authHeaders }).then(async e => e.json())
     ]);
 
   if ('errors' in resResources) void log.error(resResources.errors);
   else if ('errors' in resDetails) void log.error(resDetails.errors);
   else {
     /* eslint-disable-next-line require-atomic-updates -- Not an issue */
-    lastServerInfo = {
+    state.lastServerInfo = {
       resources: resResources.attributes.resources,
-      limits: resDetails.attributes?.limits ?? lastServerInfo.limits,
+      limits: resDetails.attributes?.limits ?? state.lastServerInfo.limits,
       fetchedAt: Date.now(),
       buffers: new Map()
     };
   }
 
-  return lastServerInfo;
+  return state.lastServerInfo;
 }
 
 /**
@@ -177,8 +177,8 @@ async function createResourceGraph(lang) {
       },
       {
         id: 'network',
-        text: `\u2B07 ${formatBytes(resources.network_rx_bytes, lang)} | `
-          + `\u2B06 ${formatBytes(resources.network_tx_bytes, lang)}`,
+        text: `\u{2B07} ${formatBytes(resources.network_rx_bytes, lang)} | `
+          + `\u{2B06} ${formatBytes(resources.network_tx_bytes, lang)}`,
         percentage: netTotal > 0 ? resources.network_rx_bytes / netTotal : 0
       }
     ],

@@ -31,7 +31,7 @@ module.exports = new Command({
     guild ??= invite?.guild ?? this.guild;
 
     const
-      channels = guild instanceof Guild ? [...(await guild.channels.fetch()).values()] : undefined,
+      channels = guild instanceof Guild ? (await guild.channels.fetch()).values().toArray() : undefined,
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,

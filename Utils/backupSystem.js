@@ -3,13 +3,15 @@
 const
   {
     ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
-    GuildFeature, GuildVerificationLevel, SnowflakeUtil, StickerType
+    GuildFeature, GuildVerificationLevel, Role, SnowflakeUtil, StickerType
   } = require('discord.js'),
   /** @type {BackupSystem.Utils} */ utils = require('./backupSystemUtils'),
   { secsInMinute } = require('./timeFormatter'),
   /** @type {DiscordAPIErrorCodesT} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 class BackupSystem {
+  static utils = utils;
+
   /**
    * @param {BackupSystem.BackupSystem['db']} db
    * @param {BackupSystem.Options} options */
@@ -28,31 +30,31 @@ class BackupSystem {
   }
 
   /** @type {BackupSystem.BackupSystem['get']} */
-  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}_${backupId}`);
+  get(backupId, guildId = '') { return this.db.get(this.dbName, `${guildId}_${backupId}`); }
 
   /** @type {BackupSystem.BackupSystem['list']} */
-  list = guildId => {
+  list(guildId) {
     /** @type {Collection<string, BackupSystem.Backup>} */
     const collection = new Collection(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e.guildId == guildId) : collection;
-  };
+  }
 
   /** @type {BackupSystem.BackupSystem['remove']} */
-  remove = async backupId => this.db.delete(this.dbName, backupId);
+  async remove(backupId) { return this.db.delete(this.dbName, backupId); }
 
   /** @type {BackupSystem.BackupSystem['create']} */
-  create = async (guild, {
+  async create(guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     doNotBackup = [], saveImages = this.defaultSettings.saveImages, metadata
-  } = {}) => {
+  } = {}) {
     if (!guild.client.options.intents.has(GatewayIntentBits.Guilds)) throw new Error('Guilds intent is required');
 
     statusObj.status = 'create.settings';
     const data = {
       id: id ?? `${guild.id}_${SnowflakeUtil.generate()}`,
       metadata: metadata ?? undefined,
-      createdAt: new Date(),
+      createdAt: Temporal.Now.instant(),
       name: guild.name,
       guildId: guild.id,
       locale: guild.preferredLocale,
@@ -90,7 +92,7 @@ class BackupSystem {
         nickname: e.nickname,
         avatarUrl: e.displayAvatarURL(),
         bannerUrl: e.displayBannerURL(),
-        roles: [...e.roles.cache.map(e => e.name).values()],
+        roles: e.roles.cache.map(e => e.name),
         bot: e.user.bot
       }));
     }
@@ -104,7 +106,6 @@ class BackupSystem {
     if (!doNotBackup.includes('roles')) {
       statusObj.status = 'create.roles';
 
-      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       data.roles = (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
         name: e.name,
         colors: e.colors,
@@ -146,7 +147,6 @@ class BackupSystem {
     if (!doNotBackup.includes('channels')) {
       statusObj.status = 'create.channels';
 
-      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
 
       data.channels.categories = await Promise.all(channels
@@ -175,7 +175,7 @@ class BackupSystem {
       const guildBackups = Object.keys(this.db.get(this.dbName)).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
         const backupsToDelete = guildBackups
-          .toSorted((a, b) => BigInt(a.split('_')[1]) - BigInt(b.split('_')[1]))
+          .toSorted((a, b) => BigInt(a.split('_', 2)[1]) - BigInt(b.split('_', 2)[1]))
           .slice(0, guildBackups.length - maxGuildBackups);
 
         await Promise.allSettled(backupsToDelete.map(async e => this.db.delete(this.dbName, e)));
@@ -183,28 +183,30 @@ class BackupSystem {
     }
 
     return data;
-  };
+  }
 
   /** @type {BackupSystem.BackupSystem['load']} */
-  load = async (id, guild, {
+  async load(id, guild, {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore,
     maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
-  } = {}) => {
+  } = {}) {
     /** @type {NonNullable<Database['backups'][import('#types/db').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
-    /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
-    if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
+    if (id == undefined) data = this.list(guild.id).sort((a, b) => Temporal.Instant.compare(b.createdAt, a.createdAt)).first();
     else data = typeof id == 'string' ? this.get(id) : id;
 
     if (clearGuildBeforeRestore) {
       statusObj.status = 'clear.items';
-      for (const [, item] of [
-        ...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(),
-        ...(await guild.roles.fetch())
-          .filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
-      ]) {
+      for (const [, item] of Iterator.concat(
+        await guild.channels.fetch(), await guild.emojis.fetch(), await guild.stickers.fetch(), await guild.roles.fetch()
+      )) {
+        if (
+          item instanceof Role
+          && (!item.editable || item.id == guild.id || !guild.roles.cache.some(e2 => e2.name == item.name && e2.editable))
+        ) continue;
+
         try { await item.delete(reason); }
         catch (err) {
           if (!(err instanceof DiscordAPIError)) throw err;
@@ -359,12 +361,11 @@ class BackupSystem {
     }
 
     statusObj.status = 'clear.ownWebhooks';
-    for (const [, webhook] of (await guild.fetchWebhooks()).filter(e => e.name == 'MessagesBackup')) await webhook.delete(reason);
+    for (const [, webhook] of await guild.fetchWebhooks())
+      if (webhook.name == 'MessagesBackup') await webhook.delete(reason);
 
     return data;
-  };
-
-  static utils = utils;
+  }
 }
 
 module.exports = BackupSystem;

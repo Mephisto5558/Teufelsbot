@@ -68,11 +68,11 @@ async function handleWordchain() {
   if (!wordchainData) return;
 
   const
-    firstWord = this.originalContent.split(/\s+/)[0].toLowerCase(),
+    firstWord = this.originalContent.split(/\s+/, 1)[0].toLowerCase(),
     lastWordChar = wordchainData.lastWord?.at(-1);
 
   if (
-    !wordchainData.lastWord || lastWordChar == firstWord[0]
+    !wordchainData.lastWord || lastWordChar == firstWord.at(0)
     && (!wordchainData.lastWordBefore || wordchainData.lastWordBefore != firstWord)
     && wordchainData.lastAuthor != this.user.id
   ) {
@@ -112,7 +112,7 @@ async function handleWordchain() {
 async function handleWordcounter(cleanMsg) {
   const
     /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-    wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu)?.length ?? 0, // Matches letter(s) that can have apostrophes in them
+    wordCount = cleanMsg.match(/\p{L}+['\u{2018}\u{2019}\u{FF07}]?\p{L}+/gu)?.length ?? 0, // Matches letter(s) that can have apostrophes in them
     dbPromises = [];
 
   if (this.guild.db.wordCounter?.enabled && wordCount) {

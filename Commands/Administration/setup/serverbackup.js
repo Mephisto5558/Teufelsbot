@@ -12,7 +12,7 @@ module.exports = new CommandOption({
     name: 'allowed_to_load',
     type: OptionType.String,
     required: true,
-    autocompleteOptions: [...backup.keys()],
+    autocompleteOptions: backup.keys().toArray(),
     strictAutocomplete: true
   }],
 

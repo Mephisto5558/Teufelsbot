@@ -12,7 +12,7 @@ module.exports = new Command({
   options: [{
     name: 'time',
     type: OptionType.String,
-    autocompleteOptions(query) { return timeValidator(query); },
+    autocompleteOptions: timeValidator,
     strictAutocomplete: true
   }],
 

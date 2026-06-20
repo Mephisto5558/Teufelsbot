@@ -2,7 +2,7 @@
 
 const
   {
-    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
+    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageMentions, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
@@ -83,17 +83,19 @@ module.exports = new Command({
     }
     if (member.isCommunicationDisabled())
       embed.data.fields.push({ name: lang('timedOutUntil'), value: timestamp(member.communicationDisabledUntilTimestamp), inline: true });
-    if (member.user.flags.bitfield) {
+    if (member.user.flags?.bitfield) {
       embed.data.fields.push({
         name: lang('flags.name'), inline: false,
+        /* eslint-disable-next-line unicorn/prefer-iterator-to-array-at-end -- false positive: `UserFlagsBitField` does not have `.map` */
         value: member.user.flags.toArray().map(e => inlineCode(lang(`flags.${e}`))).join(', ')
       });
     }
     embed.addFields(
       {
         name: lang('rolesWithPerms'), inline: false,
-        value: [...member.roles.cache.values()]
-          .filter(e => e.permissions.bitfield != 0 && e.name != '@everyone')
+        value: member.roles.cache.values()
+          .filter(e => e.permissions.bitfield != 0 && !MessageMentions.EveryonePattern.test(e.name))
+          .toArray()
           .toSorted((a, b) => b.position - a.position)
           .join(', ')
       },

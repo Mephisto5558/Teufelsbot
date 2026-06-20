@@ -56,6 +56,7 @@ module.exports = new Command({
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
+          /* eslint-disable-next-line unicorn/prefer-temporal -- I have no control over this */
           else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, JSON_SPACES);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- possibly not a string, but we aren't able to type it all */
@@ -68,7 +69,7 @@ module.exports = new Command({
       maxSummaryLength = 2049;
 
     // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing.
-    if (summary.length < maxSummaryLength) embed.data.description = `${summary}\n\u200E`;
+    if (summary.length < maxSummaryLength) embed.data.description = `${summary}\n\u{200E}`;
 
     await message.edit({ content: '', embeds: [embed] });
     if (embed.data.description) return;
@@ -87,7 +88,7 @@ module.exports = new Command({
         const accItem = acc.at(-1);
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
-        else acc.splice(-1, 1, `${accItem}${e}\n`);
+        else acc[acc.length - 1] = `${accItem}${e}\n`;
 
         return acc;
       }, ['']);

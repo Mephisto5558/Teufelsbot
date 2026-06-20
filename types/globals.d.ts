@@ -35,7 +35,7 @@ declare global {
      * Gets a random array element by generating a cryptographically secure random number using
      * {@link https://nodejs.org/api/crypto.html node:crypto}.
      *
-     * May return undefined if the array is empty. */
+     * Returns undefined if the array is empty. */
     random(this: T[]): T | undefined;
 
     /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */

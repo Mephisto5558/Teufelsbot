@@ -105,7 +105,7 @@ module.exports = new Command({
 
         if ('description' in json) json = { embeds: [json] };
         else if (Array.isArray(json)) {
-          if (!json.every(e => 'description' in e)) throw new SyntaxError('Invalid JSON. Expected array of embeds.');
+          if (json.some(e => !('description' in e))) throw new SyntaxError('Invalid JSON. Expected array of embeds.');
           json = { embeds: json };
         }
 

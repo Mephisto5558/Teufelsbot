@@ -15,7 +15,7 @@ module.exports = async function clientReady() {
   for (const [guildId, guild] of Object.entries(this.db.get('guildSettings'))) {
     const shardId = this.shard ? ShardClientUtil.shardIdForGuildId(guildId, this.shard.count) : 0;
     if (!guild.leftAt && this.ws.shards.has(shardId) && !this.guilds.cache.has(guildId))
-      void this.db.update('guildSettings', `${guildId}.leftAt`, new Date());
+      void this.db.update('guildSettings', `${guildId}.leftAt`, Temporal.Now.instant());
   }
 
   for (const [, guild] of this.guilds.cache) {

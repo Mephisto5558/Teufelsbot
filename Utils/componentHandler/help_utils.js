@@ -1,5 +1,5 @@
 /**
- * @import { SelectMenuInteraction, StringSelectMenuInteraction } from 'discord.js'
+ * @import { StringSelectMenuInteraction } from 'discord.js'
  * @import { AllContexts, CommandInitialized as Command, CommandType, CommandManagerMember } from '@mephisto5558/command'
  * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from '.' */
 
@@ -18,7 +18,7 @@ function getCommands() {
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
 /**
- * @this {Interaction | Message | SelectMenuInteraction}
+ * @this {Interaction | Message | StringSelectMenuInteraction}
  * @returns {string | undefined} */
 function getDefaultOption() {
   if (isSlash(this) && !this.options.getString('command')) return this.options.getString('category');
@@ -33,7 +33,7 @@ function getDefaultOption() {
 }
 
 /**
- * @this {Interaction | Message | SelectMenuInteraction}
+ * @this {Interaction | Message | StringSelectMenuInteraction}
  * @param {lang} lang
  * @param {string[]?} commandCategories */
 function createCategoryComponent(lang, commandCategories) {
@@ -100,8 +100,8 @@ function createInfoFields(lang, cmd = {}) {
 
   if ('aliases' in cmd) {
     for (const commandType of Object.values(CommandType)) {
-      if (commandType in cmd.aliases && cmd.aliases[commandType].length)
-        arr.push({ name: lang(`one.${commandType}Alias`), value: cmd.aliases[commandType].map(inlineCode).join(', '), inline: true });
+      if (!(commandType in cmd.aliases && cmd.aliases[commandType].length)) continue;
+      arr.push({ name: lang(`one.${commandType}Alias`), value: cmd.aliases[commandType].map(inlineCode).join(', '), inline: true });
     }
   }
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
@@ -179,9 +179,10 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
       description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, lang, command),
       footer: {
-        text: lang('one.embedFooterTextCreatedAt', this.client.settings.cmdStats[command.name].createdAt.toLocaleDateString(
-          helpLang.config.locale, { day: '2-digit', month: '2-digit', year: 'numeric' }
-        ))
+        text: lang(
+          'one.embedFooterTextCreatedAt', this.client.settings.cmdStats[command.name].createdAt
+            .toZonedDateTimeISO(Temporal.Now.timeZoneId()).toPlainDate().toLocaleString(helpLang.config.locale)
+        )
         + '\n' + lang('one.embedFooterText', `"${this.guild.prefixes.map(e => e.prefix).join('", "')}"`)
       },
       color: Colors.Blurple
@@ -215,7 +216,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
       description: lang(`commands.${query}.categoryDescription`),
       fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
         if (e.category == query && !e.aliasOf && filterCommands.call(this, e))
-          acc.push({ name: e.name, value: (helpLang(`${e.name}.description`) ?? e.description) + '\n\u200E', inline: true });
+          acc.push({ name: e.name, value: (helpLang(`${e.name}.description`) ?? e.description) + '\n\u{200E}', inline: true });
         return acc;
       }, []),
       footer: { text: lang(this.client.botType == 'dev' ? 'devEmbedFooterText' : 'all.embedFooterText') },
@@ -241,7 +242,7 @@ module.exports.allQuery = async function allQuery(lang) {
       // /u200E is used here to add extra space
       fields: commandCategories.map(e => ({
         name: lang(`commands.${e}.categoryName`),
-        value: lang(`commands.${e}.categoryDescription`) + '\n\u200E',
+        value: lang(`commands.${e}.categoryDescription`) + '\n\u{200E}',
         inline: true
       })),
       footer: { text: lang('all.embedFooterText') },

@@ -1,5 +1,5 @@
 const
-  { Client } = require('discord.js'),
+  { Client, DiscordAPIError } = require('discord.js'),
   { readFile, readdir } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
@@ -12,7 +12,10 @@ async function getClient(env, token) {
   const client = new Client({ intents: [] });
   try { await client.login(token); }
   catch (err) {
-    await client.destroy().catch(() => { /* empty */ });
+    try { await client.destroy(); }
+    catch (err) {
+      if (!(err instanceof DiscordAPIError)) throw err;
+    }
 
     if (err.code == DiscordAPIErrorCodes.InvalidToken) return void log.error(`Invalid token ${token} for env "${env}"`);
     throw err;
@@ -58,10 +61,10 @@ module.exports = {
 
   /** @this {Client | void} */
   async onTick() {
-    const now = new Date();
+    const now = Temporal.Now.plainDateISO();
 
     /* eslint-disable-next-line n/no-sync -- false positive: this is not even a method. */
-    if (this?.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
+    if (this?.settings.timeEvents.lastEmojiSync?.equals(now)) return void log('Already ran emoji sync today');
 
     log('Started emoji sync').debug('Started emoji sync');
 

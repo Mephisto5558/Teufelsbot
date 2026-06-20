@@ -3,6 +3,7 @@
 const
   { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { CommandOption, ContextType, OptionType } = require('@mephisto5558/command'),
+  { timeFormatter: { msInSecond } } = require('#Utils'),
   { getTopChannelMembers } = require('./_utils');
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
@@ -29,7 +30,10 @@ module.exports = new CommandOption({
       embed = new EmbedBuilder({
         title: lang('embedTitle', channel.name),
         description: lang('embedDescription', {
-          enabledAt: time(new Date(Math.max(this.guild.db.wordCounter.enabledAt, this.channel.createdAt)), TimestampStyles.ShortDateShortTime),
+          enabledAt: time(
+            Math.floor(Math.max(this.guild.db.wordCounter.enabledAt?.epochMilliseconds, this.channel.createdTimestamp) / msInSecond),
+            TimestampStyles.ShortDateShortTime
+          ),
           amount: bold(this.guild.db.wordCounter.channels[channel.id] ?? 0)
         }),
         color: Colors.Blurple
