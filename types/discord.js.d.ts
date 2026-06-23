@@ -6,7 +6,7 @@ import type {
 } from 'discord.js';
 import type { CommandInitialized as Command, CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
-import type { DB, GetValueByKey } from '@mephisto5558/mongoose-db';
+import type { DB, GetResult } from '@mephisto5558/mongoose-db';
 
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -131,7 +131,7 @@ export interface CustomUser {
     this: User, key: K,
     value: K extends undefined
       ? NonNullable<Database['userSettings'][Snowflake]>
-      : GetValueByKey<NonNullable<Database['userSettings'][Snowflake]>, K>
+      : GetResult<NonNullable<Database['userSettings'][Snowflake]>, K>
   ): Promise<Database['userSettings']>;
 
   deleteDB(this: User, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
@@ -165,7 +165,7 @@ export interface CustomGuild {
     this: Guild, key: K,
     value: K extends undefined
       ? NonNullable<Database['guildSettings'][Snowflake]>
-      : Exclude<GetValueByKey<NonNullable<Database['guildSettings'][Snowflake]>, K>, undefined>
+      : Exclude<GetResult<NonNullable<Database['guildSettings'][Snowflake]>, K>, undefined>
   ): Promise<Database['guildSettings']>;
 
   deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;
