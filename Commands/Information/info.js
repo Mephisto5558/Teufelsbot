@@ -259,7 +259,7 @@ module.exports = new Command({
     const
       startTime = Date.now() - process.uptime() * msInSecond,
       git = await getGitInfo.call(this, Math.floor(startTime / msInSecond)),
-      graph = await createResourceGraph.call(this.client, lang),
+      graphPromise = createResourceGraph.call(this.client, lang),
       commitLink = git.commitURL ? hyperlink(git.branch + '#' + git.shortHash, git.commitURL) : git.branch + '#' + git.shortHash,
       description
         = `${lang('dev')}: ${hyperlink('Mephisto5558', userLink('691550551825055775'))}\n` // Please do not change this line.
@@ -278,11 +278,7 @@ module.exports = new Command({
             en: `${hyperlink('Mephisto5558', userLink('691550551825055775'))} & ${hyperlink('PenguinLeo', userLink('740930989798195253'))}`
           }),
 
-      embed = new EmbedBuilder({
-        description, title: lang('embedTitle'),
-        image: graph ? { url: 'attachment://stats.webp' } : undefined,
-        color: Colors.DarkGold
-      }),
+      embed = new EmbedBuilder({ description, title: lang('embedTitle'), color: Colors.DarkGold }),
       component = new ActionRowBuilder(),
       { website, github, discordInvite, disableWebserver } = this.client.config;
 
@@ -298,9 +294,12 @@ module.exports = new Command({
       if (website.privacyPolicy) component.components.push(createButton(lang('links.privacyPolicy'), `${domain}/${website.privacyPolicy}`));
     }
 
-    return this.customReply({
-      embeds: [embed], components: component.components.length ? [component] : undefined,
-      files: graph ? [new AttachmentBuilder(graph, { name: 'stats.webp' })] : undefined
-    });
+    void this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });
+
+    const graph = await graphPromise;
+    if (!graph) return;
+
+    embed.data.image.url = 'attachment://stats.webp';
+    return this.customReply({ embeds: [embed], files: [new AttachmentBuilder(graph, { name: 'stats.webp' })] });
   }
 });
