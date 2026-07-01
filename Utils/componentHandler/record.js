@@ -18,10 +18,9 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
       if (!(this.member instanceof GuildMember)) return; // typeguard
 
       const
-        guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id),
-        vcCache = guildCache.get(voiceChannelId) ?? guildCache.set(voiceChannelId, []).get(voiceChannelId);
+        guildCache = cache.getOrInsertComputed(this.guild.id, () => new Collection([[voiceChannelId, []]])),
+        vcCache = guildCache.getOrInsert(voiceChannelId, []);
 
-      if (!guildCache || !vcCache) return; // typeguard
       vcCache.push({ userId: this.user.id, allowed: mode == 'memberAllow' });
 
       void this.reply({ content: lang('updated', inlineCode(lang(mode == 'memberAllow' ? 'allow' : 'deny'))), flags: MessageFlags.Ephemeral });
