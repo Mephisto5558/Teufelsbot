@@ -13,7 +13,7 @@ const
   {
     ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
   } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
+  { Permission, isCodedError } = require('@mephisto5558/command'),
   checkTargetManageable = require('../checkTargetManageable'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants'),
@@ -162,10 +162,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   try { item = await this.guild[entityType].fetch(id); }
   catch (err) {
-    if (
-      !('code' in err)
-      || ![DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji].includes(err.code)
-    ) throw err;
+    if (!isCodedError(err, [DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji]))
+      throw err;
   }
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], flags: MessageFlags.Ephemeral });
