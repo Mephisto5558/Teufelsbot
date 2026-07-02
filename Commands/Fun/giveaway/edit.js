@@ -48,10 +48,7 @@ module.exports = new CommandOption({
 
     if (requiredRoles?.length || disallowedMembers?.length) {
     /** @param {GuildMember} member */
-      editOptions.newExemptMembers = member => !(
-        member.roles.cache.some(e => requiredRoles?.includes(e.id))
-        && !disallowedMembers.includes(member.id)
-      );
+      editOptions.newExemptMembers = member => disallowedMembers.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
     }
 
     if (bonusEntries?.__count__) {

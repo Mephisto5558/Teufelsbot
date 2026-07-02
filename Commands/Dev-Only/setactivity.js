@@ -13,7 +13,8 @@ module.exports = new Command({
     {
       name: 'type',
       type: OptionType.String,
-      choices: Object.entries(ActivityType).flatMap(([e]) => e.toLowerCase())
+      /* eslint-disable-next-line unicorn/prefer-number-properties -- different use case */
+      choices: Object.keys(ActivityType).filter(isNaN).map(e => e.toLowerCase())
     },
     { name: 'activity', type: OptionType.String }
   ],

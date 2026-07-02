@@ -44,13 +44,12 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   let response;
 
   try {
-    const timeoutSignal = new AbortController();
-    setTimeout(() => timeoutSignal.abort(), TIMEOUT);
-
-    const res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
-      headers: commonHeaders(this),
-      signal: timeoutSignal.signal
-    });
+    const
+      timeoutSignal = AbortSignal.timeout(TIMEOUT),
+      res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
+        headers: commonHeaders(this),
+        signal: timeoutSignal
+      });
 
     if (!res.ok) throw new Error(await res.text());
 

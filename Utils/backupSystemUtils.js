@@ -20,7 +20,8 @@ async function fetchToBase64(url) {
 /** @type {BackupSystem.Utils['loadFromBase64']} */
 function loadFromBase64(base64Str) {
   if (!base64Str) return;
-  return Buffer.from(Uint8Array.fromBase64(base64Str).buffer);
+  const { buffer } = Uint8Array.fromBase64(base64Str);
+  return Buffer.from(buffer, buffer.byteOffset, buffer.byteLength);
 }
 
 /** @type {BackupSystem.Utils['fetchCategoryChildren']} */

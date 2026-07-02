@@ -94,7 +94,7 @@ module.exports = new CommandOption({
     if (requiredRoles?.length || disallowedMembers?.length)
 
       /** @param {GuildMember} member */
-      startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
+      startOptions.exemptMembers = member => disallowedMembers.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
 
     const giveaway = await this.client.giveawaysManager.start(
       this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes) ?? this.channel, startOptions

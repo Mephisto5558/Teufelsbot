@@ -34,6 +34,6 @@ module.exports = Object.freeze({
     'User-Agent': `Discord Bot ${client.application?.name ?? client.user?.displayName ?? ''}`
       + (client.config.github.repo ? ` (${client.config.github.repo})` : ''),
     Accept: 'application/json',
-    ...hasBody ? { 'Content-Type': 'application/json' } : undefined
+    ...hasBody && { 'Content-Type': 'application/json' }
   })
 });
