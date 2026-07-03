@@ -3,7 +3,7 @@
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { embedDescriptionMaxLength } } = require('#Utils');
+  { getTargetMembers, constants: { embedDescriptionMaxLength } } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

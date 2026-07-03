@@ -3,7 +3,7 @@ const
   {
     help_allQuery: allQuery, help_categoryQuery: categoryQuery, help_commandQuery: commandQuery,
     help_getCommandCategories: getCommandCategories, help_getCommands: getCommands
-  } = require('#Utils/componentHandler');
+  } = require('#utils/componentHandler');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

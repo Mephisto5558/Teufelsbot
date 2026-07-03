@@ -6,7 +6,7 @@ const
   } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, getAge, timeFormatter: { timestamp }, permissionTranslator } = require('#Utils');
+  { getTargetMembers, getAge, timeFormatter: { timestamp }, permissionTranslator } = require('#utils');
 
 /**
  * @param {GuildMember} member

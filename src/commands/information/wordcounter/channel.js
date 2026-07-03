@@ -3,7 +3,7 @@
 const
   { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { CommandOption, ContextType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond } } = require('#Utils'),
+  { timeFormatter: { msInSecond } } = require('#utils'),
   { getTopChannelMembers } = require('./_utils');
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */

@@ -1,6 +1,6 @@
 /** @import { ClientEvents } from 'discord.js' */
 
-const { componentHandler } = require('#Utils');
+const { componentHandler } = require('#utils');
 
 /** @this {ClientEvents['interactionCreate'][0]} */
 module.exports = async function interactionCreate() {

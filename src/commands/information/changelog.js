@@ -2,7 +2,7 @@ const
   { Colors, EmbedBuilder } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#Utils');
+  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#utils');
 
 const
   { github: ghConfig = {} } = getConfig(),

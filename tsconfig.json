@@ -3,33 +3,29 @@
   "compilerOptions": {
     "lib": ["ESNext", "ESNext.Iterator", "ESNext.Temporal"],
     "paths": {
-      "#Utils/*": [
-        "./Utils/*"
-      ],
-      "#Utils/combinedCommands": [
-        "./Utils/combinedCommands/*"
-      ],
-      "#Utils/componentHandler": [
-        "./Utils/componentHandler/*"
-      ],
-      "#Utils/prototypeRegisterer": [
-        "./Utils/prototypeRegisterer/*"
-      ],
       "#types/*": [
-        "./types/*.d.ts"
+        "./src/types/*.d.ts"
       ],
       "#types/db": [
-        "./types/database/index.d.ts"
+        "./src/types/database/index.d.ts"
       ],
       "#types/db/*": [
-        "./types/database/*.d.ts"
+        "./src/types/database/*.d.ts"
+      ],
+      "#utils/*": [
+        "./src/utils/*"
+      ],
+      "#utils/combinedCommands": [
+        "./src/utils/combinedCommands/*"
+      ],
+      "#utils/componentHandler": [
+        "./src/utils/componentHandler/*"
+      ],
+      "#utils/prototypeRegisterer": [
+        "./src/utils/prototypeRegisterer/*"
       ]
     },
     "allowJs": true,
-    "composite": false,
-    "declaration": false,
-    "declarationMap": false,
-    "sourceMap": false,
     "types": ["express", "node", "passport"]
   }
 }

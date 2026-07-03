@@ -12,5 +12,5 @@ module.exports = new Command({
     { name: 'target', type: OptionType.User }
   ],
 
-  run: require('#Utils/combinedCommands').ban_kick_mute
+  run: require('#utils/combinedCommands').ban_kick_mute
 });

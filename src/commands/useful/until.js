@@ -1,6 +1,6 @@
 const
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter;
+  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#utils').timeFormatter;
 
 const MAX_YEARS = 2e5;
 

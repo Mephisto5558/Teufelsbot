@@ -3,7 +3,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat, RouteBases, hyperlink, inlineCode
   } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
-  { getTargetRole, timeFormatter: { timestamp }, permissionTranslator } = require('#Utils');
+  { getTargetRole, timeFormatter: { timestamp }, permissionTranslator } = require('#utils');
 
 const ROLE_DISPLAY_THRESHOLD = 16;
 

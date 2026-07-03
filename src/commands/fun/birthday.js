@@ -1,7 +1,7 @@
 const
   { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, getAge, timeFormatter: { daysInMonthMax, monthsInYear } } = require('#Utils');
+  { getTargetMembers, getAge, timeFormatter: { daysInMonthMax, monthsInYear } } = require('#utils');
 
 const MIN_YEAR = 1900;
 

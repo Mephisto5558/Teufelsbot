@@ -2,7 +2,7 @@ const
   { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createHash, getHashes } = require('node:crypto'),
   { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { constants: { embedDescriptionMaxLength } } = require('#Utils');
+  { constants: { embedDescriptionMaxLength } } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash],

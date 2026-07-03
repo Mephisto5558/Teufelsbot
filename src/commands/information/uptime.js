@@ -1,7 +1,7 @@
 const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
-  { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#Utils');
+  { timeFormatter: { timeFormatter }, toMs: { secToMs } } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

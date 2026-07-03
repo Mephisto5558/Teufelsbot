@@ -2,7 +2,7 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
   { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { commonHeaders } = require('#Utils').constants;
+  { commonHeaders } = require('#utils').constants;
 
 /** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
 const fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {

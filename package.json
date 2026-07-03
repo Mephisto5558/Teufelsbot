@@ -19,14 +19,14 @@
   "author": "Mephisto5558",
   "type": "commonjs",
   "imports": {
-    "#Utils": "./Utils/index.js",
-    "#Utils/combinedCommands": "./Utils/combinedCommands/index.js",
-    "#Utils/componentHandler": "./Utils/componentHandler/index.js",
-    "#Utils/prototypeRegisterer": "./Utils/prototypeRegisterer/index.js",
-    "#Utils/*": "./Utils/*"
+    "#utils": "./src/utils/index.js",
+    "#utils/combinedCommands": "./src/utils/combinedCommands/index.js",
+    "#utils/componentHandler": "./src/utils/componentHandler/index.js",
+    "#utils/prototypeRegisterer": "./src/utils/prototypeRegisterer/index.js",
+    "#utils/*": "./src/utils/*"
   },
-  "main": "index.js",
-  "types": "./types/globals.d.ts",
+  "main": "src/index.js",
+  "types": "./src/types/globals.d.ts",
   "scripts": {
     "lint": "eslint . --cache --cache-location ./node_modules/.cache/eslint/ >eslint.log",
     "lint:check-time": "(export TIMING=50 2>nul || set TIMING=50) && eslint --no-cache -o eslint.log >eslint-timings.md",

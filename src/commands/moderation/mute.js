@@ -1,6 +1,6 @@
 const
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { timeValidator } = require('#Utils');
+  { timeValidator } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash],
@@ -27,5 +27,5 @@ module.exports = new Command({
     }
   ],
 
-  run: require('#Utils/combinedCommands').ban_kick_mute
+  run: require('#utils/combinedCommands').ban_kick_mute
 });

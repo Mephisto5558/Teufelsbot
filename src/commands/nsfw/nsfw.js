@@ -3,7 +3,7 @@ const
   { randomInt } = require('node:crypto'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { commonHeaders } } = require('#Utils');
+  { constants: { commonHeaders } } = require('#utils');
 
 const secretChance = 1e4; // 1 in 10_000
 

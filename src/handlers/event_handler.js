@@ -1,6 +1,6 @@
 const
-  { errorHandler } = require('#Utils'),
-  events = require('../Events');
+  { errorHandler } = require('#utils'),
+  events = require('../events');
 
 /** @this {Client} */
 module.exports = function eventHandler() {
@@ -13,8 +13,8 @@ module.exports = function eventHandler() {
       catch (err) { await errorHandler.call(this, err, eventArgs); }
     });
 
-    log(`Loaded Event ${name}`);
+    log(`Loaded event ${name}`);
   }
 
-  log(`Loaded ${events.__count__} Events\n`);
+  log(`Loaded ${events.__count__} events\n`);
 };

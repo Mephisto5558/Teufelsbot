@@ -11,11 +11,11 @@ const
   {
     GiveawaysManager, configValidator: { configValidationLoop },
     commandPermissionCheck, updateCommandStats, gitpull, errorHandler, shellExec /* , BackupSystem */
-  } = require('#Utils'),
-  events = require('./Events'),
-  handlers = require('./Handlers'),
+  } = require('#utils'),
+  events = require('./events'),
+  handlers = require('./handlers'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
-  { onTick: syncEmojis } = require('./TimeEvents').syncEmojis;
+  { onTick: syncEmojis } = require('./timeEvents').syncEmojis;
 
 const createClient = /** @returns {Client<false>} */ () => new Client({
   shards: 'auto',
@@ -112,7 +112,7 @@ void (async function main() {
         domain: client.config.website.domain, port: client.config.website.port,
         support: { discord: client.config.discordInvite, mail: client.config.mailAddress },
         webhookUrl: process.env.votingWebhookURL,
-        errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
+        errorPagesDir: './website/customSites/error', settingsPath: './website/dashboardSettings', customPagesPath: './website/customSites',
         ownerIds: [...client.config.devIds], autoApproveOwnerRequests: true, defaultAPIVersion: 1
       }, errorHandler.bind(client)
     ).init(

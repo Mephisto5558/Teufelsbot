@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import toMs from '#Utils/toMs.js';
+import toMs from '#utils/toMs.js';
 
 await topLvlTest('toMs', { concurrency: true }, async t => Promise.allSettled([
   t.test('secToMs', () => {

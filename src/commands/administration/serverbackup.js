@@ -3,8 +3,8 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { timestamp } = require('#Utils').timeFormatter,
-  { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler');
+  { timestamp } = require('#utils').timeFormatter,
+  { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#utils/componentHandler');
 
 const BYTES_IN_KILOBYTE = 1024;
 

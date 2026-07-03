@@ -4,7 +4,7 @@ const
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#Utils');
+  { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#utils');
 
 const MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 

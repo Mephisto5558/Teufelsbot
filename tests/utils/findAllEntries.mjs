@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import findAllEntries from '#Utils/findAllEntries.js';
+import findAllEntries from '#utils/findAllEntries.js';
 
 await topLvlTest('findAllEntries', { concurrency: true }, async t => Promise.allSettled([
   t.test('should find a single entry in a flat object', () => {

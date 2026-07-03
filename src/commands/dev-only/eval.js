@@ -3,7 +3,7 @@
 const
   { codeBlock } = require('discord.js'),
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { minToMs } = require('#Utils').toMs;
+  { minToMs } = require('#utils').toMs;
 
 const
   paramMap = { __dirname, __filename, exports, module, require },

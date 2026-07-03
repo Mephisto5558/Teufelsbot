@@ -1,7 +1,7 @@
 const
   { codeBlock } = require('discord.js'),
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { shellExec } = require('#Utils');
+  { shellExec } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Prefix],

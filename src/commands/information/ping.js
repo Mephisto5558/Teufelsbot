@@ -1,7 +1,7 @@
 const
   { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage }, sleep } = require('#Utils');
+  { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage }, sleep } = require('#utils');
 
 const embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
 

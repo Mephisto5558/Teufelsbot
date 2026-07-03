@@ -3,7 +3,7 @@ const
   { readFile, readdir } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
-  { DiscordAPIErrorCodes } = require('#Utils');
+  { DiscordAPIErrorCodes } = require('#utils');
 
 /**
  * @param {string} env

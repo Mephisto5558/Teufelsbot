@@ -1,6 +1,6 @@
 const
   { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } = require('@mephisto5558/command'),
-  { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#Utils');
+  { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#utils');
 
 const maxAllowedAFKMsgLength = 1000;
 

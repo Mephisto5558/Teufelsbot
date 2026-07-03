@@ -3,7 +3,7 @@
 const
   { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { embedFieldMaxAmt, suffix } = require('#Utils').constants,
+  { embedFieldMaxAmt, suffix } = require('#utils').constants,
   { findTriggerId, triggerQuery } = require('./_utils');
 
 

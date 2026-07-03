@@ -4,7 +4,7 @@ const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType, OptionType, capitalize } = require('@mephisto5558/command'),
   /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
-  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#Utils');
+  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#utils');
 
 const MAX_MSGS = 9;
 

@@ -1,7 +1,7 @@
 const
   { userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { checkTargetManageable } = require('#Utils');
+  { checkTargetManageable } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash],

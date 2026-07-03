@@ -3,7 +3,7 @@
 const
   { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { toMs: { secToMs }, sleep } = require('#Utils');
+  { toMs: { secToMs }, sleep } = require('#utils');
 
 const
   RED = 0xED498D,

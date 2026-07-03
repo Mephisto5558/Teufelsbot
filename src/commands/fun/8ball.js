@@ -1,6 +1,6 @@
 const
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { seededHash } = require('#Utils');
+  { seededHash } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

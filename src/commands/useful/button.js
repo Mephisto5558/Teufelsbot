@@ -4,7 +4,7 @@ const
   {
     DiscordAPIErrorCodes, filterEmptyEntries,
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
-  } = require('#Utils');
+  } = require('#utils');
 
 /**
  * @this {ThisParameterType<NonNullable<(typeof module.exports)['run']>>}

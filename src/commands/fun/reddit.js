@@ -5,7 +5,7 @@ const
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#Utils');
+  { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#utils');
 
 const
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */

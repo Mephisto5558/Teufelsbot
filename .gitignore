@@ -1,10 +1,10 @@
 *.log
 package-lock.json
 /config.json
-/VoiceRecords
-/Commands/Dev-Only/test.js
+/voiceRecords
+/src/commands/dev-only/test.js
 .vscode
-/Website/CustomSites/tw
+/src/website/customSites/tw
 /eslint-timings.md
 .ncurc.*
 

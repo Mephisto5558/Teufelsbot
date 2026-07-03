@@ -2,7 +2,7 @@ const
   { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
   { AllContexts, Command, CommandType } = require('@mephisto5558/command');
 
-const { website = {}, disableWebserver } = require('#Utils').getConfig();
+const { website = {}, disableWebserver } = require('#utils').getConfig();
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

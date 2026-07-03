@@ -1,6 +1,6 @@
 const
   { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  { setAfkPrefix } = require('#Utils').afk;
+  { setAfkPrefix } = require('#utils').afk;
 
 module.exports = new Command({
   types: [CommandType.Prefix],

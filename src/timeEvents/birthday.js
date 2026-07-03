@@ -2,7 +2,7 @@
 
 const
   { BaseGuildTextChannel, EmbedBuilder, inlineCode } = require('discord.js'),
-  { DiscordAPIErrorCodes } = require('#Utils');
+  { DiscordAPIErrorCodes } = require('#utils');
 
 /**
  * @this {StringConstructor | string | undefined}

@@ -5,8 +5,8 @@
 const
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMembers, timeFormatter: { secsInMinute } } = require('#Utils'),
-  { sendChallengeMention } = require('#Utils/prototypeRegisterer');
+  { getTargetMembers, timeFormatter: { secsInMinute } } = require('#utils'),
+  { sendChallengeMention } = require('#utils/prototypeRegisterer');
 
 const
   againstStatIds = Object.freeze({ win: 'wonAgainst', lose: 'lostAgainst', draw: 'drewAgainst' }),

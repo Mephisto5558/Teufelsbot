@@ -1,6 +1,6 @@
 /** @import { ClientEvents } from 'discord.js' */
 
-const { errorHandler } = require('#Utils');
+const { errorHandler } = require('#utils');
 
 /**
  * @this {ClientEvents['error'][0]}

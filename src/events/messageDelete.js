@@ -6,7 +6,7 @@ const
     ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags, bold, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond }, sleep } = require('#Utils');
+  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond }, sleep } = require('#utils');
 
 const
   PURPLE = 0x822AED,

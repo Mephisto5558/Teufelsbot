@@ -4,7 +4,7 @@ const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { timestamp } = require('#Utils').timeFormatter;
+  { timestamp } = require('#utils').timeFormatter;
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

@@ -3,7 +3,7 @@ const
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   /* eslint-disable-next-line import-x/no-unresolved -- false positive */
   { Canvas, loadImage } = require('skia-canvas'),
-  { getTargetMembers } = require('#Utils');
+  { getTargetMembers } = require('#utils');
 
 const IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 512 */
 

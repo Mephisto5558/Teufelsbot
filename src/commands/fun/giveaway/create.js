@@ -5,7 +5,7 @@
 const
   { Constants, bold, roleMention, userMention } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { timeValidator } = require('#Utils');
+  { timeValidator } = require('#utils');
 
 
 /** @type {GiveawaySubcommand} */

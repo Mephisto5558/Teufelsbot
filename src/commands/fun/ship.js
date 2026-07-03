@@ -1,7 +1,7 @@
 const
   { createHash } = require('node:crypto'),
   { Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { maxPercentage } } = require('#Utils');
+  { getTargetMembers, constants: { maxPercentage } } = require('#utils');
 
 const
   hashPartLength = 5,

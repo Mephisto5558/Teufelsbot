@@ -1,7 +1,7 @@
 const
   { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers } = require('#Utils'),
-  { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
+  { getTargetMembers } = require('#utils'),
+  { rps_sendChallenge: sendChallenge } = require('#utils/componentHandler');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

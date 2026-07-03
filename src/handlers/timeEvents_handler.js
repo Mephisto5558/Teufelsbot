@@ -1,6 +1,6 @@
 const
   { CronJob } = require('cron'),
-  jobs = require('../TimeEvents');
+  jobs = require('../timeEvents');
 
 /** @this {Client} */
 module.exports = async function timeEventsHandler() {
@@ -13,5 +13,5 @@ module.exports = async function timeEventsHandler() {
     log(`Loaded Cron Job ${name}`);
   }
 
-  log(`Loaded ${jobs.__count__} Cron Jobs\n`);
+  log(`Loaded ${jobs.__count__} cronjobs\n`);
 };

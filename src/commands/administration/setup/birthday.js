@@ -4,7 +4,7 @@ const
   { hyperlink } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command');
 
-const { website = {}, disableWebserver } = require('#Utils').getConfig();
+const { website = {}, disableWebserver } = require('#utils').getConfig();
 
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */

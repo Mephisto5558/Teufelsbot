@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
-  { daysInWeek } = require('#Utils').timeFormatter;
+  { daysInWeek } = require('#utils').timeFormatter;
 
 module.exports = {
   time: '00 00 00 * * 1',

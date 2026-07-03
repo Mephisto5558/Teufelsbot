@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import checkTargetManageable from '#Utils/checkTargetManageable.js';
+import checkTargetManageable from '#utils/checkTargetManageable.js';
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment -- not gonna type all that */
 const

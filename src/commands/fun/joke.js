@@ -5,7 +5,7 @@ const
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { AbortError, FetchError, default: fetch } = require('node-fetch'),
-  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#Utils');
+  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#utils');
 
 const
   TIMEOUT = 2500,

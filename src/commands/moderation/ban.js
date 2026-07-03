@@ -1,6 +1,6 @@
 const
   { Command, CommandType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { maxBanMessageDeleteDays } = require('#Utils').constants;
+  { maxBanMessageDeleteDays } = require('#utils').constants;
 
 module.exports = new Command({
   types: [CommandType.Slash],
@@ -20,5 +20,5 @@ module.exports = new Command({
     { name: 'target', type: OptionType.User }
   ],
 
-  run: require('#Utils/combinedCommands').ban_kick_mute
+  run: require('#utils/combinedCommands').ban_kick_mute
 });

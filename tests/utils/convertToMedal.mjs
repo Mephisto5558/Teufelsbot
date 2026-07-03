@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import convertToMedal from '#Utils/convertToMedal.js';
+import convertToMedal from '#utils/convertToMedal.js';
 
 await topLvlTest('convertToMedal', { concurrency: true }, async t => Promise.allSettled([
   t.test('should return the first place medal for input 0', () => {

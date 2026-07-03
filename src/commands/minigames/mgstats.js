@@ -1,8 +1,8 @@
 const
   { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, isMessage } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#Utils'),
-  { mgStats_formatTop: formatTop } = require('#Utils/componentHandler');
+  { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#utils'),
+  { mgStats_formatTop: formatTop } = require('#utils/componentHandler');
 
 const
   sortOptions = [

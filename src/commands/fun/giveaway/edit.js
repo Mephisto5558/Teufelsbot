@@ -4,7 +4,7 @@
 
 const
   { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { timeValidator } = require('#Utils');
+  { timeValidator } = require('#utils');
 
 
 /** @type {GiveawaySubcommand} */

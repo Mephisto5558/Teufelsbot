@@ -2,7 +2,7 @@ const
   { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
   { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { commonHeaders } = require('#Utils').constants;
+  { commonHeaders } = require('#utils').constants;
 
 const
   getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply'),

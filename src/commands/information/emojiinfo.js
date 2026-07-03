@@ -6,7 +6,7 @@ const
   } = require('discord.js'),
   { Command, CommandType, OptionType, Permission } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { timestamp } = require('#Utils').timeFormatter;
+  { timestamp } = require('#utils').timeFormatter;
 
 /* eslint-disable-next-line unicorn/prefer-string-raw, security/detect-non-literal-regexp -- this can be improved using RegExp.escape in Node24 */
 const emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);

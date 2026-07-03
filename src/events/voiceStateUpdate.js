@@ -3,7 +3,7 @@
 const
   { EmbedBuilder, channelMention, inlineCode, userMention } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { removeAfkStatus, setAfkStatus } = require('#Utils').afk;
+  { removeAfkStatus, setAfkStatus } = require('#utils').afk;
 
 const GRAY = 0x36393F;
 

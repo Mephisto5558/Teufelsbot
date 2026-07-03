@@ -5,7 +5,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, channelMention, hyperlink, inlineCode, userMention
   } = require('discord.js'),
   { Permission } = require('@mephisto5558/command'),
-  { embedFieldValueMaxLength, suffix } = require('#Utils').constants;
+  { embedFieldValueMaxLength, suffix } = require('#utils').constants;
 
 const PINK = 0xE62AED;
 

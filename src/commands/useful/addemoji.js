@@ -3,7 +3,7 @@ const
   http = require('node:http'),
   https = require('node:https'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#utils');
 
 const
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],

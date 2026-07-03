@@ -8,7 +8,7 @@ const
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
   /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
-  { maxPercentage } = require('#Utils').constants;
+  { maxPercentage } = require('#utils').constants;
 
 const
   DM_TO_CM = 10,

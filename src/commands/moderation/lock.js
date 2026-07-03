@@ -11,5 +11,5 @@ module.exports = new Command({
     { name: 'reason', type: OptionType.String }
   ],
 
-  run: require('#Utils/combinedCommands').lock_unlock
+  run: require('#utils/combinedCommands').lock_unlock
 });

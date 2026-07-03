@@ -2,7 +2,7 @@ const
   { TimestampStyles, inlineCode } = require('discord.js'),
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
   { toMS } = require('type-better-ms'),
-  { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#Utils');
+  { timeValidator, timeFormatter: { timestamp }, toMs: { yearToMs } } = require('#utils');
 
 const MAX_YEAR_MS = yearToMs(2e5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- range limit */
 

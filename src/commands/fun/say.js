@@ -3,7 +3,7 @@
 const
   { AllowedMentionsTypes, Constants } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, isMessage } = require('@mephisto5558/command'),
-  { constants, logSayCommandUse } = require('#Utils');
+  { constants, logSayCommandUse } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

@@ -5,7 +5,7 @@
 const
   { Collection, Constants } = require('discord.js'),
   { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, isMessage } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } = require('#utils');
 
 const
   maxMsgsToFetch = 100,

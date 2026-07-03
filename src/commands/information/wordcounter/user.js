@@ -3,7 +3,7 @@
 const
   { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
   { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond } } = require('#Utils'),
+  { timeFormatter: { msInSecond } } = require('#utils'),
   { getTopGuilds } = require('./_utils');
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */

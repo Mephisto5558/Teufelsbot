@@ -17,7 +17,7 @@ const
   } = require('discord.js'),
   { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
   { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
-  { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#Utils');
+  { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#utils');
 
 const
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,

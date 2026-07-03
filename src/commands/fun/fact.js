@@ -2,7 +2,7 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
   fetch = require('node-fetch').default,
-  { constants: { commonHeaders } } = require('#Utils');
+  { constants: { commonHeaders } } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

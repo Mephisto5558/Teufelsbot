@@ -2,7 +2,7 @@ const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } = require('discord.js'),
   { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers } = require('#Utils');
+  { getTargetMembers } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Slash, CommandType.Prefix],

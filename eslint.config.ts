@@ -4,11 +4,11 @@ import config, { getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5
 export default [
   ...config,
   {
-    ignores: ['./Locales/!(en)/**', './Utils/DiscordAPIErrorCodes.json']
+    ignores: ['./Locales/!(en)/**', '**/utils/DiscordAPIErrorCodes.json']
   },
   {
     name: 'templates',
-    files: [`Templates/*${tsGlob}`, `Templates/*${jsGlob}`],
+    files: [`templates/*${tsGlob}`, `templates/*${jsGlob}`],
     rules: {
       [`${pluginNames.typescript}/no-empty-function`]: 'off',
       [`${pluginNames.typescript}/no-unused-vars`]: 'off'
@@ -51,7 +51,7 @@ export default [
   },
   {
     name: 'overwrite:locales/commands',
-    files: ['./Locales/*/commands/*.json'],
+    files: ['./locales/*/commands/*.json'],
     rules: {
       ...getModifiedRule(config, `${pluginNames.jsonc}/key-name-casing`, [{
         snake_case: true /* eslint-disable-line camelcase -- snake_case is not camelCase */
@@ -95,7 +95,7 @@ export default [
   },
   {
     name: 'overwrite:dashboard-settings',
-    files: [`./Website/DashboardSettings/**/*${jsGlob}`, `./Website/DashboardSettings/**/*${tsGlob}`],
+    files: [`./src/website/dashboardSettings/**/*${jsGlob}`, `./src/website/dashboardSettings/**/*${tsGlob}`],
     rules: {
       ...getModifiedRule(config, `${pluginNames.typescript}/no-magic-numbers`, [{
         detectObjects: false // allow `position` filed
@@ -104,7 +104,7 @@ export default [
   },
   {
     name: 'overwrite:dashboard-settings-index',
-    files: ['./Website/DashboardSettings/*/_index.json'],
+    files: ['./src/website/dashboardSettings/*/_index.json'],
     rules: {
       ...getModifiedRule(config, `${pluginNames.jsonc}/sort-keys`, [{
         pathPattern: '^$',
@@ -119,8 +119,8 @@ export default [
     }
   },
   {
-    name: 'overwrite:Tests',
-    files: [`./Tests/**/*${jsGlob}`],
+    name: 'overwrite:tests',
+    files: [`./tests/**/*${jsGlob}`],
     rules: {
       ...getModifiedRule(config, 'id-length', [{
         exceptions: ['t']

@@ -1,7 +1,7 @@
 const
   { inlineCode } = require('discord.js'),
   { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { JSON_SPACES } } = require('#Utils');
+  { getTargetMembers, constants: { JSON_SPACES } } = require('#utils');
 
 module.exports = new Command({
   types: [CommandType.Prefix],

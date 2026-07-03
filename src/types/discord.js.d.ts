@@ -8,8 +8,8 @@ import type { CommandInitialized as Command, CommandManager, CooldownsManager } 
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { DB, GetResult } from '@mephisto5558/mongoose-db';
 
-import type { BackupSystem, GiveawaysManager } from '#Utils';
-import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
+import type { BackupSystem, GiveawaysManager } from '#utils';
+import type { runMessages as TRunMessages } from '#utils/prototypeRegisterer';
 import type locals from './locals';
 
 export interface CustomClient<Ready extends boolean = boolean> {
