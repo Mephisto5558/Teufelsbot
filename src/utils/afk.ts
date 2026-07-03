@@ -1,7 +1,7 @@
 import { TimestampStyles, VoiceState, inlineCode, userMention } from 'discord.js';
 import { Permission } from '@mephisto5558/command';
 import { memberNameMaxLength, messageMaxLength } from './constants.ts';
-import { timeFormatter, timestamp } from './timeFormatter.js';
+import { timeFormatter, timestamp } from './timeFormatter.ts';
 
 import type { ChatInputCommandInteraction, GuildMember, Message, User } from 'discord.js';
 import type { ContextToCaching, ContextToInGuild, ContextType } from '@mephisto5558/command';

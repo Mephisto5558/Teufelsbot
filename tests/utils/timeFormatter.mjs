@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 import { I18nProvider } from '@mephisto5558/i18n';
 
-import { timeFormatter, timestamp } from '#utils/timeFormatter.js';
+import { timeFormatter, timestamp } from '#utils/timeFormatter.ts';
 
 const
   i18n = await new I18nProvider({

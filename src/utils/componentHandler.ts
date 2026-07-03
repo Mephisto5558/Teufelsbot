@@ -2,7 +2,7 @@ import { Colors, EmbedBuilder, MessageFlags, inlineCode, type MessageComponentIn
 import commandPermissionCheck from './commandPermissionCheck.ts';
 import * as handlers from './componentHandler/index.js';
 import errorHandler from './errorHandler.ts';
-import { msInSecond } from './timeFormatter.js';
+import { msInSecond } from './timeFormatter.ts';
 
 export default async function componentHandler(
   this: MessageComponentInteraction,

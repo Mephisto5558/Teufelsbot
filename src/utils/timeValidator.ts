@@ -1,9 +1,9 @@
-/** @import { timeValidator } from './' */
+const validUnits = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
-
-/** @type {timeValidator} */
-module.exports = function timeValidator(timeStr) {
+/** @example '3w2d', '5h' */
+export default function timeValidator<T extends string | undefined>(
+  timeStr?: T
+): T extends undefined | '' | '-' | '+' ? [] : string[] {
   if (typeof timeStr != 'string' || !timeStr || timeStr == '-' || timeStr == '+')
     return [];
 
@@ -17,7 +17,7 @@ module.exports = function timeValidator(timeStr) {
     else if (Number.isNaN(Number.parseInt(char, 10)))
       unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(previousChar, 10)) ? unitBuffer + char : char;
     else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(previousChar, 10))) numberBuffer += char;
-    else if (validItems.includes(unitBuffer)) {
+    else if (validUnits.includes(unitBuffer)) {
       numberBuffer += unitBuffer + char;
       unitBuffer = '';
     }
@@ -25,11 +25,11 @@ module.exports = function timeValidator(timeStr) {
     previousChar = char;
   }
 
-  if (unitBuffer.length <= 0) return validItems.map(unit => numberBuffer + unit);
-  if (validItems.includes(unitBuffer)) return [numberBuffer + unitBuffer];
+  if (unitBuffer.length <= 0) return validUnits.map(unit => numberBuffer + unit);
+  if (validUnits.includes(unitBuffer)) return [numberBuffer + unitBuffer];
 
-  return validItems.reduce((acc, unit) => {
+  return validUnits.reduce((acc, unit) => {
     if (unit != unitBuffer && unit.startsWith(unitBuffer)) acc.push(numberBuffer + unit);
     return acc;
   }, []);
-};
+}

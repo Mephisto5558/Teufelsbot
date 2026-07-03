@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import timeValidator from '#utils/timeValidator.js';
+import timeValidator from '#utils/timeValidator.ts';
 
 await topLvlTest('timeValidator', { concurrency: true }, async t => Promise.allSettled([
   t.test('should return an empty array for invalid input types', () => {

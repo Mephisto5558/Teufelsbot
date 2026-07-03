@@ -1,6 +1,6 @@
-/** @import { timeFormatter as timeFormatterT } from './' */
+import type { DateResolvable, TimestampStylesString } from 'discord.js';
 
-const
+export const
   msInSecond = 1000,
   secsInMinute = 60,
   minutesInHour = 60,
@@ -17,8 +17,13 @@ const
   secsInMonth = secsInDay * daysInMonthAvg,
   secsInYear = secsInDay * daysInYear;
 
-/** @type {timeFormatterT['timeFormatter']} */
-function timeFormatter(ms, lang) {
+/** @param ms the time value in milliseconds since midnight, January 1, 1970 UTC. */
+export function timeFormatter<T extends lang | undefined>(ms: number, lang?: T): {
+  total: number; negative: boolean;
+  formatted: T extends undefined
+    ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
+    : string;
+} {
   const
     now = Temporal.Now.instant(),
     target = Temporal.Instant.fromEpochMilliseconds(ms),
@@ -38,14 +43,9 @@ function timeFormatter(ms, lang) {
   };
 }
 
-/** @type {timeFormatterT['timestamp']} */
-function timestamp(time, code) {
+export function timestamp<T extends TimestampStylesString | undefined = TimestampStylesString | undefined>(
+  time: Temporal.Instant, code?: T
+): T extends undefined ? `<t:${number}>` : `<t:${number}:${T}>` {
   const seconds = Math.round(time.epochMilliseconds / msInSecond);
   return code ? `<t:${seconds}:${code}>` : `<t:${seconds}>`;
 }
-
-module.exports = {
-  msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthMin, daysInMonthAvg, daysInMonthMax,
-  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear,
-  timeFormatter, timestamp
-};
