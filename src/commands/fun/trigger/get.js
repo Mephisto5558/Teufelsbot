@@ -1,4 +1,4 @@
-/** @import TriggerSubcommand from '.' */
+/** @import TriggerSubcommand from './' */
 
 const
   { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),

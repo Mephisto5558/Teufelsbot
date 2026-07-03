@@ -1,4 +1,4 @@
-/** @import { help } from '.' */
+/** @import { help } from './' */
 
 const utils = require('./help_utils');
 

@@ -2,9 +2,11 @@ import type {
   Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature,
   Role, RoleColors, RouteBases
 } from 'discord.js';
-import type { ISODateTime } from '../globals';
 
 import type { backupId, channelId, guildId, messageId, userId } from './common';
+
+/* eslint-disable-next-line unicorn/prefer-temporal -- temporal doesn't have that type */
+type ISODateTime = ReturnType<Date['toISOString']>;
 
 export type backupChannel = {
   type: GuildChannelType;

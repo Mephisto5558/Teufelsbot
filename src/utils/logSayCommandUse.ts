@@ -1,16 +1,16 @@
-/** @import { logSayCommandUse } from '.' */
+import {
+  ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, TextChannel, channelMention, inlineCode, userMention
+} from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { embedFieldValueMaxLength } from './constants.ts';
 
-const
-  {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, TextChannel, channelMention, inlineCode, userMention
-  } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { embedFieldValueMaxLength } = require('./constants');
+import type { GuildMember } from 'discord.js';
 
 const GREY = 0x36393F;
 
-/** @type {logSayCommandUse} */
-module.exports = async function logSayCommandUse(member, lang) {
+export default async function logSayCommandUse(
+  this: Message<true>, member: GuildMember, lang: lang
+): Promise<Message<true> | undefined> {
   const setting = this.guild.db.config.logger?.sayCommandUsed;
   if (this.client.botType == 'dev' || !setting?.enabled) return;
 
@@ -47,4 +47,4 @@ module.exports = async function logSayCommandUse(member, lang) {
     });
 
   return channel.send({ embeds: [embed], components: [component] });
-};
+}

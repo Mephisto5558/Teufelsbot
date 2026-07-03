@@ -1,14 +1,13 @@
-/** @import { componentHandler } from '.' */
+import { Colors, EmbedBuilder, MessageFlags, inlineCode, type MessageComponentInteraction } from 'discord.js';
+import commandPermissionCheck from './commandPermissionCheck.ts';
+import * as handlers from './componentHandler/index.js';
+import errorHandler from './errorHandler.ts';
+import { msInSecond } from './timeFormatter.js';
 
-const
-  { Colors, EmbedBuilder, MessageFlags, inlineCode } = require('discord.js'),
-  commandPermissionCheck = require('./commandPermissionCheck'),
-  /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
-  errorHandler = require('./errorHandler'),
-  { msInSecond } = require('./timeFormatter');
-
-/** @type {componentHandler} */
-module.exports = async function messageComponentHandler(lang) {
+export default async function componentHandler(
+  this: MessageComponentInteraction,
+  lang: lang
+): Promise<unknown> {
   lang.config.backupPaths[0] = 'events.command';
 
   const

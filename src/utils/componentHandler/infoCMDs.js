@@ -3,7 +3,7 @@
 
 /**
  * @import { GuildMember, GuildEmoji, Guild, Role } from 'discord.js'
- * @import { infoCMDs } from '.' */
+ * @import { infoCMDs } from './' */
 
 /**
  * @typedef {(this: ThisParameterType<infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn

@@ -1,7 +1,7 @@
-/** @import { findPaths } from '.' */
-
-/** @type {findPaths} */
-module.exports = function findPaths(obj, targetKey, keys = [], values = [], currKey = '') {
+export default function findPaths(
+  obj: Record<string, unknown>, targetKey: string,
+  keys: string[] = [], values: string[] = [], currKey = ''
+): { keys: string[]; values: string[] } {
   for (const [k, v] of Object.entries(obj)) {
     if (k == targetKey) keys.push(currKey);
 
@@ -11,4 +11,4 @@ module.exports = function findPaths(obj, targetKey, keys = [], values = [], curr
   }
 
   return { keys, values };
-};
+}

@@ -1,4 +1,4 @@
-/** @import { CustomPage } from '#types/locals' */
+/** @import { CustomPage } from '../../../types/locals' */
 
 /** @type {CustomPage} */
 module.exports = {

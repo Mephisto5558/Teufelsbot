@@ -1,4 +1,4 @@
-/** @import { toMs } from '.' */
+/** @import { toMs } from './' */
 
 const { daysInYear, hoursInDay, minutesInHour, msInSecond, secsInMinute } = require('./timeFormatter');
 

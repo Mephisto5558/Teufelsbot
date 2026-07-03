@@ -1,7 +1,7 @@
 /**
  * @import { StringSelectMenuInteraction } from 'discord.js'
  * @import { AllContexts, CommandInitialized as Command, CommandType, CommandManagerMember } from '@mephisto5558/command'
- * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from '.' */
+ * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from './' */
 
 const
   { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuComponent, codeBlock, inlineCode } = require('discord.js'),

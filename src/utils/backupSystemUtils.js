@@ -1,6 +1,6 @@
 /**
  * @import { Webhook, WebhookType, AnyThreadChannel } as discord.js from 'discord.js'
- * @import { BackupSystem } from '.' */
+ * @import { BackupSystem } from './' */
 
 const
   {

@@ -1,4 +1,4 @@
-/** @import { DashboardSetting } from '#types/locals' */
+/** @import { DashboardSetting } from '../../../types/locals' */
 
 /** @type {DashboardSetting} */
 module.exports = {

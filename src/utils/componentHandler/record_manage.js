@@ -1,6 +1,6 @@
 /**
  * @import { ActionRow, ButtonComponent } from 'discord.js'
- * @import { record_startRecording, record_recordControls } from '.' */
+ * @import { record_startRecording, record_recordControls } from './' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, channelMention, userMention } = require('discord.js'),

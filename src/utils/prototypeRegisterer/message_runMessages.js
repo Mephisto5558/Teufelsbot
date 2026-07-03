@@ -1,4 +1,4 @@
-/** @import { runMessages } from '.' */
+/** @import { runMessages } from './' */
 
 const
   { bold } = require('discord.js'),

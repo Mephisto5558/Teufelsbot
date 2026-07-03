@@ -5,7 +5,7 @@ import { Collection } from 'discord.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import getTargetMembers from '#utils/getTargetMembers.js';
+import getTargetMembers from '#utils/getTargetMembers.ts';
 
 await test('getTargetMembers', { concurrency: true }, async t => {
   const

@@ -1,4 +1,4 @@
-/** @import { findTriggerId as findTriggerIdT, triggersArray, triggerQuery as triggerQueryT } from '.' */
+/** @import { findTriggerId as findTriggerIdT, triggersArray, triggerQuery as triggerQueryT } from './' */
 
 /** @type {findTriggerIdT} */
 const findTriggerId = (query, data) => query in data

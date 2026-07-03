@@ -1,4 +1,4 @@
-/** @import { BoundFunction } from '#types/locals' */
+/** @import { BoundFunction } from '../../types/locals' */
 
 const
   { codeBlock } = require('discord.js'),

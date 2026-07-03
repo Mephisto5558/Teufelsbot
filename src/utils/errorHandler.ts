@@ -1,46 +1,40 @@
-/** @import { errorHandler } from '.' */
-
-const
-  {
-    ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
-    Colors, CommandInteraction, ComponentType, EmbedBuilder, Message,
-    MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
-  } = require('discord.js'),
-  fetch = require('node-fetch').default,
-  { JSON_SPACES, commonHeaders } = require('./constants'),
-  { msInSecond, secsInMinute } = require('./timeFormatter'),
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
+import {
+  ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
+  Colors, CommandInteraction, ComponentType, EmbedBuilder, Message,
+  MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
+} from 'discord.js';
+import fetch from 'node-fetch';
+import { JSON_SPACES, commonHeaders } from './constants.ts';
+import { msInSecond, secsInMinute } from './timeFormatter.js';
+import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'json' };
 
 const cwd = process.cwd();
 
-/** @type {errorHandler} */
-/* eslint-disable-next-line unicorn/no-useless-undefined, @typescript-eslint/no-useless-default-assignment
-  -- lang is optional and has no default value. */
-module.exports = async function errorHandler(err, context = [this], lang = undefined) {
+export default async function errorHandler(
+  this: Client, err: Error, context: Record<string, unknown>[] = [this], lang: lang | undefined = undefined
+): Promise<void> {
   const
-
-    /** @type {Record<string, unknown>} */
-    contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((/** @type {Record<string, unknown>} */ acc, e) => {
+    contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce<Record<string, unknown>>((acc, e) => {
       acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
     }, {}),
-    seen = new Set(),
+    seen = new Set<bigint | object | undefined>(),
+    message = Object.values(contextData).find(e => [Message, CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction]
+      .some(type => e instanceof type)) as (
+        Message | CommandInteraction | (MessageComponentInteraction | ModalSubmitInteraction) & { commandName: void } | undefined
+    ),
 
-    /** @type {Message | CommandInteraction | (MessageComponentInteraction | ModalSubmitInteraction) & { commandName: void } | undefined} */
-    message = Object.values(contextData)
-      .find(e => [Message, CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction].some(type => e instanceof type));
+    /* eslint-disable-next-line func-style */
+    stringifyReplacer: Extract<Parameters<JSON['stringify']>[1], GenericFunction> = function stringifyReplacer(
+      _, v
+    ): ReturnType<Extract<Parameters<JSON['stringify']>[1], GenericFunction>> {
+      if (v != undefined && typeof v === 'object') {
+        if (seen.has(v)) return '[Circular]';
+        seen.add(v);
+      }
 
-  /**
-   * @param {string} _
-   * @param {bigint | Record<string, unknown> | undefined} v */
-  function stringifyReplacer(_, v) {
-    if (v != undefined && typeof v === 'object') {
-      if (seen.has(v)) return '[Circular]';
-      seen.add(v);
-    }
-
-    return v;
-  }
+      return v;
+    };
 
   try {
     const msg = [

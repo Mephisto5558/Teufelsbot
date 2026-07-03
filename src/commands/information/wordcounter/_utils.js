@@ -1,4 +1,4 @@
-/** @import subcommand, { format as formatT, getTopGuilds, getTopChannels, getTopMembers, getTopChannelMembers } from '.' */
+/** @import subcommand, { format as formatT, getTopGuilds, getTopChannels, getTopMembers, getTopChannelMembers } from './' */
 
 const
   { Guild, GuildChannel, bold } = require('discord.js'),

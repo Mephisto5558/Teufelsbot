@@ -1,10 +1,9 @@
-/** @import { customPermissionChecksFn } from '@mephisto5558/command' */
+import { Role } from 'discord.js';
 
+import type { customPermissionChecksFn } from '@mephisto5558/command';
 
-const { Role } = require('discord.js');
-
-/** @type {customPermissionChecksFn} */
-module.exports = function commandPermissionCheck(interaction, author) {
+/* eslint-disable-next-line func-style */
+const commandPermissionCheck: customPermissionChecksFn = function commandPermissionCheck(interaction, author) {
   const disabledList = interaction.guild?.db.config.commands?.[this.name]?.disabled;
 
   if (disabledList && interaction.member && author.id != interaction.guild.ownerId) {
@@ -18,3 +17,5 @@ module.exports = function commandPermissionCheck(interaction, author) {
 
   if (this.category == 'nsfw' && !interaction.channel.nsfw) return ['nsfw'];
 };
+
+export default commandPermissionCheck;

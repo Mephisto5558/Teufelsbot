@@ -1,6 +1,6 @@
 /**
  * @import { BaseGuildTextChannel } from 'discord.js'
- * @import { lock_unlock } from '.' */
+ * @import { lock_unlock } from './' */
 
 const
   { Colors, EmbedBuilder, OverwriteType } = require('discord.js'),

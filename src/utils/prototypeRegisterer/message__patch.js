@@ -2,7 +2,7 @@
 /* eslint-disable @eslint-community/eslint-comments/no-use -- overwriting that one */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch]}] -- overwriting that one */
 
-/** @import { _patch } from '.' */
+/** @import { _patch } from './' */
 
 const { Constants, userMention } = require('discord.js');
 

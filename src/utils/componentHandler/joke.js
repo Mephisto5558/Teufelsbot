@@ -1,4 +1,4 @@
-/** @import { joke } from '.' */
+/** @import { joke } from './' */
 
 /** @type {joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {

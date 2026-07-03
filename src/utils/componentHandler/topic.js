@@ -1,4 +1,4 @@
-/** @import { topic } from '.' */
+/** @import { topic } from './' */
 
 /** @type {topic} */
 module.exports = async function topic(lang) {

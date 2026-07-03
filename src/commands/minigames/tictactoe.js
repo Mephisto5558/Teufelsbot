@@ -1,5 +1,5 @@
 /**
- * @import { TicTacToe as TicTacToeT } from '#types/globals'
+ * @import { TicTacToe as TicTacToeT } from '../../types/globals'
  * @import { GuildMember } from 'discord.js' */
 
 const

@@ -5,8 +5,8 @@ import type { AllContexts, ContextToCaching, ContextToInGuild, ContextType } fro
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
-import type { LogInterface } from '../Utils/prototypeRegisterer';
-import type DBStructure from './database';
+import type { LogInterface } from '#utils/prototypeRegisterer';
+import type * as DBStructure from './database/index.ts';
 
 // #region global
 declare global {
@@ -51,7 +51,7 @@ declare global {
 
   interface Object {
     /** The amount of items in the object. */
-    get __count__(this: object): number;
+    get __count__(): number;
   }
 
   /* eslint-enable @typescript-eslint/consistent-type-definitions */
@@ -83,7 +83,7 @@ declare global {
   );
 
   // used to not get `any` on Message property when the object is Message | Interaction
-  type DiffProps<T, U> = { readonly [K in keyof StrictOmit<T, keyof U>]?: undefined; };
+  type DiffProps<T, U> = { readonly [K in keyof LooseOmit<T, keyof U>]?: undefined; };
   type OptionalInteractionProperties<CTX extends AllContexts> = DiffProps<
     Discord.ChatInputCommandInteraction<ContextToCaching<CTX>>, Message<ContextToInGuild<CTX>>
   >;
@@ -141,7 +141,7 @@ export declare class TicTacToe extends DiscordTicTacToe {
 declare module '@mephisto5558/mongoose-db' {
   interface DB {
     /**
-     * generates required database entries from {@link ./Templates/db_collections.json}.
+     * generates required database entries from {@link ../../templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false` */
     generate(overwrite?: boolean): Promise<void>;
   }
@@ -177,15 +177,6 @@ declare module 'wikijs' {
   /* eslint-disable-next-line @typescript-eslint/no-empty-object-type
     -- intentional. `Page` in wikijs is defined as something that is not correct. All `Page`s are `RawPage`s in code */
   interface Page extends RawPage {}
-}
-
-declare module 'moment' {
-  /** Only available if `moment-precise-range-plugin` is imported after importing `moment`. */
-  export function preciseDiff<returnValueObject extends boolean>(
-    d1: MomentInput, d2: MomentInput, returnValueObject: returnValueObject
-  ): returnValueObject extends true
-    ? { years: number; months: number; days: number; hours: number; minutes: number; seconds: number; firstDateWasLater: boolean }
-    : string;
 }
 
 /* eslint-enable @typescript-eslint/consistent-type-definitions */

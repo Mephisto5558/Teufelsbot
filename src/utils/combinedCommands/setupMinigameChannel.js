@@ -1,7 +1,7 @@
 /**
  * @import { GuildTextBasedChannel } from 'discord.js'
- * @import { guildSettings } from '#types/db/guildSettings'
- * @import { setupMinigameChannel } from '.' */
+ * @import { guildSettings } from '../../types/database/guildSettings'
+ * @import { setupMinigameChannel } from './' */
 
 const
   { Colors, EmbedBuilder, channelMention } = require('discord.js'),

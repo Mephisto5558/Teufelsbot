@@ -1,31 +1,27 @@
-/** @import { afk } from '.' */
+import { TimestampStyles, VoiceState, inlineCode, userMention } from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { memberNameMaxLength, messageMaxLength } from './constants.ts';
+import { timeFormatter, timestamp } from './timeFormatter.js';
 
-const
-  { TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { memberNameMaxLength, messageMaxLength } = require('./constants'),
-  { timeFormatter, timestamp } = require('./timeFormatter');
+import type { ChatInputCommandInteraction, GuildMember, Message, User } from 'discord.js';
+import type { ContextToCaching, ContextToInGuild, ContextType } from '@mephisto5558/command';
 
-const
+export const
   nicknamePrefix = '[AFK] ',
   nicknameRegex = new RegExp(`^${nicknamePrefix}`);
 
-
-module.exports.nicknamePrefix = nicknamePrefix;
-module.exports.nicknameRegex = nicknameRegex;
-
-/** @type {afk['getAfkStatus']} */
-module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
+export async function getAfkStatus(this: ChatInputCommandInteraction | Message, target: GuildMember | User, lang: lang): Promise<Message> {
   const { message, createdAt } = this.guild?.db.afkMessages?.[target.id] ?? ('user' in target ? target.user : target).db.afkMessage ?? {};
   if (!message) return this.customReply(lang('getNoneFound'));
 
   return this.customReply(lang('events.message.afkMsg', {
     message, member: inlineCode(target.displayName.replace(nicknameRegex, '')), timestamp: timestamp(createdAt, TimestampStyles.RelativeTime)
   }));
-};
+}
 
-/** @type {afk['listAfkStatuses']} */
-module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
+export async function listAfkStatuses(
+  this: ChatInputCommandInteraction<ContextToCaching<[ContextType.Guild]>> | Message<ContextToInGuild<[ContextType.Guild]>>, lang: lang
+): Promise<Message> {
   const afkMessages = this.guild.members.cache.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
     if (message) {
@@ -39,13 +35,13 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
   }, []).join('\n');
 
   return this.customReply(afkMessages || lang('getNoneFound'));
-};
+}
 
-/**
- * `@this` here due to TS not understanding typeguards with generics
- * @type {afk['setAfkStatus']}
- * @this {ThisParameterType<afk['setAfkStatus']>} */
-module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
+export async function setAfkStatus<
+  T extends ChatInputCommandInteraction | Message | VoiceState
+>(
+  this: T, lang: T extends VoiceState ? undefined : lang, global?: boolean, message?: string
+): Promise<T extends VoiceState ? undefined : Message> {
   const
     user = 'user' in this ? this.user : this.member?.user,
     createdAt = 'createdTimestamp' in this ? Temporal.Instant.fromEpochMilliseconds(this.createdTimestamp) : Temporal.Now.instant();
@@ -59,10 +55,9 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
 
   if (this instanceof VoiceState) return;
   return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { repliedUser: true } });
-};
+}
 
-/** @type {afk['removeAfkStatus']} */
-module.exports.removeAfkStatus = async function removeAfkStatus() {
+export async function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined> {
   if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
   // `member.user` for VoiceState support
@@ -86,10 +81,9 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
     this.channel?.permissionsFor(this.member.id).has(Permission.SendMessages)
     && this.channel.permissionsFor(this.client.user.id).has(Permission.SendMessages)
   ) return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
-};
+}
 
-/** @type {afk['sendAfkMessages']} */
-module.exports.sendAfkMessages = async function sendAfkMessages() {
+export async function sendAfkMessages(this: Message): Promise<Message | undefined> {
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
     if (!message || e.id == this.user.id) return acc;
@@ -108,23 +102,20 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
   }, '');
 
   if (afkMsgs.length) return this.customReply({ content: afkMsgs });
-};
+}
 
-/** @type {afk['setAfkPrefix']} */
-async function setAfkPrefix(member, prefix = nicknamePrefix) {
+/** @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success. */
+export async function setAfkPrefix(member: GuildMember, prefix: string = nicknamePrefix): Promise<true | undefined> {
   if (!member.moderatable || member.displayName.length >= memberNameMaxLength - prefix.length || member.nickname?.startsWith(prefix)) return;
 
   await member.setNickname(`${prefix}${member.displayName}`);
   return true;
 }
 
-/** @type {afk['unsetAfkPrefix']} */
-async function unsetAfkPrefix(member, prefix = nicknamePrefix) {
+/** @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success. */
+export async function unsetAfkPrefix(member: GuildMember, prefix: string = nicknamePrefix): Promise<true | undefined> {
   if (!member.moderatable || !member.nickname?.startsWith(prefix)) return;
 
   await member.setNickname(member.nickname.slice(prefix.length));
-  return false;
+  return true;
 }
-
-module.exports.setAfkPrefix = setAfkPrefix;
-module.exports.unsetAfkPrefix = unsetAfkPrefix;

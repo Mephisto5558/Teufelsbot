@@ -1,4 +1,4 @@
-/** @import { timeValidator } from '.' */
+/** @import { timeValidator } from './' */
 
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 

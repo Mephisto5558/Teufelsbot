@@ -1,4 +1,4 @@
-/** @import { mgStats_formatTop } from '.' */
+/** @import { mgStats_formatTop } from './' */
 
 const
   { userMention } = require('discord.js'),

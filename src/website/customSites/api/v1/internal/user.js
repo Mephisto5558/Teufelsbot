@@ -1,4 +1,4 @@
-/** @import { CustomPage } from '#types/locals' */
+/** @import { CustomPage } from '../../../../../types/locals' */
 
 const
   { ALLOWED_SIZES } = require('discord.js'),

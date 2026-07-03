@@ -1,4 +1,4 @@
-/** @import { chatgpt } from '.' */
+/** @import { chatgpt } from './' */
 
 const fetchAPI = require('./chatgpt_fetchAPI');
 

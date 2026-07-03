@@ -1,4 +1,4 @@
-/** @import { customReply } from '.' */
+/** @import { customReply } from './' */
 
 const
   { AttachmentBuilder, BaseInteraction, DiscordAPIError } = require('discord.js'),

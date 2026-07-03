@@ -7,7 +7,7 @@
         "./src/types/*.d.ts"
       ],
       "#types/db": [
-        "./src/types/database/index.d.ts"
+        "./src/types/database/index.ts"
       ],
       "#types/db/*": [
         "./src/types/database/*.d.ts"

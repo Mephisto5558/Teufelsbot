@@ -1,4 +1,4 @@
-/** @import { fact } from '.' */
+/** @import { fact } from './' */
 
 /** @type {fact} */
 module.exports = async function fact(lang) {

@@ -1,13 +1,10 @@
-/** @import { gitpull } from '.' */
-
-const shellExec = require('./shellExec');
+import shellExec from './shellExec.ts';
 
 const origin = shellExec('git status')
   .catch(() => { /** empty */ })
-  .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n', 2)[1])?.groups.branch);
+  .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n', 2)[1])?.groups?.branch);
 
-/** @type {gitpull} */
-module.exports = async function gitpull() {
+export default async function gitpull(): Promise<Error | { message: 'OK' }> {
   let data;
 
   try { data = await shellExec('git pull'); }
@@ -26,4 +23,4 @@ module.exports = async function gitpull() {
   );
 
   return { message: 'OK' };
-};
+}

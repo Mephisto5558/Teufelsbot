@@ -1,4 +1,4 @@
-const utils = {
+export default {
   afk: require('./afk'),
   BackupSystem: require('./backupSystem'),
   checkTargetManageable: require('./checkTargetManageable'),
@@ -30,4 +30,8 @@ const utils = {
   updateCommandStats: require('./updateCommandStats')
 };
 
-module.exports = utils;
+export namespace getTargetUtils {
+  export type Param = { targetOptionName?: string; returnSelf?: boolean };
+  export type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
+  export type ShouldReturnSelf<T> = [T] extends [{ returnSelf: true }] ? true : false;
+}

@@ -6,7 +6,7 @@
  * @import { DB as DBT } from '@mephisto5558/mongoose-db'
  * @import i18n from '@mephisto5558/i18n'
  * @import { Guild, User, AutocompleteInteraction as AutocompleteInteractionT, ClientApplication as ClientApplicationT } from 'discord.js'
- * @import { LogInterface } from '.' */
+ * @import { LogInterface } from './' */
 
 const
   { AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Events, Guild, GuildMember, Message, User } = require('discord.js'),

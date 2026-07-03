@@ -1,4 +1,4 @@
-/** @import { LogInterface } from '.' */
+/** @import { LogInterface } from './' */
 
 const
   { appendFile } = require('node:fs/promises'),

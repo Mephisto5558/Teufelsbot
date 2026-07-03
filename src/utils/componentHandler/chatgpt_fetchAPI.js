@@ -1,5 +1,5 @@
 /** @import { ButtonInteraction } from 'discord.js' */
-/** @import { chatgpt_fetchAPI } from '.' */
+/** @import { chatgpt_fetchAPI } from './' */
 
 const
   { cleanContent } = require('discord.js'),

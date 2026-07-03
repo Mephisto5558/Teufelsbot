@@ -1,4 +1,4 @@
-/** @import { advice } from '.' */
+/** @import { advice } from './' */
 
 /** @type {advice} */
 module.exports = async function advice(lang) {

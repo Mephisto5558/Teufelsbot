@@ -1,6 +1,6 @@
 /**
  * @import { ButtonInteraction, GuildMember } from 'discord.js'
- * @import { PlayOptions, rps } from '.' */
+ * @import { PlayOptions, rps } from './' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, inlineCode, userMention } = require('discord.js'),

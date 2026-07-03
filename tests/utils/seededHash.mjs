@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import seededHash from '#utils/seededHash.js';
+import seededHash from '#utils/seededHash.ts';
 
 
 await topLvlTest('seededHash', { concurrency: true }, async t => Promise.allSettled([

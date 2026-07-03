@@ -1,6 +1,6 @@
 /**
  * @import { ButtonComponent } from 'discord.js'
- * @import { votingReminder } from '.' */
+ * @import { votingReminder } from './' */
 
 const { ButtonStyle, MessageFlags } = require('discord.js');
 

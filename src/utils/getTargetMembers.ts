@@ -1,23 +1,26 @@
-/**
- * @import { User, Collection } from 'discord.js'
- * @import { __getTargetUser, __getTargetMember, getTargetMembers as getTargetMembersT } from '.' */
+import { GuildMember, userMention } from 'discord.js';
 
-const { GuildMember, userMention } = require('discord.js');
+import type { Collection, User } from 'discord.js';
+import type { ChatInputCommandInteraction, ContextType } from '@mephisto5558/command';
+import type { getTargetUtils } from './index.ts';
 
-/**
- * @template {GuildMember | User} T
- * @param {string} query
- * @param {(e: T) => boolean} filter
- * @param {Collection<Snowflake, T>} cache
- * @returns {T | undefined} */
-const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
+type MemberParam = getTargetUtils.Param & { returnUser?: boolean };
+type MemberType<I, T> = I extends ChatInputCommandInteraction<[ContextType.BotDM]> | Message<[ContextType.BotDM]>
+  ? User : [T] extends [{ returnUser: true }] ? GuildMember | User
+  : GuildMember;
+
+const searchCache = <T extends GuildMember | User>(
+  query: string, filter: (e: T) => boolean, cache: Collection<Snowflake, T>
+): T | undefined => cache.find(e => filter(e) && [
   ...e instanceof GuildMember ? [e.user.username, e.user.globalName, e.nickname] : [e.username, e.globalName], e.id, e.displayName
 ].some(e => !!e && (query.includes(e) || e.includes(query))));
 
-/** @type {__getTargetUser} */
-function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) {
-  /** @type {User | undefined} */
-  let target = 'options' in interaction
+function getTargetUser<
+  I extends ChatInputCommandInteraction | Message, const O extends MemberParam
+>(
+  interaction: I, { targetOptionName, returnSelf }: O, seenList: Map<Snowflake, MemberType<I, O>>
+): getTargetUtils.MaybeWithUndefined<User, getTargetUtils.ShouldReturnSelf<O>> {
+  let target: User | undefined = 'options' in interaction
     ? interaction.options.getUser(targetOptionName)
     : interaction.mentions.users.at(seenList.size) ?? interaction.mentions.users.first();
 
@@ -36,11 +39,13 @@ function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) 
   if (returnSelf && !seenList.has(interaction.user.id)) return interaction.user;
 }
 
-/** @type {__getTargetMember} */
-function getTargetMember(interaction, { targetOptionName, returnSelf, returnUser }, seenList) {
+function getTargetMember<
+  I extends ChatInputCommandInteraction | Message, const O extends MemberParam
+>(
+  interaction: I, { targetOptionName, returnSelf, returnUser }: O, seenList: Map<Snowflake, MemberType<I, O>>
+): MaybeWithUndefined<MemberType<I, O>, ShouldReturnSelf<O>> {
   if (interaction.guild) {
-    /** @type {GuildMember | undefined} */
-    let target = 'options' in interaction
+    let target: GuildMember | undefined = 'options' in interaction
       ? interaction.options.getMember(targetOptionName)
       : interaction.mentions.members?.at(seenList.size) ?? interaction.mentions.members?.first();
 
@@ -61,13 +66,22 @@ function getTargetMember(interaction, { targetOptionName, returnSelf, returnUser
     return returnSelf ? interaction.member ?? interaction.user : undefined;
   }
 
-  return returnUser ? getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) : undefined;
+  return returnUser ? getTargetUser(interaction, { targetOptionName, returnSelf } as O, seenList) : undefined;
 }
 
-/** @type {getTargetMembersT} */
-module.exports = function getTargetMembers(interaction, targetSettings = []) {
+/**
+ * Can only return duplicates if `returnSelf` is true for any option.
+ * Can only return Users if `returnUser` is true for the option.
+ * @default targetOptionName = `target${index}` */
+export default function getTargetMembers<
+  I extends ChatInputCommandInteraction | Message, const O extends readonly MemberParam[] = [MemberParam]
+>(
+  interaction: I, targetSettings: O = []
+): O['length'] extends 1
+  ? MaybeWithUndefined<MemberType<I, O[0]>, ShouldReturnSelf<O[0]>>
+  : { [K in keyof O]: MaybeWithUndefined<MemberType<I, O[K]>, ShouldReturnSelf<O[K]>> } {
   const
-    /** @type {Map<string, GuildMember | User>} */ map = new Map(),
+    map = new Map<string, GuildMember | User>(),
     members = targetSettings.reduce((acc, options, i) => {
       const
         member = getTargetMember(interaction, { ...options, targetOptionName: options.targetOptionName ?? `target${i || ''}` }, acc),
@@ -78,4 +92,4 @@ module.exports = function getTargetMembers(interaction, targetSettings = []) {
     }, map);
 
   return members.values().toArray();
-};
+}

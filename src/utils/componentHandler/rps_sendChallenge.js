@@ -1,4 +1,4 @@
-/** @import { rps_sendChallenge } from '.' */
+/** @import { rps_sendChallenge } from './' */
 
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } = require('discord.js');
 

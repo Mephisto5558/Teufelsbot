@@ -46,7 +46,8 @@ export default [
         ]
       }]),
       [`${pluginNames.unicorn}/prefer-module`]: 'off',
-      [`${pluginNames.unicorn}/prefer-top-level-await`]: 'off'
+      [`${pluginNames.unicorn}/prefer-top-level-await`]: 'off',
+      
     }
   },
   {

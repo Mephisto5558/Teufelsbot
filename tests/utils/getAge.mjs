@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
-import getAge from '#utils/getAge.js';
+import getAge from '#utils/getAge.ts';
 
 await topLvlTest('getAge', async t => {
   await t.test('should return correct age if birthday has passed', () => {

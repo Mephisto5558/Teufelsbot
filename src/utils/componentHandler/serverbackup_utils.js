@@ -1,4 +1,4 @@
-/** @import { serverbackup_hasPerm, serverbackup_createProxy } from '.' */
+/** @import { serverbackup_hasPerm, serverbackup_createProxy } from './' */
 
 /** @type {serverbackup_hasPerm} */
 module.exports.hasPerm = function hasPerm(backup) {

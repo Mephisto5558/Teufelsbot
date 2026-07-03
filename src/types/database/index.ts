@@ -6,11 +6,10 @@ import type { guildSettings } from './guildSettings';
 import type { leaderboards } from './leaderboards';
 import type { userSettings } from './userSettings';
 
-export type { Database };
 export type { backupId } from './common';
 export type { backupChannel } from './backups';
 
-type Database = {
+export type Database = {
   botSettings: botSettings;
   leaderboards: leaderboards;
   userSettings: userSettings;

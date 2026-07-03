@@ -1,4 +1,4 @@
-/** @import TriggerSubcommand, { triggersArray } from '.' */
+/** @import TriggerSubcommand, { triggersArray } from './' */
 
 const
   { inlineCode } = require('discord.js'),

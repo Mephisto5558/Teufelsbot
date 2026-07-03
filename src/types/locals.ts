@@ -1,14 +1,14 @@
 /* eslint-disable-next-line import-x/no-unassigned-import, import-x/no-empty-named-blocks, import-x/order, unicorn/require-module-specifiers
  -- fixes typing issues with WebServer.client */
-import type {} from './discord.js';
+import type {} from './discord.js.js';
 
 import type { CustomPage as LibCustomPage, DashboardSetting as LibDashboardSetting, WebServer as LibWebServer } from '@mephisto5558/bot-website';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
 
-/* eslint-disable-next-line n/no-unpublished-import -- this is a typing file and not in a package. */
-import type { NextFunction, Request, Response } from '@types/express';
+/* eslint-disable-next-line import-x/no-extraneous-dependencies -- @types/express is installed */
+import type { NextFunction, Request, Response } from 'express';
 
-type Config = {
+export type Config = {
   /** Will always include the application owner (or application team owner if existing) id */
   devIds: Set<Snowflake>;
 
@@ -45,12 +45,12 @@ type Config = {
   enableConsoleFix?: boolean;
 };
 
-type BoundFunction<isAsync extends boolean = false> = new (
+export type BoundFunction<isAsync extends boolean = false> = new (
   this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang
 ) => GenericFunction<isAsync extends true ? Promise<unknown> : unknown>;
 
-type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
-type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
+export type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
+export type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
 
 export declare class WebServer<Ready extends boolean = boolean> extends LibWebServer<Ready> {
   db: DB<Database>;
@@ -76,6 +76,6 @@ export type CustomPage<RunReqBody = unknown, RunResBody = unknown> = {
 };
 
 // Modifying the `this` type
-type DashboardSetting = ReplaceMethods<LibDashboardSetting, {
+export type DashboardSetting = ReplaceMethods<LibDashboardSetting, {
   [K in 'set' | 'get' | 'type']: WebServer<GetReadyState<LibDashboardSetting[K]>>
 }>;

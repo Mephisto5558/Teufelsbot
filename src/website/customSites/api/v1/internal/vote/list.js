@@ -1,4 +1,4 @@
-/** @import { CustomPage } from '#types/locals' */
+/** @import { CustomPage } from '../../../../../../types/locals' */
 
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 

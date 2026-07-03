@@ -1,4 +1,4 @@
-/** @import { timeFormatter as timeFormatterT } from '.' */
+/** @import { timeFormatter as timeFormatterT } from './' */
 
 const
   msInSecond = 1000,

@@ -1,4 +1,4 @@
-/** @import { serverbackup } from '.' */
+/** @import { serverbackup } from './' */
 
 const
   { ButtonComponent, Colors, EmbedBuilder, inlineCode } = require('discord.js'),

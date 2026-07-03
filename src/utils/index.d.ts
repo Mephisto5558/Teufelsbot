@@ -11,38 +11,9 @@ import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
 import type { Config } from '../types/locals';
 
-export { default as constants } from './constants';
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
-export declare namespace afk {
-  const
-    nicknamePrefix: string,
-    nicknameRegex: RegExp;
-
-  function getAfkStatus(this: ChatInputCommandInteraction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
-  function listAfkStatuses(this: ChatInputCommandInteraction<[ContextType.Guild]> | Message<[ContextType.Guild]>, lang: lang): Promise<Message>;
-  function setAfkStatus<T extends ChatInputCommandInteraction | Message | VoiceState>(
-    this: T, lang: T extends VoiceState ? undefined : lang, global?: boolean, message?: string
-  ): Promise<T extends VoiceState ? undefined : Message>;
-
-  function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
-  function sendAfkMessages(this: Message): Promise<Message | undefined>;
-
-  /* eslint-disable jsdoc/informative-docs -- wants to remove the default value infos */
-  /**
-   * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] ' */
-  function setAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
-
-  /**
-   * @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] ' */
-  function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
-  /* eslint-enable jsdoc/informative-docs */
-}
-
-type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
 export declare namespace BackupSystem {
   type Options = {
     dbName?: string;
@@ -139,101 +110,6 @@ export declare namespace BackupSystem {
   }
 }
 
-/** @returns the error message id to use with i18n. */
-export declare function checkTargetManageable(
-  this: ChatInputCommandInteraction<'cached'> | Message<true>,
-  member: GuildMember
-): string | undefined;
-
-export const commandPermissionCheck: customPermissionChecksFn;
-
-export declare function componentHandler(
-  this: MessageComponentInteraction,
-  lang: lang
-): Promise<unknown>;
-
-export declare function convertToMedal(i: number): string;
-
-export declare function errorHandler(
-  this: Client,
-  err: Error, context?: unknown, lang?: lang
-): Promise<void>;
-
-/**
- * Removes `null`, `undefined`, empty arrays and empty objects recursively from an object or array.
- * Returns an empty object `{}` for any non-object input (e.g. primitives, `null`). */
-export declare function filterEmptyEntries(obj: unknown): object;
-
-export declare function findAllEntries(
-  obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
-): Record<string, unknown>;
-
-export declare function findPaths(
-  obj: Record<string, unknown>, targetKey: string, keys?: string[], values?: string[], currKey?: string
-): { keys: string[]; values: string[] };
-
-export declare function getAge(birthday: Temporal.PlainDate): number;
-
-export declare function getConfig(): Partial<Config>;
-
-type Param = { targetOptionName?: string; returnSelf?: boolean };
-type MemberParam = Param & { returnUser?: boolean };
-type MemberType<I, const T> = I extends ChatInputCommandInteraction<[ContextType.BotDM]> | Message<[ContextType.BotDM]>
-  ? User : T extends { returnUser: true } ? GuildMember | User
-  : GuildMember;
-type ShouldReturnSelf<const T> = T extends { returnSelf: true } ? true : false;
-
-export declare function __getTargetMember<
-  I extends ChatInputCommandInteraction | Message, const O extends MemberParam = undefined
->(interaction: I, options: O, seenList: Map<Snowflake, MemberType<I, O>>): MaybeWithUndefined<MemberType<I, O>, ShouldReturnSelf<O>>;
-
-export declare function __getTargetUser<
-  I extends ChatInputCommandInteraction | Message, const O extends MemberParam = undefined
->(interaction: I, options: O, seenList: Map<Snowflake, MemberType<I, O>>): MaybeWithUndefined<User, ShouldReturnSelf<O>>;
-
-/**
- * Can only return duplicates if `returnSelf` is true for any option.
- * Can only return Users if `returnUser` is true for the option.
- * @default targetOptionName = `target${index}` */
-export declare function getTargetMembers<
-  I extends ChatInputCommandInteraction | Message, const O extends readonly MemberParam[] = [MemberParam]
->(interaction: I, options?: O): O['length'] extends 1
-  ? MaybeWithUndefined<MemberType<I, O[0]>, ShouldReturnSelf<O[0]>>
-  : { [K in keyof O]: MaybeWithUndefined<MemberType<I, O[K]>, ShouldReturnSelf<O[K]>> };
-
-/** @default targetOptionName = 'target' */
-export declare function getTargetRole<
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters -- consistency with other getTargetXyz functions */
-  I extends ChatInputCommandInteraction<'cached'> | Message<true>,
-  const O extends Param = undefined
->(interaction: I, options?: O): MaybeWithUndefined<Role, ShouldReturnSelf<O>>;
-
-export declare function gitpull(): Promise<Error | { message: 'OK' }>;
-
-export { GiveawaysManagerWithOwnDatabase as GiveawaysManager };
-declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
-declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
-  protected saveGiveaway: saveGiveawayMethod;
-  protected editGiveaway: saveGiveawayMethod;
-
-  protected deleteGiveaway(messageId: Snowflake): Promise<boolean>;
-
-  // @ts-expect-error discord-giveaways is not typed correctly in that case.
-  protected getAllGiveaways(): GiveawayData[];
-}
-
-export declare function logSayCommandUse(
-  this: Message<true>,
-  member: GuildMember, lang: lang
-): Promise<Message<true> | undefined>;
-
-export declare function permissionTranslator<T extends string | string[] | bigint | bigint[] | undefined>(
-  perms?: T, locale?: Locale, i18n: I18nProvider
-): T extends undefined ? [] : T extends unknown[] ? string[] : string;
-
-/** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
-export declare function seededHash(str: string, seed?: number): number;
-
 export declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
@@ -246,19 +122,6 @@ export declare function timeValidator<T extends string | undefined>(
 export const updateCommandStats: commandDoneFn;
 
 export declare function sleep(delay?: number): Promise<void>;
-
-export declare namespace configValidator {
-  type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
-  type validConfigEntry = validConfigPrimitives | [validConfigPrimitives] | { [key: string]: validConfigEntry };
-  const validConfig: Record<string, validConfigEntry>;
-
-  function setDefaultConfig(): Partial<Client['config']>;
-
-  /** @throws {Error} on invalid key or subkey type. */
-  function configValidationLoop(
-    obj: Record<string, unknown>, checkObj: typeof validConfig, allowNull?: boolean
-  ): void;
-}
 
 export { TFormatter as timeFormatter };
 declare namespace TFormatter {

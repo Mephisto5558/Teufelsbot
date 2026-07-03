@@ -3,7 +3,7 @@
 
 /**
  * @import { ActionRow, ButtonComponent, ButtonInteraction } from 'discord.js'
- * @import { sendChallengeMention as sendChallengeMentionT, playAgain as playAgainT } from '.' */
+ * @import { sendChallengeMention as sendChallengeMentionT, playAgain as playAgainT } from './' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),

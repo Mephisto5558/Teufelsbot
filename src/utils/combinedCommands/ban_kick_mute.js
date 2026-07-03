@@ -1,4 +1,4 @@
-/** @import { ban_kick_mute } from '.' */
+/** @import { ban_kick_mute } from './' */
 
 const
   {

@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import { test as topLvlTest } from 'node:test';
 
-import filterEmptyEntries from '#utils/filterEmptyEntries.js';
+import filterEmptyEntries from '#utils/filterEmptyEntries.ts';
 
 await topLvlTest('filterEmptyEntries', { concurrency: true }, async t => Promise.allSettled([
   t.test('should remove null, undefined, empty objects, and empty arrays recursively', () => {

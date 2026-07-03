@@ -10,7 +10,7 @@ import type { DB, GetResult } from '@mephisto5558/mongoose-db';
 
 import type { BackupSystem, GiveawaysManager } from '#utils';
 import type { runMessages as TRunMessages } from '#utils/prototypeRegisterer';
-import type locals from './locals';
+import type * as locals from './locals';
 
 export interface CustomClient<Ready extends boolean = boolean> {
   commandManager: CommandManager;

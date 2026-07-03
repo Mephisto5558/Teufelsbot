@@ -1,4 +1,4 @@
-/** @import { record } from '.' */
+/** @import { record } from './' */
 
 const
   { Collection, GuildMember, MessageFlags, inlineCode } = require('discord.js'),

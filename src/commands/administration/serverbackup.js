@@ -1,4 +1,4 @@
-/** @import { backupId } from '#types/db' */
+/** @import { backupId } from '../../types/database' */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } = require('discord.js'),

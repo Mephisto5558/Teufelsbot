@@ -1,4 +1,4 @@
-/** @import { reddit } from '.' */
+/** @import { reddit } from './' */
 
 /** @type {reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {

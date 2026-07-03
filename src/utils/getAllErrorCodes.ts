@@ -1,10 +1,9 @@
-const
-  { writeFile } = require('node:fs/promises'),
-  fetch = require('node-fetch').default,
-  { JSON_SPACES } = require('./constants');
+import { writeFile } from 'node:fs/promises';
+import fetch from 'node-fetch';
+import { JSON_SPACES } from './constants.ts';
 
 /** Writes all error codes to a file. */
-module.exports = async function fetchAndProcess() {
+export default async function getAllErrorCodes(): Promise<void> {
   const
     res = await fetch('https://gist.githubusercontent.com/Dziurwa14/de2498e5ee28d2089f095aa037957cbb/raw/codes.md').then(async e => e.text()),
     codes = res.split('\n').reduce((acc, line) => {
@@ -22,4 +21,4 @@ module.exports = async function fetchAndProcess() {
     }, {});
 
   return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, JSON_SPACES));
-};
+}

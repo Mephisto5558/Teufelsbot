@@ -1,4 +1,4 @@
-/** @import { mgStats } from '.' */
+/** @import { mgStats } from './' */
 
 const formatTop = require('./mgStats_formatTop');
 

@@ -1,4 +1,4 @@
-/** @import { BackupSystem, DiscordAPIErrorCodes as DiscordAPIErrorCodesT } from '.' */
+/** @import { BackupSystem, DiscordAPIErrorCodes as DiscordAPIErrorCodesT } from './' */
 
 const
   {
@@ -191,7 +191,7 @@ class BackupSystem {
     maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) {
-    /** @type {NonNullable<Database['backups'][import('#types/db').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+    /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => Temporal.Instant.compare(b.createdAt, a.createdAt)).first();
