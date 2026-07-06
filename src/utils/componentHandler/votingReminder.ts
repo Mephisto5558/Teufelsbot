@@ -1,29 +1,34 @@
-/**
- * @import { ButtonComponent } from 'discord.js'
- * @import { votingReminder } from './' */
+import { ButtonBuilder, ButtonStyle, MessageFlags } from 'discord.js';
 
-const { ButtonStyle, MessageFlags } = require('discord.js');
+import type { ActionRow, ButtonComponent, ButtonInteraction } from 'discord.js';
+import type { ComponentReturnType } from './index.ts';
 
-/** @type {votingReminder} */
-module.exports = async function votingReminder(lang, mode) {
+export default async function votingReminder<MODE extends 'enable' | 'disable'>(
+  this: ButtonInteraction<'raw'> & {
+    customId: `votingReminder.${MODE}`;
+    message: {
+      components: [ActionRow<ButtonComponent>];
+    };
+  },
+  lang: lang, mode: MODE
+): ComponentReturnType {
   lang.config.backupPaths[0] = 'others.timeEvents.votingReminder';
 
   await this.deferReply({ flags: MessageFlags.Ephemeral });
   await this.user.updateDB('votingReminderDisabled', mode == 'disable');
 
-  /** @type {ButtonComponent} */
-  const button = this.message.resolveComponent(`votingReminder.${mode}`);
+  const button = ButtonBuilder.from(this.message.resolveComponent(`votingReminder.${mode}`));
   if (mode == 'disable') {
-    button.label = lang('buttonLabelEnable');
-    button.style = ButtonStyle.Success;
-    button.customId = 'votingReminder.enable';
+    button.setLabel(lang('buttonLabelEnable'));
+    button.data.style = ButtonStyle.Success;
+    button.setCustomId('votingReminder.enable');
   }
   else {
-    button.label = lang('buttonLabelDisable');
-    button.style = ButtonStyle.Danger;
-    button.customId = 'votingReminder.disable';
+    button.setLabel(lang('buttonLabelDisable'));
+    button.data.style = ButtonStyle.Danger;
+    button.setCustomId('votingReminder.disable');
   }
 
   await this.message.edit({ components: this.message.components });
   return this.editReply(lang(`${mode}d`));
-};
+}

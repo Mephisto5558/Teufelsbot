@@ -1,23 +1,21 @@
-/**
- * @import { ButtonInteraction, GuildMember } from 'discord.js'
- * @import { PlayOptions, rps } from './' */
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, EmbedBuilder, MessageFlags, inlineCode, userMention } from 'discord.js';
+import sendChallenge from './rps_sendChallenge.ts';
+import DiscordAPIErrorCodes from '../DiscordAPIErrorCodes.json' with { type: 'json' };
+
+import type { ButtonInteraction, GuildMember } from 'discord.js';
+import type { GuildButtonInteraction, Response } from './index.ts';
+
+type PlayOptions = NonNullable<NonNullable<Database['guildSettings'][Snowflake]['minigames']>['rps'][Snowflake]['player1']>;
+
 
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, inlineCode, userMention } = require('discord.js'),
-  sendChallenge = require('./rps_sendChallenge'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+  emojis = { rock: '✊', paper: '🤚', scissors: '✌️' } as const,
+  winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' } as const;
 
-const
-  emojis = Object.freeze({ rock: '✊', paper: '🤚', scissors: '✌️' }),
-  winningAgainst = Object.freeze({ rock: 'scissors', paper: 'rock', scissors: 'paper' });
-
-/**
- * @this {ButtonInteraction<'cached'>}
- * @param {GuildMember} initiator
- * @param {GuildMember} opponent
- * @param {lang} lang
- * @returns {Message} */
-function sendGame(initiator, opponent, lang) {
+async function sendGame(
+  this: ButtonInteraction<'cached'>,
+  initiator: GuildMember, opponent: GuildMember, lang: lang
+): ReturnType<Message['edit']> {
   const
     embed = new EmbedBuilder({
       title: lang('accept.embedTitle', { player1: inlineCode(initiator.displayName), player2: inlineCode(opponent.displayName) }),
@@ -49,13 +47,10 @@ function sendGame(initiator, opponent, lang) {
   return this.message.edit({ embeds: [embed], components: [component] });
 }
 
-/**
- * @this {ButtonInteraction<'cached'>}
- * @param {GuildMember} initiator
- * @param {GuildMember} opponent
- * @param {PlayOptions} mode
- * @param {lang} lang */
-async function runGame(initiator, opponent, mode, lang) {
+async function runGame(
+  this: ButtonInteraction<'cached'>,
+  initiator: GuildMember, opponent: GuildMember, mode: PlayOptions, lang: lang
+): ReturnType<Message['edit']> {
   const choices = opponent.id == this.client.user.id
     ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() }
     : this.guild.db.minigames?.rps[this.message.id] ?? {};
@@ -78,13 +73,10 @@ async function runGame(initiator, opponent, mode, lang) {
   return endGame.call(this, choices, initiator, opponent, lang);
 }
 
-/**
- * @this {ButtonInteraction<'cached'>}
- * @param {{ player1: PlayOptions, player2: PlayOptions }} choices
- * @param {GuildMember} initiator
- * @param {GuildMember} opponent
- * @param {lang} lang */
-async function endGame(choices, initiator, opponent, lang) {
+async function endGame(
+  this: ButtonInteraction<'cached'>,
+  choices: Record<`player${1 | 2}`, PlayOptions>, initiator: GuildMember, opponent: GuildMember, lang: lang
+): ReturnType<Message['edit']> {
   await this.guild.deleteDB(`minigames.rps.${this.message.id}`);
   if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[choices.player1]);
   else {
@@ -107,8 +99,13 @@ async function endGame(choices, initiator, opponent, lang) {
   return this.message.edit({ embeds: this.message.embeds, components: [component] });
 }
 
-/** @type {rps} */
-module.exports = async function rps(lang, initiatorId, mode, opponentId) {
+export default async function rps<
+  INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | PlayOptions,
+  OPPONENT_ID extends Snowflake
+>(
+  this: GuildButtonInteraction & { customId: `rps.${INITIATOR_ID}.${MODE}.${OPPONENT_ID}` },
+  lang: lang, initiatorId: INITIATOR_ID, mode: MODE, opponentId: OPPONENT_ID
+): Promise<Response<true>> {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();
 
@@ -120,7 +117,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     opponent = await this.guild.members.fetch(opponentId);
   }
   catch (err) {
-    if (err.code != DiscordAPIErrorCodes.UnknownMember) throw err;
+    if (!(err instanceof DiscordAPIError) || err.code != DiscordAPIErrorCodes.UnknownMember) throw err;
 
     this.message.embeds[0].data.description = lang('memberNotFound');
     return this.message.edit({ embeds: this.message.embeds, components: [] });
@@ -147,4 +144,4 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
     default: throw new Error('Unsupported mode');
   }
-};
+}

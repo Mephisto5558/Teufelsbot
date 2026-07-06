@@ -1,7 +1,9 @@
-/** @import { advice } from './' */
+import type { ComponentReturnType, GuildButtonInteraction } from './index.ts';
 
-/** @type {advice} */
-module.exports = async function advice(lang) {
+export default async function advice(
+  this: GuildButtonInteraction<'advice'>,
+  lang: lang
+): ComponentReturnType {
   await this.update({ components: [] });
-  return this.client.commandManager.get(this.customId).runWrapper(this, lang.provider, lang.config.locale);
-};
+  return this.client.commandManager.get(this.customId)?.runWrapper(this, lang.provider, lang.config.locale);
+}

@@ -1,14 +1,16 @@
-/** @import { reddit } from './' */
+import type { ButtonInteraction, ComponentReturnType } from './index.ts';
 
-/** @type {reddit} */
-module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
+export default async function reddit<
+  SUBREDDIT extends string, TYPE extends string, FILTER_NSFW extends `${boolean}`
+>(
+  this: ButtonInteraction<`reddit.${SUBREDDIT}.${TYPE}.${FILTER_NSFW}`>,
+  lang: lang, subreddit: SUBREDDIT, type: TYPE, filterNSFW: FILTER_NSFW
+): ComponentReturnType {
   this.options = {
-    getBoolean: () => filterNSFW == 'true',
-
-    /** @type {(str: string) => boolean} */
-    getString: function (str) { return str == 'type' ? type : subreddit; }
+    getBoolean: (): boolean => filterNSFW == 'true',
+    getString: (str: string): string => (str == 'type' ? type : subreddit)
   };
 
   await this.update({ components: [] });
-  return this.client.commandManager.get('reddit').runWrapper(this, lang.provider, lang.config.locale);
-};
+  return this.client.commandManager.get('reddit')?.runWrapper(this, lang.provider, lang.config.locale);
+}

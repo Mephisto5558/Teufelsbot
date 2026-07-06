@@ -18,7 +18,7 @@ type Options<DBName extends keyof Database> = {
   clearGuildBeforeRestore?: boolean;
 };
 
-type StatusObject = {
+export type StatusObject = {
   status?: string;
 };
 

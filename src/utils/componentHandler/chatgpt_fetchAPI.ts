@@ -1,27 +1,22 @@
-/** @import { ButtonInteraction } from 'discord.js' */
-/** @import { chatgpt_fetchAPI } from './' */
-
-const
-  { cleanContent } = require('discord.js'),
-  { getCommands, isComponent, isSlash } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { JSON_SPACES, commonHeaders } = require('../constants');
+import { cleanContent } from 'discord.js';
+import { getCommands, isComponent, isSlash } from '@mephisto5558/command';
+import fetch from 'node-fetch';
+import { JSON_SPACES, commonHeaders } from '../constants.ts';
+import type { ButtonInteraction } from 'discord.js';
 
 const
   DEFAULT_MODEL = 'gpt-oss-20b',
   RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'],
   AI_MESSAGE_CONTEXT = 50,
 
-  /** @type {(client: Client) => string} */
-  getCommandList = client => getCommands.call(client, client.i18n.getTranslator({ undefinedNotFound: true, locale: 'en' }))
+  getCommandList = (client: Client): string => getCommands.call(client, client.i18n.getTranslator({ undefinedNotFound: true, locale: 'en' }))
     .map(category => {
       const commands = category.list.map(cmd => `- ${cmd.commandName}: ${cmd.commandDescription.replaceAll('\n', ' ')}`).join('\n');
       return `**${category.category}**: ${category.subTitle}\n${commands}`;
     })
     .join('\n\n'),
 
-  /** @type {(client: Interaction | Message | ButtonInteraction) => string} */
-  getSystemPrompt = interaction => [
+  getSystemPrompt = (interaction: Interaction | Message | ButtonInteraction): string => [
     // Core Identity
     `You are ${interaction.client.user.username}, a mischievous but helpful Discord bot with a devilish charm.`,
     'Your personality is witty and a bit sarcastic, but you always provide helpful and accurate answers.',
@@ -45,12 +40,10 @@ const
     `You were created on ${interaction.client.application.createdAt.toISOString()}.`
   ].filter(Boolean).join('\n'),
 
-  /** @type {(err: { type: string, message: string }) => boolean} */
-  isUnavailable = err => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
+  isUnavailable = (err: { type: string; message: string }): boolean => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
     || err.message.startsWith('That model is currently overloaded');
 
-/** @type {(message: Interaction | Message) => string} */
-function createUserName(message) {
+function createUserName(message: Interaction | Message): string {
   const member = message.member ?? message.user;
   return `[${message.createdAt.toISOString()}] `
     + message.user.username
@@ -58,10 +51,7 @@ function createUserName(message) {
     + `${message.client.config.devIds.has(message.user.id) ? ' [DEV]' : ''}: `;
 }
 
-/**
- * @param {Message | Interaction | ButtonInteraction<undefined>} interaction
- * @param {string} prompt */
-const createContext = async (interaction, prompt) => [
+const createContext = async (interaction: Message | Interaction | ButtonInteraction<undefined>, prompt: string) => [
   { role: 'system', content: getSystemPrompt(interaction) },
   ...(await interaction.channel.messages.fetch({ limit: AI_MESSAGE_CONTEXT })).filter(e => e.id != interaction.id).reverse().map(msg => {
     let content = msg.cleanContent;
@@ -81,15 +71,18 @@ const createContext = async (interaction, prompt) => [
 ];
 
 
-/** @type {chatgpt_fetchAPI} */
-module.exports = async function fetchAPI(lang, model = DEFAULT_MODEL, deep = false) {
+export default async function fetchAPI<
+  MODEL extends string
+>(
+  this: Interaction | Message | ButtonInteraction<undefined>,
+  lang: lang, model: MODEL = DEFAULT_MODEL as MODEL, deep = false
+): Promise<[string, MODEL]> {
   let prompt;
   if (isComponent(this) && this.isButton()) prompt = (await this.message.fetchReference()).content;
   else if (isSlash(this)) prompt = this.options.getString('message', true);
   else prompt = this.content;
-  const messages = await createContext(this, prompt),
-
-    /** @type {{ choices: { message: { content: string } }[] } | { error: { message: string, type: string } }} */
+  const 
+    messages = await createContext(this, prompt),
     res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
       method: 'POST',
       headers: {
@@ -97,7 +90,7 @@ module.exports = async function fetchAPI(lang, model = DEFAULT_MODEL, deep = fal
         Authorization: `Bearer ${process.env.chatGPTApiKey}`
       },
       body: JSON.stringify({ model, messages })
-    }).then(async e => e.json());
+    }).then(async e => e.json()) as { choices: { message: { content: string } }[] } | { error: { message: string, type: string } };
 
   if ('error' in res) {
     if (RATE_LIMIT_MSGS.some(e => res.error.message.startsWith(e)))
@@ -109,4 +102,4 @@ module.exports = async function fetchAPI(lang, model = DEFAULT_MODEL, deep = fal
 
   log.error('chatgpt command API error:', JSON.stringify(res, undefined, JSON_SPACES));
   return [lang('error'), model];
-};
+}

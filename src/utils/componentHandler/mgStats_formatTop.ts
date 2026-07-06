@@ -1,14 +1,17 @@
-/** @import { mgStats_formatTop } from './' */
+import { userMention } from 'discord.js';
+import { messageMaxLength } from '../constants.ts';
+import convertToMedal from '../convertToMedal.ts';
+import type { BaseInteraction } from 'discord.js';
 
-const
-  { userMention } = require('discord.js'),
-  { messageMaxLength } = require('../constants'),
-  convertToMedal = require('../convertToMedal');
-
-/** @type {mgStats_formatTop} */
-module.exports = function formatTop(input, lang, { sort, mode, maxLength = messageMaxLength, amt = 10 } = {}) {
-  /** @type {[Snowflake, { wins: number, draws: number, losses: number }][]} */
-  const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }]);
+export default function formatTop(
+  this: BaseInteraction<'cached'> | Message<true>,
+  input: [Snowflake, { draws?: number; wins?: number; losses?: number }][],
+  lang: lang,
+  { sort, mode, maxLength = messageMaxLength, amt = 10 }: {
+    sort?: 'f'; mode?: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick'; maxLength?: number; amt?: number;
+  } = {}
+): string | undefined {
+  const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }] as const);
 
   if (input.length > 1) {
     switch (mode) {
@@ -34,4 +37,4 @@ module.exports = function formatTop(input, lang, { sort, mode, maxLength = messa
         + `> ${lang('losses', stats.losses)}\n`
         + `> ${lang('draws', stats.draws)}\n\n`
   ), '') || undefined;
-};
+}

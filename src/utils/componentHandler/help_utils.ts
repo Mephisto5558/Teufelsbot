@@ -1,27 +1,21 @@
-/**
- * @import { StringSelectMenuInteraction } from 'discord.js'
- * @import { AllContexts, CommandInitialized as Command, CommandType, CommandManagerMember } from '@mephisto5558/command'
- * @import { help_getCommands, help_getCommandCategories, help_commandQuery, help_categoryQuery, help_allQuery } from './' */
+import { CommandType, PermissionType, isComponent, isMessage, isSlash } from '@mephisto5558/command';
 
-const
-  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuComponent, codeBlock, inlineCode } = require('discord.js'),
-  { CommandType, PermissionType, isComponent, isMessage, isSlash } = require('@mephisto5558/command'),
-  permissionTranslator = require('../permissionTranslator'),
-  { msInSecond, secsInMinute } = require('../timeFormatter');
 
-/** @type {help_getCommands} */
-function getCommands() {
+import permissionTranslator from '../permissionTranslator.ts';
+import { msInSecond, secsInMinute } from '../timeFormatter.ts';
+import type { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, StringSelectMenuComponent, StringSelectMenuInteraction, codeBlock, inlineCode } from 'discord.js';
+import type { AllContexts, CommandInitialized as Command, CommandManagerMember } from '@mephisto5558/command';
+
+export function getCommands(this: Interaction | Message): CommandManagerMember[] {
   return this.client.commandManager.commands.map(e => e.command).filter(filterCommands.bind(this));
 }
 
-/** @type {help_getCommandCategories} */
-function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
+export function getCommandCategories(this: Interaction | Message): string[] {
+  return getCommands.call(this).map(e => e.category).unique();
+}
 
-/**
- * @this {Interaction | Message | StringSelectMenuInteraction}
- * @returns {string | undefined} */
-function getDefaultOption() {
-  if (isSlash(this) && !this.options.getString('command')) return this.options.getString('category');
+function getDefaultOption(this: Interaction | Message | StringSelectMenuInteraction): string | undefined {
+  if (isSlash(this) && !this.options.getString('command')) return this.options.getString('category') ?? undefined;
   if (isMessage(this)) {
     if (this.args.length > 1) return this.client.commandManager.get(this.args[1])?.category;
     return this.args[0];
@@ -32,11 +26,7 @@ function getDefaultOption() {
   ) return this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
 }
 
-/**
- * @this {Interaction | Message | StringSelectMenuInteraction}
- * @param {lang} lang
- * @param {string[]?} commandCategories */
-function createCategoryComponent(lang, commandCategories) {
+function createCategoryComponent(this: Interaction | Message | StringSelectMenuInteraction, lang: lang, commandCategories?: string[]) {
   commandCategories ??= getCommandCategories.call(this);
   const defaultOption = getDefaultOption.call(this);
 
@@ -65,13 +55,9 @@ function createCategoryComponent(lang, commandCategories) {
   });
 }
 
-/**
- * @this {Interaction | Message | StringSelectMenuInteraction}
- * @param {lang} lang
- * @param {string} category */
-function createCommandsComponent(lang, category) {
-  let defaultOption;
-  if (isSlash(this)) defaultOption = this.options.getString('command');
+function createCommandsComponent(this: Interaction | Message | StringSelectMenuInteraction, lang: lang, category: string) {
+  let defaultOption: string | undefined;
+  if (isSlash(this)) defaultOption = this.options.getString('command') ?? undefined;
   else if (isMessage(this)) defaultOption = this.args[1];
   else if (
     isComponent(this) && this.isStringSelectMenu() && this.message.components[1]
@@ -91,11 +77,7 @@ function createCommandsComponent(lang, category) {
   });
 }
 
-/**
- * @this {Interaction | Message}
- * @param {lang} lang
- * @param {Command<CommandType[], AllContexts> | undefined} cmd */
-function createInfoFields(lang, cmd = {}) {
+function createInfoFields(this: Interaction | Message, lang: lang, cmd: Command<CommandType[], AllContexts> = {}) {
   const arr = [];
 
   if ('aliases' in cmd) {
@@ -123,12 +105,13 @@ function createInfoFields(lang, cmd = {}) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / secsInMinute * msInSecond);
-        let sec = v % secsInMinute;
-        sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
+        const
+          min = Math.floor(v / secsInMinute * msInSecond),
+          sec = v % secsInMinute,
+          secStr = sec % 1 ? sec.toFixed(2) : Math.floor(sec).toString();
 
-        if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
-        return `${lang('global.' + k)}: ` + (min ? `${min}min` : `${sec}s`);
+        if (min && secStr) return `${lang('global.' + k)}: ${min}min ${secStr}s`;
+        return `${lang('global.' + k)}: ` + (min ? `${min}min` : `${secStr}s`);
       }).join(', ')
     });
   }
@@ -144,16 +127,15 @@ function createInfoFields(lang, cmd = {}) {
   return arr;
 }
 
-/**
- * @this {Interaction | Message}
- * @param {CommandManagerMember} cmd */
-function filterCommands(cmd) {
+function filterCommands(this: Interaction | Message, cmd: CommandManagerMember): boolean {
   return !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
     && (!this.client.config.devOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
 }
 
-/** @type {help_commandQuery} */
-module.exports.commandQuery = async function commandQuery(lang, query) {
+export async function commandQuery(
+  this: Interaction | Message | StringSelectMenuInteraction,
+  lang: lang, query: string
+): Promise<Message> {
   if (
     isComponent(this) && this.isStringSelectMenu() && !this.values.length
     && 'components' in this.message.components[0] && this.message.components[0].components[0] instanceof StringSelectMenuComponent
@@ -192,10 +174,12 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
     embeds: [embed],
     components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category)]
   });
-};
+}
 
-/** @type {help_categoryQuery} */
-module.exports.categoryQuery = async function categoryQuery(lang, query) {
+export async function categoryQuery(
+  this: Interaction | Message | StringSelectMenuInteraction,
+  lang: lang, query?: string
+): Promise<Message> {
   if (!query) {
     if (
       isComponent(this) && this.isStringSelectMenu()
@@ -229,10 +213,12 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
     embeds: [embed],
     components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, query)]
   });
-};
+}
 
-/** @type {help_allQuery} */
-module.exports.allQuery = async function allQuery(lang) {
+export async function allQuery(
+  this: Interaction | Message,
+  lang: lang
+): Promise<Message> {
   const
     commandCategories = getCommandCategories.call(this),
     embed = new EmbedBuilder({
@@ -250,7 +236,4 @@ module.exports.allQuery = async function allQuery(lang) {
     });
 
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang, commandCategories)] });
-};
-
-module.exports.getCommands = getCommands;
-module.exports.getCommandCategories = getCommandCategories;
+}

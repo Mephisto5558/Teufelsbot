@@ -1,35 +1,28 @@
 /* eslint-disable @eslint-community/eslint-comments/no-use -- This casing is used to better display the commandName. */
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] -- This casing is used to better display the commandName. */
 
-/**
- * @import { GuildMember, GuildEmoji, Guild, Role } from 'discord.js'
- * @import { infoCMDs } from './' */
+import {
+  ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags,
+  ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
+} from 'discord.js';
+import { Permission, isCodedError } from '@mephisto5558/command';
+import checkTargetManageable from '../checkTargetManageable.ts';
+import { ban_kick_mute } from '../combinedCommands/index.ts';
+import { auditLogReasonMaxLength } from '../constants.ts';
+import { secToMs } from '../toMs.ts';
+import DiscordAPIErrorCodes from '../DiscordAPIErrorCodes.json' with { type: 'json' };
 
-/**
- * @typedef {(this: ThisParameterType<infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn
- * @template {unknown} [Item=unknown] */
+import type { ActionRow, ButtonComponent, GuildEmoji, GuildMember, Role, StringSelectMenuComponent, StringSelectMenuInteraction } from 'discord.js';
+import type { GuildButtonInteraction, Response } from './index.ts';
 
-const
-  {
-    ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags, ModalBuilder, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
-  } = require('discord.js'),
-  { Permission, isCodedError } = require('@mephisto5558/command'),
-  checkTargetManageable = require('../checkTargetManageable'),
-  { ban_kick_mute } = require('../combinedCommands'),
-  { auditLogReasonMaxLength } = require('../constants'),
-  { secToMs } = require('../toMs'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+type ManagerFn = (this: ThisParameterType<typeof infoCMDs>, embed: EmbedBuilder, mode: string, item: never, lang: lang) => Promise<unknown>;
 
 const
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
+  getNoPermEmbed = (embed: EmbedBuilder, lang: lang): EmbedBuilder => embed.setDescription(lang('global.noPermUser')),
 
-  /** @type {(embed: EmbedBuilder, lang: lang) => EmbedBuilder} */
-  getNoPermEmbed = (embed, lang) => embed.setDescription(lang('global.noPermUser')),
-
-  /** @type {Record<string, ManagerFn>} */
-  manageFunctions = {
-    /** @type {ManagerFn<GuildMember>} */
-    async members(embed, mode, member, lang) {
+  manageFunctions: Record<string, ManagerFn> = {
+    async members(embed, mode, member: GuildMember, lang) {
       if (!this.member.permissions.has(mode == 'kick' ? Permission.KickMembers : Permission.BanMembers))
         return this.reply({ embeds: [getNoPermEmbed(embed, lang)], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, member);
@@ -69,8 +62,7 @@ const
       await ban_kick_mute.call(this, lang);
     },
 
-    /** @type {ManagerFn<GuildEmoji>} */
-    async emojis(embed, mode, emoji, lang) {
+    async emojis(embed, mode, emoji: GuildEmoji, lang) {
       switch (mode) {
         case 'addToGuild': {
           const components = [
@@ -95,9 +87,7 @@ const
           if (!this.isStringSelectMenu()) return; // typeguard
 
           for (const guildId of this.values) {
-            let
-              /** @type {Guild | undefined} */ guild,
-              /** @type {GuildMember | undefined} */ guildMember;
+            let guild, guildMember;
 
             try {
               guild = await this.client.guilds.fetch(guildId);
@@ -135,8 +125,7 @@ const
       }
     },
 
-    /** @type {ManagerFn<Role>} */
-    async roles(embed, mode, role, lang) {
+    async roles(embed, mode, role: Role, lang) {
       if (mode != 'delete') return;
 
       if (
@@ -151,8 +140,19 @@ const
     }
   };
 
-/** @type {infoCMDs} */
-module.exports = async function infoCMDs(lang, id, mode, entityType) {
+export default async function infoCMDs<
+  ID extends Snowflake,
+  MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
+  ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
+>(
+  this: (MODE extends 'addToSelectedGuild' ? StringSelectMenuInteraction<'cached'> : GuildButtonInteraction) & {
+    customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}`;
+    message: {
+      components: [ActionRow<MODE extends 'addToSelectedGuild' ? StringSelectMenuComponent : ButtonComponent>];
+    };
+  },
+  lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
+): Promise<Response<true>> {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
   lang.config.backupPaths[0] = `events.command.infoCMDs.${entityType}`;
@@ -175,4 +175,4 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     if (err instanceof DiscordAPIError || err.code == DiscordAPIErrorCodes.UnknownMessage) return;
     throw err;
   });
-};
+}

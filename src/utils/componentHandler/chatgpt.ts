@@ -1,9 +1,15 @@
-/** @import { chatgpt } from './' */
+import fetchAPI from './chatgpt_fetchAPI.ts';
 
-const fetchAPI = require('./chatgpt_fetchAPI');
+import type { ButtonInteraction, ComponentReturnType } from './index.ts';
 
-/** @type {chatgpt} */
-module.exports = async function chatgpt(lang, userId, _, model) {
+export default async function chatgpt<
+  USER_ID extends Snowflake,
+  COMMAND extends 'regenerate',
+  MODEL extends string
+>(
+  this: ButtonInteraction<`chatgpt.${USER_ID}.${COMMAND}.${MODEL}`>,
+  lang: lang, userId: USER_ID, _command: COMMAND, model: MODEL
+): ComponentReturnType {
   lang.config.backupPaths[0] = 'commands.premium.chatgpt';
 
   if (this.user.id != userId) return;
@@ -12,4 +18,4 @@ module.exports = async function chatgpt(lang, userId, _, model) {
   const [newContent] = await fetchAPI.call(this, lang, model);
 
   return this.message.edit(newContent);
-};
+}

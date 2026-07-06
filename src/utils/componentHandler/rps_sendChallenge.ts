@@ -1,12 +1,14 @@
-/** @import { rps_sendChallenge } from './' */
-
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } = require('discord.js');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } from 'discord.js';
+import type { GuildMember } from 'discord.js';
+import type { GuildButtonInteraction, Response } from './index.ts';
 
 const BLUE = 0x2980B9;
 
-/** @type {rps_sendChallenge} */
-module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
-  opponent ??= this.client.user;
+export default async function sendRPSChallenge(
+  this: GuildInteraction | Message<true> | GuildButtonInteraction, lang: lang,
+  initiator: GuildMember, opponent_?: GuildMember
+): Promise<Response> {
+  const opponent = opponent_ ?? this.guild.members.me!;
 
   lang.config.backupPaths[0] = 'commands.minigames.rps.challenge';
 
@@ -38,4 +40,4 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
     deleteTime = 5000;
 
   if (!opponent.user.bot) return msg.reply(lang('newChallenge', userMention(opponent.id))).then(e => setTimeout(() => void e.delete(), deleteTime));
-};
+}

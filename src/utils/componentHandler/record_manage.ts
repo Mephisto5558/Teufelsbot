@@ -1,21 +1,24 @@
-/**
- * @import { ActionRow, ButtonComponent } from 'discord.js'
- * @import { record_startRecording, record_recordControls } from './' */
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, channelMention, userMention } from 'discord.js';
+import { createWriteStream } from 'node:fs';
+import { access, mkdir, unlink } from 'node:fs/promises';
+import { EndBehaviorType, VoiceConnectionStatus, entersState, getVoiceConnection, joinVoiceChannel } from '@discordjs/voice';
+import { Permission } from '@mephisto5558/command';
+import ffmpeg from 'ffmpeg-static';
+import { opus } from 'prism-media';
+import shellExec from '../shellExec.ts';
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, channelMention, userMention } = require('discord.js'),
-  { createWriteStream } = require('node:fs'),
-  { access, mkdir, unlink } = require('node:fs/promises'),
-  { EndBehaviorType, VoiceConnectionStatus, entersState, getVoiceConnection, joinVoiceChannel } = require('@discordjs/voice'),
-  { Permission } = require('@mephisto5558/command'),
-  /** @type {string?} */ ffmpegPath = require('ffmpeg-static'),
-  { Decoder } = require('prism-media').opus,
-  shellExec = require('../shellExec');
+import type { Collection } from 'discord.js';
+import type { GuildButtonInteraction, Response } from './index.ts';
+import type { guildId, userId } from '#types/db/common.ts';
 
+const ffmpegPath = ffmpeg.default;
 if (!ffmpegPath) throw new Error('Missing ffmpeg installation');
 
-/** @type {record_startRecording} */
-module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, isPublic, vcCache) {
+export async function startRecording(
+  this: GuildButtonInteraction,
+  lang: lang, requesterId: Snowflake, voiceChannelId: Snowflake, isPublic: boolean,
+  vcCache: { userId: Snowflake; allowed: boolean }[]
+): Promise<Message | undefined> {
   const embed = this.message.embeds[0];
 
   if (!vcCache.length) {
@@ -86,18 +89,19 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   for (const userId of membersToRecord) {
     connection.receiver
       .subscribe(userId, { end: { behavior: EndBehaviorType.Manual } })
-      .pipe(new Decoder())
+      .pipe(new opus.Decoder())
       .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
   }
-};
+}
 
-/** @type {record_recordControls} */
-module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, isPublic, cache) {
+export async function recordControls(
+  this: GuildButtonInteraction,
+  lang: lang, mode: string, voiceChannelId: Snowflake, isPublic: boolean,
+  cache: Collection<guildId, Collection<Snowflake, { userId: userId; allowed: boolean }[]>>
+): Promise<Response<true>> {
   const
     embed = this.message.embeds[0],
-
-    /** @type {ActionRow<ButtonComponent>} */
-    buttons = this.message.components[0],
+    buttons: ActionRow<ButtonComponent> = this.message.components[0],
     membersToRecord = cache.get(this.guild.id)?.get(voiceChannelId)?.filter(e => e.allowed)
       .map(e => e.userId);
 
@@ -168,4 +172,4 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
 
     return this.message.edit({ embeds: [embed], components: [buttons] });
   }
-};
+}

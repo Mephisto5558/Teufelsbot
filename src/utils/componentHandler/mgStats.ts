@@ -1,9 +1,18 @@
-/** @import { mgStats } from './' */
+import formatTop from './mgStats_formatTop.ts';
 
-const formatTop = require('./mgStats_formatTop');
+import type { ActionRow, InteractionResponse, StringSelectMenuComponent, StringSelectMenuInteraction } from 'discord.js';
 
-/** @type {mgStats} */
-module.exports = async function mgStats(lang, game, wMode, settings) {
+export default async function mgStats<
+  GAME extends string, MODE extends 'sort' | undefined, SETTINGS extends 'all_users' | undefined
+>(
+  this: StringSelectMenuInteraction<'cached'> & {
+    customId: `mgstats.${GAME}.${MODE}.${SETTINGS}`;
+    message: {
+      components: [ActionRow<StringSelectMenuComponent>];
+    };
+  },
+  lang: lang, game: GAME, wMode: MODE, settings: SETTINGS
+): Promise<MODE extends 'sort' ? InteractionResponse : undefined> {
   if (wMode != 'sort') return;
 
   lang.config.backupPaths[0] = 'commands.minigames.mgstats';
@@ -19,4 +28,4 @@ module.exports = async function mgStats(lang, game, wMode, settings) {
   this.message.components[0].components[0].options.find(e => e.value === this.values[0]).default = true;
 
   return this.update({ embeds: this.message.embeds, components: this.message.components });
-};
+}
