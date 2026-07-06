@@ -12,7 +12,7 @@ import {
   GiveawaysManager, commandPermissionCheck, configValidator, errorHandler, gitpull, shellExec, /* , BackupSystem */ updateCommandStats
 } from '#utils';
 import events from './events/index.js';
-import handlers from './handlers/index.js';
+import handlers from './handlers/index.ts';
 import timeEvents from './timeEvents/index.ts';
 /* eslint-enable import-x/first */
 
