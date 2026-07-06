@@ -1,10 +1,7 @@
-/** @import { ClientEvents } from 'discord.js' */
+import { errorHandler } from '#utils';
 
-const { errorHandler } = require('#utils');
+import type { DiscordEvent } from './index.ts';
 
-/**
- * @this {ClientEvents['error'][0]}
- * @param {Client} client */
-module.exports = function error(client) {
+export default (function error(client): void {
   return void errorHandler.call(client, this);
-};
+}) as DiscordEvent<'error'>;

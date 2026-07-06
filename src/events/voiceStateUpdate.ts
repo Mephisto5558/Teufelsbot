@@ -1,16 +1,11 @@
-/** @import { ClientEvents } from 'discord.js' */
-
-const
-  { EmbedBuilder, channelMention, inlineCode, userMention } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { removeAfkStatus, setAfkStatus } = require('#utils').afk;
+import { EmbedBuilder, channelMention, inlineCode, userMention } from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { removeAfkStatus, setAfkStatus } from '#utils/afk.ts';
+import type { DiscordEvent } from './index.ts';
 
 const GRAY = 0x36393F;
 
-/**
- * @this {ClientEvents['voiceStateUpdate'][0]}
- * @param {ClientEvents['voiceStateUpdate'][1]} updatedState */
-module.exports = async function voiceStateUpdate(updatedState) {
+export default (async function voiceStateUpdate(updatedState) {
   if (this.client.botType == 'dev') return;
 
   if (this.guild.afkChannel) {
@@ -59,4 +54,4 @@ module.exports = async function voiceStateUpdate(updatedState) {
   }
 
   return channelToSend.send({ embeds: [embed] });
-};
+}) as DiscordEvent<'voiceStateUpdate'>;

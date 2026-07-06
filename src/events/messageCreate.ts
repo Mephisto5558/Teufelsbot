@@ -1,10 +1,9 @@
-/** @import { ClientEvents } from 'discord.js' */
+import type { DiscordEvent } from './index.ts';
 
-/** @this {ClientEvents['messageCreate'][0]} */
-module.exports = async function messageCreate() {
+export default (async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
-  if (this.botType != 'dev' && this.inGuild()) {
+  if (this.client.botType != 'dev' && this.inGuild()) {
     if (this.guild.db.config.autopublish && this.crosspostable) void this.crosspost();
 
     const mentions = [...this.mentions.users.keys(), ...this.mentions.roles.flatMap(e => e.members).keys()]
@@ -20,4 +19,4 @@ module.exports = async function messageCreate() {
   if (!this.commandName) return this.inGuild() ? this.runMessages() : undefined;
 
   return this.client.commandManager.get(this.commandName)?.runWrapper(this, this.client.i18n, (this.inGuild() ? this.guild : this.user).localeCode);
-};
+}) as DiscordEvent<'messageCreate'>;

@@ -1,11 +1,8 @@
-/** @import { ClientEvents } from 'discord.js' */
+import { ActivityType, ShardClientUtil } from 'discord.js';
+import guildCreate from './guildCreate.ts';
+import type { DiscordEvent } from './index.ts';
 
-const
-  { ActivityType, ShardClientUtil } = require('discord.js'),
-  guildCreate = require('./guildCreate');
-
-/** @this {ClientEvents['clientReady'][0]} */
-module.exports = async function clientReady() {
+export default (async function clientReady(): Promise<void> {
   await this.application.emojis.fetch(); // required for ClientApplication#getEmoji() to work
 
   this.user.setActivity(this.settings.activity ?? { name: '/help', type: ActivityType.Playing });
@@ -23,4 +20,4 @@ module.exports = async function clientReady() {
 
     if ('leftAt' in guild.db) void guild.deleteDB('leftAt');
   }
-};
+}) as DiscordEvent<'clientReady'>;

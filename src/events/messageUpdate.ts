@@ -1,45 +1,36 @@
-/** @import { ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+import {
+  ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, channelMention, hyperlink, inlineCode, userMention
+} from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { embedFieldValueMaxLength, suffix } from '#utils/constants.ts';
+
+import type { DiscordEvent } from './index.ts';
 
 const
-  {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, channelMention, hyperlink, inlineCode, userMention
-  } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { embedFieldValueMaxLength, suffix } = require('#utils').constants;
+  PINK = 0xE62AED,
 
-const PINK = 0xE62AED;
+  shouldRun: DiscordEvent<'messageUpdate'> = function shouldRun(updatedMsg): boolean {
+    const setting = this.guild?.db.config.logger?.messageUpdate;
+    if (
+      this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
+      || !this.guild.channels.cache.has(setting.channel)
+      || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)
+    ) return false;
 
-/**
- * @this {ClientEvents['messageUpdate'][0]}
- * @param {ClientEvents['messageUpdate'][1]} updatedMsg */
-function shouldRun(updatedMsg) {
-  const setting = this.guild?.db.config.logger?.messageUpdate;
-  if (
-    this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
-    || !this.guild.channels.cache.has(setting.channel)
-    || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)
-  ) return;
+    if (
+      this.originalContent === updatedMsg.originalContent && this.attachments.size === updatedMsg.attachments.size
+      && this.embeds.length === updatedMsg.embeds.length
+    ) return false;
 
-  if (
-    this.originalContent === updatedMsg.originalContent && this.attachments.size === updatedMsg.attachments.size
-    && this.embeds.length === updatedMsg.embeds.length
-  ) return;
+    return !this.guild.members.me.permissionsIn(setting.channel).missing([Permission.ViewChannel, Permission.SendMessages]).length;
+  };
 
-  if (this.guild.members.me.permissionsIn(setting.channel).missing([Permission.ViewChannel, Permission.SendMessages]).length)
-    return;
-
-  return true;
-}
-
-/**
- * @this {ClientEvents['messageUpdate'][0]}
- * @param {ClientEvents['messageUpdate'][1]} updatedMsg */
-module.exports = async function messageUpdate(updatedMsg) {
+export default (async function messageUpdate(updatedMsg) {
   if (!shouldRun.call(this, updatedMsg)) return;
 
   const
 
-    /** @type {GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
+    /** cannot be undefined due to `shouldRun()` */
     logChannel = this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel),
     lang = this.client.i18n.getTranslator({
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['events.logger.messageUpdate']
@@ -85,4 +76,4 @@ module.exports = async function messageUpdate(updatedMsg) {
     embed.data.fields[2].value = embed.data.fields[2].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   return logChannel.send({ embeds: [embed], components: [component] });
-};
+}) as DiscordEvent<'messageUpdate'>;

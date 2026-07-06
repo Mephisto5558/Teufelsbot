@@ -1,6 +1,5 @@
-/** @import { ClientEvents } from 'discord.js' */
+import type { DiscordEvent } from './index.ts';
 
-/** @this {ClientEvents['threadCreate'][0]} */
-module.exports = async function threadCreate() {
+export default (async function threadCreate() {
   return this.joinable ? this.join() : undefined;
-};
+}) as DiscordEvent<'threadCreate'>;

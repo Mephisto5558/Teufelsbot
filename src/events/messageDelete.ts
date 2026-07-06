@@ -1,12 +1,12 @@
-/** @import { OmitPartialGroupDMChannel, ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+import {
+  ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags, bold, channelMention, hyperlink, inlineCode, userMention
+} from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { embedFieldValueMaxLength, suffix } from '#utils/constants.ts';
+import { msInSecond } from '#utils/timeFormatter.ts';
+import { sleep } from '#utils';
 
-
-const
-  {
-    ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags, bold, channelMention, hyperlink, inlineCode, userMention
-  } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond }, sleep } = require('#utils');
+import type { DiscordEvent } from './index.ts';
 
 const
   PURPLE = 0x822AED,
@@ -14,11 +14,9 @@ const
   TWENTY_SEC = 2e4;
 
 
-/**
- * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang} lang
- * @param {string | Record<string, string>} descriptionData */
-async function sendeMinigameDeletedEmbed(lang, descriptionData) {
+async function sendeMinigameDeletedEmbed(
+  this: ThisParameterType<DiscordEvent<'messageDelete'>>, lang: lang, descriptionData: string | Record<string, string>
+) {
   const embed = new EmbedBuilder({
     author: { name: this.user.username, iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
@@ -30,10 +28,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
   return this.channel.send({ embeds: [embed], allowedMentions: { parse: [] } });
 }
 
-/**
- * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang} lang */
-async function countingHandler(lang) {
+async function countingHandler(this: ThisParameterType<DiscordEvent<'messageDelete'>>, lang: lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent, 10))) return;
 
@@ -41,10 +36,7 @@ async function countingHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });
 }
 
-/**
- * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang} lang */
-async function wordchainHandler(lang) {
+async function wordchainHandler(this: ThisParameterType<DiscordEvent<'messageDelete'>>, lang: lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
 
@@ -52,8 +44,7 @@ async function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
-/** @this {ClientEvents['messageDelete'][0]} */
-function shouldRun() {
+function shouldRun(this: ThisParameterType<DiscordEvent<'messageDelete'>>) {
   const setting = this.guild?.db.config.logger?.messageDelete;
   if (
     !setting?.enabled || !this.guild.channels.cache.has(setting.channel)
@@ -64,8 +55,7 @@ function shouldRun() {
   return true;
 }
 
-/** @this {ClientEvents['messageDelete'][0]} */
-module.exports = async function messageDelete() {
+export default (async function messageDelete(): Promise<unknown> {
   if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   const lang = this.client.i18n.getTranslator({
@@ -117,4 +107,4 @@ module.exports = async function messageDelete() {
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
   return logChannel.send({ embeds: [embed] });
-};
+}) as DiscordEvent<'messageDelete'>;

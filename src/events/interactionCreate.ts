@@ -1,9 +1,7 @@
-/** @import { ClientEvents } from 'discord.js' */
+import { componentHandler } from '#utils';
+import type { DiscordEvent } from './index.ts';
 
-const { componentHandler } = require('#utils');
-
-/** @this {ClientEvents['interactionCreate'][0]} */
-module.exports = async function interactionCreate() {
+export default (async function interactionCreate(): Promise<unknown> {
   if (
     this.client.settings.blacklist?.includes(this.user.id)
     || !(this.isCommand() || this.isAutocomplete() || this.isMessageComponent())
@@ -24,4 +22,4 @@ module.exports = async function interactionCreate() {
   }
 
   if (this.isCommand()) return command.runWrapper(this, this.client.i18n, locale);
-};
+}) as DiscordEvent<'interactionCreate'>;

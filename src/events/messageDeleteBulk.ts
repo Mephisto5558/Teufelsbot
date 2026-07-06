@@ -1,18 +1,14 @@
-/** @import { ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+import { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { toMs, sleep } from '#utils';
 
-const
-  { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { toMs: { secToMs }, sleep } = require('#utils');
+import type { DiscordEvent } from './index.ts';
 
 const
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
 
-/**
- * @this {ClientEvents['messageDeleteBulk'][0]}
- * @param {ClientEvents['messageDeleteBulk'][1]} channel */
-module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move all the log events to `guildAuditLogEntryCreate`
+export default (async function messageDeleteBulk(channel): Promise<unknown> { // TODO: maybe move all the log events to `guildAuditLogEntryCreate`
   const setting = channel.guild.db.config.logger?.messageDelete;
 
   if (
@@ -27,12 +23,12 @@ module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move
       .missing([Permission.ViewChannel, Permission.SendMessages, Permission.ViewAuditLog]).length
   ) return;
 
-  await sleep(secToMs(1)); // makes sure the audit log gets created before trying to fetch it
+  await sleep(toMs.secToMs(1)); // makes sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 20s */
-      .find(e => e.target.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
+      .find(e => e.target.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < toMs.secToMs(20)) ?? {},
     lang = channel.client.i18n.getTranslator({
       locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPaths: ['events.logger.messageDeleteBulk']
     }),
@@ -52,4 +48,4 @@ module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
 
   return logChannel.send({ embeds: [embed] });
-};
+}) as DiscordEvent<'messageDeleteBulk'>;

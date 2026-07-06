@@ -1,7 +1,6 @@
-/** @import { ClientEvents } from 'discord.js' */
+import type { DiscordEvent } from './index.ts';
 
-/** @this {ClientEvents['guildCreate'][0]} */
-module.exports = async function guildCreate() {
+export default (async function guildCreate() {
   log.debug(`Joined new guild: ${this.id}`);
   if (this.client.botType == 'dev') return;
 
@@ -10,4 +9,4 @@ module.exports = async function guildCreate() {
 
   if (!('config' in this.db)) await this.updateDB('config', {});
   if ('leftAt' in this.db) await this.deleteDB('leftAt');
-};
+}) as DiscordEvent<'guildCreate'>;
