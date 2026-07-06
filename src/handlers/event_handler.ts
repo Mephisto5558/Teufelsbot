@@ -1,4 +1,4 @@
-import * as events from '../events/index.js';
+import * as events from '../events/index.ts';
 import { errorHandler } from '#utils';
 
 export default function eventHandler(this: Client): void {
