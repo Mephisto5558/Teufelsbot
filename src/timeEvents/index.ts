@@ -9,6 +9,6 @@ export { default as votingReminder } from './votingReminder.ts';
 export type CronJob = {
   time: Exclude<CronJobParams['cronTime'], string>
     | `${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'}`;
-  onTick(this: Client): Promise<unknown>;
+  onTick(this: Client): Promise<void>;
   startNow: CronJobParams['start'];
 };

@@ -1,9 +1,7 @@
-const
-  { errorHandler } = require('#utils'),
-  events = require('../events');
+import * as events from '../events/index.js';
+import { errorHandler } from '#utils';
 
-/** @this {Client} */
-module.exports = function eventHandler() {
+export default function eventHandler(this: Client): void {
   for (const [name, event] of Object.entries(events)) {
     /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
     this.on(name, async (...args) => {
@@ -17,4 +15,4 @@ module.exports = function eventHandler() {
   }
 
   log(`Loaded ${events.__count__} events\n`);
-};
+}

@@ -57,8 +57,7 @@ export default {
   time: '00 00 00 * * *',
   startNow: false, // getting ran even before logging into the client
 
-  /** @this {Client | void} */
-  async onTick() {
+  async onTick(this: Client | void): Promise<void> {
     const now = Temporal.Now.plainDateISO();
 
     /* eslint-disable-next-line n/no-sync -- false positive: this is not even a method. */

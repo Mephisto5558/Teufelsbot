@@ -1,6 +1,2 @@
-const handlers = {
-  eventHandler: require('./event_handler'),
-  timeEventsHandler: require('./timeEvents_handler')
-};
-
-module.exports = handlers;
+export { default as eventHandler } from './event_handler.ts';
+export { default as timeEventsHandler } from './timeEvents_handler.ts';

@@ -12,6 +12,7 @@ export enum LogLevel {
 }
 
 type LogOptions = { level?: LogLevel; type?: string; prefix?: string };
+export type LogInstance<DIR extends string | boolean = './Logs'> = Log<DIR> & ((...str: unknown[]) => Log<DIR>);
 
 export default class Log<DIR extends string | boolean = './Logs'> extends Function implements CallableFunction {
   logLevel: LogLevel;

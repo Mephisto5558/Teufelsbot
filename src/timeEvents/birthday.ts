@@ -55,7 +55,7 @@ export default {
   time: '00 00 00 * * *',
   startNow: true,
 
-  async onTick(): Promise<unknown> {
+  async onTick(): Promise<void> {
     const now = Temporal.Now.plainDateISO();
 
     if (this.settings.timeEvents.lastBirthdayCheck?.equals(now)) return void log('Already ran birthday check today');

@@ -1,9 +1,7 @@
-const
-  { CronJob } = require('cron'),
-  jobs = require('../timeEvents');
+import { CronJob } from 'cron';
+import * as jobs from '../timeEvents/index.ts';
 
-/** @this {Client} */
-module.exports = async function timeEventsHandler() {
+export default async function timeEventsHandler(this: Client): Promise<void> {
   if (this.botType == 'dev') return void log('Disabled timed events due to dev version.');
 
   await this.awaitReady();
@@ -14,4 +12,4 @@ module.exports = async function timeEventsHandler() {
   }
 
   log(`Loaded ${jobs.__count__} cronjobs\n`);
-};
+}

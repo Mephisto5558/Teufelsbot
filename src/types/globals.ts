@@ -5,6 +5,7 @@ import type DiscordTicTacToe from 'discord-tictactoe';
 
 import type { Log } from '#utils/prototypeRegisterer';
 import type * as DBStructure from './database/index.ts';
+import type { LogInstance } from '#utils/prototypeRegisterer/Log.ts';
 
 // #region global
 declare global {
@@ -33,8 +34,8 @@ declare global {
 
   // #region custom
   /** Custom logging, including logfiles. */
-  const log: Log;
-  type log = Log;
+  const log: LogInstance;
+  type log = LogInstance;
 
   type Database = DBStructure.Database;
 

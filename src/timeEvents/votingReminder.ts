@@ -6,8 +6,7 @@ export default {
   time: '00 00 00 * * 1',
   startNow: false,
 
-  /** @this {Client} */
-  async onTick() {
+  async onTick(this: Client): Promise<void> {
     const now = Temporal.Now.plainDateISO();
 
     if (!this.config.website.domain) return void log.warn('Voting reminder did not run due to no domain being configured in config.json');
