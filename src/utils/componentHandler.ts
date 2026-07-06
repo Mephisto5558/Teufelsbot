@@ -1,8 +1,10 @@
-import { Colors, EmbedBuilder, MessageFlags, inlineCode, type MessageComponentInteraction } from 'discord.js';
+import { Colors, EmbedBuilder, MessageFlags, inlineCode } from 'discord.js';
 import commandPermissionCheck from './commandPermissionCheck.ts';
 import * as handlers from './componentHandler/index.js';
 import errorHandler from './errorHandler.ts';
 import { msInSecond } from './timeFormatter.ts';
+
+import type { MessageComponentInteraction } from 'discord.js';
 
 export default async function componentHandler(
   this: MessageComponentInteraction,
@@ -30,4 +32,4 @@ export default async function componentHandler(
 
   try { if (feature && feature in handlers) return await handlers[feature].call(this, lang, id, mode, data, args); }
   catch (err) { return errorHandler.call(this.client, err, this, lang); }
-};
+}

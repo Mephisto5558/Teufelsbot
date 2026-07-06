@@ -2,8 +2,6 @@ import type * as Discord from 'discord.js';
 import type { AllContexts, ContextToCaching, ContextToInGuild, ContextType } from '@mephisto5558/command';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
-
-import type { Log } from '#utils/prototypeRegisterer';
 import type * as DBStructure from './database/index.ts';
 import type { LogInstance } from '#utils/prototypeRegisterer/Log.ts';
 

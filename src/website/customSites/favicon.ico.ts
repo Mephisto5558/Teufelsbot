@@ -1,4 +1,4 @@
-import { CustomPage } from '#types/locals';
+import type { CustomPage } from '#types/locals';
 
 export default {
   run(res) { return res.redirect(this.client.user.displayAvatarURL()); }

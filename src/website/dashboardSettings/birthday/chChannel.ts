@@ -1,5 +1,6 @@
 import { Constants } from 'discord.js';
-import { DashboardSetting } from '#types/locals';
+
+import type { DashboardSetting } from '#types/locals';
 
 export default {
   id: 'chChannel',

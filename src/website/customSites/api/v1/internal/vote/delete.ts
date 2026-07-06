@@ -1,6 +1,6 @@
-import { CustomPage } from '#types/locals';
-import { FeatureRequest } from '@mephisto5558/bot-website';
 import { constants } from 'node:http2';
+import type { FeatureRequest } from '@mephisto5558/bot-website';
+import type { CustomPage } from '#types/locals';
 
 const { HTTP_STATUS_OK } = constants;
 

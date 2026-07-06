@@ -65,7 +65,7 @@ export default {
 
     log('Started emoji sync').debug('Started emoji sync');
 
-    const clients = await (await readdir('.', { withFileTypes: true })).reduce(async (/** @type {Promise<Client<true>[]>} */ acc, e) => {
+    const clients = await (await readdir('.', { withFileTypes: true })).reduce<Promise<Client<true>[]>>(async (acc, e) => {
       if (!e.isFile() || !e.name.startsWith('.env')) return acc;
 
       const { token, environment = 'main' } = parseEnv(await readFile(join(e.parentPath, e.name), 'utf8'));

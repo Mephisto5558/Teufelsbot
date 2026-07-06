@@ -11,7 +11,7 @@ import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'jso
 const cwd = process.cwd();
 
 export default async function errorHandler(
-  this: Client, err: Error, context: Record<string, unknown>[] = [this], lang: lang | undefined = undefined
+  this: Client, err: Error, context: Record<string, unknown>[] = [this], lang?: lang
 ): Promise<void> {
   const
     contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce<Record<string, unknown>>((acc, e) => {
@@ -100,9 +100,7 @@ export default async function errorHandler(
               Authorization: `Bearer ${process.env.githubKey}`
             }
           }),
-
-          /** @type {{ title: string, state: 'open' | 'closed' }[]} */
-          issuesJson = await issues.json();
+          issuesJson = await issues.json() as { title: string, state: 'open' | 'closed' }[];
 
         if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
 
@@ -124,9 +122,7 @@ export default async function errorHandler(
                 + err.stack.replaceAll(cwd, '[cwd]')
             })
           }),
-
-          /** @type {{ html_url: string }} */
-          json = await res.json();
+          json = await res.json() as { html_url: string };
 
         if (!res.ok) throw new Error(JSON.stringify(json));
 
@@ -167,4 +163,4 @@ export default async function errorHandler(
       component.components[0].data.disabled = true;
       return void msg.edit({ embeds: [embed], components: [component] });
     });
-};
+}

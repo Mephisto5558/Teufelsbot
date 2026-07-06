@@ -1,5 +1,5 @@
-import { CustomPage } from '#types/locals';
 import { constants } from 'node:http2';
+import type { CustomPage } from '#types/locals';
 
 const { HTTP_STATUS_OK } = constants;
 

@@ -81,7 +81,7 @@ export default async function fetchAPI<
   if (isComponent(this) && this.isButton()) prompt = (await this.message.fetchReference()).content;
   else if (isSlash(this)) prompt = this.options.getString('message', true);
   else prompt = this.content;
-  const 
+  const
     messages = await createContext(this, prompt),
     res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
       method: 'POST',
@@ -90,7 +90,7 @@ export default async function fetchAPI<
         Authorization: `Bearer ${process.env.chatGPTApiKey}`
       },
       body: JSON.stringify({ model, messages })
-    }).then(async e => e.json()) as { choices: { message: { content: string } }[] } | { error: { message: string, type: string } };
+    }).then(async e => e.json()) as { choices: { message: { content: string } }[] } | { error: { message: string; type: string } };
 
   if ('error' in res) {
     if (RATE_LIMIT_MSGS.some(e => res.error.message.startsWith(e)))

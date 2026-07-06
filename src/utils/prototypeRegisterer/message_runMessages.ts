@@ -1,7 +1,8 @@
-import { bold, type MessageReaction } from 'discord.js';
+import { bold } from 'discord.js';
 import { removeAfkStatus, sendAfkMessages } from '../afk.ts';
 import { secToMs } from '../toMs.ts';
-import type { guildSettings } from '../../types/database/guildSettings.ts';
+
+import type { guildSettings } from '#types/db/guildSettings.ts';
 
 const
   MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */

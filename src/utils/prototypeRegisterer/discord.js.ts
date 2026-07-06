@@ -1,7 +1,7 @@
 import { AutocompleteInteraction, BaseInteraction, Client, ClientApplication, Events, Guild, GuildMember, Message, User } from 'discord.js';
 import { join } from 'node:path';
 import { CommandManager, CooldownsManager } from '@mephisto5558/command';
-import { I18nProvider } from '@mephisto5558/i18n';
+import { I18nProvider, Locale } from '@mephisto5558/i18n';
 import findAllEntries from '#utils/findAllEntries.ts';
 import { loadEnvAndDB } from './client__loadEnvAndDB.ts';
 import { _patch, customReply, runMessages } from './index.ts';
@@ -12,17 +12,16 @@ function createDbHandlers(class_: typeof User | typeof Guild): Partial<User | Gu
   return {
     db: {
       /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive from the DB lib */
-      get(): unknown { return this.client.db.get(collection, this.id) ?? {}; },
+      get(this: Guild | User): unknown { return this.client.db.get(collection, this.id) ?? {}; },
       set(this: Guild | User, val: unknown): void { void this.updateDB(undefined, val); }
     },
     updateDB: {
-      value: async function updateDB(key, value) {
+      value: async function updateDB(key: string, value: unknown) {
         return this.client.db.update(collection, `${this.id}${key ? '.' + key : ''}`, value);
       } as User['updateDB'] | Guild['updateDB']
     },
     deleteDB: {
-      value: async function deleteDB(key) {
-        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- safety */
+      value: async function deleteDB(this: Guild | User, key: string) {
         if (!key) throw new Error(`Missing key; cannot delete ${this.constructor.name} using this method!`);
         return this.client.db.delete(collection, `${this.id}.${key}`);
       } as User['deleteDB'] | Guild['deleteDB']
@@ -48,100 +47,84 @@ Object.defineProperties(Client.prototype, {
   cooldowns: { value: new CooldownsManager() },
   config: { value: config, writable: true },
 
-  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   settings: {
-    get() { return this.db.get('botSettings'); },
-    set(val) { void this.db.set('botSettings', val); }
-  },
+    get(): unknown { return this.db.get('botSettings'); },
+    set(val): void { void this.db.set('botSettings', val); }
+  } satisfies Record<string, (this: Client, val: unknown) => unknown>,
 
-  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   defaultSettings: {
-    get() { return this.db.get('botSettings', 'defaultGuild'); },
-    set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
-  },
+    get(): unknown { return this.db.get('botSettings', 'defaultGuild'); },
+    set(val): void { void this.db.update('botSettings', 'defaultGuild', val); }
+  } satisfies Record<string, (this: Client, val: unknown) => unknown>,
 
-  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   prefixes: {
-    get() {
+    get(): unknown {
       return this.db.get('botSettings', `defaultGuild.config.prefixes.${this.botType}`)
         ?? this.db.get('botSettings', 'defaultGuild.config.prefixes.main');
     },
-    set() { throw new Error('You cannot set a value to Client#prefixes!'); }
-  },
+    set(): void { throw new Error('You cannot set a value to Client#prefixes!'); }
+  } satisfies Record<string, (this: Client, val: unknown) => unknown>,
 
   loadEnvAndDB: {
     value: loadEnvAndDB
   },
   awaitReady: {
-    /** @type {Client['awaitReady']} */
-    value: async function awaitReady() {
+    value: async function awaitReady(): Promise<ClientApplication> {
       if (this.isReady()) return this.application.name ? this.application : this.application.fetch();
       return new Promise(res => void this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
-    }
+    } satisfies Client['awaitReady']
   }
 });
 Object.defineProperty(ClientApplication.prototype, 'getEmoji', {
-  /** @type {ClientApplicationT['getEmoji']} */
-  value: function getEmoji(emoji) {
+  value: function getEmoji(emoji): string | undefined {
     return this.emojis.cache.find(e => e.name == emoji)?.toString();
-  }
+  } satisfies ClientApplication['getEmoji']
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
-  /** @this {AutocompleteInteraction} */
-  get() { return this.options.getFocused(true); },
-
-  /**
-   * @this {AutocompleteInteractionT}
-   * @param {AutocompleteInteractionT['focused']['value']} val */
-  set(val) { this.options.data.find(e => !!e.focused).value = val; }
-});
+  get(): AutocompleteInteraction['focused'] { return this.options.getFocused(true); },
+  set(val): void { this.options.data.find(e => !!e.focused)!.value = val; }
+} satisfies Record<string, (this: AutocompleteInteraction, val: AutocompleteInteraction['focused']['value']) => unknown>);
 Object.defineProperty(Message.prototype, 'user', {
-  /** @this {Message} */
-  get() { return this.author; }
+  get(this: Message): User { return this.author; }
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
   ...createDbHandlers(User),
 
-  /** @type {Record<string, (this: User, val: i18n.Locale) => i18n.Locale>} */
   localeCode: {
-    get() {
+    get(): Locale {
       const locale = this.db.localeCode
         ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale
         ?? undefined; // website db user locale can be `null`
 
       return locale?.startsWith('en') ? 'en' : locale;
     },
-    set(val) { void this.updateDB('localeCode', val); }
-  }
+    set(val): void { void this.updateDB('localeCode', val); }
+  } satisfies Record<string, (this: User, val: Locale) => Locale>
 });
 Object.defineProperties(GuildMember.prototype, {
-  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
   db: {
-    get() { return findAllEntries(this.guild.db, this.id); },
-    set() { throw new Error('You cannot set a value to GuildMember#db!'); }
-  },
+    get(): Record<string, unknown> { return findAllEntries(this.guild.db, this.id); },
+    set(): void { throw new Error('You cannot set a value to GuildMember#db!'); }
+  } satisfies Record<string, (this: GuildMember, val: unknown) => unknown>,
 
-  /** @type {Record<string, (this: GuildMember, val: i18n.Locale) => i18n.Locale>} */
   localeCode: {
-    get() {
+    get(): Locale {
       return this.user.localeCode ?? this.guild.localeCode;
     },
-    set(val) { void this.user.updateDB('localeCode', val); }
-  }
+    set(val): void { void this.user.updateDB('localeCode', val); }
+  } satisfies Record<string, (this: GuildMember, val: Locale) => Locale>
 });
 Object.defineProperties(Guild.prototype, {
   ...createDbHandlers(Guild),
 
-  /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */
   localeCode: {
-    get() { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
+    get(): Locale { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
     set(val) { void this.updateDB('config.lang', val); }
-  },
+  } satisfies Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>,
 
-  /** @type {Record<string, (this: Guild, val: unknown) => unknown>} */
   prefixes: {
-    get() { return this.db.config.prefixes?.[this.client.botType] ?? this.client.prefixes; },
-    set() { throw new Error('You cannot set a value to Guild#prefixes!'); }
-  }
+    get(): prefixes[] { return this.db.config.prefixes?.[this.client.botType] ?? this.client.prefixes; },
+    set(): void { throw new Error('You cannot set a value to Guild#prefixes!'); }
+  } satisfies Record<string, (this: Guild, val: unknown) => unknown>;
 });

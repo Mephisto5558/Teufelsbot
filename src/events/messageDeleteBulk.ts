@@ -1,6 +1,6 @@
 import { AuditLogEvent, EmbedBuilder, MessageFlags, channelMention, inlineCode, userMention } from 'discord.js';
 import { Permission } from '@mephisto5558/command';
-import { toMs, sleep } from '#utils';
+import { sleep, toMs } from '#utils';
 
 import type { DiscordEvent } from './index.ts';
 
@@ -16,8 +16,7 @@ export default (async function messageDeleteBulk(channel): Promise<unknown> { //
     || !this.some(e => !e.flags.has(MessageFlags.Ephemeral) && !e.flags.has(MessageFlags.Loading))
   ) return;
 
-  /** @type {GuildTextBasedChannel | undefined} */
-  const logChannel = channel.guild.channels.cache.get(setting.channel);
+  const logChannel = channel.guild.channels.cache.get(setting.channel) as GuildTextBasedChannel | undefined;
   if (
     !logChannel || logChannel.permissionsFor(channel.guild.members.me)
       .missing([Permission.ViewChannel, Permission.SendMessages, Permission.ViewAuditLog]).length

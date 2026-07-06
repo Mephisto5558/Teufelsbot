@@ -1,5 +1,7 @@
-import { BaseGuildTextChannel, EmbedBuilder, inlineCode, GuildMember, Guild, DiscordAPIError } from 'discord.js';
+import { BaseGuildTextChannel, DiscordAPIError, EmbedBuilder, inlineCode } from 'discord.js';
 import { DiscordAPIErrorCodes } from '#utils';
+
+import type { Guild, GuildMember } from 'discord.js';
 import type { CronJob } from './index.ts';
 
 function formatBirthday(this: StringConstructor | string | undefined, member: GuildMember, year?: number) {

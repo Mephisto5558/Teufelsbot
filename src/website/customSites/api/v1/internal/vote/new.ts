@@ -1,5 +1,5 @@
-import { CustomPage } from '#types/locals';
 import { constants } from 'node:http2';
+import type { CustomPage } from '#types/locals';
 
 const { HTTP_STATUS_OK } = constants;
 
@@ -10,4 +10,4 @@ export default {
     const reply = await this.voteSystem.add(req.body?.title, req.body?.description, req.user?.id);
     return res.status('errorCode' in reply ? reply.errorCode : HTTP_STATUS_OK).json(reply);
   }
-} satisfies CustomPage<{ title?: string, description?: string }>;
+} satisfies CustomPage<{ title?: string; description?: string }>;

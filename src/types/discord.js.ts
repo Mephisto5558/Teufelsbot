@@ -7,11 +7,10 @@ import type {
 import type { CommandInitialized as Command, CommandManager, CooldownsManager } from '@mephisto5558/command';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { DB, GetResult } from '@mephisto5558/mongoose-db';
-
-import type { runMessages as TRunMessages } from '#utils/prototypeRegisterer';
 import type { loadEnvAndDB as TLoadEnvAndDB } from '#utils/prototypeRegisterer/client__loadEnvAndDB.ts';
 import type * as locals from './locals.ts';
 import type { BackupSystem, GiveawaysManager } from '#utils';
+import type { runMessages as TRunMessages } from '#utils/prototypeRegisterer';
 
 export interface CustomClient<Ready extends boolean = boolean> {
   commandManager: CommandManager;

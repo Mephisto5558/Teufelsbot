@@ -1,5 +1,6 @@
 import { Events } from 'discord.js';
 
+import clientReady from './clientReady.ts';
 import debug from './debug.ts';
 import error from './error.ts';
 import guildCreate from './guildCreate.ts';
@@ -9,7 +10,6 @@ import messageCreate from './messageCreate.ts';
 import messageDelete from './messageDelete.ts';
 import messageDeleteBulk from './messageDeleteBulk.ts';
 import messageUpdate from './messageUpdate.ts';
-import clientReady from './clientReady.ts';
 import threadCreate from './threadCreate.ts';
 import voiceStateUpdate from './voiceStateUpdate.ts';
 
@@ -27,7 +27,7 @@ export default {
   [Events.MessageUpdate]: messageUpdate,
   [Events.ClientReady]: clientReady,
   [Events.ThreadCreate]: threadCreate,
-  [Events.VoiceStateUpdate]: voiceStateUpdate,
+  [Events.VoiceStateUpdate]: voiceStateUpdate
 };
 
 type DropFirst<T extends unknown[]> = T extends [unknown, ...infer Rest] ? Rest : [];

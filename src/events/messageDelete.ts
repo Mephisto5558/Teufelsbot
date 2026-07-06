@@ -73,8 +73,8 @@ export default (async function messageDelete(): Promise<unknown> {
 
   const
 
-    /** @type {GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
-    logChannel = this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel),
+    /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- cannot be undefined due to `shouldRun()` */
+    logChannel = this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel)!,
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
       .find(e => (e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({

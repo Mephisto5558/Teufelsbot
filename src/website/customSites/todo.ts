@@ -1,4 +1,4 @@
-import { CustomPage } from '#types/locals';
+import type { CustomPage } from '#types/locals';
 
 export default {
   title: 'Dev ToDo List',

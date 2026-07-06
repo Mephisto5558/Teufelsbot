@@ -1,6 +1,6 @@
-import { CustomPage } from '#types/locals';
 import { ALLOWED_SIZES } from 'discord.js';
 import { constants } from 'node:http2';
+import type { CustomPage } from '#types/locals';
 
 const { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = constants;
 

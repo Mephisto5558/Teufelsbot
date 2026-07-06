@@ -18,6 +18,7 @@
   "license": "MIT",
   "author": "Mephisto5558",
   "type": "module",
+  "files": [],
   "imports": {
     "#utils": "./src/utils/index.js",
     "#utils/combinedCommands": "./src/utils/combinedCommands/index.js",
