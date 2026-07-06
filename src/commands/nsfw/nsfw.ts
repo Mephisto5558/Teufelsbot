@@ -1,13 +1,12 @@
-const
-  { EmbedBuilder } = require('discord.js'),
-  { randomInt } = require('node:crypto'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { constants: { commonHeaders } } = require('#utils');
+import { EmbedBuilder } from 'discord.js';
+import { randomInt } from 'node:crypto';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import fetch from 'node-fetch';
+import { commonHeaders } from '#utils/constants.ts';
 
 const secretChance = 1e4; // 1 in 10_000
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'hentai' },
   cooldowns: { [CooldownType.User]: '1s' },
@@ -23,10 +22,9 @@ module.exports = new Command({
   }],
 
   async run(lang) {
-    /** @type {{ success: boolean, message: string, color: number }} */
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`, {
       headers: commonHeaders(this.client)
-    }).then(async e => e.json());
+    }).then(async e => e.json()) as { success: boolean, message: string, color: number };
 
     if (!data.success) {
       void this.customReply(lang('error'));

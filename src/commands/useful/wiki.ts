@@ -1,14 +1,12 @@
-/** @import wikijs from '../../node_modules/wikijs/index' */
-
-const
-  { Colors, EmbedBuilder, bold } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType, capitalize } = require('@mephisto5558/command'),
-  /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
-  { constants: { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES }, timeFormatter: { timestamp } } = require('#utils');
+import { Colors, EmbedBuilder, bold } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType, capitalize } from '@mephisto5558/command';
+import wikiInit from 'wikijs';
+import { commonHeaders, embedFieldMaxAmt, messageMaxLength, JSON_SPACES } from '#utils/constants.ts';
+import { timestamp } from '#utils/timeFormatter.ts';
 
 const MAX_MSGS = 9;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'discord' },
   aliases: { [CommandType.Prefix]: ['wikipedia'] },
@@ -28,17 +26,13 @@ module.exports = new Command({
         headers: commonHeaders(this.client),
         apiUrl: `https://${this.guild?.localeCode ?? lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php`
       }),
-
-      /** @type {string | undefined} */
-      result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
+      result: string | undefined = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
 
     if (!result) return message.edit(lang('notFound'));
 
     const
       page = await wiki.page(result),
-
-      /** @type {{ general: Record<string, unknown[] | Record<string, unknown> | boolean | string> }} */
-      { general: info } = await page.fullInfo(),
+      { general: info } = await page.fullInfo() as { general: Record<string, unknown[] | Record<string, unknown> | boolean | string> },
       summary = await page.summary(),
       images = await page.images(),
       embed = new EmbedBuilder({
@@ -47,14 +41,13 @@ module.exports = new Command({
         thumbnail: { url: `https://wikipedia.org/static/images/project-logos/${this.guild.localeCode}wiki.png` },
         url: page.url(),
         image: { url: await page.mainImage() },
-        fields: Object.entries(info).reduce((acc, [k, v]) => {
+        fields: Object.entries(info).reduce<{ name: string, inline: boolean, value: string }[]>((acc, [k, v]) => {
           if (['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
           k = capitalize(k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim());
 
           // very verbose if, for intellisense
-          /** @type {string} */
-          let value;
+          let value: string;
           if (Array.isArray(v)) value = v.join(', ');
           /* eslint-disable-next-line unicorn/prefer-temporal -- I have no control over this */
           else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, JSON_SPACES);

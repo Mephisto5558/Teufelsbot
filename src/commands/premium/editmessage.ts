@@ -1,17 +1,15 @@
-const
-  {
+import {
     ActionRowBuilder, Constants, DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
-  } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, constants: { messageMaxLength }, toMs: { secToMs } } = require('#utils');
+  } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { DiscordAPIErrorCodes } from '#utils';
+import { messageMaxLength } from '#utils/constants.ts';
+import { secToMs } from '#utils/toMs.ts';
 
 const MODALSUBMIT_TIMEOUT = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
-/**
- * @this {Interaction<true>}
- * @param {lang} lang */
-async function getTargetMessage(lang) {
+async function getTargetMessage(this: Interaction<true>, lang: lang) {
   let msg;
   try {
     const /** @type {Snowflake} */ msgId = this.options.getString('message_id', true);
@@ -29,10 +27,7 @@ async function getTargetMessage(lang) {
   else await this.reply({ content: lang('cannotEdit'), flags: MessageFlags.Ephemeral });
 }
 
-/**
- * @this {Interaction<true>}
- * @param {lang} lang */
-async function sendModal(lang) {
+async function sendModal(this: Interaction<true>, lang: lang) {
   const modal = new ModalBuilder({
     title: lang('modalTitle'),
     customId: 'newContent_modal',
@@ -62,7 +57,7 @@ async function sendModal(lang) {
   return modalInteraction;
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.User]: [Permission.ManageMessages] },
   cooldowns: { [CooldownType.User]: '5s' },

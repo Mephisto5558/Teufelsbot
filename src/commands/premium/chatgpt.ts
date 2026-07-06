@@ -1,10 +1,9 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType, isMessage } = require('@mephisto5558/command'),
-  { constants: { messageMaxLength } } = require('#utils'),
-  fetchAPI = require('#utils/componentHandler').chatgpt_fetchAPI;
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType, isMessage } from '@mephisto5558/command';
+import { chatgpt_fetchAPI as fetchAPI } from '#utils/componentHandler';
+import { messageMaxLength } from '#utils/constants.ts';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['gpt'] },
   cooldowns: { [CooldownType.User]: '2s' },

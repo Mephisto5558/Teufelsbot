@@ -1,11 +1,11 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } = require('discord.js'),
-  { mkdir } = require('node:fs/promises'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Constants, EmbedBuilder, bold, channelMention, userMention } from 'discord.js';
+import { mkdir } from 'node:fs/promises';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import crypto from 'node:crypto';
 
-function isEncryptionAvailable() {
+function isEncryptionAvailable(): boolean {
   // https://discord.js.org/docs/packages/voice/main
-  if (require('node:crypto').getCiphers().includes('aes-256-gcm')) return true;
+  if (crypto.getCiphers().includes('aes-256-gcm')) return true;
 
   const libraries = ['sodium-native', 'sodium', '@stablelib/xchacha20poly1305', '@noble/ciphers', 'libsodium-wrappers'];
   for (const lib of libraries) {
@@ -20,7 +20,7 @@ function isEncryptionAvailable() {
 if (isEncryptionAvailable()) void mkdir('./VoiceRecords/raw', { recursive: true });
 else log.warn('Missing encryption library for record Command!');
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '10s' },
   disabled: !isEncryptionAvailable(),

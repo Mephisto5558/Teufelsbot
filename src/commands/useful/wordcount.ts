@@ -1,19 +1,15 @@
-/** @import { MessageReference, GuildTextBasedChannel } from 'discord.js' */
+import { SnowflakeUtil, bold } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } from '@mephisto5558/command';
 
-const
-  { SnowflakeUtil, bold } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } = require('@mephisto5558/command');
+import type { GuildTextBasedChannel, MessageReference } from 'discord.js';
 
-/**
- * @param {Client} client
- * @param {MessageReference} reference */
-function getMessageFromReference(client, reference = {}) {
-  /** @type {GuildTextBasedChannel | undefined} */
-  const channel = client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId);
+function getMessageFromReference(client: Client, reference?: MessageReference): Message<true> | undefined {
+  if (!reference) return;
+  const channel = client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId) as GuildTextBasedChannel | undefined;
   return channel?.messages.cache.get(reference.messageId);
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '1s' },
   contexts: AllContexts,

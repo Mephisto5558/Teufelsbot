@@ -1,16 +1,10 @@
-const
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#utils').timeFormatter;
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import { daysInMonthMax, hoursInDay, minutesInHour, monthsInYear, secsInHour, timeFormatter } from '#utils/timeFormatter.ts';
 
 const MAX_YEARS = 2e5;
 
-/**
- * @this {Message | Interaction}
- * @param {string} name
- * @param {number?} defaultNum
- * @returns {number} */
-function getInteger(name, defaultNum = 0) {
-  const position = module.exports.options.findIndex(e => e.name == name);
+function getInteger(this: Message | Interaction, name: string, defaultNum = 0): number {
+  const position = command.options.findIndex(e => e.name == name);
 
   let num = Number.parseInt(this.args?.[position], 10);
   if ('options' in this) num = this.options.getInteger(name) ?? num;
@@ -18,7 +12,7 @@ function getInteger(name, defaultNum = 0) {
   return Number.isNaN(num) ? defaultNum : num;
 }
 
-module.exports = new Command({
+const command = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
   usage: {
@@ -80,3 +74,4 @@ module.exports = new Command({
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }
 });
+export default command;
