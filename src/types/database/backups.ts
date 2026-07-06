@@ -3,7 +3,7 @@ import type {
   Role, RoleColors, RouteBases
 } from 'discord.js';
 
-import type { backupId, channelId, guildId, messageId, userId } from './common';
+import type { backupId, channelId, guildId, messageId, userId } from './common.ts';
 
 /* eslint-disable-next-line unicorn/prefer-temporal -- temporal doesn't have that type */
 type ISODateTime = ReturnType<Date['toISOString']>;

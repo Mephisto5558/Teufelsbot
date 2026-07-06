@@ -1,25 +1,22 @@
 /* eslint-disable @eslint-community/eslint-comments/no-use -- this trick needs to be used here */
 /* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] -- this trick needs to be used here */
 
-/**
- * @import { ActionRow, ButtonComponent, ButtonInteraction } from 'discord.js'
- * @import { sendChallengeMention as sendChallengeMentionT, playAgain as playAgainT } from './' */
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
-  sleep = require('../sleep'),
-  { minToMs, secToMs } = require('../toMs');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } from 'discord.js';
+import sleep from '../sleep.ts';
+import { minToMs, secToMs } from '../toMs.ts';
+import type { ActionRow, ButtonComponent, ButtonInteraction, CommandInteractionOption } from 'discord.js';
+import type TicTacToe from 'discord-tictactoe';
 
 const BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
-/** @type {sendChallengeMentionT} */
-async function sendChallengeMention(msg, userId, lang) {
+/** Sends the challenge mention after waiting 10s, then waits 5s and deletes its afterwards. */
+export async function sendChallengeMention(msg: Interaction, userId: Snowflake, lang: lang): Promise<void> {
   await sleep(secToMs(10));
 
-  /** @type {Message & { components: ActionRow<ButtonComponent>[] } | undefined} */
-  const reply = await msg.fetchReply().catch(() => { /* empty */ });
-  // challenge has been accepted - the accept button does not exist
+  const reply = await msg.fetchReply().catch(() => { /* empty */ }) as Message & { components: ActionRow<ButtonComponent>[] } | undefined;
 
+  // challenge has been accepted - the accept button does not exist
   if (reply?.components[0]?.components[0]?.customId != 'yes') return;
 
   const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
@@ -28,13 +25,15 @@ async function sendChallengeMention(msg, userId, lang) {
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 
-/** @type {playAgainT} */
-async function playAgain(interaction, lang) {
+export async function playAgain(
+  this: TicTacToe,
+  interaction: Interaction & { options: { _hoistedOptions: CommandInteractionOption[] } },
+  lang: lang
+): Promise<void> {
   const
     opponent = interaction.options.getUser('opponent'),
 
-    /** @type {{ components: ActionRow<ButtonComponent>[] }} */
-    { components } = await interaction.fetchReply(),
+    { components } = await interaction.fetchReply() as { components: ActionRow<ButtonComponent>[] },
     lastRow = 3;
 
   if (!components[lastRow]?.components[0]?.customId) {
@@ -48,7 +47,6 @@ async function playAgain(interaction, lang) {
   }
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
-    /** @type {(i: ButtonInteraction<'cached'>) => boolean} */
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
     max: 1, componentType: ComponentType.Button, time: BUTTON_TIME
   });
@@ -56,7 +54,7 @@ async function playAgain(interaction, lang) {
   collector
 
     /* eslint-disable-next-line @typescript-eslint/strict-void-return -- this cannot be cleanly resolved. */
-    .on('collect', /** @param {ButtonInteraction} PAButton */ async PAButton => {
+    .on('collect', async (PAButton: ButtonInteraction) => {
       void PAButton.deferUpdate();
       collector.stop();
 
@@ -92,5 +90,3 @@ async function playAgain(interaction, lang) {
       return void interaction.editReply({ components });
     });
 }
-
-module.exports = { playAgain, sendChallengeMention };

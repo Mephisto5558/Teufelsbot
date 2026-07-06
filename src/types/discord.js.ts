@@ -8,13 +8,14 @@ import type { CommandInitialized as Command, CommandManager, CooldownsManager } 
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { DB, GetResult } from '@mephisto5558/mongoose-db';
 
-import type { BackupSystem, GiveawaysManager } from '#utils';
 import type { runMessages as TRunMessages } from '#utils/prototypeRegisterer';
-import type * as locals from './locals';
+import type { loadEnvAndDB as TLoadEnvAndDB } from '#utils/prototypeRegisterer/client__loadEnvAndDB.ts';
+import type * as locals from './locals.ts';
+import type { BackupSystem, GiveawaysManager } from '#utils';
 
 export interface CustomClient<Ready extends boolean = boolean> {
   commandManager: CommandManager;
-  backupSystem?: BackupSystem.BackupSystem;
+  backupSystem?: BackupSystem;
   giveawaysManager?: GiveawaysManager;
 
   /** `undefined` if `this.botType == 'dev'` */
@@ -30,7 +31,7 @@ export interface CustomClient<Ready extends boolean = boolean> {
 
   /** The config from {@link ./config.json}. */
   config: locals.Config;
-  loadEnvAndDB(this: StrictOmit<Client<Ready>, 'db'>): Promise<void>;
+  loadEnvAndDB: typeof TLoadEnvAndDB;
 
   /**
    * A promise that resolves to a fetched discord application once
@@ -112,7 +113,7 @@ export interface CustomAutocompleteInteraction<Cached extends CacheType = CacheT
   get focused(): AutocompleteFocusedOption;
 }
 
-export interface CustomMessageComponentInteraction<Cached extends CacheType = CacheType> extends MessageComponentInteraction<Cached> {
+export interface CustomMessageComponentInteraction<Cached extends CacheType = CacheType> {
   commandName: Command['name'];
 }
 
@@ -131,7 +132,7 @@ export interface CustomUser {
     this: User, key: K,
     value: K extends undefined
       ? NonNullable<Database['userSettings'][Snowflake]>
-      : GetResult<NonNullable<Database['userSettings'][Snowflake]>, K>
+      : GetResult<NonNullable<Database['userSettings'][Snowflake]>, NonNullable<K>>
   ): Promise<Database['userSettings']>;
 
   deleteDB(this: User, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
@@ -165,7 +166,7 @@ export interface CustomGuild {
     this: Guild, key: K,
     value: K extends undefined
       ? NonNullable<Database['guildSettings'][Snowflake]>
-      : Exclude<GetResult<NonNullable<Database['guildSettings'][Snowflake]>, K>, undefined>
+      : Exclude<GetResult<NonNullable<Database['guildSettings'][Snowflake]>, NonNullable<K>>, undefined>
   ): Promise<Database['guildSettings']>;
 
   deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;

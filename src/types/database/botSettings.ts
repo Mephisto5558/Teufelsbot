@@ -2,7 +2,7 @@ import type { ActivityType } from 'discord.js';
 import type { Database } from '@mephisto5558/command';
 import type { Locale } from '@mephisto5558/i18n';
 
-import type { Embed, prefixes, userId } from './common';
+import type { Embed, prefixes, userId } from './common.ts';
 
 export type botSettings = Database['botSettings'] & {
   startCount: Record<string, number>;

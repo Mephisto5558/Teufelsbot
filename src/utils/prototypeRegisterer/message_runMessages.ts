@@ -1,16 +1,13 @@
-/** @import { runMessages } from './' */
-
-const
-  { bold } = require('discord.js'),
-  { removeAfkStatus, sendAfkMessages } = require('../afk'),
-  { secToMs } = require('../toMs');
+import { bold, type MessageReaction } from 'discord.js';
+import { removeAfkStatus, sendAfkMessages } from '../afk.ts';
+import { secToMs } from '../toMs.ts';
+import type { guildSettings } from '../../types/database/guildSettings.ts';
 
 const
   MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   WORDCOUNT_MIN_CHARS = 3;
 
-/** @this {Message<true>} */
-function replyToTriggers() {
+function replyToTriggers(this: Message<true>): void {
   if (!this.guild.db.triggers?.__count__ || this.client.cooldowns.update('triggers', this, { channel: secToMs(10) })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
@@ -22,8 +19,7 @@ function replyToTriggers() {
   for (const response of responseList.unique()) void this.customReply(response);
 }
 
-/** @this {Message<true>} */
-async function handleCounting() {
+async function handleCounting(this: Message<true>): Promise<Awaited<ReturnType<Message<true>['reply' | 'react']>> | undefined> {
   const countingData = this.guild.db.channelMinigames?.counting?.[this.channel.id];
   if (!countingData) return;
 
@@ -62,8 +58,7 @@ async function handleCounting() {
   );
 }
 
-/** @this {Message<true>} */
-async function handleWordchain() {
+async function handleWordchain(this: Message<true>): Promise<Awaited<ReturnType<Message<true>['reply' | 'react']>> | undefined> {
   const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
   if (!wordchainData) return;
 
@@ -106,10 +101,7 @@ async function handleWordchain() {
   }
 }
 
-/**
- * @this {Message<true>}
- * @param {string} cleanMsg */
-async function handleWordcounter(cleanMsg) {
+async function handleWordcounter(this: Message<true>, cleanMsg: string): Promise<PromiseSettledResult<guildSettings>[]> {
   const
     /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
     wordCount = cleanMsg.match(/\p{L}+['\u{2018}\u{2019}\u{FF07}]?\p{L}+/gu)?.length ?? 0, // Matches letter(s) that can have apostrophes in them
@@ -149,8 +141,7 @@ async function handleWordcounter(cleanMsg) {
   return Promise.allSettled(dbPromises);
 }
 
-/** @type {runMessages} */
-module.exports = function runMessages() {
+export default function runMessages<T extends Message<true>>(this: T): T {
   if (this.originalContent?.includes(this.client.user.id) && !this.client.cooldowns.update('botMentionReaction', this, { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
 
@@ -172,4 +163,4 @@ module.exports = function runMessages() {
   if (!this.client.cooldowns.update('afkMsg', this, { channel: secToMs(10), user: secToMs(10) })) void sendAfkMessages.call(this);
 
   return this;
-};
+}

@@ -2,16 +2,13 @@
 /* eslint-disable @eslint-community/eslint-comments/no-use -- overwriting that one */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch]}] -- overwriting that one */
 
-/** @import { _patch } from './' */
+import { Constants, Message, userMention } from 'discord.js';
 
-const { Constants, userMention } = require('discord.js');
+/* eslint-disable-next-line custom/unbound-method -- safely used here */// @ts-expect-error -- this is available
+const originalPatch = Message.prototype._patch;
 
-/** @type {Message['_patch']} */
-/* eslint-disable-next-line custom/unbound-method -- safely used here */
-const originalPatch = require('discord.js').Message.prototype._patch;
-
-/** @type {_patch} */
-module.exports = function _patch(data, ...rest) {
+/** Modified from the default one to set additional properties and modify the message content. */
+export default function _patch(this: Message, data: Parameters<Message['_patch']>[0], ...rest: OmitFirstParameters<Message['_patch']>): void {
   if (!Constants.NonSystemMessageTypes.includes(data.type)) return originalPatch.call(this, data, ...rest);
 
   let isCommand = false;
@@ -44,4 +41,4 @@ module.exports = function _patch(data, ...rest) {
   originalPatch.call(this, data, ...rest);
 
   if (isCommand) this.content = this.args.join(' ');
-};
+}

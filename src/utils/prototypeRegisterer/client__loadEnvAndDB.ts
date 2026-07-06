@@ -1,7 +1,6 @@
-const
-  { readFile } = require('node:fs/promises'),
-  { parseEnv } = require('node:util'),
-  { DB } = require('@mephisto5558/mongoose-db');
+import { readFile } from 'node:fs/promises';
+import { parseEnv } from 'node:util';
+import { DB } from '@mephisto5558/mongoose-db';
 
 const
   defaultValueLoggingMaxJSONLength = 100,
@@ -13,8 +12,7 @@ const
     'dbConnectionStr', 'token', 'secret'
   ];
 
-/** @this {Client} */
-async function loadEnv() {
+export async function loadEnv(this: Client<boolean>): Promise<void> {
   // process.loadEnvFile does not overwrite existing keys
   Object.assign(process.env, parseEnv(await readFile('.env', { encoding: 'utf8' })));
 
@@ -41,8 +39,7 @@ async function loadEnv() {
   this.botType = process.env.environment;
 }
 
-/** @this {Client} */
-async function loadDB() {
+export async function loadDB(this: Client<boolean>): Promise<void> {
   const db = await new DB().init(
     process.env.dbConnectionStr, 'db-collections',
     defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' })
@@ -57,10 +54,9 @@ async function loadDB() {
 }
 
 
-/** @type {Client['loadEnvAndDB']} */
-async function loadEnvAndDB() {
+export async function loadEnvAndDB<
+  Ready extends boolean
+>(this: StrictOmit<Client<Ready>, 'db'>): Promise<void> {
   await loadEnv.call(this);
   await loadDB.call(this);
 }
-
-module.exports = { loadEnvAndDB, loadEnv, loadDB };

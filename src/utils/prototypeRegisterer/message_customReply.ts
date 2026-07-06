@@ -1,16 +1,13 @@
-/** @import { customReply } from './' */
-
-const
-  { AttachmentBuilder, BaseInteraction, DiscordAPIError } = require('discord.js'),
-  { isMessage } = require('@mephisto5558/command'),
-  { messageMaxLength } = require('../constants'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+import { AttachmentBuilder, BaseInteraction, DiscordAPIError } from 'discord.js';
+import { isMessage } from '@mephisto5558/command';
+import { messageMaxLength } from '../constants.ts';
+import DiscordAPIErrorCodes from '../DiscordAPIErrorCodes.json' with { type: 'json' };
+import type { GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction } from 'discord.js';
 
 /**
- * @param {Error | undefined} err
- * @returns {boolean} `true` if no err is given, `false` on specific error codes
+ * @returns 'true' if no err is given, `false` on specific error codes
  * @throws {DiscordAPIError} if the error is not a DiscordAPIError* */
-function handleError(err) {
+function handleError(err: Error | undefined): boolean {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError) || err.code == DiscordAPIErrorCodes.InvalidFormBody) throw err;
 
@@ -18,9 +15,17 @@ function handleError(err) {
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
-/** @type {customReply} */
-
-module.exports = async function customReply(options, deleteTime, allowedMentions) {
+/**
+ * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
+ * @default allowedMentions = `{ repliedUser: false }` */
+export default async function customReply(
+  this: RepliableInteraction | Message,
+  options: string | Parameters<
+    RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']
+  >['0'],
+  deleteTime?: number,
+  allowedMentions?: MessageMentionOptions
+): Promise<InteractionResponse | Message> {
   if (typeof options != 'object') options = { content: options };
   else if ('options' in options) ({ options } = options);
 
@@ -32,7 +37,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
 
     options.files = [
       ...options.files ?? [],
-      match?.[0].length == options.content.length
+      match?.[0].length == options.content.length && match.groups?.code
         ? new AttachmentBuilder(Buffer.from(match.groups.code.trim()), { name: `content.${match.groups.ext}` })
         : new AttachmentBuilder(Buffer.from(options.content), { name: 'content.txt' })
     ];
@@ -40,8 +45,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     delete options.content;
   }
 
-  /** @type {Message | undefined} */
-  let msg;
+  let msg: Message | undefined;
   if (this instanceof BaseInteraction) {
     try { msg = await (this.replied || this.deferred ? this.editReply(options) : this.reply(options)); }
     catch (err) {
@@ -61,8 +65,8 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     }
   }
 
-  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime, 10)))
+  if (msg?.deletable && deleteTime != undefined)
     setTimeout(() => void msg.delete().catch(() => { /* empty */ }), deleteTime);
 
   return msg;
-};
+}

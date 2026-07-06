@@ -1,26 +1,49 @@
-/** @import { BackupSystem, DiscordAPIErrorCodes as DiscordAPIErrorCodesT } from './' */
+import {
+  ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
+  GuildFeature, GuildVerificationLevel, Role, SnowflakeUtil, StickerType
 
-const
-  {
-    ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
-    GuildFeature, GuildVerificationLevel, Role, SnowflakeUtil, StickerType
-  } = require('discord.js'),
-  /** @type {BackupSystem.Utils} */ utils = require('./backupSystemUtils'),
-  { secsInMinute } = require('./timeFormatter'),
-  /** @type {DiscordAPIErrorCodesT} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
+} from 'discord.js';
+import * as utils from './backupSystemUtils.ts';
+import { secsInMinute } from './timeFormatter.ts';
+import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'json' };
+import type { APIAllowedMentions, Guild } from 'discord.js';
+import type { DB } from '@mephisto5558/mongoose-db';
+import type { backupId } from '#types/db';
 
-class BackupSystem {
-  static utils = utils;
+type Options<DBName extends keyof Database> = {
+  dbName?: DBName;
+  maxGuildBackups?: number;
+  maxMessagesPerChannel?: number;
+  saveImages?: boolean;
+  clearGuildBeforeRestore?: boolean;
+};
 
-  /**
-   * @param {BackupSystem.BackupSystem['db']} db
-   * @param {BackupSystem.Options} options */
-  constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
+type StatusObject = {
+  status?: string;
+};
+
+type Backup = Database['backups'][backupId];
+
+export default class BackupSystem<DBName extends keyof Database = 'backups'> {
+  static readonly utils = utils;
+
+  db: DB<Database>;
+  dbName: DBName;
+  defaultSettings: {
+    maxGuildBackups: Required<Options<DBName>['maxGuildBackups']>;
+    maxMessagesPerChannel: number;
+    saveImages: boolean;
+    clearGuildBeforeRestore: boolean;
+  };
+
+  constructor(
+    db: BackupSystem['db'],
+    { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true }: Options = {}
+  ) {
     this.db = db;
 
     if (!this.db.get(dbName)) void this.db.set(dbName, {});
 
-    /** @type {'backups'} for typing */
     this.dbName = dbName;
 
     this.defaultSettings = {
@@ -29,25 +52,34 @@ class BackupSystem {
     };
   }
 
-  /** @type {BackupSystem.BackupSystem['get']} */
-  get(backupId, guildId = '') { return this.db.get(this.dbName, `${guildId}_${backupId}`); }
+  get(backupId: Snowflake, guildId?: Snowflake): Backup | undefined {
+    return this.db.get(this.dbName, `${guildId ?? ''}_${backupId}`);
+  }
 
-  /** @type {BackupSystem.BackupSystem['list']} */
-  list(guildId) {
-    /** @type {Collection<string, BackupSystem.Backup>} */
-    const collection = new Collection(Object.entries(this.db.get(this.dbName)));
+  list(guildId?: Snowflake): Collection<string, Backup> {
+    const collection = new Collection<string, Backup>(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e.guildId == guildId) : collection;
   }
 
-  /** @type {BackupSystem.BackupSystem['remove']} */
-  async remove(backupId) { return this.db.delete(this.dbName, backupId); }
+  async remove(backupId: backupId): Promise<boolean> {
+    return this.db.delete(this.dbName, backupId);
+  }
 
-  /** @type {BackupSystem.BackupSystem['create']} */
-  async create(guild, {
+  async create(guild: Guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     doNotBackup = [], saveImages = this.defaultSettings.saveImages, metadata
-  } = {}) {
+  }: {
+    statusObj?: StatusObject;
+    id?: backupId;
+    save?: boolean;
+    maxGuildBackups?: number;
+    backupMembers?: boolean;
+    maxMessagesPerChannel?: number;
+    doNotBackup?: string[];
+    saveImages?: boolean;
+    metadata?: unknown;
+  } = {}): Promise<Backup> {
     if (!guild.client.options.intents.has(GatewayIntentBits.Guilds)) throw new Error('Guilds intent is required');
 
     statusObj.status = 'create.settings';
@@ -185,13 +217,18 @@ class BackupSystem {
     return data;
   }
 
-  /** @type {BackupSystem.BackupSystem['load']} */
-  async load(id, guild, {
+  /** @param id If falsely, will use latest. */
+  async load(id: backupId | object | null, guild: Guild, {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore,
-    maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
+    maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
-  } = {}) {
-    /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+  }: {
+    statusObj?: StatusObject;
+    clearGuildBeforeRestore?: boolean;
+    maxMessagesPerChannel: number;
+    allowedMentions?: APIAllowedMentions;
+    reason?: string;
+  } = { maxMessagesPerChannel: this.defaultSettings.maxMessagesPerChannel }): Promise<void> {
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => Temporal.Instant.compare(b.createdAt, a.createdAt)).first();
@@ -367,5 +404,3 @@ class BackupSystem {
     return data;
   }
 }
-
-module.exports = BackupSystem;

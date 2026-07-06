@@ -2,8 +2,8 @@ import type { OverwriteType, messageLink } from 'discord.js';
 import type { Database } from '@mephisto5558/command';
 import type { GiveawayData } from 'discord-giveaways';
 
-import type { botSettings } from './botSettings';
-import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, userId } from './common';
+import type { botSettings } from './botSettings.ts';
+import type { Embed, channelId, cmdStats, guildId, messageId, prefixes, userId } from './common.ts';
 
 export type guildSettings = Database['guildSettings'] & Record<guildId, {
   position: number;

@@ -1,11 +1,9 @@
-/* eslint-disable sonarjs/no-built-in-override -- specifically done here */
-
-import type Discord from 'discord.js';
+import type * as Discord from 'discord.js';
 import type { AllContexts, ContextToCaching, ContextToInGuild, ContextType } from '@mephisto5558/command';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
-import type { LogInterface } from '#utils/prototypeRegisterer';
+import type { Log } from '#utils/prototypeRegisterer';
 import type * as DBStructure from './database/index.ts';
 
 // #region global
@@ -30,37 +28,13 @@ declare global {
     }
   }
 
-  interface Array<T> {
-    /**
-     * Gets a random array element by generating a cryptographically secure random number using
-     * {@link https://nodejs.org/api/crypto.html node:crypto}.
-     *
-     * Returns undefined if the array is empty. */
-    random(this: T[]): T | undefined;
-
-    /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */
-    unique(this: T[]): T[];
-  }
-
-  interface Number {
-    limit(options?: { min?: number; max?: number }): number;
-
-    /** @returns If the number is more than `min` and less than `max`. */
-    inRange(min?: number, max?: number): boolean;
-  }
-
-  interface Object {
-    /** The amount of items in the object. */
-    get __count__(): number;
-  }
-
   /* eslint-enable @typescript-eslint/consistent-type-definitions */
   // #endregion
 
   // #region custom
   /** Custom logging, including logfiles. */
-  const log: LogInterface;
-  type log = LogInterface;
+  const log: Log;
+  type log = Log;
 
   type Database = DBStructure.Database;
 

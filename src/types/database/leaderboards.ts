@@ -1,4 +1,4 @@
-import type { userId } from './common';
+import type { userId } from './common.ts';
 
 export type leaderboards = Record<'TicTacToe' | string & {}, Record<userId, {
   wins?: number;
