@@ -1,8 +1,8 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
-  { daysInWeek } = require('#utils').timeFormatter;
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, MessageFlags } from 'discord.js';
+import { daysInWeek } from '#utils/timeFormatter.ts';
+import type { CronJob } from './index.ts';
 
-module.exports = {
+export default {
   time: '00 00 00 * * 1',
   startNow: false,
 
@@ -57,4 +57,4 @@ module.exports = {
 
     log('Finished sending voting reminders').debug('Finished sending voting reminders');
   }
-};
+} satisfies CronJob;

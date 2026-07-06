@@ -1,9 +1,14 @@
-const timeEvents = {
-  birthday: require('./birthday'),
-  dbCleanup: require('./dbCleanup'),
-  fileCleanup: require('./fileCleanup'),
-  syncEmojis: require('./syncEmojis'),
-  votingReminder: require('./votingReminder')
-};
+import type { CronJobParams } from 'cron';
 
-module.exports = timeEvents;
+export { default as birthday } from './birthday.ts';
+export { default as dbCleanup } from './dbCleanup.ts';
+export { default as fileCleanup } from './fileCleanup.ts';
+export { default as syncEmojis } from './syncEmojis.ts';
+export { default as votingReminder } from './votingReminder.ts';
+
+export type CronJob = {
+  time: Exclude<CronJobParams['cronTime'], string>
+    | `${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'} ${number | '*'}`;
+  onTick(this: Client): Promise<unknown>;
+  startNow: CronJobParams['start'];
+};

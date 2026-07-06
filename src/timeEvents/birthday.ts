@@ -1,36 +1,29 @@
-/** @import { GuildMember, Guild } from 'discord.js' */
+import { BaseGuildTextChannel, EmbedBuilder, inlineCode, GuildMember, Guild, DiscordAPIError } from 'discord.js';
+import { DiscordAPIErrorCodes } from '#utils';
+import type { CronJob } from './index.ts';
 
-const
-  { BaseGuildTextChannel, EmbedBuilder, inlineCode } = require('discord.js'),
-  { DiscordAPIErrorCodes } = require('#utils');
-
-/**
- * @this {StringConstructor | string | undefined}
- * @param {GuildMember} member
- * @param {number} year */
-function formatBirthday(member, year) {
+function formatBirthday(this: StringConstructor | string | undefined, member: GuildMember, year?: number) {
   return this?.toString().replaceAll('{user.nickname}', member.displayName)
     .replaceAll('{user.username}', member.user.username)
     .replaceAll('{user.id}', member.id)
     .replaceAll('{user.tag}', member.user.tag)
     .replaceAll('{user.createdAt}', member.user.createdAt.toLocaleDateString('en'))
-    .replaceAll('{user.joinedAt}', member.joinedAt.toLocaleDateString('en'))
+    .replaceAll('{user.joinedAt}', member.joinedAt!.toLocaleDateString('en'))
     .replaceAll('{guild.id}', member.guild.id)
-    .replaceAll('{guild.memberCount}', member.guild.memberCount)
+    .replaceAll('{guild.memberCount}', member.guild.memberCount.toString())
     .replaceAll('{guild.name}', member.guild.name)
-    .replaceAll('{bornyear}', year)
+    .replaceAll('{bornyear}', year?.toString() ?? '')
     .replaceAll('{date}', Temporal.Now.plainDateISO().toLocaleString())
-    .replaceAll('{age}', Number.parseInt(year, 10) ? Temporal.Now.plainDateISO().year - year : '{age}')
+    .replaceAll('{age}', year ? (Temporal.Now.plainDateISO().year - year).toString() : '{age}')
     .replaceAll(/\{age\}\.?/g, ''); // {guilds} gets replaced below
 }
 
-/**
- * @param {'ch' | 'dm'} type
- * @param {NonNullable<Database['guildSettings'][Snowflake]['birthday']>} settings
- * @param {GuildMember} member
- * @param {number} year
- * @param {Database['botSettings']['defaultGuild']['birthday']} defaultSettings */
-function createEmbed(type, settings, member, year, defaultSettings) {
+function createEmbed(
+  type: 'ch' | 'dm',
+  settings: NonNullable<Database['guildSettings'][Snowflake]['birthday']>,
+  member: GuildMember, year: number,
+  defaultSettings: Database['botSettings']['defaultGuild']['birthday']
+): EmbedBuilder {
   return new EmbedBuilder({
     title: formatBirthday.call(settings[type].msg?.embed?.title ?? defaultSettings[type].msg.embed.title, member, year),
     description: formatBirthday.call(settings[type].msg?.embed?.description ?? defaultSettings[type].msg.embed.description, member, year),
@@ -38,11 +31,9 @@ function createEmbed(type, settings, member, year, defaultSettings) {
   });
 }
 
-/**
- * @this {Client}
- * @param {NonNullable<Database['guildSettings'][Snowflake]['birthday']>} settings
- * @param {Guild} guild */
-async function getChannel(settings, guild) {
+async function getChannel(
+  this: Client, settings: NonNullable<Database['guildSettings'][Snowflake]['birthday']>, guild: Guild
+): Promise<BaseGuildTextChannel | undefined> {
   if (!settings.ch?.channel) return;
 
   try {
@@ -50,7 +41,7 @@ async function getChannel(settings, guild) {
     return channel instanceof BaseGuildTextChannel ? channel : undefined;
   }
   catch (err) {
-    if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
+    if (!(err instanceof DiscordAPIError) || err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
 
     const owner = await guild.fetchOwner();
     void owner.send(this.i18n.__({ locale: owner.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name))).catch(() => {
@@ -60,12 +51,11 @@ async function getChannel(settings, guild) {
   }
 }
 
-module.exports = {
+export default {
   time: '00 00 00 * * *',
   startNow: true,
 
-  /** @this {Client} */
-  async onTick() {
+  async onTick(): Promise<unknown> {
     const now = Temporal.Now.plainDateISO();
 
     if (this.settings.timeEvents.lastBirthdayCheck?.equals(now)) return void log('Already ran birthday check today');
@@ -76,7 +66,7 @@ module.exports = {
       const settings = guild.db.birthday;
       if (!settings?.enable || !settings.ch?.channel && !settings.dm?.enable) continue;
 
-      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((/** @type {Record<Snowflake, number>} */ acc, [id, e]) => {
+      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce<Record<Snowflake, number>>((acc, [id, e]) => {
         if (e.birthday?.month == now.month && e.birthday.day == now.day) acc[id] = e.birthday.year;
         return acc;
       }, {});
@@ -102,7 +92,7 @@ module.exports = {
           });
         }
         catch (err) {
-          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+          if (!(err instanceof DiscordAPIError) || err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
       }
     }
@@ -110,4 +100,4 @@ module.exports = {
     await this.db.update('botSettings', 'timeEvents.lastBirthdayCheck', now);
     log('Finished birthday check');
   }
-};
+} satisfies CronJob;

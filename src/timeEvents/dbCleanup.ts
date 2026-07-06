@@ -1,26 +1,20 @@
-const
-  { SnowflakeUtil } = require('discord.js'),
-  { writeFile } = require('node:fs/promises');
+import { SnowflakeUtil } from 'discord.js';
+import { writeFile } from 'node:fs/promises';
+import type { CronJob } from './index.ts';
 
-/** @returns {number} Unix timestamp in ms */
-const getOneMonthAgo = () => Temporal.Now.instant().subtract({ months: 1 }).epochMilliseconds;
+/** @returns Unix timestamp in ms */
+const getOneMonthAgo = (): number => Temporal.Now.instant().subtract({ months: 1 }).epochMilliseconds;
 
 
-/**
- * Writes the data to a file.
- * @this {Client} */
-async function backupDBs() {
+/** Writes the data to a file. */
+async function backupDBs(this: Client) {
   const data = Object.fromEntries(this.db.reduce().map(e => [e.key, e.value]));
 
   return writeFile(`dbbackup_${Temporal.Now.plainDateISO().toString()}.json`, JSON.stringify(data));
 }
 
-/**
- * Deletes guilds that the bot was not in for over a year.
- * @this {Client}
- * @param {Snowflake} guildId
- * @param {Database['guildSettings'][Snowflake] | undefined} db */
-async function cleanupGuildsDB(guildId, db) {
+/** Deletes guilds that the bot was not in for over a year. */
+async function cleanupGuildsDB(this: Client, guildId: Snowflake, db?: Database['guildSettings'][Snowflake]) {
   if (!db) return this.db.delete('guildSettings', guildId);
 
   if (this.guilds.cache.has(guildId)) return this.db.delete('guildSettings', `${guildId}.leftAt`);
@@ -30,12 +24,11 @@ async function cleanupGuildsDB(guildId, db) {
   return this.db.delete('guildSettings', guildId);
 }
 
-/**
- * Deletes giveaway records that concluded over a month ago.
- * @this {Client}
- * @param {Snowflake} guildId
- * @param {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['giveaway']>['giveaways'] | undefined} db */
-function cleanupGiveawaysDB(guildId, db) {
+/** Deletes giveaway records that concluded over a month ago. */
+function cleanupGiveawaysDB(
+  this: Client, guildId: Snowflake,
+  db?: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['giveaway']>['giveaways']
+) {
   if (!db) return;
 
   for (const [id, { ended, endAt }] of Object.entries(db)) {
@@ -44,12 +37,8 @@ function cleanupGiveawaysDB(guildId, db) {
   }
 }
 
-/**
- * Removes all lastMentions data older than one month.
- * @this {Client}
- * @param {Snowflake} guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['lastMentions']} db */
-function cleanupMentionsDB(guildId, db) {
+/** Removes all lastMentions data older than one month. */
+function cleanupMentionsDB(this: Client, guildId: Snowflake, db?: NonNullable<Database['guildSettings'][Snowflake]>['lastMentions']) {
   if (!db) return;
 
   for (const [userId, v] of Object.entries(db)) {
@@ -58,12 +47,8 @@ function cleanupMentionsDB(guildId, db) {
   }
 }
 
-/**
- * Removes all AFK-Messages older than one month.
- * @this {Client}
- * @param {Snowflake} guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['afkMessages']} db */
-function cleanupAfkMessagesDB(guildId, db) {
+/** Removes all AFK-Messages older than one month. */
+function cleanupAfkMessagesDB(this: Client, guildId: Snowflake, db?: NonNullable<Database['guildSettings'][Snowflake]>['afkMessages']) {
   if (!db) return;
 
   for (const [userId, v] of Object.entries(db)) {
@@ -72,12 +57,8 @@ function cleanupAfkMessagesDB(guildId, db) {
   }
 }
 
-/**
- * Removes all AFK-Messages older than one month.
- * @this {Client}
- * @param {Snowflake} guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['minigames']} db */
-function cleanUpMinigamesDB(guildId, db) {
+/** Removes all AFK-Messages older than one month. */
+function cleanUpMinigamesDB(this: Client, guildId: Snowflake, db?: NonNullable<Database['guildSettings'][Snowflake]>['minigames']) {
   if (!db) return;
 
   for (const [gameId, data] of Object.entries(db)) {
@@ -88,12 +69,11 @@ function cleanUpMinigamesDB(guildId, db) {
   }
 }
 
-module.exports = {
+export default {
   time: '00 00 00 01 * *',
   startNow: false,
 
-  /** @this {Client} */
-  async onTick() {
+  async onTick(): Promise<unknown> {
     const now = Temporal.Now.plainDateISO();
 
     if (this.settings.timeEvents.lastDBCleanup?.equals(now)) return void log('Already ran DB cleanup today');
@@ -117,4 +97,4 @@ module.exports = {
     await this.db.update('botSettings', 'timeEvents.lastDBCleanup', now);
     log('Finished DB cleanup');
   }
-};
+} satisfies CronJob;

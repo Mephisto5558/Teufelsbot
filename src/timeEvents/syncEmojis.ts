@@ -1,15 +1,14 @@
-const
-  { Client, DiscordAPIError } = require('discord.js'),
-  { readFile, readdir } = require('node:fs/promises'),
-  { join } = require('node:path'),
-  { parseEnv } = require('node:util'),
-  { DiscordAPIErrorCodes } = require('#utils');
+import { Client, DiscordAPIError, ImageFormat } from 'discord.js';
+import { readFile, readdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { parseEnv } from 'node:util';
+import { DiscordAPIErrorCodes } from '#utils';
 
-/**
- * @param {string} env
- * @param {string} token */
-async function getClient(env, token) {
-  const client = new Client({ intents: [] });
+import type { CronJob } from './index.ts';
+
+
+async function getClient(env: string, token: string): Promise<Client<true>> {
+  const client = new Client<true>({ intents: [] });
   try { await client.login(token); }
   catch (err) {
     try { await client.destroy(); }
@@ -28,8 +27,7 @@ async function getClient(env, token) {
   return client;
 }
 
-/** @param {Client<true>[]} clients */
-async function syncClientsEmojis(clients) {
+async function syncClientsEmojis(clients: Client<true>[]): Promise<void> {
   const
     allEmojis = new Map(clients.flatMap(client => client.application.emojis.cache.map(e => [e.name, e]))),
     allEmojiNames = new Set(allEmojis.keys()),
@@ -43,7 +41,7 @@ async function syncClientsEmojis(clients) {
     try {
       await client.application.emojis.create({
         name: emoji.name,
-        attachment: emoji.imageURL({ extension: emoji.animated ? 'gif' : undefined })
+        attachment: emoji.imageURL({ extension: emoji.animated ? ImageFormat.GIF : undefined })
       });
 
       log.debug(`Created emoji "${emoji.name}" on client "${client.application.name}"`);
@@ -55,7 +53,7 @@ async function syncClientsEmojis(clients) {
   }
 }
 
-module.exports = {
+export default {
   time: '00 00 00 * * *',
   startNow: false, // getting ran even before logging into the client
 
@@ -100,4 +98,4 @@ module.exports = {
 
     log('Finished emoji sync').debug('Finished emoji sync');
   }
-};
+} satisfies CronJob;

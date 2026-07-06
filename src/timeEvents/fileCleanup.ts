@@ -1,7 +1,7 @@
-const { access, mkdir, readdir, stat, unlink } = require('node:fs/promises');
+import { access, mkdir, readdir, stat, unlink } from 'node:fs/promises';
+import type { CronJob } from './index.ts';
 
-/** @param {string} path */
-async function deleteOld(path) {
+async function deleteOld(path: string): Promise<void> {
   try { await access(path); }
   catch { return mkdir(path); }
 
@@ -17,12 +17,11 @@ async function deleteOld(path) {
   }
 }
 
-module.exports = {
+export default {
   time: '00 00 00 01 * *',
   startNow: false,
 
-  /** @this {Client} */
-  async onTick() {
+  async onTick(): Promise<void> {
     const now = Temporal.Now.plainDateISO();
 
     if (this.settings.timeEvents.lastFileClear?.equals(now)) return void log('Already ran file deletion today');
@@ -34,4 +33,4 @@ module.exports = {
     await this.db.update('botSettings', 'timeEvents.lastFileClear', now);
     log('Finished file deletion');
   }
-};
+} satisfies CronJob;
