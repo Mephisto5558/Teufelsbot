@@ -1,9 +1,8 @@
-/** @import { DashboardSetting } from '../../../types/locals' */
+import type { DashboardSetting } from '#types/locals';
 
 const exampleYear = 2003;
 
-/** @type {DashboardSetting} */
-module.exports = {
+export default {
   name: 'Possible Arguments for Messages',
   description: `The following args are possible for the messages:<br>
 <code>{user.nickname}</code> - The user nickname - <code>Peter</code><br>
@@ -20,4 +19,4 @@ module.exports = {
 <code>{age}</code> - The new age of the user - <code>${Temporal.Now.plainDateISO().year - exampleYear}</code><br></p>`,
   type: 'spacer',
   position: 1
-};
+} satisfies DashboardSetting;

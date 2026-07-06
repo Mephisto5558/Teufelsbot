@@ -1,6 +1,5 @@
-/** @import { CustomPage } from '../../types/locals' */
+import { CustomPage } from '#types/locals';
 
-/** @type {CustomPage} */
-module.exports = {
+export default {
   run(res) { return res.redirect(this.client.user.displayAvatarURL()); }
-};
+} satisfies CustomPage;

@@ -1,10 +1,9 @@
-/** @import { DashboardSetting } from '../../../types/locals' */
+import type { DashboardSetting } from '#types/locals';
 
-/** @type {DashboardSetting} */
-module.exports = {
+export default {
   id: 'chMsg',
   name: 'Announcement Message',
   description: "The message to send on the user's birthday",
   type: 'embedBuilder',
   position: 3
-};
+} satisfies DashboardSetting;

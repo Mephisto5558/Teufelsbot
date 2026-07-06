@@ -63,16 +63,19 @@ type GetReadyState<T> = T extends GenericFunction
     : never
   : never;
 
+type CustomPageRunParams<RunReqBody, RunResBody> = [
+  res: Response<RunResBody | undefined>,
+  req: Request<undefined, undefined, RunReqBody | undefined>,
+  next: NextFunction
+];
+
 // Modifying the `this` type and params
 export type CustomPage<RunReqBody = unknown, RunResBody = unknown> = {
-  [K in keyof LibCustomPage]: K extends 'run'
-    ? (
-        this: WebServer<true>,
-        res: Response<RunResBody | undefined>,
-        req: Request<undefined, undefined, RunReqBody | undefined>,
-        next: NextFunction
-      ) => Promise<unknown>
-    : LibCustomPage[K];
+  [K in keyof LibCustomPage]: K extends 'run' ? (
+    Exclude<LibCustomPage[K], CallableFunction>
+    | ((this: WebServer<true>, ...args: CustomPageRunParams<RunReqBody, RunResBody>) => Promise<unknown>)
+    | ((this: WebServer<true>, ...args: CustomPageRunParams<RunReqBody, RunResBody>) => unknown)
+  ) : LibCustomPage[K];
 };
 
 // Modifying the `this` type

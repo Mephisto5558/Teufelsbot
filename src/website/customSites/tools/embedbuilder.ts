@@ -1,7 +1,6 @@
-/** @import { CustomPage } from '../../../types/locals' */
+import { CustomPage } from '#types/locals';
 
-/** @type {CustomPage} */
-module.exports = {
+export default {
   title: 'Embedbuilder',
 
   run(res, req) {
@@ -13,4 +12,4 @@ module.exports = {
       + 'width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" allow="clipboard-write *">Loading…</iframe></body>'
     );
   }
-};
+} satisfies CustomPage;

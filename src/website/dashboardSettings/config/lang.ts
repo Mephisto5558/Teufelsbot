@@ -1,7 +1,6 @@
-/** @import { DashboardSetting } from '../../../types/locals' */
+import type { DashboardSetting } from '#types/locals';
 
-/** @type {DashboardSetting} */
-module.exports = {
+export default {
   id: 'lang',
   name: 'Language',
   description: 'The language of the bot',
@@ -11,4 +10,4 @@ module.exports = {
     ])));
   },
   position: 1
-};
+} satisfies DashboardSetting;

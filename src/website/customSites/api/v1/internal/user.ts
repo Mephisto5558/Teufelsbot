@@ -1,11 +1,11 @@
-/** @import { CustomPage } from '../../../../../types/locals' */
+import { CustomPage } from '#types/locals';
+import { ALLOWED_SIZES } from 'discord.js';
+import { constants } from 'node:http2';
 
-const
-  { ALLOWED_SIZES } = require('discord.js'),
-  { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = require('node:http2').constants;
+const { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = constants;
 
-/** @type {CustomPage} */
-module.exports = {
+
+export default {
   run(res, req) {
     if (!req.isAuthenticated())
       return res.status(HTTP_STATUS_UNAUTHORIZED).json({ errorCode: HTTP_STATUS_UNAUTHORIZED, error: 'Not logged in' });
@@ -20,4 +20,4 @@ module.exports = {
       dev: this.client.config.devIds.has(req.user.id)
     });
   }
-};
+} satisfies CustomPage;

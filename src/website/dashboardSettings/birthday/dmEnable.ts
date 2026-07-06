@@ -1,10 +1,9 @@
-/** @import { DashboardSetting } from '../../../types/locals' */
+import type { DashboardSetting } from '#types/locals';
 
-/** @type {DashboardSetting} */
-module.exports = {
+export default {
   id: 'dmEnable',
   name: 'Enable dm messages',
   description: 'DM the member on their birthday with a custom message',
   type: 'switch',
   position: 4
-};
+} satisfies DashboardSetting;

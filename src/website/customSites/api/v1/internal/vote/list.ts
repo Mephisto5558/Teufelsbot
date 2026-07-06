@@ -1,9 +1,9 @@
-/** @import { CustomPage } from '../../../../../../types/locals' */
+import { CustomPage } from '#types/locals';
+import { constants } from 'node:http2';
 
-const { HTTP_STATUS_OK } = require('node:http2').constants;
+const { HTTP_STATUS_OK } = constants;
 
-/** @type {CustomPage} */
-module.exports = {
+export default {
   async run(res, req) {
     const reply = await this.voteSystem.getMany(
       Number.parseInt(req.query.amount, 10) || undefined, Number.parseInt(req.query.offset ?? 0, 10), req.query.filter,
@@ -11,4 +11,4 @@ module.exports = {
     );
     return res.status('errorCode' in reply ? reply.errorCode : HTTP_STATUS_OK).json(reply);
   }
-};
+} satisfies CustomPage;
