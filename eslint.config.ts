@@ -1,5 +1,11 @@
-/* eslint-disable-next-line n/no-unpublished-import -- this is a dev file */
-import config, { getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5558/eslint-config';
+/* eslint-disable-next-line import-x/no-extraneous-dependencies -- this is a dev file */
+import config, { allFilesGlob, getModifiedRule, jsGlob, pluginNames, tsGlob } from '@mephisto5558/eslint-config';
+
+const gitignoreConfig = config.find(e => e.name == 'eslint-config:cwd-gitignore');
+if (gitignoreConfig?.ignores) {
+  // git-ignored but still linted
+  gitignoreConfig.ignores = gitignoreConfig.ignores.filter(e => e != 'src/website/customSites/tw');
+}
 
 export default [
   ...config,
@@ -46,8 +52,7 @@ export default [
         ]
       }]),
       [`${pluginNames.unicorn}/prefer-module`]: 'off',
-      [`${pluginNames.unicorn}/prefer-top-level-await`]: 'off',
-      
+      [`${pluginNames.unicorn}/prefer-top-level-await`]: 'off'
     }
   },
   {
@@ -117,6 +122,13 @@ export default [
           { order: { type: 'asc' } }
         ]
       }])
+    }
+  },
+  {
+    name: 'overwrite:customSites',
+    files: [`./src/website/customSites/${allFilesGlob}`],
+    rules: {
+      [`${pluginNames.unicorn}/filename-case`]: 'off' // file names represent route names
     }
   },
   {

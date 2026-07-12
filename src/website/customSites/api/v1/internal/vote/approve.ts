@@ -7,8 +7,8 @@ const { HTTP_STATUS_OK } = constants;
 export default {
   method: 'POST',
 
-  async run(res, req) {
+  async run(res, req): Promise<unknown> {
     const reply = await this.voteSystem.approve(req.body?.featureId, req.user?.id);
     return res.status('errorCode' in reply ? reply.errorCode : HTTP_STATUS_OK).json(reply);
   }
-} satisfies CustomPage<{ featureId?: FeatureRequest['id'] }>;
+} satisfies CustomPage<{ RunReqBody: { featureId?: FeatureRequest['id'] } }>;

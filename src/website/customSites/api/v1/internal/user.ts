@@ -6,7 +6,7 @@ const { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = constants;
 
 
 export default {
-  run(res, req) {
+  run(res, req): unknown {
     if (!req.isAuthenticated())
       return res.status(HTTP_STATUS_UNAUTHORIZED).json({ errorCode: HTTP_STATUS_UNAUTHORIZED, error: 'Not logged in' });
     if (this.db.get('botSettings', 'blacklist')?.includes(req.user.id))

@@ -63,18 +63,25 @@ type GetReadyState<T> = T extends GenericFunction
     : never
   : never;
 
-type CustomPageRunParams<RunReqBody, RunResBody> = [
-  res: Response<RunResBody | undefined>,
-  req: Request<undefined, undefined, RunReqBody | undefined>,
+type CustomPageConfig = {
+  RunReqParams?: Record<string, string>;
+  RunReqBody?: unknown;
+  RunResBody?: unknown;
+};
+
+type CustomPageRunParams<PageConfig extends CustomPageConfig> = [
+  res: Response<PageConfig['RunResBody'] | undefined>,
+  req: Request<undefined, PageConfig['RunResBody'] | undefined, PageConfig['RunReqBody'] | undefined, PageConfig['RunReqParams']>,
   next: NextFunction
 ];
 
+
 // Modifying the `this` type and params
-export type CustomPage<RunReqBody = unknown, RunResBody = unknown> = {
+export type CustomPage<PageConfig extends CustomPageConfig = CustomPageConfig> = {
   [K in keyof LibCustomPage]: K extends 'run' ? (
     Exclude<LibCustomPage[K], CallableFunction>
-    | ((this: WebServer<true>, ...args: CustomPageRunParams<RunReqBody, RunResBody>) => Promise<unknown>)
-    | ((this: WebServer<true>, ...args: CustomPageRunParams<RunReqBody, RunResBody>) => unknown)
+    | ((this: WebServer<true>, ...args: CustomPageRunParams<PageConfig>) => Promise<unknown>)
+    | ((this: WebServer<true>, ...args: CustomPageRunParams<PageConfig>) => unknown)
   ) : LibCustomPage[K];
 };
 

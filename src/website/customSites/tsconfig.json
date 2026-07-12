@@ -1,9 +1,5 @@
 {
   "extends": "../../../tsconfig.json",
-  "include": [
-    ".",
-    "../../types/**/*"
-  ],
   "compilerOptions": {
     "lib": ["DOM", "ESNext", "ESNext.Iterator", "ESNext.Temporal"],
     "rootDir": "../../"
