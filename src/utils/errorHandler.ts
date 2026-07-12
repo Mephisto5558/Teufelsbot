@@ -3,7 +3,6 @@ import {
   Colors, CommandInteraction, ComponentType, EmbedBuilder, Message,
   MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
 } from 'discord.js';
-import fetch from 'node-fetch';
 import { JSON_SPACES, commonHeaders } from './constants.ts';
 import { msInSecond, secsInMinute } from './timeFormatter.ts';
 import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'json' };

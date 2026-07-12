@@ -1,6 +1,5 @@
 import { HTTP_STATUS_NO_CONTENT } from 'node:http2'.constants;
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
-import fetch = from 'node-fetch'.default;
 import { commonHeaders } from '#utils'.constants;
 
 const
@@ -38,7 +37,7 @@ export default new Command({
       });
 
       // https://pterodactyl-api-docs.netvpx.com/docs/api/client/servers#success-response-204
-      if (res.status != HTTP_STATUS_NO_CONTENT) throw new Error(res.text());
+      if (res.status != HTTP_STATUS_NO_CONTENT) throw new Error(await res.text());
     }
     catch (err) {
       state.restarting = false; /* eslint-disable-line require-atomic-updates -- Not an issue */

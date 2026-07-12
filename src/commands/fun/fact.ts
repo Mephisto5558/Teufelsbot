@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
 import { AllContexts, Command, CommandType, CooldownType } from '@mephisto5558/command';
-import fetch from 'node-fetch'.default,
 import { constants: { commonHeaders } } from '#utils';
 
 export default new Command({

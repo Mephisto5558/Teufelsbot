@@ -1,7 +1,6 @@
 import { Colors, EmbedBuilder, bold } from 'discord.js';
 import { TTLCache } from '@isaacs/ttlcache';
 import { AllContexts, Command, CommandType, CooldownType, OptionType, capitalize } from '@mephisto5558/command';
-import fetch from 'node-fetch';
 import { JSON_SPACES, commonHeaders, embedFieldMaxAmt, messageMaxLength } from '#utils/constants.ts';
 import { daysInWeek, timestamp } from '#utils/timeFormatter.ts';
 import type { Locale } from '@mephisto5558/i18n';

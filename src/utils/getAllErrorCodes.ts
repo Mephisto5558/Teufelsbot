@@ -1,5 +1,4 @@
 import { writeFile } from 'node:fs/promises';
-import fetch from 'node-fetch';
 import { JSON_SPACES } from './constants.ts';
 
 /** Writes all error codes to a file. */

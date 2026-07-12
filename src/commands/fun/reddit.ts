@@ -3,7 +3,6 @@ import type reddit from './reddit';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } from 'discord.js';
 import { HTTP_STATUS_NOT_FOUND } from 'node:http2'.constants,
 import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import fetch from 'node-fetch').default,
 import { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } from '#utils';
 
 const
@@ -75,11 +74,11 @@ export default new Command({
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           },
-          follow: 1
+          redirect: 'error'
         }).then(async res => res.json());
       }
       catch (err) {
-        if (err.type != 'max-redirect') throw err;
+        if(!(err instanceof TypeError) || ![err, err.cause as Error | undefined].some(e => !!e?.message?.includes('redirect'))) throw err;
         return this.customReply(lang('notFound'));
       }
 

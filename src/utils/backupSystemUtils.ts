@@ -2,7 +2,6 @@ import {
   AttachmentBuilder, BaseGuildVoiceChannel, ChannelType, Constants,
   DiscordAPIError, ForumChannel, GuildFeature, OverwriteType
 } from 'discord.js';
-import fetch from 'node-fetch';
 import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'json' };
 
 import type {

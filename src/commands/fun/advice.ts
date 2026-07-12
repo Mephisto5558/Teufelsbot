@@ -1,6 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
-import fetch from 'node-fetch';
 import { commonHeaders } from '#utils'.constants;
 
 /** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */

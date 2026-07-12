@@ -1,6 +1,5 @@
 import { Colors, EmbedBuilder } from 'discord.js';
 import { AllContexts, Command, CommandType, CooldownType } from '@mephisto5558/command';
-import fetch from 'node-fetch'.default,
 import { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } from '#utils';
 
 const

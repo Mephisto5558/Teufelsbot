@@ -3,7 +3,6 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
 import { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } from 'node:http2'.constants,
 import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import { AbortError, FetchError, default: fetch } from 'node-fetch';
 import { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } from '#utils';
 
 const
@@ -55,7 +54,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     /** @type {Joke | { status: string, code: number, message: string } | undefined} */
     const json = await res.json().catch(() => { /* empty */ });
 
-    if (json && 'code' in json) throw new FetchError(json.message, undefined, json);
+    if (json && 'code' in json) throw new DOMException(json.message, json);
 
     switch (api.name) {
       case 'jokeAPI': response = json.type == 'twopart' ? `${json.setup}\n\n||${json.delivery}||` : json.joke; break;
@@ -65,9 +64,9 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   }
   catch (rawErr) {
     const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);
-    if (err instanceof FetchError) {
+    if (err instanceof DOMException) {
       if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.code))
-        log.error('joke.js: ', err.response);
+        log.error('joke.js: ', err.message);
       else
         log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
     }

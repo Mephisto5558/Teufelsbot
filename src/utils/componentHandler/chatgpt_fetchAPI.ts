@@ -1,6 +1,5 @@
 import { cleanContent } from 'discord.js';
 import { getCommands, isComponent, isSlash } from '@mephisto5558/command';
-import fetch from 'node-fetch';
 import { JSON_SPACES, commonHeaders } from '../constants.ts';
 import type { ButtonInteraction } from 'discord.js';
 

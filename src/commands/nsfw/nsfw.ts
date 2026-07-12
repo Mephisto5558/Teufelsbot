@@ -1,7 +1,6 @@
 import { EmbedBuilder } from 'discord.js';
 import { randomInt } from 'node:crypto';
 import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import fetch from 'node-fetch';
 import { commonHeaders } from '#utils/constants.ts';
 
 const secretChance = 1e4; // 1 in 10_000
