@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.19.2",
-    "@mephisto5558/better-types": "file:../better-types/mephisto5558-better-types-2.4.0.tgz",
+    "@mephisto5558/better-types": "latest",
     "@mephisto5558/bot-website": "latest",
     "@mephisto5558/command": "file:../command/mephisto5558-command-0.7.1-0.tgz",
     "@mephisto5558/i18n": "2.x",
