@@ -22,7 +22,7 @@ export default [
   },
   {
     name: 'overwrite:scripts',
-    files: [`**/*${tsGlob}`, `**/*${jsGlob}`],
+    files: [`${allFilesGlob}${tsGlob}`, `${allFilesGlob}${jsGlob}`],
     languageOptions: {
       globals: {
         log: 'readonly',
@@ -101,7 +101,7 @@ export default [
   },
   {
     name: 'overwrite:dashboard-settings',
-    files: [`./src/website/dashboardSettings/**/*${jsGlob}`, `./src/website/dashboardSettings/**/*${tsGlob}`],
+    files: [`./src/website/dashboardSettings/${allFilesGlob}${jsGlob}`, `./src/website/dashboardSettings/${allFilesGlob}${tsGlob}`],
     rules: {
       ...getModifiedRule(config, `${pluginNames.typescript}/no-magic-numbers`, [{
         detectObjects: false // allow `position` filed
@@ -133,7 +133,7 @@ export default [
   },
   {
     name: 'overwrite:tests',
-    files: [`./tests/**/*${jsGlob}`],
+    files: [`./tests/${allFilesGlob}${jsGlob}`, `./tests/${allFilesGlob}${tsGlob}`],
     rules: {
       ...getModifiedRule(config, 'id-length', [{
         exceptions: ['t']
