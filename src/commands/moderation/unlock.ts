@@ -1,3 +1,3 @@
-const LockCommand = require('./lock');
+import LockCommand from './lock';
 
-module.exports = LockCommand;
+export default LockCommand;

@@ -1,10 +1,9 @@
-const
-  { randomInt } = require('node:crypto'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command');
+import { randomInt } from 'node:crypto';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
 
 const SIDE_CHANCE = 3000; // 1 in 3000
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
 

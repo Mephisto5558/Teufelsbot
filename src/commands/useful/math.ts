@@ -1,7 +1,6 @@
-const
-  { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  mathjs = require('mathjs');
+import { Colors, EmbedBuilder, codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import mathjs from 'mathjs';
 
 const
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
@@ -20,7 +19,7 @@ const
     .replaceAll(/[\u{B2}\u{B3}\u{2074}-\u{2079}]/gu, /** @param {keyof superscripts} e */ e => superscripts[e])
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: '1+1' },
   contexts: AllContexts,

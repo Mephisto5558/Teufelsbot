@@ -1,8 +1,7 @@
-const
-  { Colors, EmbedBuilder } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } = require('#utils');
+import { Colors, EmbedBuilder } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType } from '@mephisto5558/command';
+import fetch from 'node-fetch'.default,
+import { constants: { commonHeaders }, getConfig, toMs: { hourToMs } } from '#utils';
 
 const
   { github: ghConfig = {} } = getConfig(),
@@ -37,7 +36,7 @@ async function getCommits() {
   });
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['changelogs'] },
   cooldowns: { [CooldownType.Channel]: '10s' },

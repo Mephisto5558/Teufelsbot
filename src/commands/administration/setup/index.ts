@@ -1,6 +1,6 @@
-const { Command, CommandType, CooldownType, Permission, PermissionType } = require('@mephisto5558/command');
+import { Command, CommandType, CooldownType, Permission, PermissionType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   aliases: { [CommandType.Slash]: ['config'] },
   permissions: { [PermissionType.User]: [Permission.ManageGuild] },

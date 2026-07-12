@@ -1,6 +1,6 @@
-const { Command, CommandType, Permission, PermissionType } = require('@mephisto5558/command');
+import { Command, CommandType, Permission, PermissionType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.User]: [Permission.ManageMessages] },
   options: [

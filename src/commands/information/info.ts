@@ -1,7 +1,6 @@
-/**
- * @import { ApplicationEmoji } from 'discord.js'
- * @import { CommandInitialized } from '@mephisto5558/command'
- * @import { Locale } from '@mephisto5558/i18n' */
+import type { ApplicationEmoji } from 'discord.js';
+import type { CommandInitialized } from '@mephisto5558/command';
+import type { Locale } from '@mephisto5558/i18n';
 
 /* eslint-disable @stylistic/max-len -- this cannot be cleanly fixed */
 /**
@@ -10,14 +9,13 @@
  * @typedef {{ fetchedAt: number, resources: Resources, limits: Limits, buffers: Map<Locale, Buffer> }} ServerInfo */
 /* eslint-enable @stylistic/max-len */
 
-const
-  {
-    ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
-    Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
-  } = require('discord.js'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  { Canvas } = require('skia-canvas'), /* eslint-disable-line import-x/no-unresolved -- false positive */
-  { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } = require('#utils');
+import {
+  ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
+  Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode
+} from 'discord.js';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
+import { Canvas } from 'skia-canvas'; /* eslint-disable-line import-x/no-unresolved -- false positive */
+import { timeFormatter: { msInSecond, timestamp }, toMs: { minToMs }, shellExec, constants: { commonHeaders, byteConversion } } from '#utils';
 
 const
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
@@ -251,7 +249,7 @@ async function createResourceGraph(lang) {
   return buffer;
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
 

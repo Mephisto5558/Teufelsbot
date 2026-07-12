@@ -1,13 +1,12 @@
-/** @import TriggerSubcommand, { triggersArray } from './' */
+import type TriggerSubcommand, { triggersArray } from './';
 
-const
-  { inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { findTriggerId, triggerQuery } = require('./_utils');
+import { inlineCode } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
+import { findTriggerId, triggerQuery } from './_utils';
 
 
 /** @type {TriggerSubcommand} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'edit',
   type: OptionType.Subcommand,
   options: [

@@ -1,4 +1,4 @@
-/** @import { CommandInteractionOptionResolver, MessageMentions } from 'discord.js' */
+import type { CommandInteractionOptionResolver, MessageMentions } from 'discord.js';
 
 
 import { Collection } from 'discord.js';

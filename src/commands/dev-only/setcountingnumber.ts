@@ -1,9 +1,8 @@
-const
-  { bold, channelLink } = require('discord.js'),
-  { Command, CommandType, OptionType } = require('@mephisto5558/command');
+import { bold, channelLink } from 'discord.js';
+import { Command, CommandType, OptionType } from '@mephisto5558/command';
 
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['setcountingnum'] },
   options: [{

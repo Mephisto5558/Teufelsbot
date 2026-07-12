@@ -1,9 +1,8 @@
-const
-  { userMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { checkTargetManageable } = require('#utils');
+import { userMention } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { checkTargetManageable } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.Client]: [Permission.MuteMembers], [PermissionType.User]: [Permission.MuteMembers] },
   cooldowns: { [CooldownType.User]: '100ms' },

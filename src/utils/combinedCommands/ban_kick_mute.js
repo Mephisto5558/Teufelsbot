@@ -1,19 +1,18 @@
-/** @import { ban_kick_mute } from './' */
+import type { ban_kick_mute } from './';
 
-const
-  {
-    ActionRowBuilder, Colors, ComponentType, EmbedBuilder, TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
-  } = require('discord.js'),
-  { Permission } = require('@mephisto5558/command'),
-  { toMS } = require('type-better-ms'),
-  checkTargetManageable = require('../checkTargetManageable'),
-  { daysInMonthMin, secsInDay, timestamp } = require('../timeFormatter'),
-  { dayToMs, minToMs } = require('../toMs'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+import {
+  ActionRowBuilder, Colors, ComponentType, EmbedBuilder, TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
+} from 'discord.js';
+import { Permission } from '@mephisto5558/command';
+import { toMS } from 'type-better-ms';
+import checkTargetManageable from '../checkTargetManageable';
+import { daysInMonthMin, secsInDay, timestamp } from '../timeFormatter';
+import { dayToMs, minToMs } from '../toMs';
+import DiscordAPIErrorCodes from '../DiscordAPIErrorCodes.json';
 
 /** @type {ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
-module.exports = async function ban_kick_mute(lang) {
+export default async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 

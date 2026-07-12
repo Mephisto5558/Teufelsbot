@@ -1,13 +1,12 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command');
+import { inlineCode } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 const MAX_PREFIXES_PER_GUILD = 2;
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'add_prefix',
   type: OptionType.Subcommand,
   options: [

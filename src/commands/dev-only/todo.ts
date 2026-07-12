@@ -1,8 +1,7 @@
-const
-  { channelLink, hyperlink } = require('discord.js'),
-  { Command, CommandType } = require('@mephisto5558/command');
+import { channelLink, hyperlink } from 'discord.js';
+import { Command, CommandType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
 
   async run(lang) {

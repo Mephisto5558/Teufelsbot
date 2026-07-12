@@ -1,11 +1,10 @@
-const
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  {
-    help_allQuery: allQuery, help_categoryQuery: categoryQuery, help_commandQuery: commandQuery,
-    help_getCommandCategories: getCommandCategories, help_getCommands: getCommands
-  } = require('#utils/componentHandler');
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import {
+  help_allQuery: allQuery, help_categoryQuery: categoryQuery, help_commandQuery: commandQuery,
+  help_getCommandCategories: getCommandCategories, help_getCommands: getCommands
+} from '#utils/componentHandler';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'fun joke\n{prefix}{cmdName} fun' },
   contexts: AllContexts,

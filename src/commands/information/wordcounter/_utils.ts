@@ -1,8 +1,7 @@
-/** @import subcommand, { format as formatT, getTopGuilds, getTopChannels, getTopMembers, getTopChannelMembers } from './' */
+import type subcommand, { format as formatT, getTopGuilds, getTopChannels, getTopMembers, getTopChannelMembers } from './';
 
-const
-  { Guild, GuildChannel, bold } = require('discord.js'),
-  { constants: { embedFieldMaxAmt }, convertToMedal } = require('#utils');
+import { Guild, GuildChannel, bold } from 'discord.js';
+import { constants: { embedFieldMaxAmt }, convertToMedal } from '#utils';
 
 /** @type {formatT} */
 const format = (data, sliceAmt, mapFn) => Object.entries(data)

@@ -1,8 +1,7 @@
-const
-  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, isMessage } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } = require('#utils'),
-  { mgStats_formatTop: formatTop } = require('#utils/componentHandler');
+import { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, bold, inlineCode, userMention } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, isMessage } from '@mephisto5558/command';
+import { getTargetMembers, constants: { embedDescriptionMaxLength, maxPercentage } } from '#utils';
+import { mgStats_formatTop: formatTop } from '#utils/componentHandler';
 
 const
   sortOptions = [
@@ -39,7 +38,7 @@ function formatStatCount(input, all) {
   return inlineCode(input) + (all ? '(' + inlineCode(`${Number.parseFloat((input / all * maxPercentage).toFixed(2))}%`) + ')' : '');
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Slash]: ['leaderboard'], [CommandType.Prefix]: ['leaderboard'] },
   cooldowns: { [CooldownType.User]: '1s' },

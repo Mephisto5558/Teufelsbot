@@ -1,13 +1,12 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { CommandOption, ContextType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond } } = require('#utils'),
-  { getTopChannelMembers } = require('./_utils');
+import { ChannelType, Colors, EmbedBuilder, TimestampStyles, bold, time } from 'discord.js';
+import { CommandOption, ContextType, OptionType } from '@mephisto5558/command';
+import { timeFormatter: { msInSecond } } from '#utils';
+import { getTopChannelMembers } from './_utils';
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'channel',
   type: OptionType.SubcommandGroup,
   contexts: [ContextType.Guild],

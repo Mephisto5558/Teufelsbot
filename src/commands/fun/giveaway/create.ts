@@ -1,15 +1,13 @@
-/**
- * @import GiveawaySubcommand from './index'
- * @import { GuildMember } from 'discord.js' */
+import type GiveawaySubcommand from './index';
+import type { GuildMember } from 'discord.js';
 
-const
-  { Constants, bold, roleMention, userMention } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { timeValidator } = require('#utils');
+import { Constants, bold, roleMention, userMention } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
+import { timeValidator } from '#utils';
 
 
 /** @type {GiveawaySubcommand} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'create',
   type: OptionType.Subcommand,
   options: [

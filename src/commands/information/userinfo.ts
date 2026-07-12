@@ -1,12 +1,11 @@
-/** @import { GuildMember } from 'discord.js' */
+import type { GuildMember } from 'discord.js';
 
-const
-  {
-    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageMentions, TimestampStyles, hyperlink, inlineCode
-  } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission } = require('@mephisto5558/command'),
-  { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers, getAge, timeFormatter: { timestamp }, permissionTranslator } = require('#utils');
+import {
+  ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageMentions, TimestampStyles, hyperlink, inlineCode
+} from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission } from '@mephisto5558/command';
+import { getAverageColor } from 'fast-average-color-node';
+import { getTargetMembers, getAge, timeFormatter: { timestamp }, permissionTranslator } from '#utils';
 
 /**
  * @param {GuildMember} member
@@ -21,7 +20,7 @@ function getMemberType(member, lang) {
   return type;
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['user-info'] },
   cooldowns: { [CooldownType.User]: '1s' },

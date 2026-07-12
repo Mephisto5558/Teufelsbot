@@ -1,12 +1,10 @@
-/**
- * @import { TicTacToe as TicTacToeT } from '../../types/globals'
- * @import { GuildMember } from 'discord.js' */
+import type { TicTacToe as TicTacToeT } from '../../types/globals';
+import type { GuildMember } from 'discord.js';
 
-const
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  TicTacToe = require('discord-tictactoe'),
-  { getTargetMembers, timeFormatter: { secsInMinute } } = require('#utils'),
-  { sendChallengeMention } = require('#utils/prototypeRegisterer');
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import TicTacToe from 'discord-tictactoe';
+import { getTargetMembers, timeFormatter: { secsInMinute } } from '#utils';
+import { sendChallengeMention } from '#utils/prototypeRegisterer';
 
 const
   againstStatIds = Object.freeze({ win: 'wonAgainst', lose: 'lostAgainst', draw: 'drewAgainst' }),
@@ -41,7 +39,7 @@ async function updateStats(firstID, secondID, type, db) {
   ]);
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   aliases: { [CommandType.Slash]: ['ttt'], [CommandType.Prefix]: ['ttt'] },
   cooldowns: { [CooldownType.User]: '5s' },

@@ -1,8 +1,7 @@
-const
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  { setAfkPrefix } = require('#utils').afk;
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
+import { setAfkPrefix } from '#utils';.afk;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
 

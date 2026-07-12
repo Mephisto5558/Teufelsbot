@@ -1,14 +1,13 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command');
+import { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
 const types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'toggle_command',
   type: OptionType.Subcommand,
   options: [

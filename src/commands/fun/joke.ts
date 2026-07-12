@@ -1,11 +1,10 @@
 /** @typedef {{ type?: string, joke?: string, setup?: string, delivery?: string }} Joke */
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
-  { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { AbortError, FetchError, default: fetch } = require('node-fetch'),
-  { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } = require('#utils');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
+import { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } from 'node:http2'.constants,
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { AbortError, FetchError, default: fetch } from 'node-fetch';
+import { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } from '#utils';
 
 const
   TIMEOUT = 2500,
@@ -81,7 +80,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'dadjoke' },
   cooldowns: { [CooldownType.Channel]: '100ms' },

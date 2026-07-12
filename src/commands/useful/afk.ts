@@ -1,10 +1,9 @@
-const
-  { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } = require('@mephisto5558/command'),
-  { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } = require('#utils');
+import { AllContexts, Command, CommandType, CooldownType, OptionType, isSlash } from '@mephisto5558/command';
+import { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } } from '#utils';
 
 const maxAllowedAFKMsgLength = 1000;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '5s' },
   contexts: AllContexts,

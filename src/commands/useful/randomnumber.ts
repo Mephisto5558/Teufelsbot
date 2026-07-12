@@ -1,11 +1,10 @@
-const
-  { inlineCode } = require('discord.js'),
-  { randomInt } = require('node:crypto'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command');
+import { inlineCode } from 'discord.js';
+import { randomInt } from 'node:crypto';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
 
 const defaultMaxNum = 100;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: '1 10' },
   aliases: { [CommandType.Prefix]: ['random-number'] },

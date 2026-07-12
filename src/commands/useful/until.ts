@@ -4,15 +4,16 @@ import { daysInMonthMax, hoursInDay, minutesInHour, monthsInYear, secsInHour, ti
 const MAX_YEARS = 2e5;
 
 function getInteger(this: Message | Interaction, name: string, defaultNum = 0): number {
-  const position = command.options.findIndex(e => e.name == name);
+  const position = until.options.findIndex(e => e.name == name);
 
-  let num = Number.parseInt(this.args?.[position], 10);
-  if ('options' in this) num = this.options.getInteger(name) ?? num;
+  let num;
+  if ('options' in this) num = this.options.getInteger(name);
+  else if ('args' in this && this.args[position]) num = Number.parseInt(this.args[position], 10);
 
-  return Number.isNaN(num) ? defaultNum : num;
+  return num == undefined || Number.isNaN(num) ? defaultNum : num;
 }
 
-const command = new Command({
+const until = new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
   usage: {
@@ -74,4 +75,4 @@ const command = new Command({
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }
 });
-export default command;
+export default until;

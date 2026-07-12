@@ -1,9 +1,8 @@
 // Credit for many of the response messages goes to the Lawliet Bot: `https://github.com/Aninoss/lawliet-bot/tree/master/src/main/jib/data/resources`.
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember } = require('discord.js'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember } from 'discord.js';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
 

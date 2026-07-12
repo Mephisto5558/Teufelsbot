@@ -1,6 +1,5 @@
-const
-  { codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command');
+import { codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
 
 const
   /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
@@ -20,7 +19,7 @@ const
    * @type {(charset: string[], lastRandomChar?: string) => string} */
   getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '1s' },
   contexts: AllContexts,

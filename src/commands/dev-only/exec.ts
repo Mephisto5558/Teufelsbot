@@ -1,9 +1,8 @@
-const
-  { codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { shellExec } = require('#utils');
+import { codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import { shellExec } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   options: [{

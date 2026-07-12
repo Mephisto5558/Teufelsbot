@@ -1,11 +1,10 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command');
+import { inlineCode } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'remove_prefix',
   type: OptionType.Subcommand,
   options: [

@@ -1,11 +1,10 @@
-const
-  { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage }, sleep } = require('#utils');
+import { Colors, EmbedBuilder, TimestampStyles, inlineCode } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs }, constants: { maxPercentage }, sleep } from '#utils';
 
 const embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.Channel]: '1s' },
   contexts: AllContexts,

@@ -1,14 +1,12 @@
-/**
- * @import * as PokeAPI from 'pokedex-promise-v2'
- * @import { Locale } from '@mephisto5558/i18n' */
+import type * as PokeAPI from 'pokedex-promise-v2';
+import type { Locale } from '@mephisto5558/i18n';
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType, capitalize } = require('@mephisto5558/command'),
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType, capitalize } from '@mephisto5558/command';
 
-  /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
-  /** @type {typeof PokeAPI} */ Pokedex = require('pokedex-promise-v2').default,
-  { maxPercentage } = require('#utils').constants;
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
+/** @type {typeof PokeAPI} */ import Pokedex = from'pokedex-promise-v2'.default,
+import { maxPercentage } from '#utils'.constants;
 
 const
   DM_TO_CM = 10,
@@ -79,7 +77,7 @@ function getGenderRate(genderRate, lang) {
   }
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'Bulbasaur' },
   contexts: AllContexts,

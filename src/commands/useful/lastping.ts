@@ -1,11 +1,10 @@
-/** @import { GuildTextBasedChannel } from 'discord.js' */
+import type { GuildTextBasedChannel } from 'discord.js';
 
-const
-  { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers, constants: { embedDescriptionMaxLength } } = require('#utils');
+import { Colors, Constants, EmbedBuilder, hyperlink, userMention } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { getTargetMembers, constants: { embedDescriptionMaxLength } } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.Guild]: '200ms', [CooldownType.User]: '10s' },
   ephemeralDefer: true,

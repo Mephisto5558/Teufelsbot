@@ -1,12 +1,11 @@
-const
-  { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { constants, filterEmptyEntries, logSayCommandUse } = require('#utils');
+import { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { constants, filterEmptyEntries, logSayCommandUse } from '#utils';
 
 /** @type {(interaction: Interaction, name: string) => string | undefined} */
 const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.User]: [Permission.EmbedLinks] },
   cooldowns: { [CooldownType.User]: '200ms' },

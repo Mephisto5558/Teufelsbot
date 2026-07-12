@@ -1,8 +1,7 @@
-const
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { timeValidator } = require('#utils');
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { timeValidator } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   aliases: { [CommandType.Slash]: ['timeout'], [CommandType.Prefix]: ['timeout'] },
   permissions: { [PermissionType.Client]: [Permission.MuteMembers], [PermissionType.User]: [Permission.MuteMembers] },

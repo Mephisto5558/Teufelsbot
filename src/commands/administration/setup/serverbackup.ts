@@ -1,11 +1,11 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const { CommandOption, OptionType } = require('@mephisto5558/command');
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 const backup = new Map(['creator', 'owner', 'creatorAndOwner', 'admins'].map((e, i) => [e, i]));
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'serverbackup',
   type: OptionType.Subcommand,
   options: [{

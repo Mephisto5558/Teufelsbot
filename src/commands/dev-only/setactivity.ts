@@ -1,12 +1,11 @@
-const
-  { ActivityType, inlineCode } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command');
+import { ActivityType, inlineCode } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
 
 /** @type {Record<Lowercase<keyof typeof ActivityType>, ActivityType>} */
 const ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   options: [

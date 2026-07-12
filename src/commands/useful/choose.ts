@@ -1,8 +1,8 @@
-const { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command');
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
 
 const LONG_CHOICE_LENGTH = 100;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
   options: [{

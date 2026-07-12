@@ -1,8 +1,8 @@
-const { AllContexts, Command, CommandType } = require('@mephisto5558/command');
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
 
 const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
 

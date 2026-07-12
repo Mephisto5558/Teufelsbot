@@ -1,9 +1,8 @@
-const
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getTargetMembers } = require('#utils'),
-  { rps_sendChallenge: sendChallenge } = require('#utils/componentHandler');
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { getTargetMembers } from '#utils';
+import { rps_sendChallenge: sendChallenge } from '#utils/componentHandler';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['rockpaperscissors'], [CommandType.Slash]: ['rockpaperscissors'] },
   cooldowns: { [CooldownType.User]: '1s' },

@@ -1,14 +1,12 @@
-/**
- * @import { BaseGuildTextChannel } from 'discord.js'
- * @import { lock_unlock } from './' */
+import type { BaseGuildTextChannel } from 'discord.js';
+import type { lock_unlock } from './';
 
-const
-  { Colors, EmbedBuilder, OverwriteType } = require('discord.js'),
-  { OptionType, Permission, isMessage } = require('@mephisto5558/command');
+import { Colors, EmbedBuilder, OverwriteType } from 'discord.js';
+import { OptionType, Permission, isMessage } from '@mephisto5558/command';
 
 /** @type {lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
-module.exports = async function lock_unlock(lang, { command }) {
+export default async function lock_unlock(lang, { command }) {
   let reason;
   if (this.isChatInputCommand?.()) reason = this.options.getString('reason');
   else if (isMessage(this)) {

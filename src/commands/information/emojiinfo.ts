@@ -1,17 +1,16 @@
-/** @import { GuildEmoji, PartialEmoji } from 'discord.js' */
+import type { GuildEmoji, PartialEmoji } from 'discord.js';
 
-const
-  {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat, RouteBases, inlineCode, parseEmoji, roleMention
-  } = require('discord.js'),
-  { Command, CommandType, OptionType, Permission } = require('@mephisto5558/command'),
-  { getAverageColor } = require('fast-average-color-node'),
-  { timestamp } = require('#utils').timeFormatter;
+import {
+  ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat, RouteBases, inlineCode, parseEmoji, roleMention
+} from 'discord.js';
+import { Command, CommandType, OptionType, Permission } from '@mephisto5558/command';
+import { getAverageColor } from 'fast-average-color-node';
+import { timestamp } from '#utils'.timeFormatter;
 
 /* eslint-disable-next-line unicorn/prefer-string-raw, security/detect-non-literal-regexp -- this can be improved using RegExp.escape in Node24 */
 const emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: ':derp:' },
   aliases: { [CommandType.Prefix]: ['emoji-info'] },

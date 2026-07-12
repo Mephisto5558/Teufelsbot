@@ -1,9 +1,8 @@
-const
-  { codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { constants: { JSON_SPACES } } = require('#utils');
+import { codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import { constants: { JSON_SPACES } } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   usage: { examples: 'database a.b.c\n{prefix}{cmdName} database a.<thisguild>.b.<thischannel>.<thisuser>' },
   contexts: AllContexts,

@@ -1,5 +1,3 @@
-/** @import { LogInterface } from './' */
-
 import { appendFile } from 'node:fs/promises';
 import { join } from 'node:path';
 

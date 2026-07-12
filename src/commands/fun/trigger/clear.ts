@@ -1,12 +1,11 @@
-/** @import TriggerSubcommand from './' */
+import type TriggerSubcommand from './';
 
-const
-  { inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command');
+import { inlineCode } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 
 /** @type {TriggerSubcommand} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'clear',
   type: OptionType.Subcommand,
   options: [{

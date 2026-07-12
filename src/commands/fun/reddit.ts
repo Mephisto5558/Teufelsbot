@@ -1,11 +1,10 @@
-/** @import reddit from './reddit' */
+import type reddit from './reddit';
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
-  { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } = require('#utils');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } from 'discord.js';
+import { HTTP_STATUS_NOT_FOUND } from 'node:http2'.constants,
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import fetch from 'node-fetch').default,
+import { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } from '#utils';
 
 const
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
@@ -32,7 +31,7 @@ function fetchPost({ children } = {}, filterNSFW = true) {
   };
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'memes hot' },
   cooldowns: { [CooldownType.Channel]: '100ms' },

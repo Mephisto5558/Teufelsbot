@@ -1,14 +1,13 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { Constants, channelLink } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command');
+import { Constants, channelLink } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 /** @type {['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
 const loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'logger',
   type: OptionType.Subcommand,
   options: [

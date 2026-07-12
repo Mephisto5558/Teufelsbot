@@ -1,9 +1,8 @@
-/** @import { BoundFunction } from '../../types/locals' */
+import type { BoundFunction } from '../../types/locals';
 
-const
-  { codeBlock } = require('discord.js'),
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { minToMs } = require('#utils').toMs;
+import { codeBlock } from 'discord.js';
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import { minToMs } from '#utils'.toMs;
 
 const
   paramMap = { __dirname, __filename, exports, module, require },
@@ -22,7 +21,7 @@ const
   /** @type {(ms: number) => Promise<string>} */
   timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   options: [{

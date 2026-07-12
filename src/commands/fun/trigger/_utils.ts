@@ -1,4 +1,4 @@
-/** @import { findTriggerId as findTriggerIdT, triggersArray, triggerQuery as triggerQueryT } from './' */
+import type { findTriggerId as findTriggerIdT, triggersArray, triggerQuery as triggerQueryT } from './';
 
 /** @type {findTriggerIdT} */
 const findTriggerId = (query, data) => query in data
@@ -15,4 +15,4 @@ function triggerQuery() {
   }, [[], []]).flat();
 }
 
-module.exports = { findTriggerId, triggerQuery };
+export default { findTriggerId, triggerQuery };

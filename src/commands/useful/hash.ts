@@ -1,10 +1,9 @@
-const
-  { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
-  { createHash, getHashes } = require('node:crypto'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { constants: { embedDescriptionMaxLength } } = require('#utils');
+import { Colors, EmbedBuilder, inlineCode } from 'discord.js';
+import { createHash, getHashes } from 'node:crypto';
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { constants: { embedDescriptionMaxLength } } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '1s' },
   contexts: AllContexts,

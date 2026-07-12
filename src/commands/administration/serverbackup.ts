@@ -1,10 +1,9 @@
-/** @import { backupId } from '../../types/database' */
+import type { backupId } from '../../types/database';
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { timestamp } = require('#utils').timeFormatter,
-  { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#utils/componentHandler');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { timestamp } from '#utils'.timeFormatter,
+import { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } from '#utils/componentHandler';
 
 const BYTES_IN_KILOBYTE = 1024;
 
@@ -101,7 +100,7 @@ const backupMainFunctions = {
   }
 };
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.Client]: [Permission.Administrator], [PermissionType.User]: [Permission.Administrator] },
   disabled: true,

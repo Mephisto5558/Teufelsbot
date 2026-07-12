@@ -1,9 +1,9 @@
-/** @import GiveawaySubcommand from './index' */
+import type GiveawaySubcommand from './index';
 
-const { CommandOption, OptionType } = require('@mephisto5558/command');
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 /** @type {GiveawaySubcommand} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'end',
   type: OptionType.Subcommand,
   options: [{

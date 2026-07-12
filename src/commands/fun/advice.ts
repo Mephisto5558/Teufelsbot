@@ -1,15 +1,14 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { commonHeaders } = require('#utils').constants;
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
+import fetch from 'node-fetch';
+import { commonHeaders } from '#utils'.constants;
 
 /** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
 const fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
   headers: commonHeaders(client)
 })).json();
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
 

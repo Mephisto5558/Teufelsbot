@@ -1,8 +1,7 @@
-const
-  { Constants } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command');
+import { Constants } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   permissions: { [PermissionType.Client]: [Permission.ManageRoles], [PermissionType.User]: [Permission.ManageRoles] },
   cooldowns: { [CooldownType.User]: '1s' },

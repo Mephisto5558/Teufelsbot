@@ -1,10 +1,9 @@
-const
-  { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command');
+import { Colors, EmbedBuilder, hyperlink } from 'discord.js';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
 
-const { website = {}, disableWebserver } = require('#utils').getConfig();
+import { website = {}, disableWebserver } from '#utils'.getConfig();
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
   disabled: !!disableWebserver || !website.domain || !website.vote,

@@ -1,9 +1,8 @@
-const
-  { CDNRoutes, Colors, EmbedBuilder, ImageFormat, RouteBases, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
-  http = require('node:http'),
-  https = require('node:https'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#utils');
+import { CDNRoutes, Colors, EmbedBuilder, ImageFormat, RouteBases, bold, codeBlock, inlineCode, parseEmoji, roleMention } from 'discord.js';
+import http from 'node:http';
+import https from 'node:https';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } from '#utils';
 
 const
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
@@ -23,7 +22,7 @@ const
       .end();
   });
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.Client]: [Permission.ManageGuildExpressions], [PermissionType.User]: [Permission.ManageGuildExpressions] },
   cooldowns: { [CooldownType.User]: '2s' },

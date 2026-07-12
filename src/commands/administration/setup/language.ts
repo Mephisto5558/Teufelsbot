@@ -1,11 +1,10 @@
-/** @import { CommandType } from '@mephisto5558/command' */
+import type { CommandType } from '@mephisto5558/command';
 
-const
-  { Colors, EmbedBuilder } = require('discord.js'),
-  { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType, CooldownType } = require('@mephisto5558/command');
+import { Colors, EmbedBuilder } from 'discord.js';
+import { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType, CooldownType } from '@mephisto5558/command';
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'language',
   type: OptionType.Subcommand,
   cooldowns: { [CooldownType.Guild]: '10s' },

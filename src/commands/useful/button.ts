@@ -1,10 +1,9 @@
-const
-  { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  {
-    DiscordAPIErrorCodes, filterEmptyEntries,
-    constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
-  } = require('#utils');
+import { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import {
+  DiscordAPIErrorCodes, filterEmptyEntries,
+  constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
+} from '#utils';
 
 /**
  * @this {ThisParameterType<NonNullable<(typeof module.exports)['run']>>}
@@ -65,7 +64,7 @@ async function sendUpdatedMsg(msg, url) {
   return button;
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   cooldowns: { [CooldownType.User]: '500ms' },
   ephemeralDefer: true,

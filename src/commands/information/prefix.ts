@@ -1,8 +1,7 @@
-const
-  { inlineCode } = require('discord.js'),
-  { Command, CommandType, CooldownType } = require('@mephisto5558/command');
+import { inlineCode } from 'discord.js';
+import { Command, CommandType, CooldownType } from '@mephisto5558/command';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '1s' },
   beta: true,

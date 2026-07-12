@@ -1,8 +1,7 @@
-const
-  { AllContexts, Command, CommandType, OptionType } = require('@mephisto5558/command'),
-  { seededHash } = require('#utils');
+import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
+import { seededHash } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
   options: [{

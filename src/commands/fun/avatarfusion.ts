@@ -1,13 +1,12 @@
-const
-  { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  /* eslint-disable-next-line import-x/no-unresolved -- false positive */
-  { Canvas, loadImage } = require('skia-canvas'),
-  { getTargetMembers } = require('#utils');
+import { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+/* eslint-disable-next-line import-x/no-unresolved -- false positive */
+import { Canvas, loadImage } from 'skia-canvas';
+import { getTargetMembers } from '#utils';
 
 const IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 512 */
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '2s' },
   options: [

@@ -1,12 +1,11 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const
-  { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
-  { AllContexts, CommandOption, OptionType } = require('@mephisto5558/command'),
-  { getTopChannels, getTopMembers } = require('./_utils');
+import { Colors, EmbedBuilder, TimestampStyles, bold, time } from 'discord.js';
+import { AllContexts, CommandOption, OptionType } from '@mephisto5558/command';
+import { getTopChannels, getTopMembers } from './_utils';
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'guild',
   type: OptionType.SubcommandGroup,
   contexts: AllContexts,

@@ -1,12 +1,11 @@
-/** @import { InviteGuild, Invite, ChannelType } from 'discord.js' */
+import type { InviteGuild, Invite, ChannelType } from 'discord.js';
 
-const
-  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getAverageColor } = require('fast-average-color-node'),
-  { timestamp } = require('#utils').timeFormatter;
+import { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { getAverageColor } from 'fast-average-color-node';
+import { timestamp } from '#utils'.timeFormatter;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { [CooldownType.User]: '1s' },

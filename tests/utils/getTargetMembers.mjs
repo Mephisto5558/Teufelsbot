@@ -1,4 +1,4 @@
-/** @import { CommandInteractionOptionResolver } from 'discord.js' */
+import type { CommandInteractionOptionResolver } from 'discord.js';
 
 
 import { Collection } from 'discord.js';

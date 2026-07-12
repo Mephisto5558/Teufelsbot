@@ -1,15 +1,14 @@
-const
-  { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { commonHeaders } = require('#utils').constants;
+import { HTTP_STATUS_NO_CONTENT } from 'node:http2'.constants;
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
+import fetch = from 'node-fetch'.default;
+import { commonHeaders } from '#utils'.constants;
 
 const
   getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply'),
   state = { restarting: false };
 
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   beta: true,

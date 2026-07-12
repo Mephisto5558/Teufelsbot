@@ -1,9 +1,9 @@
-/** @import {CommandType} from '@mephisto5558/command' */
+import type {CommandType} from '@mephisto5558/command';
 
-const { CommandOption, OptionType } = require('@mephisto5558/command');
+import { CommandOption, OptionType } from '@mephisto5558/command';
 
 /** @type {CommandOption<readonly [CommandType.Slash]>} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'autopublish',
   type: OptionType.Subcommand,
   options: [{

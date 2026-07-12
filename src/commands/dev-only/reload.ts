@@ -1,13 +1,12 @@
-const
-  { codeBlock, inlineCode } = require('discord.js'),
-  { access } = require('node:fs/promises'),
-  { resolve } = require('node:path'),
-  { AllContexts, Command, CommandType, OptionType, getFilename } = require('@mephisto5558/command');
+import { codeBlock, inlineCode } from 'discord.js';
+import { access } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { AllContexts, Command, CommandType, OptionType, getFilename } from '@mephisto5558/command';
 
 const MAX_COMMANDLIST_LENGTH = 800;
 
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   options: [{

@@ -1,14 +1,13 @@
-/** @import TriggerSubcommand from './' */
+import type TriggerSubcommand from './';
 
-const
-  { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
-  { CommandOption, OptionType } = require('@mephisto5558/command'),
-  { embedFieldMaxAmt, suffix } = require('#utils').constants,
-  { findTriggerId, triggerQuery } = require('./_utils');
+import { Colors, EmbedBuilder, bold, codeBlock, inlineCode } from 'discord.js';
+import { CommandOption, OptionType } from '@mephisto5558/command';
+import { embedFieldMaxAmt, suffix } from '#utils'.constants;
+import { findTriggerId, triggerQuery } from './_utils';
 
 
 /** @type {TriggerSubcommand} */
-module.exports = new CommandOption({
+export default new CommandOption({
   name: 'get',
   type: OptionType.Subcommand,
   options: [

@@ -1,10 +1,9 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType } = require('@mephisto5558/command'),
-  fetch = require('node-fetch').default,
-  { constants: { commonHeaders } } = require('#utils');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType } from '@mephisto5558/command';
+import fetch from 'node-fetch'.default,
+import { constants: { commonHeaders } } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: {
     usage: '["en" | "de"]',

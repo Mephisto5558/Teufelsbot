@@ -1,11 +1,10 @@
-/** @import { GuildTextBasedChannel } from 'discord.js' */
+import type { GuildTextBasedChannel } from 'discord.js';
 
-const
-  { AllowedMentionsTypes, Constants } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, isMessage } = require('@mephisto5558/command'),
-  { constants, logSayCommandUse } = require('#utils');
+import { AllowedMentionsTypes, Constants } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, isMessage } from '@mephisto5558/command';
+import { constants, logSayCommandUse } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '200ms' },
   ephemeralDefer: true,

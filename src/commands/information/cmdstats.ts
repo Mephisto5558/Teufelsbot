@@ -1,9 +1,8 @@
-const
-  { Colors, EmbedBuilder, TimestampStyles, bold } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { timestamp } = require('#utils').timeFormatter;
+import { Colors, EmbedBuilder, TimestampStyles, bold } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { timestamp } from '#utils'.timeFormatter;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   usage: { examples: 'user joke' },
   cooldowns: { [CooldownType.User]: '1s' },

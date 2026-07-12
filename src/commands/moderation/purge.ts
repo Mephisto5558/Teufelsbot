@@ -1,11 +1,9 @@
-/**
- * @import { GuildTextBasedChannel } from 'discord.js'
- * @import purge from './purge' */
+import type { GuildTextBasedChannel } from 'discord.js';
+import type purge from './purge';
 
-const
-  { Collection, Constants } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, isMessage } = require('@mephisto5558/command'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } = require('#utils');
+import { Collection, Constants } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType, isMessage } from '@mephisto5558/command';
+import { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt, maxPercentage }, sleep } from '#utils';
 
 const
   maxMsgsToFetch = 100,
@@ -114,7 +112,7 @@ function checkParams(amount, options, exists, lang) {
   return true;
 }
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Prefix]: ['clear'] },
   permissions: { [PermissionType.Client]: [Permission.ReadMessageHistory], [PermissionType.User]: [Permission.ManageMessages] },

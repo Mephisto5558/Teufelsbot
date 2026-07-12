@@ -1,13 +1,12 @@
-/** @import { GuildTextBasedChannelTypes, ThreadChannelType } from 'discord.js' */
+import type { GuildTextBasedChannelTypes, ThreadChannelType } from 'discord.js';
 
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
-  { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { findPaths } = require('#utils');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } from 'discord.js';
+import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
+import { findPaths } from '#utils';
 
 const collectorTimeout = 3e4;
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   aliases: { [CommandType.Slash]: ['clearchannel'], [CommandType.Prefix]: ['clearchannel'] },
   permissions: { [PermissionType.Client]: [Permission.ManageChannels], [PermissionType.User]: [Permission.ManageChannels] },

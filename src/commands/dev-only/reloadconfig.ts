@@ -1,13 +1,12 @@
-const
-  { Team } = require('discord.js'),
-  { resolve } = require('node:path'),
-  { AllContexts, Command, CommandType } = require('@mephisto5558/command'),
-  { setDefaultConfig, configValidationLoop, validConfig } = require('#utils').configValidator,
-  { loadEnv } = require('#utils/prototypeRegisterer/client__loadEnvAndDB.js');
+import { Team } from 'discord.js';
+import { resolve } from 'node:path';
+import { AllContexts, Command, CommandType } from '@mephisto5558/command';
+import { setDefaultConfig, configValidationLoop, validConfig } from '#utils'.configValidator,
+import { loadEnv } from '#utils/prototypeRegisterer/client__loadEnvAndDB.js';
 
 const filePath = resolve(process.cwd(), 'config.json');
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,
   beta: true,

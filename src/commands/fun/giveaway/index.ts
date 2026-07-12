@@ -1,9 +1,8 @@
-const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { Command, CommandType, CooldownType, Permission, PermissionType } = require('@mephisto5558/command'),
-  { toMS } = require('type-better-ms');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import { Command, CommandType, CooldownType, Permission, PermissionType } from '@mephisto5558/command';
+import { toMS } from 'type-better-ms';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash],
   permissions: { [PermissionType.User]: [Permission.ManageMessages] },
   cooldowns: { [CooldownType.User]: '1s' },

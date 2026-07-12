@@ -1,10 +1,9 @@
-const
-  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } = require('discord.js'),
-  { AllContexts, Command, CommandType, CooldownType, OptionType } = require('@mephisto5558/command'),
-  { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMembers } = require('#utils');
+import { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } from 'discord.js';
+import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
+import { getAverageColor } from 'fast-average-color-node';
+import { getTargetMembers } from '#utils';
 
-module.exports = new Command({
+export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   cooldowns: { [CooldownType.User]: '1s' },
   contexts: AllContexts,
