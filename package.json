@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.19.2",
+    "@isaacs/ttlcache": "^2.1.5",
     "@mephisto5558/better-types": "latest",
     "@mephisto5558/bot-website": "latest",
     "@mephisto5558/command": "file:../command/mephisto5558-command-0.7.1-0.tgz",
@@ -55,8 +56,7 @@
     "pokedex-promise-v2": "4.2.3",
     "prism-media": "^1.3.5",
     "skia-canvas": "^3.0.8",
-    "type-better-ms": "^0.2.4",
-    "wikijs": "^6.4.1"
+    "type-better-ms": "^0.2.4"
   },
   "devDependencies": {
     "@mephisto5558/eslint-config": "latest",

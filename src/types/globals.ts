@@ -146,10 +146,4 @@ declare module 'express-session' {
   }
 }
 
-declare module 'wikijs' {
-  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    -- intentional. `Page` in wikijs is defined as something that is not correct. All `Page`s are `RawPage`s in code */
-  interface Page extends RawPage {}
-}
-
 /* eslint-enable @typescript-eslint/consistent-type-definitions */
