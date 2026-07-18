@@ -11,7 +11,7 @@ declare global {
   /* eslint-disable @typescript-eslint/consistent-type-definitions -- overwriting buildins */
   namespace NodeJS {
     interface ProcessEnv {
-      environment: 'main' | 'dev' | string & {};
+      environment: 'main' | 'dev';
       humorAPIKey: string;
       rapidAPIKey: string;
       githubKey: string;

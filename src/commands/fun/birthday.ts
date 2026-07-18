@@ -1,14 +1,13 @@
 import { Colors, EmbedBuilder, bold, userMention } from 'discord.js';
 import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import { getTargetMembers, getAge, timeFormatter: { daysInMonthMax, monthsInYear } } from '#utils';
+import { getAge, getTargetMembers } from '#utils';
+import { daysInMonthMax, monthsInYear } from '#utils/timeFormatter';
+
 
 const MIN_YEAR = 1900;
 
-/**
- * @param {Temporal.PlainDate} a
- * @param {Temporal.PlainDate} b
- * @returns {-1 | 0 | 1} see {@link Array.sort}'s compareFn */
-function sortDates(a, b = Temporal.Now.plainDateISO()) {
+/** @returns see {@link Array.sort}'s compareFn */
+function sortDates(a: Temporal.PlainDate, b = Temporal.Now.plainDateISO()): number {
   const
     today = Temporal.Now.plainDateISO(),
     dateA = a.with({ year: today.year }),
@@ -20,9 +19,8 @@ function sortDates(a, b = Temporal.Now.plainDateISO()) {
   return isPastA ? 1 : -1;
 }
 
-/** @type {Record<string, (this: GuildInteraction, lang: lang) => Promise<Message>>} */
 const birthdayMainFunctions = {
-  set: async function set(lang) {
+  set: async function set(lang): Promise<Message> {
     const
       month = this.options.getInteger('month', true),
       day = this.options.getInteger('day', true),
@@ -39,12 +37,12 @@ const birthdayMainFunctions = {
     return this.editReply(lang('saved', diffDays));
   },
 
-  remove: async function remove(lang) {
+  remove: async function remove(lang): Promise<Message> {
     await this.user.deleteDB('birthday');
     return this.editReply(lang('removed'));
   },
 
-  get: async function get(lang) {
+  get: async function get(lang): Promise<Message> {
     const
       target = getTargetMembers(this),
       doNotHide = this.options.getBoolean('do_not_hide'),
@@ -86,10 +84,8 @@ const birthdayMainFunctions = {
       const
         guildMembers = new Set((await this.guild.members.fetch()).map(e => e.id)),
         today = Temporal.Now.plainDateISO(),
-
-        /** @type {[Snowflake, Temporal.PlainDate][]} */
         data = Object.entries(this.client.db.get('userSettings'))
-          .reduce((acc, [k, { birthday }]) => {
+          .reduce<[Snowflake, Temporal.PlainDate][]>((acc, [k, { birthday }]) => {
             if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
             return acc;
           }, [])
@@ -116,7 +112,7 @@ const birthdayMainFunctions = {
     await this.channel.send({ embeds: [embed] });
     return this.editReply(lang('global.messageSent'));
   }
-};
+} satisfies Record<string, (this: GuildInteraction, lang: lang) => Promise<Message>>;
 
 export default new Command({
   types: [CommandType.Slash],

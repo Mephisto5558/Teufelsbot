@@ -1,22 +1,32 @@
-import type { backupId } from '../../types/database';
-
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, inlineCode } from 'discord.js';
 import { Command, CommandType, CooldownType, OptionType, Permission, PermissionType } from '@mephisto5558/command';
-import { timestamp } from '#utils'.timeFormatter,
-import { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } from '#utils/componentHandler';
+import { serverbackup_createProxy as createProxy, serverbackup_hasPerm as hasPerm } from '#utils/componentHandler';
+import { timestamp } from '#utils/timeFormatter';
+
+import type { backup } from '#types/db/backups';
+
 
 const BYTES_IN_KILOBYTE = 1024;
 
-/** @param {Database['backups'][backupId]} backup */
-function getData(backup) {
+function getData(backup: backup): {
+  size: string;
+  createdAt: ReturnType<typeof timestamp>;
+  members: number;
+  channels: number;
+  roles: number;
+  emojis: number;
+  stickers: number;
+} | undefined {
   if (!backup.__count__) return;
 
+  const
+    byteLength = Buffer.byteLength(JSON.stringify(backup)),
+    size = byteLength > BYTES_IN_KILOBYTE ? `${(byteLength / BYTES_IN_KILOBYTE).toFixed(2)}KB` : `${byteLength}B`;
+
+
   return {
+    size,
     createdAt: timestamp(backup.createdAt),
-    size: (() => {
-      const size = Buffer.byteLength(JSON.stringify(backup));
-      return size > BYTES_IN_KILOBYTE ? `${(size / BYTES_IN_KILOBYTE).toFixed(2)}KB` : `${size}B`;
-    })(),
     members: backup.members?.length ?? 0,
     channels: (
       backup.channels.categories.length + backup.channels.others.length
@@ -28,14 +38,13 @@ function getData(backup) {
   };
 }
 
-/** @type {Record<string, (this: GuildInteraction, lang: lang, embed: EmbedBuilder, id?: backupId) => Promise<Message>>} */
 const backupMainFunctions = {
-  create: async function createBackup(lang, embed) {
+  create: async function createBackup(lang, embed): Promise<Message> {
     embed.data.color = Colors.White;
 
     const
-      statusObj = createProxy(this, embed, lang, this.client.application.getEmoji('loading')),
-      backup = await this.client.backupSystem.create(this.guild, {
+      statusObj = createProxy(this, embed, lang, this.client.application.getEmoji('loading')!),
+      backup = await this.client.backupSystem!.create(this.guild, {
         save: true, saveImages: true, backupMembers: true,
         metadata: [
           this.user.id, this.guild.ownerId, [this.user.id, this.guild.ownerId],
@@ -44,13 +53,13 @@ const backupMainFunctions = {
       });
 
     return this.editReply({
-      embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: this.client.commandManager.get(this.commandName).mention() }))]
+      embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: this.client.commandManager.get(this.commandName)!.mention() }))]
     });
   },
 
-  load: async function loadBackup(lang, embed, id) {
-    if (!this.client.backupSystem.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('noneFound'))] });
-    if (!hasPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+  load: async function loadBackup(lang, embed, id): Promise<Message> {
+    if (!this.client.backupSystem!.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('noneFound'))] });
+    if (!hasPerm.call(this, this.client.backupSystem!.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
     const component = new ActionRowBuilder({
       components: [
@@ -70,35 +79,35 @@ const backupMainFunctions = {
     return this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('overwriteWarningDescription'))], components: [component] });
   },
 
-  delete: async function deleteBackup(lang, embed, id) {
-    if (this.user.id != this.guild.ownerId || !hasPerm.call(this, this.client.backupSystem.get(id)))
+  delete: async function deleteBackup(lang, embed, id): Promise<Message> {
+    if (this.user.id != this.guild.ownerId || !hasPerm.call(this, this.client.backupSystem!.get(id)))
       return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('noPerm'))] });
 
-    await this.client.backupSystem.remove(id);
+    await this.client.backupSystem!.remove(id);
     return this.editReply({ embeds: [embed.setDescription(lang('success'))] });
   },
 
-  get: function getBackup(lang, embed, id) {
+  get: async function getBackup(lang, embed, id?: backup['id']): Promise<Message> {
     embed.setColor(Colors.White).setThumbnail(this.guild.iconURL());
 
     if (id) {
-      const backup = this.client.backupSystem.get(id);
-      return void this.editReply({
+      const backup = this.client.backupSystem!.get(id);
+      return this.editReply({
         embeds: [backup
           ? embed.setDescription(lang('oneEmbedDescription', { id: inlineCode(id), ...getData(backup) }))
           : embed.setColor(Colors.Red).setDescription(lang('oneNotFound'))]
       });
     }
 
-    embed.data.fields = this.client.backupSystem.list(this.guild.id)
+    embed.data.fields = this.client.backupSystem!.list(this.guild.id)
       .sort((a, b) => Temporal.Instant.compare(b.createdAt, a.createdAt))
       .first(10)
       .map(e => ({ name: e.id, value: lang('infos', getData(e)) }));
 
-    if (embed.data.fields.length) embed.data.footer = { text: lang('found', this.client.backupSystem.list(this.guild.id).size) };
-    return void this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'embedDescription' : 'noneFound'))] });
+    if (embed.data.fields.length) embed.data.footer = { text: lang('found', this.client.backupSystem!.list(this.guild.id).size) };
+    return this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'embedDescription' : 'noneFound'))] });
   }
-};
+} satisfies Record<string, (this: GuildInteraction, lang: lang, embed: EmbedBuilder, id: backup['id']) => Promise<Message>>;
 
 export default new Command({
   types: [CommandType.Slash],
@@ -119,10 +128,7 @@ export default new Command({
         {
           name: 'id',
           type: OptionType.String,
-          autocompleteOptions() {
-            return this.client.backupSystem.list().filter(hasPerm.bind(this)).keys()
-              .toArray();
-          }
+          autocompleteOptions() { return this.client.backupSystem!.list().filter(hasPerm.bind(this)).keys(); }
         },
         { name: 'no_clear', type: OptionType.Boolean }
       ]
@@ -133,7 +139,7 @@ export default new Command({
       options: [{
         name: 'id',
         type: OptionType.String,
-        autocompleteOptions() { return this.client.backupSystem.list(this.guild.id).keys().toArray(); }
+        autocompleteOptions() { return this.client.backupSystem!.list(this.guild.id).keys(); }
       }]
     },
     {
@@ -143,7 +149,7 @@ export default new Command({
         name: 'id',
         type: OptionType.String,
         required: true,
-        autocompleteOptions() { return this.client.backupSystem.list(this.guild.id).keys().toArray(); }
+        autocompleteOptions() { return this.client.backupSystem!.list(this.guild.id).keys(); }
       }]
     }
   ], beta: true,
@@ -151,7 +157,7 @@ export default new Command({
   async run(lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
-    lang.config.backupPaths.push(`${lang.config.backupPaths[0]}.${this.options.getSubcommand()}`);
-    return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));
+    lang.config.backupPaths!.push(`${lang.config.backupPaths![0]}.${this.options.getSubcommand()}`);
+    return backupMainFunctions[this.options.getSubcommand(true)].call(this, lang, embed, this.options.getString('id'));
   }
 });

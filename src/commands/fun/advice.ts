@@ -1,11 +1,11 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
-import { commonHeaders } from '#utils'.constants;
+import { commonHeaders } from '#utils/constants';
 
-/** @type {(client: Client) => Promise<{ slip: { id: number, advice: string } }>} */
-const fetchAPI = async client => (await fetch('https://api.adviceslip.com/advice', {
+
+const fetchAPI = async (client: Client): Promise<{ slip: { id: number; advice: string } }> => (await fetch('https://api.adviceslip.com/advice', {
   headers: commonHeaders(client)
-})).json();
+})).json() as Promise<{ slip: { id: number; advice: string } }>;
 
 export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],

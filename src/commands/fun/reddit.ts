@@ -1,24 +1,23 @@
-import type reddit from './reddit';
-
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } from 'discord.js';
-import { HTTP_STATUS_NOT_FOUND } from 'node:http2'.constants,
+import {constants} from 'node:http2';
 import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import { constants: { embedMaxTitleLength, suffix, maxPercentage }, timeFormatter: { secsInMinute } } from '#utils';
+import { embedTitleMaxLength, maxPercentage, suffix } from '#utils/constants';
+
+import type { RedditPage, RedditPost } from './reddit_util.ts';
 
 const
-  CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
+  { HTTP_STATUS_NOT_FOUND } = constants,
+  CACHE_DELETE_TIME = Temporal.Duration.from({ minutes: 5 }).seconds,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  /** @type {reddit.Cache} */ cachedSubreddits = new Collection();
+  cachedSubreddits = new Collection<`${RedditPost['subreddit']}_${string}`, RedditPage>();
 
-/**
- * @param {Partial<reddit.RedditPage>} page
- * @param {boolean} filterNSFW */
-function fetchPost({ children } = {}, filterNSFW = true) {
+
+function fetchPost({ children }: Partial<RedditPage> = {}, filterNSFW = true): RedditPost | undefined {
   children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
   if (!children?.length) return;
 
   const
-    post = children.random().data,
+    post = children.random()!.data,
     imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
 
   return {

@@ -1,11 +1,15 @@
-/** @typedef {{ type?: string, joke?: string, setup?: string, delivery?: string }} Joke */
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
-import { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } from 'node:http2'.constants,
+import {constants} from 'node:http2';
 import { AllContexts, Command, CommandType, CooldownType, OptionType } from '@mephisto5558/command';
-import { constants: { commonHeaders, messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } } from '#utils';
+import { HTTP_STATUS_CLOUDFLARE_BLOCKED, commonHeaders, messageMaxLength } from '#utils/constants';
+
+
+type Joke = { type?: string, joke?: string, setup?: string, delivery?: string };
+type APIList = { name: string, link: string, url: string }[];
 
 const
+  { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = constants,
   TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
@@ -16,29 +20,20 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-/**
- * @param {string} url
- * @param {string} blacklist
- * @param {string} apiKey
- * @param {string} maxLength
- * @param {string} includeTags */
-function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
+function formatAPIUrl(url: string, blacklist: string, apiKey: string, maxLength: number, includeTags: string): string {
   return url
     .replaceAll('{blacklist}', blacklist)
     .replaceAll('{apiKey}', apiKey)
-    .replaceAll('{maxLength}', maxLength)
+    .replaceAll('{maxLength}', maxLength.toString())
     .replaceAll('{includeTags}', includeTags);
 }
 
-/**
- * @this {Client}
- * @param {{ name: string, link: string, url: string }[]} apiList
- * @param {string} type
- * @param {string} blacklist
- * @param {number?} maxLength
- * @returns {Promise<[string, { name: string, link: string, url: string }] | []>} */
-async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
+async function getJoke(
+  this: Client, apiList: APIList = [], type = '', blacklist = '', maxLength = messageMaxLength
+): Promise<[string, APIList[number]] | []> {
   const api = apiList.random();
+  if (!api) return [];
+
   let response;
 
   try {
@@ -51,10 +46,9 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
 
     if (!res.ok) throw new Error(await res.text());
 
-    /** @type {Joke | { status: string, code: number, message: string } | undefined} */
-    const json = await res.json().catch(() => { /* empty */ });
+    const json = await res.json() as Joke | { status: string, code: number, message: string };
 
-    if (json && 'code' in json) throw new DOMException(json.message, json);
+    if ('code' in json) throw new DOMException(json.message, json);
 
     switch (api.name) {
       case 'jokeAPI': response = json.type == 'twopart' ? `${json.setup}\n\n||${json.delivery}||` : json.joke; break;
@@ -68,15 +62,15 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
       if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.code))
         log.error('joke.js: ', err.message);
       else
-        log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
+        log.error(`joke.js: ${JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code.toString() : ''}: ${err.message}`);
     }
-    else if (!(err instanceof AbortError)) throw err;
+    else if (!(err instanceof DOMException)) throw err;
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
 
   apiList = apiList.filter(str => str.name !== api.name);
-  return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
+  return getJoke.call(this, apiList, type, blacklist, maxLength);
 }
 
 export default new Command({

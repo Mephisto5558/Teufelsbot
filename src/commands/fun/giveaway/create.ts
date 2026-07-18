@@ -1,13 +1,13 @@
-import type GiveawaySubcommand from './index';
-import type { GuildMember } from 'discord.js';
-
 import { Constants, bold, roleMention, userMention } from 'discord.js';
-import { CommandOption, OptionType } from '@mephisto5558/command';
+import { OptionType } from '@mephisto5558/command';
+import { giveawaySubcommand } from './index.ts';
 import { timeValidator } from '#utils';
 
+import type { GuildMember } from 'discord.js';
+import type { GiveawayStartOptions } from 'discord-giveaways';
 
-/** @type {GiveawaySubcommand} */
-export default new CommandOption({
+
+export default giveawaySubcommand({
   name: 'create',
   type: OptionType.Subcommand,
   options: [
@@ -58,13 +58,12 @@ export default new CommandOption({
         prize: this.options.getString('prize', true),
         hostedBy: this.user,
         botsCanWin: false,
-        bonusEntries: {
-          /** @param {GuildMember} member */
-          bonus: member => bonusEntries[member.id]
-        },
-        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16)
+        bonusEntries: [{
+          bonus: (member: GuildMember): string | undefined => bonusEntries?.[member.id]
+        }],
+        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? '0', 16)
           || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
-        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16)
+        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? '0', 16)
           || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
         messages: {
           giveaway: bold(lang('newGiveaway')),
@@ -83,22 +82,22 @@ export default new CommandOption({
           endedAt: lang('endedAt'),
           hostedBy: lang('hostedBy')
         },
-        thumbnail: this.options.getString('thumbnail'),
-        image: this.options.getString('image'),
-        lastChance: this.guild.db.giveaway?.useLastChance,
-        isDrop: this.options.getBoolean('is_drop')
-      };
+        thumbnail: this.options.getString('thumbnail') ?? undefined,
+        image: this.options.getString('image') ?? undefined,
+        lastChance: {
+          enabled: !!this.guild.db.giveaway?.useLastChance
+        },
+        isDrop: this.options.getBoolean('is_drop') ?? undefined
+      } satisfies GiveawayStartOptions<undefined>;
 
     if (requiredRoles?.length || disallowedMembers?.length)
+      startOptions.exemptMembers = (member: GuildMember): boolean => disallowedMembers?.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
 
-      /** @param {GuildMember} member */
-      startOptions.exemptMembers = member => disallowedMembers.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
-
-    const giveaway = await this.client.giveawaysManager.start(
+    const giveaway = await this.client.giveawaysManager!.start(
       this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes) ?? this.channel, startOptions
     );
 
-    components[0].components[0].setURL(giveaway.messageURL);
+    components[0]!.components[0]!.setURL(giveaway.messageURL);
     return this.editReply({ content: lang('started'), components });
   }
 });

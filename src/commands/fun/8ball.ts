@@ -1,6 +1,7 @@
 import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
 import { seededHash } from '#utils';
 
+
 export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
   contexts: AllContexts,
@@ -12,12 +13,13 @@ export default new Command({
 
   async run(lang) {
     const
-      /** @type {string} */ input = this.options?.getString('question', true) ?? this.content,
+      input = this.options?.getString('question', true) ?? this.content!,
       responseList = lang.array__('responseList');
 
+    /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- impossible to be undefined */
     return this.customReply(responseList[
       seededHash(input.toLowerCase(), Number.parseInt(this.user.id, 10)
       ^ seededHash(Temporal.Now.plainDateISO().toString())) % responseList.length
-    ]);
+    ]!);
   }
 });

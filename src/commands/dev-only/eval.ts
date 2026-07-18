@@ -1,25 +1,22 @@
-import type { BoundFunction } from '../../types/locals';
-
 import { codeBlock } from 'discord.js';
 import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
-import { minToMs } from '#utils'.toMs;
+
+import type { BoundFunction as BoundFunctionT } from '#types/locals';
+
 
 const
-  paramMap = { __dirname, __filename, exports, module, require },
-  vars = [...Object.keys(paramMap), 'lang'],
+  paramMap = { __dirname, __filename, module, require } as const,
+  vars = [...Object.keys(paramMap), 'lang'] as const,
   params = Object.values(paramMap),
 
-  /** @type {BoundFunction<true>} */
-  /* eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-assignment -- It get's used (and filled) later */
-  BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
+  /* eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-type-assertion -- It get's used and filled later */
+  BoundAsyncFunction = (async function asyncEval(): Promise<void> { }.constructor as BoundFunctionT<true>).bind(undefined, ...vars),
 
-  /** @type {BoundFunction} */
-  BoundFunction = Function.bind(undefined, ...vars),
+  /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- It get's used and filled later */
+  BoundFunction = (Function as unknown as BoundFunctionT).bind(undefined, ...vars),
 
-  TIMEOUT_MS = minToMs(10),
-
-  /** @type {(ms: number) => Promise<string>} */
-  timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
+  TIMEOUT_MS = Temporal.Duration.from({ minutes: 10 }).milliseconds,
+  timeout = async (ms: number): Promise<string> => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 export default new Command({
   types: [CommandType.Prefix],

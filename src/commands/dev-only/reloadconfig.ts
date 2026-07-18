@@ -1,8 +1,9 @@
 import { Team } from 'discord.js';
 import { resolve } from 'node:path';
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
-import { setDefaultConfig, configValidationLoop, validConfig } from '#utils'.configValidator,
-import { loadEnv } from '#utils/prototypeRegisterer/client__loadEnvAndDB.js';
+import { configValidationLoop, setDefaultConfig, validConfig } from '#utils/configValidator';
+import { loadEnv } from '#utils/prototypeRegisterer/client__loadEnvAndDB';
+
 
 const filePath = resolve(process.cwd(), 'config.json');
 
@@ -17,7 +18,7 @@ export default new Command({
     /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
     delete require.cache[filePath];
 
-    const config = setDefaultConfig();
+    const config = await setDefaultConfig();
     try { configValidationLoop(config, validConfig, true); }
     catch (rawErr) {
       const err = Error.isError(rawErr) ? rawErr : new Error(rawErr);

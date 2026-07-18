@@ -1,17 +1,17 @@
-import type {CommandType} from '@mephisto5558/command';
-
 import { inlineCode } from 'discord.js';
 import { CommandOption, OptionType } from '@mephisto5558/command';
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+import type { CommandType } from '@mephisto5558/command';
+
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'remove_prefix',
   type: OptionType.Subcommand,
   options: [
     {
       name: 'prefix',
       type: OptionType.String,
-      autocompleteOptions() { return this.guild.db.config.prefixes[this.client.botType]?.map(e => e.prefix) ?? []; },
+      autocompleteOptions() { return this.guild.db.config.prefixes?.[this.client.botType]?.map(e => e.prefix) ?? []; },
       strictAutocomplete: true,
       required: true
     }

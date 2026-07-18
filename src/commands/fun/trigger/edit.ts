@@ -1,12 +1,11 @@
-import type TriggerSubcommand, { triggersArray } from './';
-
 import { inlineCode } from 'discord.js';
-import { CommandOption, OptionType } from '@mephisto5558/command';
-import { findTriggerId, triggerQuery } from './_utils';
+import { OptionType } from '@mephisto5558/command';
+import { findTriggerId, triggerQuery, triggerSubcommand } from './index.ts';
+
+import type { triggersArray } from './index.ts';
 
 
-/** @type {TriggerSubcommand} */
-export default new CommandOption({
+export default triggerSubcommand({
   name: 'edit',
   type: OptionType.Subcommand,
   options: [
@@ -26,9 +25,10 @@ export default new CommandOption({
 
     const
       id = findTriggerId(query, oldData),
-      /** @type {triggersArray[1]} */ { trigger, response, wildcard } = query && id ? oldData[id] : undefined;
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- false positive */
+      { trigger, response, wildcard } = (query && id ? oldData[id] : {}) as triggersArray[1] | Record<keyof triggersArray[1], undefined>;
 
-    if (!trigger) return this.editReply(lang('notFound'));
+    if (!id || !trigger) return this.editReply(lang('notFound'));
 
     const data = {
       trigger: this.options.getString('trigger') ?? trigger,

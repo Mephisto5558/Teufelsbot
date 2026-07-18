@@ -1,9 +1,11 @@
-import { HTTP_STATUS_NO_CONTENT } from 'node:http2'.constants;
+import { constants } from 'node:http2';
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
-import { commonHeaders } from '#utils'.constants;
+import { commonHeaders } from '#utils/constants';
+
 
 const
-  getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply'),
+  { HTTP_STATUS_NO_CONTENT } = constants,
+  getUpdateFunc = (msg: Message): 'edit' | 'reply' => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply'),
   state = { restarting: false };
 
 

@@ -1,5 +1,6 @@
 import { AllContexts, Command, CommandType } from '@mephisto5558/command';
 
+
 export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,

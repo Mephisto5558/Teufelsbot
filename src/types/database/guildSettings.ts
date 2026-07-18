@@ -12,7 +12,7 @@ export type guildSettings = Database['guildSettings'] & Record<guildId, {
   leftAt?: Temporal.Instant;
   config: {
     lang?: botSettings['defaultGuild']['config']['lang'];
-    prefixes?: Record<string, prefixes>;
+    prefixes?: Record<Client['botType'], prefixes>;
     logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
       channel: channelId;
       enabled: boolean;
@@ -123,7 +123,7 @@ export type guildSettings = Database['guildSettings'] & Record<guildId, {
   cmdStats?: cmdStats;
   wordCounter?: {
     enabled: boolean;
-    enabledAt?: Temporal.Instant;
+    enabledAt: Temporal.Instant | undefined;
     sum: number;
     channels: Record<channelId, number>;
     members: Record<userId, {

@@ -1,6 +1,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } from 'discord.js';
 import { AllContexts, Command, CommandType, CooldownType } from '@mephisto5558/command';
-import { constants: { commonHeaders } } from '#utils';
+import { commonHeaders } from '#utils/constants';
+
 
 export default new Command({
   types: [CommandType.Slash, CommandType.Prefix],
@@ -13,11 +14,9 @@ export default new Command({
 
   async run(lang) {
     const
-
-      /** @type {{ text: string, source: string, source_url: string }} */
       data = await (await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.config.locale}`, {
         headers: commonHeaders(this.client)
-      })).json(),
+      })).json() as { text: string; source: string; source_url: string },
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: `${data.text}\n\nSource: ${hyperlink(data.source, data.source_url)}`,

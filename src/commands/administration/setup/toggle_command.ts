@@ -1,13 +1,12 @@
-import type {CommandType} from '@mephisto5558/command';
-
 import { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } from 'discord.js';
 import { CommandOption, OptionType } from '@mephisto5558/command';
 
-/** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
-const types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
+import type { CommandType } from '@mephisto5558/command';
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+
+const types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']] as const;
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'toggle_command',
   type: OptionType.Subcommand,
   options: [
@@ -32,22 +31,23 @@ export default new CommandOption({
   async run(lang) {
     const
       command = this.options.getString('command', true).toLowerCase(),
-      setupCommand = this.client.commandManager.get(this.commandName),
+
+      /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- own command will never be undefined */
+      setupCommand = this.client.commandManager.get(this.commandName)!,
       commandData = this.guild.db.config.commands?.[command]?.disabled,
       { roles = [], channels = [], users = [] } = commandData ?? {},
       count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
 
     if (this.options.getBoolean('get')) {
-      /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
       const
-        fieldList = [['roles', roles], ['channels', channels], ['users', users]],
+        fieldList = [['roles', roles], ['channels', channels], ['users', users]] as const,
         fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
           name: lang(k),
           value: v.includes('*')
             ? lang('list.all')
-            : v.map(/** @param {Snowflake} e */ e => {
-                let fn = userMention;
+            : v.map(e => {
+                let fn: GenericFunction<string> = userMention;
                 if (k == 'roles') fn = roleMention;
                 else if (k == 'channels') fn = channelMention;
 
@@ -78,7 +78,7 @@ export default new CommandOption({
     }
 
     for (const [typeFilter, type] of types) {
-      const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
+      const ids = this.options.data[0]!.options!.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique() as Snowflake[];
 
       for (const id of ids) {
         if (commandData?.[type].includes(id)) {
@@ -100,7 +100,7 @@ export default new CommandOption({
           name: lang(`embed.${k}`),
           value: Object.entries(v)
             .filter(([, e]) => !!e)
-            .map(([k, v]) => `${lang(k)}: ${bold(v)}`)
+            .map(([k, v]) => `${lang(k)}: ${bold(String(v))}`)
             .join('\n'),
           inline: true
         })),

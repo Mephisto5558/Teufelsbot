@@ -171,7 +171,7 @@ export interface CustomGuild {
   deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;
 
   get localeCode(): LangLocaleCode;
-  get prefixes(): NonNullable<Database['guildSettings'][Snowflake]['config']['prefixes']>[string];
+  get prefixes(): NonNullable<Database['guildSettings'][Snowflake]['config']['prefixes']>[Client['botType']];
 }
 
 declare module 'discord.js' {

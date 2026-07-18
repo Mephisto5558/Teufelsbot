@@ -3,6 +3,7 @@ import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { AllContexts, Command, CommandType, OptionType, getFilename } from '@mephisto5558/command';
 
+
 const MAX_COMMANDLIST_LENGTH = 800;
 
 
@@ -22,15 +23,13 @@ export default new Command({
     const
       msg = await this.reply(lang('global.loading', this.client.application.getEmoji('loading'))),
       commandList = this.client.commandManager.commands,
-
-      /** @type {(string | undefined)[]} */
-      reloadedArray = [];
+      reloadedArray: (string | undefined)[] = [];
 
     let errorOccurred = false;
     try {
-      switch (this.args[0].toLowerCase()) {
+      switch (this.args[0]!.toLowerCase()) {
         case 'file': {
-          const filePath = resolve(process.cwd(), this.args[1]);
+          const filePath = resolve(process.cwd(), this.args[1]!);
 
           try { await access(filePath); }
           catch (err) {
@@ -51,7 +50,7 @@ export default new Command({
           break;
         }
         default: {
-          const command = commandList.get(this.args[0].toLowerCase());
+          const command = commandList.get(this.args[0]!.toLowerCase());
           if (!command) return void msg.edit(lang('invalidCommand'));
 
           await this.client.commandManager.reload(command);
@@ -71,7 +70,7 @@ export default new Command({
     const
       commands = reloadedArray.filter(Boolean).map(e => (e.startsWith('<') ? e : inlineCode(e))).join(', '),
       replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
-        count: inlineCode(reloadedArray.length),
+        count: inlineCode(reloadedArray.length.toString()),
         commands: commands.length < MAX_COMMANDLIST_LENGTH
           ? commands
           : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'

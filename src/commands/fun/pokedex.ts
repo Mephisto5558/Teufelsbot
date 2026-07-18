@@ -1,12 +1,9 @@
-import type * as PokeAPI from 'pokedex-promise-v2';
 import type { Locale } from '@mephisto5558/i18n';
 
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, bold, inlineCode } from 'discord.js';
 import { AllContexts, Command, CommandType, OptionType, capitalize } from '@mephisto5558/command';
-
-/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the lib does not document CommonJS imports */
-/** @type {typeof PokeAPI} */ import Pokedex = from'pokedex-promise-v2'.default,
-import { maxPercentage } from '#utils'.constants;
+import Pokedex from 'pokedex-promise-v2';
+import { maxPercentage } from '#utils/constants';
 
 const
   DM_TO_CM = 10,
@@ -17,16 +14,15 @@ const
   pokedex = new Pokedex(),
 
   cache = {
-    /** @type {Record<PokeAPI.PokemonSpecies['name'], Record<Locale, string>>} */ localNames: {},
-    /** @type {string[]} */ autocomplete: [],
-    /** @type {Promise<void> | undefined} */ initPromise: undefined,
+    localNames: {} as Record<Pokedex.PokemonSpecies['name'], Record<Locale, string>>,
+    autocomplete: [] as string[],
+    initPromise: undefined as Promise<void> | undefined,
 
-    fill: async () => {
+    fill: async (): Promise<void> => {
       if (cache.autocomplete.length) return;
 
-      cache.initPromise ??= (async () => {
-        /** @type {PokeAPI.PokemonSpecies[]} */
-        const speciesDetails = await pokedex.getResource((await pokedex.getPokemonSpeciesList()).results.map(e => e.url));
+      cache.initPromise ??= (async (): Promise<void> => {
+        const speciesDetails = await pokedex.getResource((await pokedex.getPokemonSpeciesList()).results.map(e => e.url)) as Pokedex.PokemonSpecies[];
 
         for (const species of speciesDetails)
           cache.localNames[species.name] = Object.fromEntries(species.names.map(e => [e.language.name, e.name.toLowerCase()]));
@@ -36,33 +32,26 @@ const
 
       return cache.initPromise;
     },
-
-    /** @type {(query: string) => string} */
-    findDefaultName: query => (query in cache.localNames
+    findDefaultName: (query: string): string => (query in cache.localNames
       ? query
       : Object.entries(cache.localNames).find(([, v]) => Object.values(v).includes(query))?.[0] ?? query)
   };
 
-void cache.fill(); // already filling so autocompleteOptions does not time out
+await cache.fill();
 
-/** @param {PokeAPI.Pokemon} pokemon */
-async function getEvolutions(pokemon) {
+async function getEvolutions(pokemon: Pokedex.Pokemon): Promise<string[]> {
   const
+    getEvolutionNames = (chain: Pokedex.Chain): string[] => [chain.species.name, ...chain.evolves_to.flatMap(getEvolutionNames)],
 
-    /** @type {(chain: PokeAPI.Chain) => string[]} */
-    getEvolutionNames = chain => [chain.species.name, ...chain.evolves_to.flatMap(getEvolutionNames)],
-
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is correct in the case of giving it a species url */
-    /** @type {PokeAPI.PokemonSpecies} */ species = await pokedex.getResource(pokemon.species.url);
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- this is correct in the case of giving it a species url */
+    species = await pokedex.getResource(pokemon.species.url) as Pokedex.PokemonSpecies;
 
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access -- will always be a chain */
   return getEvolutionNames((await pokedex.getResource(species.evolution_chain.url)).chain);
 }
 
-/**
- * @param {-1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8} genderRate
- * @param {lang} lang */
-function getGenderRate(genderRate, lang) {
+type GenderRate = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+function getGenderRate(genderRate: GenderRate, lang: lang): string {
   switch (genderRate) {
     case -1: return lang('gender.genderless');
     case 0: return lang('gender.male');
@@ -72,7 +61,7 @@ function getGenderRate(genderRate, lang) {
         male = (1 - genderRate / GENDER_RATE) * maxPercentage,
         female = (genderRate / GENDER_RATE) * maxPercentage;
 
-      return lang('gender.ratios', { female: inlineCode(female), male: inlineCode(male) });
+      return lang('gender.ratios', { female: inlineCode(female.toString()), male: inlineCode(male.toString()) });
     }
   }
 }
@@ -95,10 +84,11 @@ export default new Command({
   async run(lang) {
     const
       msg = await this.customReply(lang('global.loading', this.client.application.getEmoji('loading'))),
-      pokemon = await pokedex.getPokemonByName(cache.findDefaultName((this.options?.getString('pokémon', true) ?? this.args[0]).toLowerCase())),
+      pokemon = await pokedex.getPokemonByName(cache.findDefaultName((this.options?.getString('pokémon', true) ?? this.args![0]!).toLowerCase())),
 
-      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- Not using `getPokemonSpeciesByName` to better utilize the lib's cache. */
-      /** @type {PokeAPI.PokemonSpecies} */ species = await pokedex.getResource(pokemon.species.url),
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+        -- Not using `getPokemonSpeciesByName` to better utilize the lib's cache. */
+      species = await pokedex.getResource(pokemon.species.url) as Pokedex.PokemonSpecies,
       localName = cache.localNames[species.name]?.[this.guild?.localeCode ?? this.user.localeCode ?? lang.defaultConfig.defaultLocale],
       height = pokemon.height < DM_TO_CM
         ? `${Number.parseFloat((pokemon.height * DM_TO_CM).toFixed(2))}cm`
@@ -107,19 +97,16 @@ export default new Command({
         ? `${Number.parseFloat((pokemon.weight * HG_TO_G).toFixed(2))}g`
         : `${Number.parseFloat((pokemon.weight * HG_TO_KG).toFixed(2))}kg`,
 
-      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- this is correct in the case of giving it a generation url */
-      /** @type {PokeAPI.Generation} */ generationRes = await pokedex.getResource(species.generation.url),
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- this is correct in the case of giving it a generation url */
+      generationRes = await pokedex.getResource(species.generation.url) as Pokedex.Generation,
       embed = new EmbedBuilder({
         thumbnail: { url: pokemon.sprites.other.showdown.front_default },
         color: Colors.Blurple,
         footer: {
           text: species.flavor_text_entries
-            .findLast(/** @param {PokeAPI.FlavorText & { language: PokeAPI.Name['language'] & { name: Locale } }} e */
-              e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)
-            ).flavor_text
-            .replaceAll('\f', '\n') // See https://github.com/veekun/pokedex/issues/218#issuecomment-339841781
-            .replaceAll('\u{AD}\n', '')
-            .replaceAll('\u{AD}', '')
+            .findLast(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode)).flavor_text
+            .replaceAll('\f', '\n') // See https://github.com/veekun/pokedex/issues/218#issuecomment-339841781, https://github.com/PokeAPI/pokeapi/issues/719#issuecomment-1161745161
+            .replaceAll(/\u{AD}\n?/gu, '')
             .replaceAll(' -\n', ' - ')
             .replaceAll('-\n', '-')
             .replaceAll('\n', ' ')
@@ -131,7 +118,7 @@ export default new Command({
         fields: [
           [lang('types'), pokemon.types.map(e => e.type.name).join(', ')],
           [lang('abilities'), pokemon.abilities.map(e => capitalize(e.ability.name)).join(', ')],
-          [lang('genderRatio'), getGenderRate(species.gender_rate, lang)],
+          [lang('genderRatio'), getGenderRate(species.gender_rate as GenderRate, lang)],
           [lang('heightWeight'), `${height}, ${weight}`],
           [
             lang('evolutionLine'),
@@ -142,7 +129,7 @@ export default new Command({
             /* eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison -- this is fine */
             generationRes.names.find(e => e.language.name == (this.guild?.localeCode ?? this.user.localeCode))?.name ?? generationRes.name
           ]
-        ].map(/** @param {[string, string]} field */ ([k, v]) => ({ name: k, value: v, inline: false }))
+        ].map(([k, v]) => ({ name: k, value: v, inline: false }))
       }),
       component = new ActionRowBuilder({
         components: [

@@ -56,6 +56,26 @@ export default [
     }
   },
   {
+    name: 'overwrite:commands',
+    files: [`./src/commands/${allFilesGlob}${tsGlob}`],
+    rules: {
+      [`${pluginNames.typescript}/explicit-function-return-type`]: [
+        'warn', {
+          /* eslint-disable id-length -- depends on the plugin */
+          allowConciseArrowFunctionExpressionsStartingWithVoid: false,
+          allowDirectConstAssertionInArrowFunctions: true,
+          /* eslint-enable id-length  */
+          allowExpressions: false,
+          allowFunctionsWithoutTypeParameters: false,
+          allowHigherOrderFunctions: true,
+          allowIIFEs: false,
+          allowTypedFunctionExpressions: true,
+          allowedNames: ['autocompleteOptions', 'run']
+        }
+      ]
+    }
+  },
+  {
     name: 'overwrite:locales/commands',
     files: ['./locales/*/commands/*.json'],
     rules: {

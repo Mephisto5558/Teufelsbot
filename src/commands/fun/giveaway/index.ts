@@ -1,6 +1,20 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
-import { Command, CommandType, CooldownType, Permission, PermissionType } from '@mephisto5558/command';
+import { Command, CommandOption, CommandType, CooldownType, Permission, PermissionType } from '@mephisto5558/command';
 import { toMS } from 'type-better-ms';
+
+import create from './create.ts';
+import edit from './edit.ts';
+import end from './end.ts';
+import reroll from './reroll.ts';
+
+import type { ContextType } from '@mephisto5558/command';
+
+
+export const giveawaySubcommand = CommandOption.create<readonly [CommandType.Slash], readonly [ContextType.Guild], {
+  components: ActionRowBuilder<ButtonBuilder>[];
+  bonusEntries?: Record<Snowflake, string>; requiredRoles?: Snowflake[];
+  disallowedMembers?: Snowflake[]; duration?: number; giveawayId?: Snowflake;
+}>();
 
 export default new Command({
   types: [CommandType.Slash],
@@ -8,10 +22,10 @@ export default new Command({
   cooldowns: { [CooldownType.User]: '1s' },
   ephemeralDefer: true,
   options: [
-    require('./create'),
-    require('./end'),
-    require('./edit'),
-    require('./reroll')
+    create,
+    end,
+    edit,
+    reroll
   ],
 
   async run(lang) {
@@ -22,7 +36,7 @@ export default new Command({
       const giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
       if (!giveaway || giveaway.ended && ['edit', 'end'].includes(this.options.getSubcommand())) return this.editReply(lang('notFound'));
-      if (giveaway.hostedBy.id != this.user.id && !this.member.permissions.has(Permission.Administrator))
+      if (giveaway.hostedBy?.id != this.user.id && !this.member.permissions.has(Permission.Administrator))
         return this.editReply(lang('notHost'));
     }
 

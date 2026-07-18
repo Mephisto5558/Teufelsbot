@@ -1,11 +1,9 @@
-import type TriggerSubcommand from './';
-
 import { inlineCode } from 'discord.js';
-import { CommandOption, OptionType } from '@mephisto5558/command';
+import { OptionType } from '@mephisto5558/command';
+import { triggerSubcommand } from './index.ts';
 
 
-/** @type {TriggerSubcommand} */
-export default new CommandOption({
+export default triggerSubcommand({
   name: 'add',
   type: OptionType.Subcommand,
   options: [

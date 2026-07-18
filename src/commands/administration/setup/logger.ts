@@ -1,13 +1,12 @@
-import type {CommandType} from '@mephisto5558/command';
-
 import { Constants, channelLink } from 'discord.js';
 import { CommandOption, OptionType } from '@mephisto5558/command';
 
-/** @type {['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed']} */
-const loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
+import type { CommandType } from '@mephisto5558/command';
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+
+const loggerActionTypes = ['all', 'messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'] as const;
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'logger',
   type: OptionType.Subcommand,
   options: [
@@ -30,7 +29,7 @@ export default new CommandOption({
       action = this.options.getString('action', true),
       channel = (
         this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes)
-        ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel) ?? this.channel
+        ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel) ?? this.channel!
       ).id,
       enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action]?.enabled);
 

@@ -2,6 +2,7 @@ import { codeBlock } from 'discord.js';
 import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
 import { shellExec } from '#utils';
 
+
 export default new Command({
   types: [CommandType.Prefix],
   contexts: AllContexts,

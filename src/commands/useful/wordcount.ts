@@ -18,7 +18,7 @@ export default new Command({
     {
       name: 'message_id',
       type: OptionType.String,
-      autocompleteOptions() { return this.channel?.messages.cache.filter(e => e.content).keys().toArray(); }
+      autocompleteOptions() { return this.channel?.messages.cache.filter(e => e.content).keys(); }
     },
     { name: 'message', type: OptionType.String }
   ],

@@ -1,9 +1,8 @@
-import type GiveawaySubcommand from './index';
+import { OptionType } from '@mephisto5558/command';
+import { giveawaySubcommand } from './index.ts';
 
-import { CommandOption, OptionType } from '@mephisto5558/command';
 
-/** @type {GiveawaySubcommand} */
-export default new CommandOption({
+export default giveawaySubcommand({
   name: 'end',
   type: OptionType.Subcommand,
   options: [{
@@ -13,8 +12,8 @@ export default new CommandOption({
   }],
 
   async run(lang, { components, giveawayId }) {
-    components[0].components[0].setURL(this.client.giveawaysManager.giveaways.find(e => e.messageId = giveawayId).messageURL);
-    await this.client.giveawaysManager.end(giveawayId);
+    components[0]!.components[0]!.setURL(this.client.giveawaysManager!.giveaways.find(e => e.messageId = giveawayId).messageURL);
+    await this.client.giveawaysManager!.end(giveawayId);
 
     return this.editReply({ content: lang('ended'), components });
   }

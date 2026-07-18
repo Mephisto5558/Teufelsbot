@@ -9,6 +9,7 @@ import DiscordAPIErrorCodes from './DiscordAPIErrorCodes.json' with { type: 'jso
 import type { APIAllowedMentions, Guild } from 'discord.js';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { backupId } from '#types/db';
+import type { guildId } from '../types/database/common.ts';
 
 type Options<DBName extends keyof Database> = {
   dbName?: DBName;
@@ -52,11 +53,11 @@ export default class BackupSystem<DBName extends keyof Database = 'backups'> {
     };
   }
 
-  get(backupId: Snowflake, guildId?: Snowflake): Backup | undefined {
+  get(backupId: backupId, guildId?: guildId): Backup | undefined {
     return this.db.get(this.dbName, `${guildId ?? ''}_${backupId}`);
   }
 
-  list(guildId?: Snowflake): Collection<string, Backup> {
+  list(guildId?: guildId): Collection<string, Backup> {
     const collection = new Collection<string, Backup>(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e.guildId == guildId) : collection;
   }

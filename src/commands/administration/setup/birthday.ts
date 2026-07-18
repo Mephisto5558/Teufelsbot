@@ -1,13 +1,13 @@
-import type {CommandType} from '@mephisto5558/command';
-
 import { hyperlink } from 'discord.js';
 import { CommandOption, OptionType } from '@mephisto5558/command';
+import { getConfig } from '#utils';
 
-import { website = {}, disableWebserver } from '#utils'.getConfig();
+import type { CommandType } from '@mephisto5558/command';
 
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+const { website = {}, disableWebserver } = await getConfig();
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'birthday',
   type: OptionType.Subcommand,
   disabled: !!disableWebserver || !website.domain,

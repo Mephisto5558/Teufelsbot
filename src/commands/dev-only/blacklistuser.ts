@@ -1,6 +1,9 @@
 import { inlineCode } from 'discord.js';
 import { AllContexts, Command, CommandType, OptionType } from '@mephisto5558/command';
-import { getTargetMembers, constants: { JSON_SPACES } } from '#utils';
+import { constants, getTargetMembers } from '#utils';
+
+import type { FeatureRequest } from '@mephisto5558/bot-website';
+
 
 export default new Command({
   types: [CommandType.Prefix],
@@ -30,14 +33,14 @@ export default new Command({
     await this.client.db.pushToSet('botSettings', 'blacklist', target);
 
     if (this.client.webServer) {
-      const requests = (await this.client.webServer.voteSystem.fetchAll()).reduce((acc, e) => {
+      const requests = (await this.client.webServer.voteSystem.fetchAll()).reduce<FeatureRequest[]>((acc, e) => {
         if (!e.pending && e.id.split('_', 1)[0] == target) acc.push({ ...e, pending: true });
         return acc;
       }, []);
 
       if (requests.length) {
         const result = await this.client.webServer.voteSystem.update(requests, this.client.user.id);
-        if (!result.success) throw new Error(JSON.stringify(result, undefined, JSON_SPACES));
+        if (!('success' in result && result.success)) throw new Error(JSON.stringify(result, undefined, constants.JSON_SPACES));
       }
     }
 

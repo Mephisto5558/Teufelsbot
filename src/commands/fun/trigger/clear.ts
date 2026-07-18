@@ -1,11 +1,9 @@
-import type TriggerSubcommand from './';
-
 import { inlineCode } from 'discord.js';
-import { CommandOption, OptionType } from '@mephisto5558/command';
+import { OptionType } from '@mephisto5558/command';
+import { triggerSubcommand } from './index.ts';
 
 
-/** @type {TriggerSubcommand} */
-export default new CommandOption({
+export default triggerSubcommand({
   name: 'clear',
   type: OptionType.Subcommand,
   options: [{
@@ -19,6 +17,6 @@ export default new CommandOption({
     if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
     await this.guild.deleteDB('triggers');
-    return this.editReply(lang('deletedAll', inlineCode(oldData.__count__)));
+    return this.editReply(lang('deletedAll', inlineCode(oldData.__count__.toString())));
   }
 });

@@ -7,7 +7,7 @@ import type { leaderboards } from './leaderboards.ts';
 import type { userSettings } from './userSettings.ts';
 
 export type { backupId } from './common.ts';
-export type { backupChannel } from './backups.ts';
+export type { backupChannel, backup } from './backups.ts';
 
 export type Database = {
   botSettings: botSettings;

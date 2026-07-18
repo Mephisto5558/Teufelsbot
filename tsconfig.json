@@ -13,19 +13,25 @@
         "./src/types/database/*.d.ts"
       ],
       "#utils/*": [
-        "./src/utils/*"
+        "./src/utils/*.d.ts",
+        "./src/utils/*.js"
       ],
       "#utils/combinedCommands": [
-        "./src/utils/combinedCommands/*"
+        "./src/utils/combinedCommands/*.d.ts",
+        "./src/utils/combinedCommands/*.js"
       ],
       "#utils/componentHandler": [
-        "./src/utils/componentHandler/*"
+        "./src/utils/componentHandler/*.d.ts",
+        "./src/utils/componentHandler/*.js"
       ],
       "#utils/prototypeRegisterer": [
-        "./src/utils/prototypeRegisterer/*"
+        "./src/utils/prototypeRegisterer/*.d.ts",
+        "./src/utils/prototypeRegisterer/*.js"
       ]
     },
-    "allowJs": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
     "types": ["express", "node", "passport"]
   }
 }

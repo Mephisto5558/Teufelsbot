@@ -4,6 +4,7 @@ import { Command, CommandType, CooldownType, OptionType } from '@mephisto5558/co
 import { Canvas, loadImage } from 'skia-canvas';
 import { getTargetMembers } from '#utils';
 
+
 const IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 512 */
 
 export default new Command({

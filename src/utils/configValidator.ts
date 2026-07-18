@@ -1,7 +1,9 @@
 import { writeFile } from 'node:fs/promises';
 import { isCodedError } from '@mephisto5558/command';
 import getConfig, { configPath } from './getConfig.ts';
+
 import type { Config } from '../types/locals.ts';
+
 
 export const validConfig = {
   devIds: 'object', // set<string>
@@ -58,7 +60,7 @@ export async function configValidationLoop(obj?: Record<string, unknown>, checkO
   /* eslint-enable valid-typeof */
 }
 
-export async function setDefaultConfig(): Promise<Partial<Config>> {
+export async function setDefaultConfig(): Promise<Config> {
   let config: Partial<Config>;
   try { config = await getConfig(); }
   catch (err) {
@@ -71,12 +73,13 @@ export async function setDefaultConfig(): Promise<Partial<Config>> {
     log.warn('An empty config.json has been created.');
   }
 
-  config.devIds = new Set(config.devIds);
-  config.website ??= {};
-  config.github ??= {};
-  config.replyOnDisabledCommand ??= true;
-  config.replyOnNonBetaCommand ??= true;
-  config.devOnlyFolders = config.devOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only'];
-
-  return config;
+  return {
+    website: {},
+    github: {},
+    replyOnDisabledCommand: true,
+    replyOnNonBetaCommand: true,
+    ...config,
+    devIds: new Set(config.devIds),
+    devOnlyFolders: config.devOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only']
+  };
 }

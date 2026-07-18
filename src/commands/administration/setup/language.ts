@@ -1,10 +1,11 @@
-import type { CommandType } from '@mephisto5558/command';
-
 import { Colors, EmbedBuilder } from 'discord.js';
-import { CommandOption, constants: { autocompleteOptionsMaxAmt }, OptionType, CooldownType } from '@mephisto5558/command';
+import { CommandOption, CooldownType, OptionType, constants } from '@mephisto5558/command';
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+import type { CommandType } from '@mephisto5558/command';
+import type { Locale } from '@mephisto5558/i18n';
+
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'language',
   type: OptionType.Subcommand,
   cooldowns: { [CooldownType.Guild]: '10s' },
@@ -13,8 +14,8 @@ export default new CommandOption({
     type: OptionType.String,
     required: true,
     autocompleteOptions(query) {
-      return this.client.i18n.availableLocales.keys().reduce((acc, locale) => {
-        if (acc.length > autocompleteOptionsMaxAmt) return acc;
+      return this.client.i18n.availableLocales.keys().reduce<{ name: string; value: Locale }[]>((acc, locale) => {
+        if (acc.length > constants.autocompleteOptionsMaxAmt) return acc;
 
         const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
         if (name.toLowerCase().includes(query.toLowerCase()) || locale.toLowerCase().includes(query.toLowerCase()))
@@ -28,14 +29,15 @@ export default new CommandOption({
 
   async run(lang) {
     const
-      language = this.options.getString('language', true),
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- enforced by autocompleteOptions */
+      language = this.options.getString('language', true) as Locale,
 
-      /** @type {lang} */
       setLang = this.client.i18n.getTranslator({
         locale: this.client.i18n.availableLocales.has(language) ? language : lang.defaultConfig.defaultLocale
       }),
 
-      { name, category } = this.client.commandManager.get(this.commandName) ?? {},
+      /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- the currently executing command can never not be found */
+      { name, category } = this.client.commandManager.get(this.commandName)!,
       embed = new EmbedBuilder({
         title: setLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
         description: setLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, setLang('global.languageName')),

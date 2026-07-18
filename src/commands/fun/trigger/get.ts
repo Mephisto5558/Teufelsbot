@@ -1,13 +1,12 @@
-import type TriggerSubcommand from './';
-
 import { Colors, EmbedBuilder, bold, codeBlock, inlineCode } from 'discord.js';
-import { CommandOption, OptionType } from '@mephisto5558/command';
-import { embedFieldMaxAmt, suffix } from '#utils'.constants;
-import { findTriggerId, triggerQuery } from './_utils';
+import { OptionType } from '@mephisto5558/command';
+import { findTriggerId, triggerQuery, triggerSubcommand } from './index.ts';
+import { embedFieldMaxAmt, suffix } from '#utils/constants';
+
+import type { triggersArray } from './index.ts';
 
 
-/** @type {TriggerSubcommand} */
-export default new CommandOption({
+export default triggerSubcommand({
   name: 'get',
   type: OptionType.Subcommand,
   options: [
@@ -26,8 +25,9 @@ export default new CommandOption({
 
     if (query) {
       const
-        /** @type {NonNullable<ReturnType<findTriggerId>>} */ id = findTriggerId(query, oldData),
-        { trigger, response, wildcard } = oldData[id] ?? {};
+        id = findTriggerId(query, oldData),
+        /* eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- false positive */
+        { trigger, response, wildcard } = (id ? oldData[id] : {}) as triggersArray[1] | Record<keyof triggersArray[1], undefined>;
 
       if (!trigger) return this.editReply(lang('notFound'));
 
@@ -36,7 +36,7 @@ export default new CommandOption({
       embed.data.description = lang('embedDescriptionOne', {
         trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
         response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
-        wildcard: inlineCode(wildcard)
+        wildcard: inlineCode(String(wildcard))
       });
     }
     else if (this.options.getBoolean('short')) {
@@ -50,7 +50,7 @@ export default new CommandOption({
           value: lang('shortFieldValue', {
             trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
             response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
-            wildcard: inlineCode(wildcard)
+            wildcard: inlineCode(String(wildcard))
           })
         }));
     }
@@ -63,7 +63,7 @@ export default new CommandOption({
         .reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
-            id, wildcard: inlineCode(wildcard),
+            id, wildcard: inlineCode(String(wildcard)),
             trigger: inlineCode(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
             response: inlineCode(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix)
           }) + '\n\n',

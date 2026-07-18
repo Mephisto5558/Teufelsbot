@@ -3,10 +3,10 @@ import type { GuildMember } from 'discord.js';
 
 import { CommandOption, OptionType } from '@mephisto5558/command';
 import { timeValidator } from '#utils';
+import { giveawaySubcommand } from './index.ts';
 
 
-/** @type {GiveawaySubcommand} */
-export default new CommandOption({
+export default giveawaySubcommand({
   name: 'edit',
   type: OptionType.Subcommand,
   options: [
@@ -44,18 +44,14 @@ export default new CommandOption({
       newImage: this.options.getString('image')
     };
 
-    if (requiredRoles?.length || disallowedMembers?.length) {
-    /** @param {GuildMember} member */
-      editOptions.newExemptMembers = member => disallowedMembers.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
-    }
+    if (requiredRoles?.length || disallowedMembers?.length)
+      editOptions.newExemptMembers = (member: GuildMember): boolean => disallowedMembers?.includes(member.id) || !member.roles.cache.some(e => requiredRoles?.includes(e.id));
 
-    if (bonusEntries?.__count__) {
-      /** @param {GuildMember} member */
-      editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
-    }
+    if (bonusEntries?.__count__)
+      editOptions.newBonusEntries.bonus = (member: GuildMember): string | undefined => bonusEntries[member.id];
 
-    const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
-    components[0].components[0].data.url = data.messageURL;
+    const data = await this.client.giveawaysManager!.edit(giveawayId, editOptions);
+    components[0]!.components[0]!.data.url = data.messageURL;
 
     return this.editReply({ content: lang('edited'), components });
   }

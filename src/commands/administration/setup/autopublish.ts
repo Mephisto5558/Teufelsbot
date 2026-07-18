@@ -1,9 +1,9 @@
-import type {CommandType} from '@mephisto5558/command';
-
 import { CommandOption, OptionType } from '@mephisto5558/command';
 
-/** @type {CommandOption<readonly [CommandType.Slash]>} */
-export default new CommandOption({
+import type { CommandType } from '@mephisto5558/command';
+
+
+export default CommandOption.create<readonly [CommandType.Slash]>()({
   name: 'autopublish',
   type: OptionType.Subcommand,
   options: [{

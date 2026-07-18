@@ -8,44 +8,7 @@ import type { backupId, channelId, guildId, messageId, userId } from './common.t
 /* eslint-disable-next-line unicorn/prefer-temporal -- temporal doesn't have that type */
 type ISODateTime = ReturnType<Date['toISOString']>;
 
-export type backupChannel = {
-  type: GuildChannelType;
-  name: string;
-  nsfw: boolean;
-  rateLimitPerUser: number;
-  topic: string;
-  permissions: {
-    name: string;
-    allow: `${bigint}`;
-    deny: `${bigint}`;
-  }[];
-  messages: {
-    username: string;
-    avatar: string;
-    content: string;
-    embeds: EmbedData[];
-    attachments: {
-      name: string;
-      attachment: `${(typeof RouteBases)['cdn']}/attachments/${channelId}/${messageId}/${string}` & {} | Base64String;
-    }[];
-    pinned: boolean;
-    createdAt: ISODateTime;
-  }[];
-  isNews: boolean;
-  threads: {
-    type: number;
-    name: string;
-    archived: boolean;
-    autoArchiveDuration: number;
-    locked: boolean;
-    rateLimitPerUser: number;
-    messages: backupChannel['messages'];
-  }[];
-  bitrate?: number;
-  userLimit?: number;
-};
-
-export type backups = Record<backupId, {
+export type backup = {
   id: backupId;
   metadata: [userId | userId[]];
 
@@ -119,4 +82,43 @@ export type backups = Record<backupId, {
     /** Channels which are not in a category */
     others: backupChannel[];
   };
-}>;
+};
+
+export type backupChannel = {
+  type: GuildChannelType;
+  name: string;
+  nsfw: boolean;
+  rateLimitPerUser: number;
+  topic: string;
+  permissions: {
+    name: string;
+    allow: `${bigint}`;
+    deny: `${bigint}`;
+  }[];
+  messages: {
+    username: string;
+    avatar: string;
+    content: string;
+    embeds: EmbedData[];
+    attachments: {
+      name: string;
+      attachment: `${(typeof RouteBases)['cdn']}/attachments/${channelId}/${messageId}/${string}` & {} | Base64String;
+    }[];
+    pinned: boolean;
+    createdAt: ISODateTime;
+  }[];
+  isNews: boolean;
+  threads: {
+    type: number;
+    name: string;
+    archived: boolean;
+    autoArchiveDuration: number;
+    locked: boolean;
+    rateLimitPerUser: number;
+    messages: backupChannel['messages'];
+  }[];
+  bitrate?: number;
+  userLimit?: number;
+};
+
+export type backups = Record<backupId, backup>;

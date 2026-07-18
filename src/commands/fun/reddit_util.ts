@@ -1,6 +1,5 @@
 import type { Collection } from 'discord.js';
-
-export type Cache = Collection<`${RedditPost['subreddit']}_${string}`, RedditPage>;
+;
 
 export type RedditResponse = {
   kind: 'Listing';
