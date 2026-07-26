@@ -84,13 +84,13 @@ export async function startRecording(
   embed.data.description = lang('recording', { channel: channelMention(voiceChannelId), users: membersToRecord.map(userMention).join(', ') });
   void this.message.edit({ embeds: [embed], components: [component] });
 
-  await mkdir('./VoiceRecords/raw', { recursive: true });
+  await mkdir('./voiceRecords/raw', { recursive: true });
 
   for (const userId of membersToRecord) {
     connection.receiver
       .subscribe(userId, { end: { behavior: EndBehaviorType.Manual } })
       .pipe(new opus.Decoder())
-      .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
+      .pipe(createWriteStream(`./voiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
   }
 }
 
@@ -138,7 +138,7 @@ export async function recordControls(
     cache.get(this.guild.id).delete(voiceChannelId);
     if (!cache.get(this.guild.id).size) cache.delete(this.guild.id);
 
-    try { await access(`./VoiceRecords/raw/${filename}.ogg`); }
+    try { await access(`./voiceRecords/raw/${filename}.ogg`); }
     catch {
       embed.data.description = lang('notFound');
       embed.data.color = Colors.Green;
@@ -149,17 +149,17 @@ export async function recordControls(
     embed.data.description = lang('global.loading', this.client.application.getEmoji('loading'));
     void this.update({ embeds: [embed], components: [] });
 
-    await shellExec(`"${ffmpegPath}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
-    await unlink(`./VoiceRecords/raw/${filename}.ogg`);
+    await shellExec(`"${ffmpegPath}" -f s16le -ar 48k -ac 2 -i "./voiceRecords/raw/${filename}.ogg" "./voiceRecords/${filename}.mp3"`);
+    await unlink(`./voiceRecords/raw/${filename}.ogg`);
 
     if (isPublic) {
       await this.message.edit({
         content: lang('success'),
-        files: [`./VoiceRecords/${filename}.mp3`],
+        files: [`./voiceRecords/${filename}.mp3`],
         embeds: []
       });
 
-      return unlink(`./VoiceRecords/${filename}.mp3`);
+      return unlink(`./voiceRecords/${filename}.mp3`);
     }
 
     buttons.components = [new ButtonBuilder({

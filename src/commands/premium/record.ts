@@ -16,8 +16,8 @@ function isEncryptionAvailable(): boolean {
   return false;
 }
 
-// Due to VoiceRecords being in .gitignore, we may need to create it.
-if (isEncryptionAvailable()) void mkdir('./VoiceRecords/raw', { recursive: true });
+// Due to voiceRecords being in .gitignore, we may need to create it.
+if (isEncryptionAvailable()) void mkdir('./voiceRecords/raw', { recursive: true });
 else log.warn('Missing encryption library for record Command!');
 
 export default new Command({

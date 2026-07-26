@@ -42,7 +42,7 @@ export default async function record<
     case 'get':
       return this.reply({
         content: lang('success'),
-        files: [`./VoiceRecords/${requesterId}.mp3`],
+        files: [`./voiceRecords/${requesterId}.mp3`],
         flags: MessageFlags.Ephemeral
       });
 

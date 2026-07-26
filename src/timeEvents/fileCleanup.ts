@@ -27,7 +27,7 @@ export default {
     if (this.settings.timeEvents.lastFileClear?.equals(now)) return void log('Already ran file deletion today');
     log('Started file deletion');
 
-    void deleteOld('./VoiceRecords');
+    void deleteOld('./voiceRecords');
     void deleteOld('./Logs');
 
     await this.db.update('botSettings', 'timeEvents.lastFileClear', now);
